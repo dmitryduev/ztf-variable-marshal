@@ -1,0 +1,29 @@
+{
+  "server": {
+    "logo": "ZTF Variable Marshal",
+    "environment": "production",
+    "host": "0.0.0.0",
+    "port": "4000"
+  },
+
+  "path": {
+    "path_app": "/app",
+    "path_docs": "/app/doc/",
+    "path_logs": "/app/logs/",
+    "path_data": "/data/",
+    "path_tmp": "/_tmp/"
+  },
+
+  "database": {
+    "host": "ztf_variable_marshal_mongo_1",
+    "port": 27017,
+    "db": "ztf_variable_marshal",
+    "collection_users": "users",
+    "collection_queries": "queries",
+    "collection_stats": "stats"
+  },
+
+  "misc": {
+    "logging_level": "debug"
+  }
+}
