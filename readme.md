@@ -63,7 +63,7 @@ docker volume create ztf_variable_marshal_data
 Pull, build, and launch the MongoDB container. Feel free to change u/p for the admin, 
 but make sure to change `secrets.json` and `docker-compose.yml` correspondingly.
 ```bash
-docker run -d --restart always --name ztf_variable_marshal_mongo_1 -p 27025:27017 \ 
+docker run -d --restart always --name ztf_variable_marshal_mongo_1 -p 27025:27017 \
        -v ztf_variable_marshal_mongodb:/data/db \
        -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=mongoadminsecret \
        mongo:latest
