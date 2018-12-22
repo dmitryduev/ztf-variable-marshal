@@ -207,17 +207,10 @@ Examples:
             height: getHeight(),
             columns: [
                 [
-                    {
-                        field: 'obs_date',
-                        title: 'T_obs, UTC',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true,
-                        visible: true
-                    },
-                    {# 'length', 'sigma', 'lengtherr', 'sigmaerr',  #}
-                    {% for field_id in ('jd', 'fid', 'pid', 'diffmaglim', 'programid', 'streakid',
-                                        'prob', 'rb', 'sl', 'kd') %}
+                    {% for field_id in ('_id', 'ra', 'dec',
+                                        'maxmag', 'maxslope', 'meanmag',
+                                        'medianabsdev', 'medianmag', 'minmag',
+                                        'ngoodobs', 'nobs', 'refmag', 'vonneumannratio', 'iqr') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
@@ -227,23 +220,15 @@ Examples:
                         visible: true
                     },
                     {% endfor %}
-                    {
-                        field: 'scores',
-                        title: 'scores',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: false,
-                        visible: false
-                    }
                 ]
             ],
             data: [
                 {% for entry in data %}
                     {
-                        obs_date: moment(jd.julian({{ entry['jd'] }}).getDate()).utc().format('YYYY/MM/DD_HH:mm:ss'),
-                        {# 'length', 'sigma', 'lengtherr', 'sigmaerr',  #}
-                        {% for field_id in ('jd', 'fid', 'pid', 'diffmaglim', 'programid', 'streakid',
-                                            'prob', 'rb', 'sl', 'kd', 'scores') %}
+                        {% for field_id in ('_id', 'ra', 'dec',
+                                        'maxmag', 'maxslope', 'meanmag',
+                                        'medianabsdev', 'medianmag', 'minmag',
+                                        'ngoodobs', 'nobs', 'refmag', 'vonneumannratio', 'iqr') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
                     },
