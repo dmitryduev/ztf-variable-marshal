@@ -123,7 +123,7 @@ async def auth_middleware(request, handler):
 
     response = await handler(request)
     toc = time.time()
-    print(f"Auth middleware took {toc-tic} seconds to execute")
+    # print(f"Auth middleware took {toc-tic} seconds to execute")
 
     return response
 
