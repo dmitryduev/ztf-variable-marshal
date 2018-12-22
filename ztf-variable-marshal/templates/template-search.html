@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 {% endblock %}
 
-{% block nav_home %}
+{% block nav_search %}
     active
 {% endblock %}
 
@@ -208,7 +208,7 @@ Examples:
             columns: [
                 [
                     {% for field_id in ('_id', 'ra', 'dec',
-                                        'maxmag', 'maxslope', 'meanmag',
+                                        'magrms', 'maxmag', 'maxslope', 'meanmag',
                                         'medianabsdev', 'medianmag', 'minmag',
                                         'ngoodobs', 'nobs', 'refmag', 'vonneumannratio', 'iqr') %}
                     {
@@ -217,7 +217,12 @@ Examples:
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
+                        {% if field_id in ('magrms', 'maxmag', 'maxslope',
+                                           'medianabsdev', 'medianmag', 'minmag', 'nobs') %}
+                        visible: false,
+                        {% else %}
                         visible: true
+                        {% endif %}
                     },
                     {% endfor %}
                 ]
@@ -246,25 +251,16 @@ Examples:
 
             html.push("<div class=\"row p-0 m-0\">");
 
-            // cutout
-            html.push("<div class=\"col-4 p-0 m-0\">");
-            html.push("<figure class='figure ml-3 mt-1 mb-1 align-top'>");
-            html.push("<img class='figure-img img-fluid mr-1 cutout' style='max-width: 295px' src='/data/stamps/stamps_"+ date_utc
-                + "/strkid" + row['streakid']+ "_pid" + row['pid'] + "_scimref.jpg'>");
-            html.push("<figcaption class='figure-caption text-center'>Cutout</figcaption>");
-            html.push("</figure>");
+            // Buttons:
+            html.push("<div class=\"col-1 p-0 m-0\">");
+            html.push("<a role='button' download='" + row['candid'] + ".json' href='/alerts/" + row['candid'] +
+                "?download=json'" +
+                " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Save <i class='fas fa-download'></i></a>");
+            // alert page:
+            html.push("<br>");
+            html.push("<a target='_blank' role='button' " + "href='/alerts/" + row['candid'] +
+                "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");
             html.push("</div>");
-
-            {#// Buttons:#}
-            {#html.push("<div class=\"col-1 p-0 m-0\">");#}
-            {#html.push("<a role='button' download='" + row['candid'] + ".json' href='/alerts/" + row['candid'] +#}
-            {#    "?download=json'" +#}
-            {#    " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>JSON <i class='fas fa-download'></i></a>");#}
-            {#// alert page:#}
-            {#html.push("<br>");#}
-            {#html.push("<a target='_blank' role='button' " + "href='/alerts/" + row['candid'] +#}
-            {#    "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");#}
-            {#html.push("</div>");#}
 
             // close row
             html.push("</div>");

@@ -924,7 +924,7 @@ async def query(request):
         return web.json_response({'message': f'Failure: {_err}'}, status=500)
 
 
-''' API for the browser '''
+''' search API for the browser '''
 # Uses sessions => needs additional middleware => slightly slower if were used together with @auth_required
 
 
@@ -971,6 +971,34 @@ async def web_query_put(request):
         _err = traceback.format_exc()
         print(_err)
         return web.json_response({'message': f'Failure: {_err}'}, status=500)
+
+
+@routes.post('/search')
+@login_required
+async def search_post_handler(request):
+    """
+        Process Kowalski query
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _query = await request.json()
+    except Exception as _e:
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        # _err = traceback.format_exc()
+        # print(_err)
+        _query = await request.post()
+    print(_query)
+
+    context = {'logo': config['server']['logo'],
+               'user': session['user_id']}
+    response = aiohttp_jinja2.render_template('template-search.html',
+                                              request,
+                                              context)
+    return response
 
 
 ''' sources API '''
