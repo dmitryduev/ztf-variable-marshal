@@ -531,446 +531,32 @@ async def edit_user(request):
         return web.json_response({'message': '403 Forbidden'}, status=403)
 
 
-''' query API '''
+''' sources API '''
 
-regex = dict()
-regex['collection_main'] = re.compile(r"db\[['\"](.*?)['\"]\]")
-regex['aggregate'] = re.compile(r"aggregate\((\[(?s:.*)\])")
 
+# todo
 
-def parse_query(task, save: bool=False):
-    # save auxiliary stuff
-    kwargs = task['kwargs'] if 'kwargs' in task else {}
 
-    # reduce!
-    task_reduced = {'user': task['user'], 'query': {}, 'kwargs': kwargs}
+''' search '''
 
-    # fixme: this is for testing api from cl
-    # if '_id' not in task_reduced['kwargs']:
-    #     task_reduced['kwargs']['_id'] = ''.join(random.choices(string.ascii_letters + string.digits, k=32))
 
-    if task['query_type'] == 'general_search':
-        # specify task type:
-        task_reduced['query_type'] = 'general_search'
-        # nothing dubious to start with?
-        if task['user'] != config['server']['admin_username']:
-            go_on = True in [s in str(task['query']) for s in ['.aggregate(',
-                                                               '.map_reduce(',
-                                                               '.distinct(',
-                                                               '.count_documents(',
-                                                               '.index_information(',
-                                                               '.find_one(',
-                                                               '.find(']] and \
-                    True not in [s in str(task['query']) for s in ['import',
-                                                                   'pymongo.',
-                                                                   'shutil.',
-                                                                   'command(',
-                                                                   'bulk_write(',
-                                                                   'exec(',
-                                                                   'spawn(',
-                                                                   'subprocess(',
-                                                                   'call(',
-                                                                   'insert(',
-                                                                   'update(',
-                                                                   'delete(',
-                                                                   'create_index(',
-                                                                   'create_collection(',
-                                                                   'run(',
-                                                                   'popen(',
-                                                                   'Popen(']] and \
-                    str(task['query']).strip()[0] not in ('"', "'", '[', '(', '{', '\\')
-        else:
-            go_on = True
-
-        # TODO: check access permissions:
-        # TODO: for now, only check on admin stuff
-        if task['user'] != config['server']['admin_username']:
-            prohibited_collections = ('users', 'stats', 'queries')
-
-            # get the main collection that is being queried:
-            main_collection = regex['collection_main'].search(str(task['query'])).group(1)
-            # print(main_collection)
-
-            if main_collection in prohibited_collections:
-                go_on = False
-
-            # aggregating?
-            if '.aggregate(' in str(task['query']):
-                pipeline = literal_eval(regex['aggregate'].search(str(task['query'])).group(1))
-                # pipeline = literal_eval(self.regex['aggregate'].search(str(task['query'])).group(1))
-                lookups = [_ip for (_ip, _pp) in enumerate(pipeline) if '$lookup' in _pp]
-                for _l in lookups:
-                    if pipeline[_l]['$lookup']['from'] in prohibited_collections:
-                        go_on = False
-
-        if go_on:
-            task_reduced['query'] = task['query']
-        else:
-            raise Exception('Atata!')
-
-    elif task['query_type'] == 'cone_search':
-        # specify task type:
-        task_reduced['query_type'] = 'cone_search'
-        # cone search radius:
-        cone_search_radius = float(task['object_coordinates']['cone_search_radius'])
-        # convert to rad:
-        if task['object_coordinates']['cone_search_unit'] == 'arcsec':
-            cone_search_radius *= np.pi / 180.0 / 3600.
-        elif task['object_coordinates']['cone_search_unit'] == 'arcmin':
-            cone_search_radius *= np.pi / 180.0 / 60.
-        elif task['object_coordinates']['cone_search_unit'] == 'deg':
-            cone_search_radius *= np.pi / 180.0
-        elif task['object_coordinates']['cone_search_unit'] == 'rad':
-            cone_search_radius *= 1
-        else:
-            raise Exception('Unknown cone search unit. Must be in [deg, rad, arcsec, arcmin]')
-
-        for catalog in task['catalogs']:
-            # TODO: check that not trying to query what's not allowed!
-            task_reduced['query'][catalog] = dict()
-            # parse catalog query:
-            # construct filter
-            _filter = task['catalogs'][catalog]['filter']
-            if isinstance(_filter, str):
-                # passed string? evaluate:
-                catalog_query = literal_eval(_filter.strip())
-            elif isinstance(_filter, dict):
-                # passed dict?
-                catalog_query = _filter
-            else:
-                raise ValueError('Unsupported filter specification')
-
-            # construct projection
-            # catalog_projection = dict()
-            # FIXME: always return standardized coordinates?
-            # catalog_projection = {'coordinates.epoch': 1, 'coordinates.radec_str': 1, 'coordinates.radec': 1}
-            _projection = task['catalogs'][catalog]['projection']
-            if isinstance(_projection, str):
-                # passed string? evaluate:
-                catalog_projection = literal_eval(_projection.strip())
-            elif isinstance(_filter, dict):
-                # passed dict?
-                catalog_projection = _projection
-            else:
-                raise ValueError('Unsupported projection specification')
-
-            # parse coordinate list
-            # print(task['object_coordinates']['radec'])
-            objects = literal_eval(task['object_coordinates']['radec'].strip())
-            # print(type(objects), isinstance(objects, dict), isinstance(objects, list))
-
-            # this could either be list [(ra1, dec1), (ra2, dec2), ..] or dict {'name': (ra1, dec1), ...}
-            if isinstance(objects, list):
-                object_coordinates = objects
-                object_names = [str(obj_crd) for obj_crd in object_coordinates]
-            elif isinstance(objects, dict):
-                object_names, object_coordinates = zip(*objects.items())
-                object_names = list(map(str, object_names))
-            else:
-                raise ValueError('Unsupported type of object coordinates')
-
-            # print(object_names, object_coordinates)
-
-            for oi, obj_crd in enumerate(object_coordinates):
-                # convert ra/dec into GeoJSON-friendly format
-                # print(obj_crd)
-                _ra, _dec = radec_str2geojson(*obj_crd)
-                # print(str(obj_crd), _ra, _dec)
-                object_position_query = dict()
-                object_position_query['coordinates.radec_geojson'] = {
-                    '$geoWithin': {'$centerSphere': [[_ra, _dec], cone_search_radius]}}
-                # use stringified object coordinates as dict keys and merge dicts with cat/obj queries:
-                task_reduced['query'][catalog][object_names[oi]] = ({**object_position_query, **catalog_query},
-                                                                    {**catalog_projection})
-
-    if save:
-        # print(task_reduced)
-        # task_hashable = dumps(task)
-        task_hashable = dumps(task_reduced)
-        # compute hash for task. this is used as key in DB
-        task_hash = compute_hash(task_hashable)
-
-        # print({'user': task['user'], 'task_id': task_hash})
-
-        # mark as enqueued in DB:
-        t_stamp = utc_now()
-        if 'query_expiration_interval' not in kwargs:
-            # default expiration interval:
-            t_expires = t_stamp + datetime.timedelta(days=int(config['misc']['query_expiration_interval']))
-        else:
-            # custom expiration interval:
-            t_expires = t_stamp + datetime.timedelta(days=int(kwargs['query_expiration_interval']))
-
-        # dump task_hashable to file, as potentially too big to store in mongo
-        # save task:
-        user_tmp_path = os.path.join(config['path']['path_queries'], task['user'])
-        # print(user_tmp_path)
-        # mkdir if necessary
-        if not os.path.exists(user_tmp_path):
-            os.makedirs(user_tmp_path)
-        task_file = os.path.join(user_tmp_path, f'{task_hash}.task.json')
-
-        with open(task_file, 'w') as f_task_file:
-            f_task_file.write(dumps(task))
-
-        task_doc = {'task_id': task_hash,
-                    'user': task['user'],
-                    'task': task_file,
-                    'result': None,
-                    'status': 'enqueued',
-                    'created': t_stamp,
-                    'expires': t_expires,
-                    'last_modified': t_stamp}
-
-        return task_hash, task_reduced, task_doc
-
-    else:
-        return '', task_reduced, {}
-
-
-async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool=False):
-
-    db = mongo
-
-    if save:
-        # mark query as enqueued:
-        await db.queries.insert_one(task_doc)
-
-    result = dict()
-    query_result = dict()
-
-    query = task_reduced
-
-    try:
-
-        # cone search:
-        if query['query_type'] == 'cone_search':
-            # iterate over catalogs as they represent
-            for catalog in query['query']:
-                query_result[catalog] = dict()
-                # iterate over objects:
-                for obj in query['query'][catalog]:
-                    # project?
-                    if len(query['query'][catalog][obj][1]) > 0:
-                        _select = db[catalog].find(query['query'][catalog][obj][0],
-                                                   query['query'][catalog][obj][1])
-                    # return the whole documents by default
-                    else:
-                        _select = db[catalog].find(query['query'][catalog][obj][0])
-                    # unfortunately, mongoDB does not allow to have dots in field names,
-                    # thus replace with underscores
-                    query_result[catalog][obj.replace('.', '_')] = await _select.to_list(length=None)
-
-        elif query['query_type'] == 'general_search':
-            # just evaluate. I know that's dangerous, but I'm checking things in broker.py
-            qq = bytes(query['query'], 'utf-8').decode('unicode_escape')
-
-            _select = eval(qq)
-            # _select = eval(query['query'])
-            # _select = literal_eval(qq)
-
-            if ('.find_one(' in qq) or ('.count_documents(' in qq) or ('.index_information(' in qq):
-                _select = await _select
-
-            # make it look like json
-            # print(list(_select))
-            if isinstance(_select, int) or isinstance(_select, float) or \
-                    isinstance(_select, list) or isinstance(_select, dict):
-                query_result['query_result'] = _select
-            else:
-                query_result['query_result'] = await _select.to_list(length=None)
-
-        result['user'] = query['user']
-        result['status'] = 'done'
-        result['kwargs'] = query['kwargs'] if 'kwargs' in query else {}
-
-        if not save:
-            # dump result back
-            result['result_data'] = query_result
-
-        else:
-            # save task result:
-            user_tmp_path = os.path.join(config['path']['path_queries'], query['user'])
-            # print(user_tmp_path)
-            # mkdir if necessary
-            if not os.path.exists(user_tmp_path):
-                os.makedirs(user_tmp_path)
-            task_result_file = os.path.join(user_tmp_path, f'{task_hash}.result.json')
-
-            # save location in db:
-            result['result'] = task_result_file
-
-            async with aiofiles.open(task_result_file, 'w') as f_task_result_file:
-                task_result = dumps(query_result)
-                await f_task_result_file.write(task_result)
-
-        # print(task_hash, result)
-
-        # db book-keeping:
-        if save:
-            # mark query as done:
-            await db.queries.update_one({'user': query['user'], 'task_id': task_hash},
-                                        {'$set': {'status': result['status'],
-                                                  'last_modified': utc_now(),
-                                                  'result': result['result']}}
-                                        )
-
-        # return task_hash, dumps(result)
-        return task_hash, result
-
-    except Exception as e:
-        print(f'Got error: {str(e)}')
-        _err = traceback.format_exc()
-        print(_err)
-
-        # book-keeping:
-        if save:
-            # save task result with error message:
-            user_tmp_path = os.path.join(config['path']['path_queries'], query['user'])
-            # print(user_tmp_path)
-            # mkdir if necessary
-            if not os.path.exists(user_tmp_path):
-                os.makedirs(user_tmp_path)
-            task_result_file = os.path.join(user_tmp_path, f'{task_hash}.result.json')
-
-            # save location in db:
-            result['user'] = query['user']
-            result['status'] = 'failed'
-
-            query_result = dict()
-            query_result['msg'] = _err
-
-            async with aiofiles.open(task_result_file, 'w') as f_task_result_file:
-                task_result = dumps(query_result)
-                await f_task_result_file.write(task_result)
-
-            # mark query as failed:
-            await db.queries.update_one({'user': query['user'], 'task_id': task_hash},
-                                        {'$set': {'status': result['status'],
-                                                  'last_modified': utc_now(),
-                                                  'result': None}}
-                                        )
-
-        raise Exception('Query failed')
-
-
-@routes.put('/query')
-@auth_required
-async def query(request):
-    """
-        Query DB programmatic API
-
-    :return:
-    """
-
-    _query = await request.json()
-    # print(_query)
-
-    try:
-        # parse query
-        known_query_types = ('cone_search', 'general_search')
-
-        assert _query['query_type'] in known_query_types, \
-            f'query_type {_query["query_type"]} not in {str(known_query_types)}'
-
-        _query['user'] = request.user
-
-        # by default, [unless enqueue_only is requested]
-        # all queries are not registered in the db and the task/results are stored on disk as json files
-        # giving a significant execution speed up. this behaviour can be overridden.
-        if ('kwargs' in _query) and ('enqueue_only' in _query['kwargs']) and _query['kwargs']['enqueue_only']:
-            save = True
-        else:
-            save = _query['kwargs']['save'] if (('kwargs' in _query) and ('save' in _query['kwargs'])) else False
-
-        # tic = time.time()
-        task_hash, task_reduced, task_doc = parse_query(_query, save=save)
-        # toc = time.time()
-        # print(f'parsing task took {toc-tic} seconds')
-        # print(task_hash, task_reduced, task_doc)
-
-        # schedule query execution:
-        if ('enqueue_only' in task_reduced['kwargs']) and task_reduced['kwargs']['enqueue_only']:
-            # only schedule query execution. store query and results, return query id to user
-            asyncio.ensure_future(execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save))
-            return web.json_response({'status': 'enqueued', 'query_id': task_hash}, status=200, dumps=dumps)
-        else:
-            if save:
-                # db book-keeping and saving to disk? result['result'] will contain result json location
-                task_hash, result = await execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save)
-
-                # with open(result['result'], 'rb') as f_task_result_file:
-                #     response = web.Response(body=f_task_result_file, headers={
-                #             'CONTENT-DISPOSITION': f'attachment; filename={f_task_result_file}'
-                #         })
-                #     response.content_type = 'text/json'
-                #     # response = web.StreamResponse(body=f_task_result_file, headers={
-                #     #     'CONTENT-DISPOSITION': f'attachment; filename={f_task_result_file}'
-                #     # })
-                #
-                #     return response
-
-                return web.json_response(result, status=200, dumps=dumps)
-            else:
-                # result['result_data'] will contain query result
-                task_hash, result = await execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save)
-
-                return web.json_response(result, status=200, dumps=dumps)
-
-    except Exception as _e:
-        print(f'Got error: {str(_e)}')
-        _err = traceback.format_exc()
-        print(_err)
-        return web.json_response({'message': f'Failure: {_err}'}, status=500)
-
-
-''' search API for the browser '''
-# Uses sessions => needs additional middleware => slightly slower if were used together with @auth_required
-
-
-@routes.put('/web-query')
+@routes.get('/search')
 @login_required
-async def web_query_put(request):
+async def search_get_handler(request):
     """
-        Query DB from the browser.
-
+        Serve GS page for the browser
+    :param request:
     :return:
     """
-
     # get session:
     session = await get_session(request)
-    user = session['user_id']
 
-    # get query
-    _query = await request.json()
-    # print(_query)
-
-    try:
-        # parse query
-        known_query_types = ('cone_search', 'general_search')
-
-        assert _query['query_type'] in known_query_types, \
-            f'query_type {_query["query_type"]} not in {str(known_query_types)}'
-
-        _query['user'] = user
-        save = True  # always save to db when querying from the browser
-
-        # tic = time.time()
-        task_hash, task_reduced, task_doc = parse_query(_query, save=save)
-        # toc = time.time()
-        # print(f'parsing task took {toc-tic} seconds')
-        # print(task_hash, task_reduced, task_doc)
-
-        # schedule query execution:
-        asyncio.ensure_future(execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save))
-
-        return web.json_response({'message': 'success'}, status=200)
-
-    except Exception as _e:
-        print(f'Got error: {str(_e)}')
-        _err = traceback.format_exc()
-        print(_err)
-        return web.json_response({'message': f'Failure: {_err}'}, status=500)
+    context = {'logo': config['server']['logo'],
+               'user': session['user_id']}
+    response = aiohttp_jinja2.render_template('template-search.html',
+                                              request,
+                                              context)
+    return response
 
 
 @routes.post('/search')
@@ -993,40 +579,53 @@ async def search_post_handler(request):
         _query = await request.post()
     print(_query)
 
-    context = {'logo': config['server']['logo'],
-               'user': session['user_id']}
-    response = aiohttp_jinja2.render_template('template-search.html',
-                                              request,
-                                              context)
-    return response
+    try:
+        # convert to Kowalski query and execute
 
+        kowalski_query = {"query_type": "cone_search",
+                          "object_coordinates": {
+                              "radec": _query['radec'],
+                              "cone_search_radius": _query['cone_search_radius'],
+                              "cone_search_unit": _query['cone_search_unit']
+                          },
+                          "catalogs": {
+                              config['kowalski']['coll_sources']: {
+                                  "filter": _query['filter'] if len(_query['filter']) > 0 else "{}",
+                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1," +
+                                                "'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1," +
+                                                "'medianmag': 1, 'minmag': 1, 'ngoodobs': 1," +
+                                                "'nobs': 1, 'refmag': 1, 'iqr': 1, 'coordinates': 1}"
+                              }
+                          }
+                          }
 
-''' sources API '''
+        resp = request.app['kowalski'].query(kowalski_query)
+        print(resp)
 
+        pos_key = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
+        data = resp['result_data'][config['kowalski']['coll_sources']][pos_key]
 
-# todo
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'data': data,
+                   'form': _query}
+        response = aiohttp_jinja2.render_template('template-search.html',
+                                                  request,
+                                                  context)
+        return response
 
+    except Exception as _e:
+        print(f'Querying Kowalski failed: {str(_e)}')
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'messages': [[str(_e), 'danger']]}
+        response = aiohttp_jinja2.render_template('template-search.html',
+                                                  request,
+                                                  context)
+        return response
 
 ''' web endpoints '''
-
-
-@routes.get('/search')
-@login_required
-async def query_general_search_handler(request):
-    """
-        Serve GS page for the browser
-    :param request:
-    :return:
-    """
-    # get session:
-    session = await get_session(request)
-
-    context = {'logo': config['server']['logo'],
-               'user': session['user_id']}
-    response = aiohttp_jinja2.render_template('template-search.html',
-                                              request,
-                                              context)
-    return response
 
 
 @routes.get('/docs')

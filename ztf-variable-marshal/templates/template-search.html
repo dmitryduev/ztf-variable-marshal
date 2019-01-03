@@ -70,23 +70,23 @@ Examples:
                                     <textarea class="form-control form-control-sm"
                                               id="filter" name="filter"
                                               placeholder="Filter in MongoDB syntax, see help"
-                                              rows="8"></textarea>
+                                              rows="3"></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="limit" class="col-md-2 control-label">
-                                    Limit
-                                </label>
+{#                            <div class="form-group row">#}
+{#                                <label for="limit" class="col-md-2 control-label">#}
+{#                                    Limit#}
+{#                                </label>#}
+{##}
+{#                                <div class="col-md-10">#}
+{#                                    <input type="text" class="form-control form-control-sm" id="limit"#}
+{#                                           name="limit" value="10"#}
+{#                                           placeholder="Max number of entries to return. Leave blank to get all.">#}
+{#                                </div>#}
+{#                            </div>#}
 
-                                <div class="col-md-10">
-                                    <input type="text" class="form-control form-control-sm" id="limit"
-                                           name="limit" value="10"
-                                           placeholder="Max number of entries to return. Leave blank to get all.">
-                                </div>
-                            </div>
-
-                            {# TODO: make user-friendy: date selection tool; rb, sl range selectors? #}
+                            {# TODO: make user-friendy?: range selectors etc? #}
 
                             <button type="button" class="btn btn-dark btn-sm" id="submit_query">Submit</button>
 
@@ -110,11 +110,11 @@ Examples:
                 <i id="expansion_toggle" class="fas fa-plus" aria-hidden="true"></i>
             </button>
 
-            <button type="button" class="btn btn-outline-dark"
-                    style="cursor: pointer;" onclick="toggle_invert_cutouts()"
-                    data-toggle="tooltip" data-placement="top" title="Invert cutout colors">
-                <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>
-            </button>
+{#            <button type="button" class="btn btn-outline-dark"#}
+{#                    style="cursor: pointer;" onclick="toggle_invert_cutouts()"#}
+{#                    data-toggle="tooltip" data-placement="top" title="Invert cutout colors">#}
+{#                <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>#}
+{#            </button>#}
 
         </div>
         <table id="table"
@@ -125,7 +125,7 @@ Examples:
                data-side-pagination="client"
                data-minimum-count-columns="2"
                data-page-size="20"
-               data-page-list="[20, 50, 100, 200, 500, 1000, All]"
+               data-page-list="[20, 50, 100, All]"
                data-search="true"
                data-detail-view="true"
                data-detail-formatter="detailFormatter"
@@ -133,8 +133,8 @@ Examples:
                data-show-multi-sort="true"
                data-show-export="true"
                data-export-types="['json', 'csv']"
-               data-export-options='{ "fileName": "ztf-streaks",
-                                      "worksheetName": "ztf-streaks1"
+               data-export-options='{ "fileName": "ztf-vm-sources",
+                                      "worksheetName": "ztf-vm-sources1"
                                      }'>
         </table>
 {#    {% endif %}#}
@@ -210,7 +210,7 @@ Examples:
                     {% for field_id in ('_id', 'ra', 'dec',
                                         'magrms', 'maxmag', 'maxslope', 'meanmag',
                                         'medianabsdev', 'medianmag', 'minmag',
-                                        'ngoodobs', 'nobs', 'refmag', 'vonneumannratio', 'iqr') %}
+                                        'ngoodobs', 'nobs', 'refmag', 'iqr') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
@@ -233,7 +233,7 @@ Examples:
                         {% for field_id in ('_id', 'ra', 'dec',
                                         'maxmag', 'maxslope', 'meanmag',
                                         'medianabsdev', 'medianmag', 'minmag',
-                                        'ngoodobs', 'nobs', 'refmag', 'vonneumannratio', 'iqr') %}
+                                        'ngoodobs', 'nobs', 'refmag', 'iqr') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
                     },

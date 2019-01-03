@@ -23,6 +23,11 @@
     "collection_stats": "stats"
   },
 
+  "kowalski": {
+    "coll_sources": "ZTF_matchfiles_sources_20181219",
+    "coll_exposures": "ZTF_matchfiles_exposures_20181219"
+  },
+
   "misc": {
     "logging_level": "debug"
   }
