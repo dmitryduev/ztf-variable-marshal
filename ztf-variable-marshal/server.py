@@ -534,10 +534,29 @@ async def edit_user(request):
 ''' sources API '''
 
 
-# todo
+@routes.get('/sources')
+@login_required
+async def sources_get_handler(request):
+    """
+        Serve saved sources page for the browser
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    # get last
+
+    context = {'logo': config['server']['logo'],
+               'user': session['user_id']}
+    # fixme:
+    response = aiohttp_jinja2.render_template('template.html',
+                                              request,
+                                              context)
+    return response
 
 
-''' search '''
+''' search ZTF light curve db '''
 
 
 @routes.get('/search')
@@ -649,6 +668,7 @@ async def search_post_handler(request):
                                                   request,
                                                   context)
         return response
+
 
 ''' web endpoints '''
 
