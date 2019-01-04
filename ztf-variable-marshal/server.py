@@ -592,18 +592,42 @@ async def search_post_handler(request):
                               config['kowalski']['coll_sources']: {
                                   "filter": _query['filter'] if len(_query['filter']) > 0 else "{}",
                                   "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1," +
+                                                "'vonneumannratio': 1, 'filter': 1," +
                                                 "'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1," +
                                                 "'medianmag': 1, 'minmag': 1, 'ngoodobs': 1," +
-                                                "'nobs': 1, 'refmag': 1, 'iqr': 1, 'coordinates': 1}"
+                                                "'nobs': 1, 'refmag': 1, 'iqr': 1, " +
+                                                "'data.mag': 1, 'data.magerr': 1, 'data.mjd': 1, 'coordinates': 1}"
                               }
                           }
                           }
 
         resp = request.app['kowalski'].query(kowalski_query)
-        print(resp)
+        # print(resp)
 
         pos_key = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
         data = resp['result_data'][config['kowalski']['coll_sources']][pos_key]
+
+        # re-format data (mjd, mag, magerr) for easier previews in the browser:
+        for source in data:
+            lc = source['data']
+            # print(lc)
+            mags = np.array([llc['mag'] for llc in lc])
+            magerrs = np.array([llc['magerr'] for llc in lc])
+            mjds = np.array([llc['mjd'] for llc in lc])
+
+            ind_sort = np.argsort(mjds)
+            mags = mags[ind_sort].tolist()
+            magerrs = magerrs[ind_sort].tolist()
+            mjds = mjds[ind_sort].tolist()
+
+            # todo?
+            # mjds = [mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc]
+            source.pop('data', None)
+            source['mag'] = mags
+            source['magerr'] = magerrs
+            source['mjd'] = mjds
+
+        print(data)
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
