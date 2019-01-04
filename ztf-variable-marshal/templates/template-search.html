@@ -236,11 +236,14 @@ Examples:
                 {% for entry in data %}
                     {
                         {% for field_id in ('_id', 'ra', 'dec', 'filter',
-                                            'mag', 'magerr', 'mjd',
                                             'maxmag', 'maxslope', 'meanmag',
                                             'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
                                             'ngoodobs', 'nobs', 'refmag', 'iqr') %}
                         {{ field_id }}: "{{entry[field_id]}}",
+                        {% endfor %}
+
+                        {% for field_id in ('mag', 'magerr', 'mjd') %}
+                        {{ field_id }}: "{{entry[field_id] | safe}}",
                         {% endfor %}
                     },
 

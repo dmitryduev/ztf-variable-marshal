@@ -614,18 +614,20 @@ async def search_post_handler(request):
             mags = np.array([llc['mag'] for llc in lc])
             magerrs = np.array([llc['magerr'] for llc in lc])
             mjds = np.array([llc['mjd'] for llc in lc])
+            # todo?
+            datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc])
 
             ind_sort = np.argsort(mjds)
             mags = mags[ind_sort].tolist()
             magerrs = magerrs[ind_sort].tolist()
             mjds = mjds[ind_sort].tolist()
+            datetimes = datetimes[ind_sort].tolist()
 
-            # todo?
-            # mjds = [mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc]
             source.pop('data', None)
             source['mag'] = mags
             source['magerr'] = magerrs
-            source['mjd'] = mjds
+            # source['mjd'] = mjds
+            source['mjd'] = datetimes
 
         print(data)
 
