@@ -431,7 +431,25 @@ Examples:
                 callback: function (result) {
                     // confirmed?
                     if (result) {
-                        console.log(id)
+                        //console.log(id);
+                        $.ajax({url: '{{-script_root-}}/sources',
+                            method: 'PUT',
+                            data: JSON.stringify({'_id': id}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    showFlashingMessage('Info:', 'Successfully saved source: ' + data['message'], 'success');
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to save source: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                {#console.log('peechalj');#}
+                                showFlashingMessage('Info:', 'Failed to save source', 'danger');
+                            }
+                        });
                     }
                 }
             });
