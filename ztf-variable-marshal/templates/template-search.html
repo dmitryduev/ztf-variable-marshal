@@ -267,6 +267,7 @@ Examples:
                          "y: " + row['mag'] +", " +
                          {#"error_y: {type: 'data', array: " + row['magerr'] + ", visible: true}, " +#}
                          {# lines+markers#}
+                         "line: {width: 0.5, color: '#00415a'}, " +
                          "mode: 'lines+markers'} ]; Plotly.newPlot('lc_" + index + "', data);<\/script>");
             html.push("</div>");
 
@@ -275,14 +276,18 @@ Examples:
 
             // Buttons:
             html.push("<div class=\"row p-0 m-0\">");
-            html.push("<div class=\"col-1 p-0 m-0\">");
-            html.push("<a role='button' download='" + row['candid'] + ".json' href='/alerts/" + row['candid'] +
-                "?download=json'" +
-                " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Save <i class='fas fa-download'></i></a>");
-            // alert page:
+            html.push("<div class=\"col-12 p-0 m-0\">");
+            html.push("<button type='button' " + "onclick='source_save(\"" + row['_id'] + "\")'" +
+                " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-save'>Save to Marshal <i class='fas fa-save'></i></button>");
+            // details:
             {#html.push("<br>");#}
-            html.push("<a target='_blank' role='button' " + "href='/alerts/" + row['candid'] +
-                "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");
+            {#html.push("<a target='_blank' role='button' " + "href='/alerts/" + row['candid'] +#}
+            {#    "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");#}
+            html.push("</div>");
+
+            html.push("<div class=\"col-12 p-0 m-0\">");
+            html.push("<button type='button' " + "onclick='source_merge(\"" + row['_id'] + "\")'" +
+                " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-merge'>Merge with existing source <i class='fas fa-plus-square'></i></button>");
             html.push("</div>");
 
             // close row
@@ -410,6 +415,52 @@ Examples:
                 });
             });
         });
+
+        // save source
+        function source_save(id) {
+            bootbox.confirm({
+                message: "Do you want to save the source to the Marshal assigning a unique id?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Confirm'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        console.log(id)
+                    }
+                }
+            });
+        }
+
+        // save source
+        function source_merge(id) {
+            // todo: query own db for source at this position +/- 2"
+            // todo: if successful, show bootbox
+            // todo: otherwise, say "nothing to merge with"
+            bootbox.confirm({
+                message: "Do you want to merge the source with TOBEFOUNDOUT?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Confirm'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // todo:
+                        console.log(id)
+                    }
+                }
+            });
+        }
 
         {# show flashing messages #}
         function showFlashingMessage(title, message, type) {
