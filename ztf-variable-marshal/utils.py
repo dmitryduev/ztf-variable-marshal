@@ -9,6 +9,10 @@ import pytz
 import base64
 import bcrypt
 
+from string import ascii_lowercase
+import itertools
+from numba import jit
+
 
 def generate_password_hash(password, salt_rounds=12):
     password_bin = password.encode('utf-8')
@@ -270,3 +274,25 @@ def compute_hash(_task):
 
 def random_alphanumeric_str(length: int=8):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(length)).lower()
+
+
+@jit
+def iter_all_strings():
+    for size in itertools.count(1):
+        for s in itertools.product(ascii_lowercase, repeat=size):
+            yield "".join(s)
+
+
+def num2alphabet(num: int):
+
+    assert num >= 1, 'bad number'
+
+    for s in itertools.islice(iter_all_strings(), num):
+        pass
+
+    return s
+
+
+def alphabet2num(dg: str):
+    return sum(((ord(dg[x])-ord('a')+1) * (26 ** (len(dg)-x-1)) for x in range(0, len(dg))))
+

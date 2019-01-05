@@ -268,7 +268,9 @@ Examples:
                          {#"error_y: {type: 'data', array: " + row['magerr'] + ", visible: true}, " +#}
                          {# lines+markers#}
                          "line: {width: 0.5, color: '#00415a'}, " +
-                         "mode: 'lines+markers'} ]; Plotly.newPlot('lc_" + index + "', data);<\/script>");
+                         "mode: 'lines+markers'} ]; " +
+                         "var layout = {yaxis: {autorange: 'reversed'}}; " +
+                         "Plotly.newPlot('lc_" + index + "', data, layout);<\/script>");
             html.push("</div>");
 
             // close row

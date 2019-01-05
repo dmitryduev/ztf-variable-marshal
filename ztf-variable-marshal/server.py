@@ -545,7 +545,7 @@ async def sources_get_handler(request):
     # get session:
     session = await get_session(request)
 
-    # get last
+    # todo: get last 10 added sources
 
     context = {'logo': config['server']['logo'],
                'user': session['user_id']}
@@ -554,6 +554,83 @@ async def sources_get_handler(request):
                                               request,
                                               context)
     return response
+
+
+@routes.put('/sources')
+@login_required
+async def sources_put_handler(request):
+    """
+        Save ZTF source to own db
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _r = await request.json()
+    except Exception as _e:
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        _r = await request.post()
+    # print(_r)
+
+    try:
+        assert '_id' in _r, '_id not specified'
+
+        kowalski_query = {"query_type": "general_search",
+                          "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
+                                   f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
+                          }
+
+        resp = request.app['kowalski'].query(kowalski_query)
+        ztf_source = resp['result_data']['query_result'][0]
+
+        # build doc to ingest:
+        doc = dict()
+
+        source_id_base = \
+            f'ZTFS{datetime.datetime.utcnow().strftime("%y")}{ztf_source["coordinates"]["radec_str"][0][:2]}'
+
+        num_saved_sources = await request.app['mongo'].sources.count_documents({'_id':
+                                                                                    {'$regex': f'{source_id_base}.*'}})
+        # postfix = num2alphabet(num_saved_sources + 1)
+        if num_saved_sources > 0:
+            saved_source_ids = await request.app['mongo'].sources.find({'_id': {'$regex': f'{source_id_base}.*'}},
+                                                                        {'_id': 1}).to_list(length=None)
+            saved_source_ids = [s['_id'] for s in saved_source_ids]
+            # print(saved_source_ids)
+            num_last = alphabet2num(sorted(saved_source_ids)[-1][8:])
+
+            postfix = num2alphabet(num_last + 1)
+
+        else:
+            postfix = 'a'
+
+        source_id = source_id_base + postfix
+
+        doc['_id'] = source_id
+        doc['ra'] = ztf_source['ra']
+        doc['dec'] = ztf_source['dec']
+        doc['coordinates'] = ztf_source['coordinates']
+        # [{'period': float, 'period_error': float}]:
+        doc['p'] = []
+        doc['source_type'] = []
+        # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
+        lc = {'telescope': 'PO:1.2m',
+              'instrument': 'ZTF',
+              'filter': ztf_source['filter'],
+              'lc_type': 'temporal',
+              'data': ztf_source['data']}
+        doc['lc'] = [lc]
+
+        await request.app['mongo'].sources.insert_one(doc)
+
+        return web.json_response({'message': 'success'}, status=200)
+
+    except Exception as _e:
+        print(f'Failed to ingest source: {str(_e)}')
+
+        return web.json_response({'message': f'ingestion failed {str(_e)}'}, status=500)
 
 
 ''' search ZTF light curve db '''
@@ -749,9 +826,9 @@ async def app_factory():
     # store mongo connection
     app['mongo'] = mongo
 
-    # mark all enqueued tasks failed on startup
-    await app['mongo'].queries.update_many({'status': 'enqueued'},
-                                           {'$set': {'status': 'failed', 'last_modified': utc_now()}})
+    # make sure sources are 2d indexed
+    await app['mongo'].sources.create_index([('coordinates.radec_geojson', '2dsphere'),
+                                             ('_id', 1)], background=True)
 
     # graciously close mongo client on shutdown
     async def close_mongo(app):
