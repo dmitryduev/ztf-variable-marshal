@@ -531,6 +531,43 @@ async def edit_user(request):
         return web.json_response({'message': '403 Forbidden'}, status=403)
 
 
+''' query API'''
+
+
+@routes.get('/query')
+@login_required
+async def query_handler(request):
+    """
+        Query own db, return json
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _r = await request.json()
+    except Exception as _e:
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        _r = await request.post()
+    # print(_r)
+
+    # todo: parse and execute query awaiting the result
+
+    try:
+        # request.app['mongo']. <find(..)> or <find_one(..)> or <aggregate(...)>
+        # check with str.startswith()
+        # then ast.literal_eval()
+
+        return web.json_response({'message': 'Not implemented'}, status=500)
+
+    except Exception as _e:
+        print(f'Got error: {str(_e)}')
+        _err = traceback.format_exc()
+        print(_err)
+        return web.json_response({'message': f'Query failed: {_err}'}, status=500)
+
+
 ''' sources API '''
 
 
@@ -545,12 +582,26 @@ async def sources_get_handler(request):
     # get session:
     session = await get_session(request)
 
-    # todo: get last 10 added sources
+    # get last 10 added sources
+    # sources = await request.app['mongo'].sources.find({},
+    #                                                   {'_id': 1,
+    #                                                    'ra': 1,
+    #                                                    'dec': 1,
+    #                                                    'p': 1,
+    #                                                    'source_type': 1,
+    #                                                    'created': 1}).limit(10).sort({'created': -1}).to_list(
+    #     length=None)
+    sources = await request.app['mongo'].sources.find({},
+                                                      {'coordinates': 0,
+                                                       'lc.data': 0}).limit(10).\
+        sort([('created', -1)]).to_list(length=None)
 
     context = {'logo': config['server']['logo'],
-               'user': session['user_id']}
-    # fixme:
-    response = aiohttp_jinja2.render_template('template.html',
+               'user': session['user_id'],
+               'data': sources,
+               'messages': [['Displaying latest saved sources', 'info']]}
+
+    response = aiohttp_jinja2.render_template('template-sources.html',
                                               request,
                                               context)
     return response
@@ -596,7 +647,7 @@ async def sources_put_handler(request):
         # postfix = num2alphabet(num_saved_sources + 1)
         if num_saved_sources > 0:
             saved_source_ids = await request.app['mongo'].sources.find({'_id': {'$regex': f'{source_id_base}.*'}},
-                                                                        {'_id': 1}).to_list(length=None)
+                                                                       {'_id': 1}).to_list(length=None)
             saved_source_ids = [s['_id'] for s in saved_source_ids]
             # print(saved_source_ids)
             num_last = alphabet2num(sorted(saved_source_ids)[-1][8:])
@@ -622,6 +673,8 @@ async def sources_put_handler(request):
               'lc_type': 'temporal',
               'data': ztf_source['data']}
         doc['lc'] = [lc]
+
+        doc['created'] = utc_now()
 
         await request.app['mongo'].sources.insert_one(doc)
 
@@ -826,9 +879,10 @@ async def app_factory():
     # store mongo connection
     app['mongo'] = mongo
 
-    # make sure sources are 2d indexed
+    # indices
     await app['mongo'].sources.create_index([('coordinates.radec_geojson', '2dsphere'),
                                              ('_id', 1)], background=True)
+    await app['mongo'].sources.create_index([('created', -1)], background=True)
 
     # graciously close mongo client on shutdown
     async def close_mongo(app):
