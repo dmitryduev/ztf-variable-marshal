@@ -1,0 +1,221 @@
+{% extends "template.html" %}
+
+{# custom css #}
+{% block css %}
+    <style>
+        /*
+         * Sidebar
+         */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 50px;
+            left: 0;
+            z-index: 100; /* Behind the navbar */
+            padding: 48px 0 50px; /* Height of navbar */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+
+        @supports ((position: -webkit-sticky) or (position: sticky)) {
+            .sidebar-sticky {
+                position: -webkit-sticky;
+                position: sticky;
+            }
+        }
+
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .sidebar .nav-link .feather {
+            margin-right: 4px;
+            color: #999;
+        }
+
+        .sidebar .nav-link.active {
+            color: #007bff;
+        }
+
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+            color: inherit;
+        }
+
+        .sidebar-heading {
+            {#font-size: .75rem;#}
+            text-transform: uppercase;
+        }
+
+        /*
+         * Content
+         */
+
+        [role="main"] {
+            padding-top: 48px; /* Space for fixed navbar */
+        }
+
+    </style>
+{% endblock %}
+
+{% block nav_sources %}
+    active
+{% endblock %}
+
+{% block body_top %}
+{#    <div class="container-fluid mt-2">#}
+{#        {{ source['_id'] }}#}
+{#    </div>#}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <h4 class="sidebar-heading d-flex justify-content-between
+                               align-items-center px-3 mt-4 mb-1">
+                        {{ source['_id'] }}
+                    </h4>
+                    <div class="d-flex justify-content-between
+                               align-items-center px-3 mt-4 mb-1 text-muted">
+                        RA: {{ source['coordinates']['radec_str'][0] }}<br>
+                        Dec: {{ source['coordinates']['radec_str'][1] }}<br><br>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                Photometry <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Spectroscopy
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Finding Chart
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Visibility
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <h3>Light curve</h3>
+            </main>
+          </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="modal-query-id" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-query-id"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <pre><code id="modal-body-code" style="font-size:0.75em;"></code></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+{#                    <button type="button" class="btn btn-primary">Save changes</button>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block js %}
+
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Big int support for js -->
+    <script src="{{-script_root-}}/static/js/json-bigint.js"></script>
+
+    <!-- Julian dates -->
+    <script src="{{-script_root-}}/static/js/julianDate.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <script>
+
+        {# init tooltips #}
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        {# actions #}
+        {# download json as files #}
+        function download(json, name, type) {
+            var a = document.createElement("a");
+            var file = new Blob([json], {type: type});
+            var url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function(){
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        {# show flashing messages #}
+        function showFlashingMessage(title, message, type) {
+            $.notify({title: title, message: message},
+                {placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                    type: type,
+                    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert" ' +
+                    'style="max-width:400px; font-size: 0.75rem;">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="icon"></span> ' +
+                    '<span data-notify="title">{1}</span> ' +
+                    '<span data-notify="message">{2}</span>' +
+                    '<div class="progress" data-notify="progressbar">' +
+                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" ' +
+                    'aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                    '</div>' +
+                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                    '</div>'
+            });
+        }
+        {% if messages | length > 0 %}
+            $(document).ready(function() {
+                {% for message in messages %}
+                    showFlashingMessage('Info:', '{{ message[0] }}', '{{ message[1] }}');
+                {% endfor %}
+            });
+        {% endif %}
+    </script>
+
+{% endblock %}

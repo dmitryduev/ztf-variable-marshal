@@ -607,6 +607,30 @@ async def sources_get_handler(request):
     return response
 
 
+@routes.get('/sources/{source_id}')
+@login_required
+async def source_handler(request):
+    """
+        Serve single saved source page for the browser
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _id = request.match_info['source_id']
+
+    source = await request.app['mongo'].sources.find_one({'_id': _id})
+
+    context = {'logo': config['server']['logo'],
+               'user': session['user_id'],
+               'source': source}
+    response = aiohttp_jinja2.render_template('template-source.html',
+                                              request,
+                                              context)
+    return response
+
+
 @routes.put('/sources')
 @login_required
 async def sources_put_handler(request):
