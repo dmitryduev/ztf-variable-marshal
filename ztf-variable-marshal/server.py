@@ -559,7 +559,7 @@ async def query_handler(request):
         # check with str.startswith()
         # then ast.literal_eval()
 
-        return web.json_response({'message': 'Not implemented'}, status=500)
+        return web.json_response({'message': 'Not implemented'}, status=200)
 
     except Exception as _e:
         print(f'Got error: {str(_e)}')
@@ -621,6 +621,12 @@ async def source_handler(request):
     _id = request.match_info['source_id']
 
     source = await request.app['mongo'].sources.find_one({'_id': _id})
+
+    frmt = request.query.get('format', 'web')
+    # print(frmt)
+
+    if frmt == 'json':
+        return web.json_response(source, status=200, dumps=dumps)
 
     context = {'logo': config['server']['logo'],
                'user': session['user_id'],

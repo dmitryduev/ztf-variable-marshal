@@ -269,7 +269,7 @@ Examples:
                          {# lines+markers#}
                          "line: {shape: 'spline', width: 0.5, color: '#00415a'}, " +
                          "mode: 'lines+markers'} ]; " +
-                         "var layout = {yaxis: {autorange: 'reversed'}}; " +
+                         "var layout = {yaxis: {autorange: 'reversed'}, margin: {l: 100, r: 100, pad: 0}, automargin: true}; " +
                          "Plotly.newPlot('lc_" + index + "', data, layout);<\/script>");
             html.push("</div>");
 
