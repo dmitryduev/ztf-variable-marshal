@@ -62,7 +62,8 @@
          */
 
         [role="main"] {
-            padding-top: 48px; /* Space for fixed navbar */
+            {#padding-top: 48px; /* Space for fixed navbar */#}
+            padding-top: 28px; /* Space for fixed navbar */
         }
 
     </style>
@@ -95,45 +96,84 @@
                         TODO: MORE INFO<br><br>
                     </div>
 
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                Photometry <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Spectroscopy
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Finding Chart
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Visibility
-                            </a>
-                        </li>
-                    </ul>
+{#                    <ul class="nav flex-column">#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link active" href="#">#}
+{#                                Photometry <span class="sr-only">(current)</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">#}
+{#                                Spectroscopy#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">#}
+{#                                Finding Chart#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">#}
+{#                                Visibility#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
                 </div>
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <h3>Photometry</h3>
-                {% set lc_temporal_counter = 1 %}
-                {% for lc in source['lc'] %}
-                    {% if lc['lc_type'] == 'temporal' %}
-                        {% set lc_info = {'telescope': lc['telescope'],
-                                          'instrument': lc['instrument'],
-                                          'filter': lc['filter']} %}
-                        <b>Light curve {{lc_temporal_counter}}:</b> {{ lc_info | safe }}
-                    {% endif %}
-                    {% set lc_temporal_counter = lc_temporal_counter + 1 %}
-                {% endfor %}
-                <div id="lc" style="width: 100%; height: 500px;"></div>
 
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-photometry-tab" data-toggle="tab"
+                           href="#nav-photometry" role="tab" aria-controls="nav-photometry"
+                           aria-selected="true">Photometry</a>
+                        <a class="nav-item nav-link" id="nav-spectroscopy-tab" data-toggle="tab"
+                           href="#nav-spectroscopy" role="tab" aria-controls="nav-spectroscopy"
+                           aria-selected="false">Spectroscopy</a>
+                        <a class="nav-item nav-link" id="nav-finding-chart-tab" data-toggle="tab"
+                           href="#nav-finding-chart" role="tab" aria-controls="nav-finding-chart"
+                           aria-selected="false">Finding Chart</a>
+                        <a class="nav-item nav-link" id="nav-visibility-tab" data-toggle="tab"
+                           href="#nav-visibility" role="tab" aria-controls="nav-visibility"
+                           aria-selected="false">Visibility</a>
+                        <a class="nav-item nav-link" id="nav-auxiliary-tab" data-toggle="tab"
+                           href="#nav-auxiliary" role="tab" aria-controls="nav-auxiliary"
+                           aria-selected="false">Auxiliary</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active mt-2" id="nav-photometry"
+                         role="tabpanel" aria-labelledby="nav-photometry-tab">
+                        {% set lc_temporal_counter = 1 %}
+                        {% for lc in source['lc'] %}
+                            {% if lc['lc_type'] == 'temporal' %}
+                                {% set lc_info = {'telescope': lc['telescope'],
+                                                  'instrument': lc['instrument'],
+                                                  'filter': lc['filter']} %}
+                                <b>Light curve {{lc_temporal_counter}}:</b> {{ lc_info | safe }}
+                            {% endif %}
+                            {% set lc_temporal_counter = lc_temporal_counter + 1 %}
+                        {% endfor %}
+                        <div id="lc" style="width: 100%; height: 500px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-spectroscopy"
+                         role="tabpanel" aria-labelledby="nav-spectroscopy-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-finding-chart"
+                         role="tabpanel" aria-labelledby="nav-finding-chart-tab">
+                        ...
+                    </div>
+                    <div class="tab-pane fade" id="nav-visibility"
+                         role="tabpanel" aria-labelledby="nav-visibility-tab">
+                        ...
+                    </div>
+                    <div class="tab-pane fade" id="nav-auxiliary"
+                         role="tabpanel" aria-labelledby="nav-auxiliary-tab">
+                        ...
+                    </div>
+                </div>
 
             </main>
           </div>
