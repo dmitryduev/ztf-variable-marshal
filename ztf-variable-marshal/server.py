@@ -945,7 +945,7 @@ async def sources_get_handler(request):
 @login_required
 async def source_handler(request):
     """
-        Serve single saved source page for the browser
+        Serve single saved source page for the browser or source json if ?format=json
     :param request:
     :return:
     """
@@ -997,12 +997,13 @@ async def source_handler(request):
 @login_required
 async def sources_put_handler(request):
     """
-        Save ZTF source to own db
+        Save ZTF source to own db assigning a unique id
     :param request:
     :return:
     """
     # get session:
     session = await get_session(request)
+    user = session['user_id']
 
     try:
         _r = await request.json()
@@ -1061,6 +1062,7 @@ async def sources_put_handler(request):
               'data': ztf_source['data']}
         doc['lc'] = [lc]
 
+        doc['created_by'] = user
         doc['created'] = utc_now()
         doc['last_updated'] = utc_now()
 

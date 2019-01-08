@@ -148,17 +148,20 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active mt-2" id="nav-photometry"
                          role="tabpanel" aria-labelledby="nav-photometry-tab">
-                        {% set lc_temporal_counter = 1 %}
+
+                        <div id="lc" style="width: 100%; height: 500px;"></div>
+
+                        <p class="mt-2">
                         {% for lc in source['lc'] %}
                             {% if lc['lc_type'] == 'temporal' %}
                                 {% set lc_info = {'telescope': lc['telescope'],
                                                   'instrument': lc['instrument'],
-                                                  'filter': lc['filter']} %}
-                                <b>Light curve {{lc_temporal_counter}}:</b> {{ lc_info | safe }}
+                                                  'filter': lc['filter'],
+                                                  'id': lc['id']} %}
+                                <b>Light curve {{ loop.index }}:</b> {{ lc_info | safe }}<br>
                             {% endif %}
-                            {% set lc_temporal_counter = lc_temporal_counter + 1 %}
                         {% endfor %}
-                        <div id="lc" style="width: 100%; height: 500px;"></div>
+                        </p>
 
                         <div class="form-group row mt-3">
                             <label for="cone_search_radius" class="col-lg-2 control-label">
@@ -194,9 +197,10 @@
                             <pre><code>{"telescope": "PO:1.2m",
  "instrument": "ZTF",
  "filter": "zr",
+ "id": UNIQUE_ID,
  "lc_type": "temporal",
  "data": [
-   {"mjd": mjd, "mag": mag, "magerror": magerror},
+   {"mjd": MJD, "mag": MAG, "magerror": MAGERROR},
    ...
  ]
 }</code></pre>
