@@ -189,15 +189,15 @@
                         <p class="mt-2">
                             <span class="badge badge-primary">Note</span>
                             The uploaded light curve must be in the JSON format following the schema:<br>
-                            <code>
-                                {"telescope": "PO:1.2m",
-                                 "instrument": "ZTF",
-                                 "filter": "zr",
-                                 "lc_type": "temporal",
-                                 "data": [
-                                    {"mjd": mjd, "mag": mag, "magerror": magerror},
-                                 ]}
-                            </code>
+                            <pre><code>{"telescope": "PO:1.2m",
+ "instrument": "ZTF",
+ "filter": "zr",
+ "lc_type": "temporal",
+ "data": [
+   {"mjd": mjd, "mag": mag, "magerror": magerror},
+   ...
+ ]
+}</code></pre>
                         </p>
 
                         <hr>
@@ -215,15 +215,15 @@
                         <p class="mt-2">
                             <span class="badge badge-info">Note</span>
                             The uploaded spectrum must be in the JSON format following the schema below:
-                            <code>
-                                {"telescope": "PO:1.2m",
-                                 "instrument": "ZTF",
-                                 "filter": "zr",
-                                 "mjd": mjd,
-                                 "data": [
-                                    {"f": f, "val": val, "unit": unit},
-                                 ]}
-                            </code>
+                            <pre><code>{"telescope": "PO:1.2m",
+ "instrument": "ZTF",
+ "filter": "zr",
+ "mjd": mjd,
+ "data": [
+    {"f": f, "val": val, "unit": unit},
+    ...
+ ]
+}</code></pre>
                         </p>
                     </div>
 
