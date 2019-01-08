@@ -943,7 +943,7 @@ async def sources_get_handler(request):
 
 @routes.get('/sources/{source_id}')
 @login_required
-async def source_handler(request):
+async def source_get_handler(request):
     """
         Serve single saved source page for the browser or source json if ?format=json
     :param request:
@@ -1078,9 +1078,9 @@ async def sources_put_handler(request):
 
 @routes.post('/sources/{source_id}')
 @login_required
-async def source_handler(request):
+async def source_post_handler(request):
     """
-        Serve single saved source page for the browser
+        Update saved source
     :param request:
     :return:
     """
@@ -1102,7 +1102,7 @@ async def source_handler(request):
         if 'action' in _r:
 
             if _r['action'] == 'merge':
-                # merge a ZTF light curve with a saved source
+                # merge a ZTF light curve with saved source
 
                 ztf_lc_ids = [llc['id'] for llc in source['lc'] if llc['instrument'] == 'ZTF']
                 # print(ztf_lc_ids)
@@ -1147,6 +1147,39 @@ async def source_handler(request):
         print(f'Failed to merge source: {str(_e)}')
 
         return web.json_response({'message': f'merging failed: {str(_e)}'}, status=500)
+
+
+@routes.delete('/sources/{source_id}')
+@login_required
+async def source_delete_handler(request):
+    """
+        Update saved source
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    # try:
+    #     _r = await request.json()
+    # except Exception as _e:
+    #     # print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+    #     _r = await request.post()
+    # # print(_r)
+
+    try:
+        _id = request.match_info['source_id']
+
+        await request.app['mongo'].sources.delete_one({'_id': _id})
+
+        # todo: delete associated data (e.g. finding chart)
+
+        return web.json_response({'message': 'success'}, status=200)
+
+    except Exception as _e:
+        print(f'Failed to merge source: {str(_e)}')
+
+        return web.json_response({'message': f'deletion failed: {str(_e)}'}, status=500)
 
 
 ''' search ZTF light curve db '''

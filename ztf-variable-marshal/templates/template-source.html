@@ -301,14 +301,14 @@
                         <p>
                             TODO: Detailed source info<br>
                             <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
-                               class='btn btn-sm btn-outline-dark mt-1 mb-1 align-top'>
+                               class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
                                 JSON <i class='fas fa-download'></i></a>
                         </p>
-                        <p>TODO: Comments, notes</p>
+                        <p>TODO: View/add/edit Comments, notes</p>
                         <p>TODO: Classifications, periods, flags</p>
                         <br>
                         <button type="button" class="btn btn-danger btn-sm"
-                                        id="remove_source">Remove source</button>
+                                id="remove_source">Remove source</button>
                     </div>
                 </div>
 
@@ -391,16 +391,19 @@
         }
 
         $(document).ready(function() {
+            // wait for whole document to load before plotting light curves
             plot_lc()
         });
 
         {# folding #}
         function unsetFolding(){
+            // show default mag vs time
             data = [];
             plot_lc();
         }
 
         function setFolding(){
+            // fold light curves at a given period
 
             // convert units to days
             let per = Number($("#fold_lc_period").val());
@@ -457,11 +460,51 @@
             Plotly.newPlot('lc', data_folded, layout);
         }
 
+        {# remove source #}
+        $(document).ready(function() {
+            $('#remove_source').click(function () {
+                bootbox.confirm({
+                    message: "Are you sure you want to remove source form db and all associated data?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fas fa-times"></i> Cancel'
+                        },
+                        confirm: {
+                            label: '<i class="fas fa-check"></i> Confirm'
+                        }
+                    },
+                    callback: function (result) {
+                        // console.log('This was logged in the callback: ' + result);
+                        // confirmed? emit request to server:
+                        if (result) {
+                            $.ajax({url: '{{-script_root-}}/sources/{{ source['_id'] }}',
+                            method: 'DELETE',
+                            data: JSON.stringify({'_id': {{ source['_id'] }}}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    window.location.href = '{{-script_root-}}/';
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to delete source: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                {#console.log('peechalj');#}
+                                showFlashingMessage('Info:', 'Failed to delete source', 'danger');
+                            }
+                        });
+                        }
+                    }
+                });
+            });
+        });
+
         {# init tooltips #}
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
-
 
         {# actions #}
         {# download json as files #}
