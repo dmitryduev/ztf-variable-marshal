@@ -891,7 +891,7 @@ async def query_handler(request):
         # schedule query execution:
         task_hash, result = await execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save)
 
-        print(result)
+        # print(result)
 
         return web.json_response({'message': 'success', 'result': result}, status=200, dumps=dumps)
 
@@ -1062,6 +1062,7 @@ async def sources_put_handler(request):
         doc['lc'] = [lc]
 
         doc['created'] = utc_now()
+        doc['last_updated'] = utc_now()
 
         await request.app['mongo'].sources.insert_one(doc)
 
@@ -1071,6 +1072,79 @@ async def sources_put_handler(request):
         print(f'Failed to ingest source: {str(_e)}')
 
         return web.json_response({'message': f'ingestion failed {str(_e)}'}, status=500)
+
+
+@routes.post('/sources/{source_id}')
+@login_required
+async def source_handler(request):
+    """
+        Serve single saved source page for the browser
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _r = await request.json()
+    except Exception as _e:
+        # print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        _r = await request.post()
+    # print(_r)
+
+    try:
+        _id = request.match_info['source_id']
+
+        source = await request.app['mongo'].sources.find_one({'_id': _id}, {'lc.data': 0})
+
+        if 'action' in _r:
+
+            if _r['action'] == 'merge':
+                # merge a ZTF light curve with a saved source
+
+                ztf_lc_ids = [llc['id'] for llc in source['lc'] if llc['instrument'] == 'ZTF']
+                # print(ztf_lc_ids)
+
+                if '_id' not in _r:
+                    return web.json_response({'message': 'failure: _id not specified'}, status=500)
+
+                # lc already there? then replace!
+                if int(_r['_id']) in ztf_lc_ids:
+                    # print(_r['_id'], ztf_lc_ids, _r['_id'] in ztf_lc_ids)
+                    # first pull it from lc array:
+                    await request.app['mongo'].sources.update_one({'lc.id': int(_r['_id'])},
+                                                                  {'$pull': {'lc': {'id': int(_r['_id'])}}})
+
+                kowalski_query = {"query_type": "general_search",
+                                  "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
+                                           f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
+                                  }
+
+                resp = request.app['kowalski'].query(kowalski_query)
+                ztf_source = resp['result_data']['query_result'][0]
+
+                lc = {'telescope': 'PO:1.2m',
+                      'instrument': 'ZTF',
+                      'id': ztf_source['_id'],
+                      'filter': ztf_source['filter'],
+                      'lc_type': 'temporal',
+                      'data': ztf_source['data']}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'lc': lc}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
+            else:
+                return web.json_response({'message': 'failure: unknown action requested'}, status=500)
+
+        else:
+            return web.json_response({'message': 'failure: action not speified'}, status=500)
+
+    except Exception as _e:
+        print(f'Failed to merge source: {str(_e)}')
+
+        return web.json_response({'message': f'merging failed: {str(_e)}'}, status=500)
 
 
 ''' search ZTF light curve db '''

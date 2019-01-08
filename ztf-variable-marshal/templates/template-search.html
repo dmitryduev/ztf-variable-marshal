@@ -288,7 +288,7 @@ Examples:
             html.push("</div>");
 
             html.push("<div class=\"col-12 p-0 m-0\">");
-            html.push("<button type='button' " + "onclick='source_merge(" + row['ra'] + ", " + row['dec'] + ")'" +
+            html.push("<button type='button' " + "onclick='source_merge(\"" + row['_id'] + "\", " + row['ra'] + ", " + row['dec'] + ")'" +
                 " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-merge'>Merge with existing source <i class='fas fa-plus-square'></i></button>");
             html.push("</div>");
 
@@ -419,7 +419,7 @@ Examples:
         });
 
         // save source
-        function source_save(id) {
+        function source_save(_id) {
             bootbox.confirm({
                 message: "Do you want to save the source to the Marshal assigning a unique id?",
                 buttons: {
@@ -436,7 +436,7 @@ Examples:
                         //console.log(id);
                         $.ajax({url: '{{-script_root-}}/sources',
                             method: 'PUT',
-                            data: JSON.stringify({'_id': id}),
+                            data: JSON.stringify({'_id': _id}),
                             processData: false,
                             contentType: 'application/json',
                             success: function(data) {
@@ -458,7 +458,7 @@ Examples:
         }
 
         // save source
-        function source_merge(ra, dec) {
+        function source_merge(_id, ra, dec) {
             // todo: query own db for source at this position +/- 2"
             var query = {"query_type": "cone_search",
                          "object_coordinates": {
@@ -485,7 +485,7 @@ Examples:
                                 'Could not find any saved sources to merge with within 2\". Consider saving instead.', 'danger');
                         }
                         else {
-                            showFlashingMessage('Info:', 'Success: ' + res, 'success');
+                            // showFlashingMessage('Info:', 'Success: ' + res, 'success');
                             let radios = "";
                             let sn = 1;
                             for (s of res) {
@@ -524,10 +524,26 @@ Examples:
                                 callback: function (result) {
                                     // confirmed?
                                     if (result) {
-                                        // todo:
                                         const source_to_merge_with = document.querySelector('input[name="radios"]:checked').value;
-                                        console.log(source_to_merge_with)
-
+                                        //console.log(source_to_merge_with);
+                                        // merge
+                                        $.ajax({url: '{{-script_root-}}/sources/' + source_to_merge_with,
+                                            method: 'POST',
+                                            data: JSON.stringify({'action': 'merge', '_id': _id}),
+                                            processData: false,
+                                            contentType: 'application/json',
+                                            success: function(data) {
+                                                if (data['message'] === 'success') {
+                                                    showFlashingMessage('Info:', 'Successfully merged source: ' + data['message'], 'success');
+                                                }
+                                                else {
+                                                    showFlashingMessage('Info:', 'Failed to merge source: ' + data['message'], 'danger');
+                                                }
+                                            },
+                                            error: function(data) {
+                                                showFlashingMessage('Info:', 'Failed to merge source', 'danger');
+                                            }
+                                        });
                                     }
                                 }
                             });
