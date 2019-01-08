@@ -359,24 +359,21 @@
                           margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
             };
 
-            {% set lc_temporal_counter = 1 %}
             {% for lc in source['lc'] %}
                 {% if lc['lc_type'] == 'temporal' %}
-                    let data_{{-lc_temporal_counter-}} = {
+                    let data_{{ loop.index }} = {
                         x: {{ lc['dt'] | safe }},
                         mjd: {{ lc['mjd'] }},
                         y: {{ lc['mag'] }},
                         {#error_y: {type: 'data', array: {{ lc['magerr'] }}, visible: false},#}
                         line: {shape: 'spline', width: 0.5},
                         mode: 'lines+markers',
-                        name: 'LC_{{-lc_temporal_counter-}}'
+                        name: 'LC_{{ loop.index }}'
                     };
 
-                    data.push(data_{{-lc_temporal_counter-}});
+                    data.push(data_{{ loop.index }});
 
                     {#Plotly.plot('lc', data_{{-lc_temporal_counter-}}, layout);#}
-
-                    {% set lc_temporal_counter = lc_temporal_counter + 1 %}
 
                 {% endif %}
             {% endfor %}
