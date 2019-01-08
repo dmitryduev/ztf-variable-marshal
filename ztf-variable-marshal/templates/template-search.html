@@ -460,12 +460,14 @@ Examples:
         // save source
         function source_merge(ra, dec) {
             // todo: query own db for source at this position +/- 2"
-            query = {"query_type": "cone_search",
-                     "object_coordinates": {
-                         "radec": "[(280.9939, -20.69490)]",
-                         "cone_search_radius": "2",
-                         "cone_search_unit": "arcsec"},
-                     "catalogs": { "sources": { "filter": "", "projection": "{'_id': 1, ra: 1, dec: 1}" } } };
+            var query = {"query_type": "cone_search",
+                         "object_coordinates": {
+                            "radec": "[("+ ra + ", " + dec + ")]",
+                            "cone_search_radius": "2",
+                            "cone_search_unit": "arcsec"},
+                         "catalogs": {
+                            "sources": { "filter": "{}", "projection": "{'_id': 1, 'ra': 1, 'dec': 1}" } }
+            };
             $.ajax({url: '{{-script_root-}}/query',
                 method: 'PUT',
                 data: JSON.stringify(query),
@@ -473,7 +475,63 @@ Examples:
                 contentType: 'application/json',
                 success: function(data) {
                     if (data['message'] === 'success') {
-                        showFlashingMessage('Info:', 'Success: ' + data['message'], 'success');
+                        // unpack result:
+                        let res = Object.values(data['result']['result_data']['sources'])[0];
+                        //console.log(res);
+
+                        // found nothing?
+                        if (res.length === 0) {
+                            showFlashingMessage('Info:',
+                                'Could not find any saved sources to merge with within 2\". Consider saving instead.', 'danger');
+                        }
+                        else {
+                            showFlashingMessage('Info:', 'Success: ' + res, 'success');
+                            let radios = "";
+                            let sn = 1;
+                            for (s of res) {
+                                if (sn === 1) {
+                                    radios = radios +
+                                        "<div class='form-check'>" +
+                                        "<input class='form-check-input' type='radio' name='radios' id='radio1' value='" + s['_id'] + "' checked>" +
+                                        "<label class='form-check-label' for='radio1'>" +
+                                        JSON.stringify(s) +
+                                        "</label>" +
+                                        "</div>"
+                                }
+                                else {
+                                    radios = radios +
+                                        "<div class='form-check'>" +
+                                        "<input class='form-check-input' type='radio' name='radios' id='radio" + sn + "' value='" + s['_id'] + "'>" +
+                                        "<label class='form-check-label' for='radio" + sn + "'>" +
+                                        JSON.stringify(s) +
+                                        "</label>" +
+                                        "</div>"
+                                }
+                                //console.log(JSON.stringify(s));
+                                //console.log(radios);
+                                sn = sn + 1;
+                            }
+                            bootbox.confirm({
+                                message: "Merge the source with:<br>" + radios,
+                                buttons: {
+                                    cancel: {
+                                        label: '<i class="fas fa-times"></i> Cancel'
+                                    },
+                                    confirm: {
+                                        label: '<i class="fas fa-check"></i> Confirm'
+                                    }
+                                },
+                                callback: function (result) {
+                                    // confirmed?
+                                    if (result) {
+                                        // todo:
+                                        const source_to_merge_with = document.querySelector('input[name="radios"]:checked').value;
+                                        console.log(source_to_merge_with)
+
+                                    }
+                                }
+                            });
+                        }
                     }
                     else {
                         showFlashingMessage('Info:', 'Failure: ' + data['message'], 'danger');
@@ -481,30 +539,9 @@ Examples:
                 },
                 error: function(data) {
                     {#console.log('peechalj');#}
-                    showFlashingMessage('Info:', 'Failed to save source', 'danger');
+                    showFlashingMessage('Info:', 'Failure', 'danger');
                 }
             });
-            // todo: if successful, show bootbox
-            // todo: otherwise, say "nothing to merge with"
-            /*bootbox.confirm({
-                message: "Do you want to merge the source with TOBEFOUNDOUT?",
-                buttons: {
-                    cancel: {
-                        label: '<i class="fas fa-times"></i> Cancel'
-                    },
-                    confirm: {
-                        label: '<i class="fas fa-check"></i> Confirm'
-                    }
-                },
-                callback: function (result) {
-                    // confirmed?
-                    if (result) {
-                        // todo:
-                        console.log(id)
-
-                    }
-                }
-            });*/
         }
 
         {# show flashing messages #}

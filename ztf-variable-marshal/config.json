@@ -29,6 +29,7 @@
   },
 
   "misc": {
-    "logging_level": "debug"
+    "logging_level": "debug",
+    "query_expiration_interval": 10
   }
 }

@@ -851,7 +851,7 @@ async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool = F
         raise Exception('Query failed')
 
 
-@routes.get('/query')
+@routes.put('/query')
 @login_required
 async def query_handler(request):
     """
@@ -868,7 +868,7 @@ async def query_handler(request):
     except Exception as _e:
         print(f'Cannot extract json() from request, trying post(): {str(_e)}')
         _query = await request.post()
-    # print(_r)
+    # print(_query)
 
     # todo: parse and execute query awaiting the result
 
@@ -880,7 +880,7 @@ async def query_handler(request):
             f'query_type {_query["query_type"]} not in {str(known_query_types)}'
 
         _query['user'] = user
-        save = True  # always save to db when querying from the browser
+        save = False  # never save to db when querying from the browser
 
         # tic = time.time()
         task_hash, task_reduced, task_doc = parse_query(_query, save=save)
@@ -890,6 +890,8 @@ async def query_handler(request):
 
         # schedule query execution:
         task_hash, result = await execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save)
+
+        print(result)
 
         return web.json_response({'message': 'success', 'result': result}, status=200, dumps=dumps)
 
