@@ -634,6 +634,7 @@ async def source_handler(request):
             mags = np.array([llc['mag'] for llc in lc['data']])
             magerrs = np.array([llc['magerr'] for llc in lc['data']])
             mjds = np.array([llc['mjd'] for llc in lc['data']])
+            hjds = np.array([llc['hjd'] for llc in lc['data']])
             datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc['data']])
 
             ind_sort = np.argsort(mjds)
@@ -646,6 +647,7 @@ async def source_handler(request):
             lc['mag'] = mags
             lc['magerr'] = magerrs
             lc['mjd'] = mjds
+            lc['hjd'] = hjds
             lc['dt'] = datetimes
 
     context = {'logo': config['server']['logo'],

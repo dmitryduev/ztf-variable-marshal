@@ -175,9 +175,9 @@
                             </div>
                             <div class="col-md-3">
                                 <button type="button" class="btn btn-dark btn-sm"
-                                        id="fold_lc">Set</button>
+                                        id="fold_lc" onclick="setFolding()">Set</button>
                                 <button type="button" class="btn btn-outline-dark btn-sm"
-                                        id="reset_lc">Reset</button>
+                                        id="reset_lc" onclick="unsetFolding()">Reset</button>
                             </div>
                         </div>
 
@@ -343,32 +343,110 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
     <script>
+        {# Plot light curves #}
+        var data = [];
 
-        var layout = {yaxis: {autorange: 'reversed'},
-                      showlegend: true,
-                      {#automargin: true,#}
-                      margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
-        };
+        function plot_lc() {
+            {#// flush first:#}
+            {#Plotly.newPlot('lc');#}
 
-        {% set lc_temporal_counter = 1 %}
-        {% for lc in source['lc'] %}
-            {% if lc['lc_type'] == 'temporal' %}
-                var data_{{-lc_temporal_counter-}} = [{
-                    x: {{ lc['dt'] | safe }},
-                    {#x: {{ lc['mjd'] }},#}
-                    y: {{ lc['mag'] }},
-                    {#error_y: {type: 'data', array: {{ lc['magerr'] }}, visible: false},#}
-                    line: {shape: 'spline', width: 0.5},
-                    mode: 'lines+markers',
-                    name: 'LC_{{-lc_temporal_counter-}}'
-                }];
+            let layout = {yaxis: {autorange: 'reversed'},
+                          showlegend: true,
+                          {#automargin: true,#}
+                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
+            };
 
-                Plotly.plot('lc', data_{{-lc_temporal_counter-}}, layout);
+            {% set lc_temporal_counter = 1 %}
+            {% for lc in source['lc'] %}
+                {% if lc['lc_type'] == 'temporal' %}
+                    let data_{{-lc_temporal_counter-}} = {
+                        x: {{ lc['dt'] | safe }},
+                        mjd: {{ lc['mjd'] }},
+                        y: {{ lc['mag'] }},
+                        {#error_y: {type: 'data', array: {{ lc['magerr'] }}, visible: false},#}
+                        line: {shape: 'spline', width: 0.5},
+                        mode: 'lines+markers',
+                        name: 'LC_{{-lc_temporal_counter-}}'
+                    };
 
-                {% set lc_temporal_counter = lc_temporal_counter + 1 %}
+                    data.push(data_{{-lc_temporal_counter-}});
 
-            {% endif %}
-        {% endfor %}
+                    {#Plotly.plot('lc', data_{{-lc_temporal_counter-}}, layout);#}
+
+                    {% set lc_temporal_counter = lc_temporal_counter + 1 %}
+
+                {% endif %}
+            {% endfor %}
+
+            Plotly.newPlot('lc', data, layout);
+        }
+
+        $(document).ready(function() {
+            plot_lc()
+        });
+
+        {# folding #}
+        function unsetFolding(){
+            data = [];
+            plot_lc();
+        }
+
+        function setFolding(){
+
+            // convert units to days
+            let per = Number($("#fold_lc_period").val());
+            if (per <= 0) return;
+            let units =  $('#fold_lc_unit').val();
+            if (units === 'Minutes') per /= 24*60;
+            else if(units === 'Hours') per /= 24;
+            {#console.log(per);#}
+
+            let layout = {yaxis: {autorange: 'reversed'},
+                          showlegend: true,
+                          {#automargin: true,#}
+                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
+            };
+
+            let data_folded = [];
+
+            let ii = 1;
+            for (const lc_ of data) {
+                {#console.log(lc_.mjd);#}
+                let phase = lc_.mjd;
+                let t_0 = lc_.mjd[0];
+                // let t[0] be zero phase
+                phase = phase.map(function(element){
+                    return ((element - t_0) / per) % 1;
+                });
+                let phase_sorted = phase;
+                phase_sorted.sort();
+
+                {#console.log(phase);#}
+                {#console.log(phase_sorted);#}
+
+                // sort mags:
+                let y = lc_.y;
+                let y_sorted = y
+                    .map((item, index) => [phase[index], item]) // add the phase to sort by
+                    .sort(([count1], [count2]) => count2 - count1) // sort by the phase data
+                    .map(([, item]) => item); // extract the sorted items
+                // ascending order:
+                y_sorted.reverse();
+
+                {#console.log(y_sorted);#}
+
+                data_folded.push({x: phase_sorted,
+                                  y: y_sorted,
+                                  line: {shape: 'spline', width: 0.5},
+                                  mode: 'lines+markers',
+                                  name: 'LC_' + ii});
+
+                ii = ii + 1;
+
+            }
+
+            Plotly.newPlot('lc', data_folded, layout);
+        }
 
         {# init tooltips #}
         $(function () {
