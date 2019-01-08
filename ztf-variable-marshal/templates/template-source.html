@@ -63,7 +63,7 @@
 
         [role="main"] {
             {#padding-top: 48px; /* Space for fixed navbar */#}
-            padding-top: 28px; /* Space for fixed navbar */
+            padding-top: 24px; /* Space for fixed navbar */
         }
 
     </style>
@@ -157,13 +157,70 @@
                             {% set lc_temporal_counter = lc_temporal_counter + 1 %}
                         {% endfor %}
                         <div id="lc" style="width: 100%; height: 500px;"></div>
+
+                        <div class="form-group row mt-3">
+                            <label for="cone_search_radius" class="col-lg-2 control-label">
+                                Folded light curve at
+                            </label>
+
+                            <div class="col-md-4 row">
+                                <input type="text" class="form-control form-control-sm col-lg-6"
+                                       id="fold_lc_period" name="fold_lc_period" placeholder="">
+                                <select class="form-control form-control-sm col-lg-6"
+                                        id="fold_lc_unit" name="fold_lc_unit">
+                                    <option>Min</option>
+                                    <option>Hour</option>
+                                    <option>Days</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="fold_lc">Set</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm"
+                                        id="reset_lc">Reset</button>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-dark btn-sm"
+                                        id="fold_lc">Upload Light Curve <i class='fas fa-plus-square'></i></button>
+
+                        <p class="mt-2">
+                            <span class="badge badge-primary">Note</span>
+                            The uploaded light curve must be in the JSON format following the schema:<br>
+                            <code>
+                                {"telescope": "PO:1.2m",
+                                 "instrument": "ZTF",
+                                 "filter": "zr",
+                                 "lc_type": "temporal",
+                                 "data": [
+                                    {"mjd": mjd, "mag": mag, "magerror": magerror},
+                                 ]}
+                            </code>
+                        </p>
                     </div>
+
                     <div class="tab-pane fade mt-2" id="nav-spectroscopy"
                          role="tabpanel" aria-labelledby="nav-spectroscopy-tab">
                         <p>No spectra found.</p>
 
-                        BUTTON: upload spectrum json
+                        <button type="button" class="btn btn-dark btn-sm"
+                                        id="fold_lc">Upload Spectrum <i class='fas fa-plus-square'></i></button>
+
+                        <p class="mt-2">
+                            <span class="badge badge-info">Note</span>
+                            The uploaded spectrum must be in the JSON format following the schema below:
+                            <code>
+                                {"telescope": "PO:1.2m",
+                                 "instrument": "ZTF",
+                                 "filter": "zr",
+                                 "mjd": mjd,
+                                 "data": [
+                                    {"f": f, "val": val, "unit": unit},
+                                 ]}
+                            </code>
+                        </p>
                     </div>
+
                     <div class="tab-pane fade mt-2" id="nav-finding-chart"
                          role="tabpanel" aria-labelledby="nav-finding-chart-tab">
                         <div class="d-flex align-items-center">
@@ -194,6 +251,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade mt-2" id="nav-visibility"
                          role="tabpanel" aria-labelledby="nav-visibility-tab">
                         <div class="d-flex align-items-center">
@@ -224,11 +282,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade mt-2" id="nav-auxiliary"
                          role="tabpanel" aria-labelledby="nav-auxiliary-tab">
                         <p>Detailed source info</p>
                         <p>Comments</p>
                         <p>Periods</p>
+                        <br>
+                        <p class="danger">Remove source from db</p>
                     </div>
                 </div>
 
