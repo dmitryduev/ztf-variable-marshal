@@ -288,7 +288,7 @@ Examples:
             html.push("</div>");
 
             html.push("<div class=\"col-12 p-0 m-0\">");
-            html.push("<button type='button' " + "onclick='source_merge(\"" + row['_id'] + "\")'" +
+            html.push("<button type='button' " + "onclick='source_merge(" + row['ra'] + ", " + row['dec'] + ")'" +
                 " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-merge'>Merge with existing source <i class='fas fa-plus-square'></i></button>");
             html.push("</div>");
 
@@ -458,11 +458,35 @@ Examples:
         }
 
         // save source
-        function source_merge(id) {
+        function source_merge(ra, dec) {
             // todo: query own db for source at this position +/- 2"
+            query = {"query_type": "cone_search",
+                     "object_coordinates": {
+                         "radec": "[(280.9939, -20.69490)]",
+                         "cone_search_radius": "2",
+                         "cone_search_unit": "arcsec"},
+                     "catalogs": { "sources": { "filter": "", "projection": "{'_id': 1, ra: 1, dec: 1}" } } };
+            $.ajax({url: '{{-script_root-}}/query',
+                method: 'PUT',
+                data: JSON.stringify(query),
+                processData: false,
+                contentType: 'application/json',
+                success: function(data) {
+                    if (data['message'] === 'success') {
+                        showFlashingMessage('Info:', 'Success: ' + data['message'], 'success');
+                    }
+                    else {
+                        showFlashingMessage('Info:', 'Failure: ' + data['message'], 'danger');
+                    }
+                },
+                error: function(data) {
+                    {#console.log('peechalj');#}
+                    showFlashingMessage('Info:', 'Failed to save source', 'danger');
+                }
+            });
             // todo: if successful, show bootbox
             // todo: otherwise, say "nothing to merge with"
-            bootbox.confirm({
+            /*bootbox.confirm({
                 message: "Do you want to merge the source with TOBEFOUNDOUT?",
                 buttons: {
                     cancel: {
@@ -477,9 +501,10 @@ Examples:
                     if (result) {
                         // todo:
                         console.log(id)
+
                     }
                 }
-            });
+            });*/
         }
 
         {# show flashing messages #}
