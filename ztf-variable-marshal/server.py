@@ -1112,27 +1112,36 @@ async def source_get_handler(request):
         return web.json_response(source, status=200, dumps=dumps)
 
     # for the web, reformat/compute data fields:
-    for lc in source['lc']:
-        if lc['lc_type'] == 'temporal':
-            mags = np.array([llc['mag'] for llc in lc['data']])
-            magerrs = np.array([llc['magerr'] for llc in lc['data']])
-            mjds = np.array([llc['mjd'] for llc in lc['data'] if 'mjd' in llc])
-            hjds = np.array([llc['hjd'] for llc in lc['data'] if 'hjd' in llc])
-            datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc['data']])
+    bad_lc = []
+    for ilc, lc in enumerate(source['lc']):
+        try:
+            if lc['lc_type'] == 'temporal':
+                mags = np.array([llc['mag'] for llc in lc['data']])
+                magerrs = np.array([llc['magerr'] for llc in lc['data']])
+                mjds = np.array([llc['mjd'] for llc in lc['data'] if 'mjd' in llc])
+                hjds = np.array([llc['hjd'] for llc in lc['data'] if 'hjd' in llc])
+                datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc['data']])
 
-            ind_sort = np.argsort(mjds)
-            mags = mags[ind_sort].tolist()
-            magerrs = magerrs[ind_sort].tolist()
-            mjds = mjds[ind_sort].tolist()
-            # hjds = hjds[ind_sort].tolist()
-            datetimes = datetimes[ind_sort].tolist()
+                ind_sort = np.argsort(mjds)
+                mags = mags[ind_sort].tolist()
+                magerrs = magerrs[ind_sort].tolist()
+                mjds = mjds[ind_sort].tolist()
+                # hjds = hjds[ind_sort].tolist()
+                datetimes = datetimes[ind_sort].tolist()
 
-            lc.pop('data', None)
-            lc['mag'] = mags
-            lc['magerr'] = magerrs
-            lc['mjd'] = mjds
-            lc['hjd'] = hjds
-            lc['dt'] = datetimes
+                lc.pop('data', None)
+                lc['mag'] = mags
+                lc['magerr'] = magerrs
+                lc['mjd'] = mjds
+                lc['hjd'] = hjds
+                lc['dt'] = datetimes
+
+        except Exception as e:
+            print(str(e))
+            bad_lc.append(ilc)
+
+    for blc in bad_lc[::-1]:
+        source['lc'].pop(blc)
 
     context = {'logo': config['server']['logo'],
                'user': session['user_id'],
@@ -1214,7 +1223,7 @@ async def sources_put_handler(request):
 
         doc['created_by'] = user
         doc['created'] = utc_now()
-        doc['last_updated'] = utc_now()
+        doc['last_modified'] = utc_now()
 
         await request.app['mongo'].sources.insert_one(doc)
 
@@ -1296,7 +1305,8 @@ async def source_post_handler(request):
                       'data': ztf_source['data']}
 
                 await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'lc': lc}})
+                                                              {'$push': {'lc': lc},
+                                                               '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
 
@@ -1310,11 +1320,12 @@ async def source_post_handler(request):
                     assert kk in lc, f'{kk} key not set'
                 for idp, dp in enumerate(lc['data']):
                     # fixme when the time comes:
-                    for kk in ('mjd', 'mag', 'magerror'):
+                    for kk in ('mjd', 'mag', 'magerr'):
                         assert kk in dp, f'{kk} key not set for data point #{idp+1}'
 
                 await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'lc': lc}})
+                                                              {'$push': {'lc': lc},
+                                                               '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
 
