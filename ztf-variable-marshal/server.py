@@ -1126,6 +1126,10 @@ async def source_get_handler(request):
 
                 df.sort_values(by=['mjd'], inplace=True)
 
+                # fixme:
+                if 'hjd' not in df:
+                    df['hjd'] = df['mjd'] + 2400000.5
+
                 # print(df)
 
                 for field in ('mag', 'magerr', 'mjd', 'hjd', 'dt'):
