@@ -1253,18 +1253,16 @@ async def source_post_handler(request):
 
     try:
         _r = await request.json()
-        print(_r)
     except Exception as _e:
         print(f'Cannot extract json() from request, trying post(): {str(_e)}')
         try:
             _r = await request.post()
-            print(_r)
         except Exception as _ee:
             print(f'Cannot extract post() from request, trying multipart(): {str(_ee)}')
             print(await request.text())
             _r = MyMultipartReader(request._headers, request._payload)
             _r = await _r.next()
-            print(_r)
+    # print(_r)
 
     try:
         _id = request.match_info['source_id']
@@ -1311,7 +1309,7 @@ async def source_post_handler(request):
                 return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'upload_lc':
-                # upload custom light curve
+                # upload light curve
 
                 lc = _r['data']
 
@@ -1329,6 +1327,14 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'upload_spectrum':
+                # upload spectrum
+
+                spectrum = _r['data']
+
+                # return web.json_response({'message': 'success'}, status=200)
+                return web.json_response({'message': 'failure: not implemented'}, status=200)
+
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 
@@ -1338,7 +1344,7 @@ async def source_post_handler(request):
     except Exception as _e:
         print(f'Failed to merge source: {str(_e)}')
 
-        return web.json_response({'message': f'merging failed: {str(_e)}'}, status=200)
+        return web.json_response({'message': f'action failed: {str(_e)}'}, status=200)
 
 
 @routes.delete('/sources/{source_id}')
