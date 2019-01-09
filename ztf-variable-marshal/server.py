@@ -1030,7 +1030,7 @@ async def search_post_handler(request):
             # print(object_names, object_coordinates)
 
             object_position_query = dict()
-            object_position_query['coordinates.radec_geojson'] = {'$or': []}
+            object_position_query['$or'] = []
 
             for oi, obj_crd in enumerate(object_coordinates):
                 # convert ra/dec into GeoJSON-friendly format
@@ -1038,10 +1038,12 @@ async def search_post_handler(request):
                 _ra, _dec = radec_str2geojson(*obj_crd)
                 # print(str(obj_crd), _ra, _dec)
 
-                object_position_query['coordinates.radec_geojson']['$or'].append({
-                    '$geoWithin': {'$centerSphere': [[_ra, _dec], cone_search_radius]}})
+                object_position_query['$or'].append({'coordinates.radec_geojson':
+                                                         {'$geoWithin': {'$centerSphere': [[_ra, _dec],
+                                                                                           cone_search_radius]}}})
 
             q = {**q, **object_position_query}
+            q = {'$and': [q]}
 
         # print(q)
         if len(q) == 0:
