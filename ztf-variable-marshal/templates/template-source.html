@@ -434,8 +434,10 @@
             let ii = 1;
             for (const lc_ of data) {
                 {#console.log(lc_.mjd);#}
-                let phase = lc_.mjd;
-                let t_0 = lc_.mjd[0];
+                let phase = lc_.hjd;
+                let t_0 = lc_.hjd[0];
+                {#let phase = lc_.mjd;#}
+                {#let t_0 = lc_.mjd[0];#}
                 // let t[0] be zero phase
                 phase = phase.map(function(element){
                     return ((element - t_0) / per) % 1;
