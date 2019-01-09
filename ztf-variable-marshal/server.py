@@ -1300,6 +1300,24 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'upload_lc':
+                # upload custom light curve
+
+                lc = _r['data']
+
+                # check data format:
+                for kk in ('telescope', 'instrument', 'filter', 'id', 'lc_type', 'data'):
+                    assert kk in lc, f'{kk} key not set'
+                for idp, dp in enumerate(lc['data']):
+                    # fixme when the time comes:
+                    for kk in ('mjd', 'mag', 'magerror'):
+                        assert kk in dp, f'{kk} key not set for data point #{idp+1}'
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'lc': lc}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 
