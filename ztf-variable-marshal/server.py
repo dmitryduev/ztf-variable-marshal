@@ -1,4 +1,4 @@
-from aiohttp import web
+from aiohttp import web, multipart
 import jinja2
 import aiohttp_jinja2
 from aiohttp_session import setup, get_session, session_middleware
@@ -1116,14 +1116,15 @@ async def source_get_handler(request):
         if lc['lc_type'] == 'temporal':
             mags = np.array([llc['mag'] for llc in lc['data']])
             magerrs = np.array([llc['magerr'] for llc in lc['data']])
-            mjds = np.array([llc['mjd'] for llc in lc['data']])
-            hjds = np.array([llc['hjd'] for llc in lc['data']])
+            mjds = np.array([llc['mjd'] for llc in lc['data'] if 'mjd' in llc])
+            hjds = np.array([llc['hjd'] for llc in lc['data'] if 'hjd' in llc])
             datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc['data']])
 
             ind_sort = np.argsort(mjds)
             mags = mags[ind_sort].tolist()
             magerrs = magerrs[ind_sort].tolist()
             mjds = mjds[ind_sort].tolist()
+            # hjds = hjds[ind_sort].tolist()
             datetimes = datetimes[ind_sort].tolist()
 
             lc.pop('data', None)
@@ -1222,7 +1223,12 @@ async def sources_put_handler(request):
     except Exception as _e:
         print(f'Failed to ingest source: {str(_e)}')
 
-        return web.json_response({'message': f'ingestion failed {str(_e)}'}, status=500)
+        return web.json_response({'message': f'ingestion failed {str(_e)}'}, status=200)
+
+
+class MyMultipartReader(multipart.MultipartReader):
+    def _get_boundary(self):
+        return super()._get_boundary()  # + '\r\n'
 
 
 @routes.post('/sources/{source_id}')
@@ -1238,10 +1244,18 @@ async def source_post_handler(request):
 
     try:
         _r = await request.json()
+        print(_r)
     except Exception as _e:
-        # print(f'Cannot extract json() from request, trying post(): {str(_e)}')
-        _r = await request.post()
-    # print(_r)
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        try:
+            _r = await request.post()
+            print(_r)
+        except Exception as _ee:
+            print(f'Cannot extract post() from request, trying multipart(): {str(_ee)}')
+            print(await request.text())
+            _r = MyMultipartReader(request._headers, request._payload)
+            _r = await _r.next()
+            print(_r)
 
     try:
         _id = request.match_info['source_id']
@@ -1287,15 +1301,15 @@ async def source_post_handler(request):
                 return web.json_response({'message': 'success'}, status=200)
 
             else:
-                return web.json_response({'message': 'failure: unknown action requested'}, status=500)
+                return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 
         else:
-            return web.json_response({'message': 'failure: action not speified'}, status=500)
+            return web.json_response({'message': 'failure: action not speified'}, status=200)
 
     except Exception as _e:
         print(f'Failed to merge source: {str(_e)}')
 
-        return web.json_response({'message': f'merging failed: {str(_e)}'}, status=500)
+        return web.json_response({'message': f'merging failed: {str(_e)}'}, status=200)
 
 
 @routes.delete('/sources/{source_id}')
@@ -1328,7 +1342,7 @@ async def source_delete_handler(request):
     except Exception as _e:
         print(f'Failed to merge source: {str(_e)}')
 
-        return web.json_response({'message': f'deletion failed: {str(_e)}'}, status=500)
+        return web.json_response({'message': f'deletion failed: {str(_e)}'}, status=200)
 
 
 ''' search ZTF light curve db '''

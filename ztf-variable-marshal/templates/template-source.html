@@ -188,8 +188,13 @@
 
                         <hr>
 
-                        <button type="button" class="btn btn-dark btn-sm"
-                                        id="upload_lc">Upload Light Curve <i class='fas fa-plus-square'></i></button>
+                        <form id="form_upload_lc" method="post" accept-charset="utf-8">
+                            <label class="btn btn-dark btn-sm btn-file">
+                                Upload Light Curve <i class='fas fa-plus-square'></i>
+                                <input type="file" id="upload_lc" name="upload_lc"
+                                       accept=".json," style="display: none;">
+                            </label>
+                        </form>
 
                         <p class="mt-2">
                             <span class="badge badge-primary">Note</span>
@@ -215,6 +220,14 @@
                     <div class="tab-pane fade mt-2" id="nav-spectroscopy"
                          role="tabpanel" aria-labelledby="nav-spectroscopy-tab">
                         <p>No spectra found.</p>
+
+                        <form id="form_upload_spectrum" method="post" accept-charset="utf-8">
+                            <label class="btn btn-dark btn-sm btn-file">
+                                Upload Spectrum <i class='fas fa-plus-square'></i>
+                                <input type="file" id="upload_spectrum" name="upload_spectrum"
+                                       accept=".json," style="display: none;">
+                            </label>
+                        </form>
 
                         <button type="button" class="btn btn-dark btn-sm"
                                         id="upload_spectrum">Upload Spectrum <i class='fas fa-plus-square'></i></button>
@@ -499,6 +512,48 @@
                     }
                 });
             });
+        });
+
+        {# uploads #}
+
+        // add listeners. when user selects a json file, it will be read into JsonObj variable
+        $(document).on('change', ':file', function(evt) {
+            var input = $(this);
+
+            var files = evt.target.files; // FileList object
+            var f = files[0];
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function() {
+                return function(e) {
+                    // Read in JSON:
+                    let data = JSON.parse(e.target.result);
+                    //console.log(data);
+                    // POST to server:
+                    $.ajax({url: '{{-script_root-}}/sources/{{ source['_id'] }}',
+                        method: 'POST',
+                        data: JSON.stringify({'action': input.attr('name'), 'data': data}),
+                        processData: false,
+                        contentType: 'application/json',
+                        success: function(data) {
+                            if (data['message'] === 'success') {
+                                window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                            }
+                            else {
+                                showFlashingMessage('Info:', 'Failed to upload light curve: ' + data['message'], 'danger');
+                            }
+                        },
+                        error: function(data) {
+                            showFlashingMessage('Info:', 'Failed to upload light curve', 'danger');
+                        }
+                    });
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsText(f);
+
         });
 
         {# init tooltips #}
