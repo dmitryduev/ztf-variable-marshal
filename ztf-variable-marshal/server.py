@@ -979,15 +979,92 @@ async def search_post_handler(request):
     print(_query)
 
     try:
-        sources = await request.app['mongo'].sources.find({},
-                                                          {'coordinates.radec_str': 0,
-                                                           'lc.data': 0}).limit(20). \
-            sort([('created', -1)]).to_list(length=None)
+        # parse query
+        q = dict()
 
-        context = {'logo': config['server']['logo'],
-                   'user': session['user_id'],
-                   'data': sources,
-                   'messages': [['Displaying latest saved sources', 'info']]}
+        # filter set?
+        if len(_query['filter']) > 2:
+            # construct filter
+            _filter = _query['filter']
+            if isinstance(_filter, str):
+                # passed string? evaluate:
+                _filter = literal_eval(_filter.strip())
+            elif isinstance(_filter, dict):
+                # passed dict?
+                _filter = _filter
+            else:
+                raise ValueError('Unsupported filter specification')
+
+            q = {**q, **_filter}
+
+        # cone search?
+        if len(_query['cone_search_radius']) > 0 and len(_query['radec']) > 8:
+            cone_search_radius = float(_query['cone_search_radius'])
+            # convert to rad:
+            if _query['cone_search_unit'] == 'arcsec':
+                cone_search_radius *= np.pi / 180.0 / 3600.
+            elif _query['cone_search_unit'] == 'arcmin':
+                cone_search_radius *= np.pi / 180.0 / 60.
+            elif _query['cone_search_unit'] == 'deg':
+                cone_search_radius *= np.pi / 180.0
+            elif _query['cone_search_unit'] == 'rad':
+                cone_search_radius *= 1
+            else:
+                raise Exception('Unknown cone search unit. Must be in [deg, rad, arcsec, arcmin]')
+
+            # parse coordinate list
+            # print(task['object_coordinates']['radec'])
+            objects = literal_eval(_query['radec'].strip())
+            # print(type(objects), isinstance(objects, dict), isinstance(objects, list))
+
+            # this could either be list [(ra1, dec1), (ra2, dec2), ..] or dict {'name': (ra1, dec1), ...}
+            if isinstance(objects, list):
+                object_coordinates = objects
+                object_names = [str(obj_crd) for obj_crd in object_coordinates]
+            elif isinstance(objects, dict):
+                object_names, object_coordinates = zip(*objects.items())
+                object_names = list(map(str, object_names))
+            else:
+                raise ValueError('Unsupported type of object coordinates')
+
+            # print(object_names, object_coordinates)
+
+            object_position_query = dict()
+            object_position_query['coordinates.radec_geojson'] = {'$or': []}
+
+            for oi, obj_crd in enumerate(object_coordinates):
+                # convert ra/dec into GeoJSON-friendly format
+                # print(obj_crd)
+                _ra, _dec = radec_str2geojson(*obj_crd)
+                # print(str(obj_crd), _ra, _dec)
+
+                object_position_query['coordinates.radec_geojson']['$or'].append({
+                    '$geoWithin': {'$centerSphere': [[_ra, _dec], cone_search_radius]}})
+
+            q = {**q, **object_position_query}
+
+        # print(q)
+        if len(q) == 0:
+            context = {'logo': config['server']['logo'],
+                       'user': session['user_id'],
+                       'data': [],
+                       'form': _query,
+                       'messages': [[f'Empty query', 'danger']]}
+
+        else:
+
+            sources = await request.app['mongo'].sources.find(q,
+                                                              {'coordinates.radec_str': 0,
+                                                               'lc.data': 0}). \
+                sort([('created', -1)]).to_list(length=None)
+
+            context = {'logo': config['server']['logo'],
+                       'user': session['user_id'],
+                       'data': sources,
+                       'form': _query}
+
+            if len(sources) == 0:
+                context['messages'] = [['No sources found', 'info']]
 
         response = aiohttp_jinja2.render_template('template-sources.html',
                                                   request,
@@ -1001,6 +1078,7 @@ async def search_post_handler(request):
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
                    'data': [],
+                   'form': _query,
                    'messages': [[f'Error: {str(_e)}', 'danger']]}
 
         response = aiohttp_jinja2.render_template('template-sources.html',
