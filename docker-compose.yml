@@ -18,14 +18,14 @@ services:
       - "8000:8080"
     restart: always
 
-  ztf_variable_marshal:
+  marshal:
     build: .
     volumes:
       - data:/data
     expose:
       - "4000"
     links:
-      - mongo:kowalski-mongo
+      - mongo:ztf_variable_marshal_mongo_1
     restart: always
     depends_on:
       - mongo
@@ -34,7 +34,6 @@ services:
       - "traefik.basic.frontend.rule=Host:skipper.caltech.edu"
       - "traefik.basic.port=4000"
       - "traefik.basic.protocol=http"
-
 
   mongo:
     image: mongo

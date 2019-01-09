@@ -916,31 +916,98 @@ async def sources_get_handler(request):
     # get session:
     session = await get_session(request)
 
-    # todo: display light curves?
+    try:
 
-    # get last 20 added sources
-    # sources = await request.app['mongo'].sources.find({},
-    #                                                   {'_id': 1,
-    #                                                    'ra': 1,
-    #                                                    'dec': 1,
-    #                                                    'p': 1,
-    #                                                    'source_type': 1,
-    #                                                    'created': 1}).limit(10).sort({'created': -1}).to_list(
-    #     length=None)
-    sources = await request.app['mongo'].sources.find({},
-                                                      {'coordinates': 0,
-                                                       'lc.data': 0}).limit(20).\
-        sort([('created', -1)]).to_list(length=None)
+        # todo: display light curves?
 
-    context = {'logo': config['server']['logo'],
-               'user': session['user_id'],
-               'data': sources,
-               'messages': [['Displaying latest saved sources', 'info']]}
+        # get last 20 added sources
+        # sources = await request.app['mongo'].sources.find({},
+        #                                                   {'_id': 1,
+        #                                                    'ra': 1,
+        #                                                    'dec': 1,
+        #                                                    'p': 1,
+        #                                                    'source_type': 1,
+        #                                                    'created': 1}).limit(10).sort({'created': -1}).to_list(
+        #     length=None)
+        sources = await request.app['mongo'].sources.find({},
+                                                          {'coordinates': 0,
+                                                           'lc.data': 0}).limit(20).\
+            sort([('created', -1)]).to_list(length=None)
 
-    response = aiohttp_jinja2.render_template('template-sources.html',
-                                              request,
-                                              context)
-    return response
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'data': sources,
+                   'messages': [['Displaying latest saved sources', 'info']]}
+
+        response = aiohttp_jinja2.render_template('template-sources.html',
+                                                  request,
+                                                  context)
+        return response
+
+    except Exception as _e:
+        print(f'Error: {str(_e)}')
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'data': [],
+                   'messages': [[f'Encountered error while loading sources: {str(_e)}', 'danger']]}
+
+        response = aiohttp_jinja2.render_template('template-sources.html',
+                                                  request,
+                                                  context)
+        return response
+
+
+@routes.post('/sources')
+@login_required
+async def search_post_handler(request):
+    """
+        Process query to own db from browser
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _query = await request.json()
+    except Exception as _e:
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        # _err = traceback.format_exc()
+        # print(_err)
+        _query = await request.post()
+    print(_query)
+
+    try:
+        sources = await request.app['mongo'].sources.find({},
+                                                          {'coordinates.radec_str': 0,
+                                                           'lc.data': 0}).limit(20). \
+            sort([('created', -1)]).to_list(length=None)
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'data': sources,
+                   'messages': [['Displaying latest saved sources', 'info']]}
+
+        response = aiohttp_jinja2.render_template('template-sources.html',
+                                                  request,
+                                                  context)
+        return response
+
+    except Exception as _e:
+
+        print(f'Error: {str(_e)}')
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'data': [],
+                   'messages': [[f'Error: {str(_e)}', 'danger']]}
+
+        response = aiohttp_jinja2.render_template('template-sources.html',
+                                                  request,
+                                                  context)
+
+        return response
 
 
 @routes.get('/sources/{source_id}')
