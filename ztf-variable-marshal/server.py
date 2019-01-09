@@ -20,6 +20,7 @@ import pathlib
 import shutil
 import re
 import numpy as np
+import pandas as pd
 import string
 import random
 import traceback
@@ -1116,25 +1117,19 @@ async def source_get_handler(request):
     for ilc, lc in enumerate(source['lc']):
         try:
             if lc['lc_type'] == 'temporal':
-                mags = np.array([llc['mag'] for llc in lc['data']])
-                magerrs = np.array([llc['magerr'] for llc in lc['data']])
-                mjds = np.array([llc['mjd'] for llc in lc['data'] if 'mjd' in llc])
-                hjds = np.array([llc['hjd'] for llc in lc['data'] if 'hjd' in llc])
-                datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc['data']])
-
-                ind_sort = np.argsort(mjds)
-                mags = mags[ind_sort].tolist()
-                magerrs = magerrs[ind_sort].tolist()
-                mjds = mjds[ind_sort].tolist()
-                # hjds = hjds[ind_sort].tolist()
-                datetimes = datetimes[ind_sort].tolist()
-
+                # convert to pandas dataframe and replace nans with zeros:
+                df = pd.DataFrame(lc['data']).fillna(0)
+                # don't need this anymore:
                 lc.pop('data', None)
-                lc['mag'] = mags
-                lc['magerr'] = magerrs
-                lc['mjd'] = mjds
-                lc['hjd'] = hjds
-                lc['dt'] = datetimes
+
+                df['dt'] = df['mjd'].apply(lambda x: mjd_to_datetime(x).strftime('%Y-%m-%d %H:%M:%S'))
+
+                df.sort_values(by=['mjd'], inplace=True)
+
+                # print(df)
+
+                for field in ('mag', 'magerr', 'mjd', 'hjd', 'dt'):
+                    lc[field] = df[field].values.tolist() if field in df else []
 
         except Exception as e:
             print(str(e))

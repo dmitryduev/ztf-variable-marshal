@@ -383,8 +383,14 @@
                     let data_{{ loop.index }} = {
                         x: {{ lc['dt'] | safe }},
                         mjd: {{ lc['mjd'] }},
+                        hjd: {{ lc['hjd'] }},
                         y: {{ lc['mag'] }},
-                        {#error_y: {type: 'data', array: {{ lc['magerr'] }}, visible: false},#}
+                        error_y: {type: 'data',
+                                  array: {{ lc['magerr'] }},
+                                  width: 2,
+                                  thickness: 0.8,
+                                  opacity: 0.5,
+                                  visible: true},
                         line: {shape: 'spline', width: 0.5},
                         mode: 'lines+markers',
                         name: 'LC_{{ loop.index }}'
@@ -442,27 +448,28 @@
                 phase = phase.map(function(element){
                     return ((element - t_0) / per) % 1;
                 });
-                let phase_sorted = phase;
-                phase_sorted.sort();
-
+                {#let phase_sorted = phase;#}
+                {#phase_sorted.sort();#}
+                {##}
                 {#console.log(phase);#}
                 {#console.log(phase_sorted);#}
-
-                // sort mags:
-                let y = lc_.y;
-                let y_sorted = y
-                    .map((item, index) => [phase[index], item]) // add the phase to sort by
-                    .sort(([count1], [count2]) => count2 - count1) // sort by the phase data
-                    .map(([, item]) => item); // extract the sorted items
-                // ascending order:
-                y_sorted.reverse();
+                {##}
+                {#// sort mags:#}
+                {#let y = lc_.y;#}
+                {#let y_sorted = y#}
+                {#    .map((item, index) => [phase[index], item]) // add the phase to sort by#}
+                {#    .sort(([count1], [count2]) => count2 - count1) // sort by the phase data#}
+                {#    .map(([, item]) => item); // extract the sorted items#}
+                {#// ascending order:#}
+                {#y_sorted.reverse();#}
 
                 {#console.log(y_sorted);#}
 
-                data_folded.push({x: phase_sorted,
-                                  y: y_sorted,
+                data_folded.push({x: phase,
+                                  y: lc_.y,
+                                  error_y: lc_.error_y,
                                   line: {shape: 'spline', width: 0.5},
-                                  mode: 'lines+markers',
+                                  mode: 'markers',
                                   name: 'LC_' + ii});
 
                 ii = ii + 1;
