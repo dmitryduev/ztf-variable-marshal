@@ -25,6 +25,8 @@ import string
 import random
 import traceback
 from penquins import Kowalski
+import astropy.units as u
+from astropy.coordinates import SkyCoord
 
 from utils import *
 
@@ -1204,9 +1206,14 @@ async def sources_put_handler(request):
 
         source_id = source_id_base + postfix
 
+        c = SkyCoord(ra=ztf_source['ra'] * u.degree, dec=ztf_source['dec'] * u.degree, frame='icrs')
+
         doc['_id'] = source_id
         doc['ra'] = ztf_source['ra']
         doc['dec'] = ztf_source['dec']
+        # Galactic coordinates:
+        doc['l'] = c.galactic.l.degree  # longitude
+        doc['b'] = c.galactic.b.degree  # latitude
         doc['coordinates'] = ztf_source['coordinates']
         # [{'period': float, 'period_error': float}]:
         doc['p'] = []
