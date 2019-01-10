@@ -100,7 +100,7 @@
                         {{ source['ra'] }} &nbsp;&nbsp; {{ source['dec'] }}<br>
 
                         Galactic Lon/Lat, &#176;:<br>
-                        {{ source['l'] }} &nbsp;&nbsp; {{ source['b'] }}<br><br>
+                        {{ '%0.6f'| format(source['l']) }} &nbsp;&nbsp; {{ '%0.6f'| format(source['b']) }}<br><br>
 
                         TODO: MORE INFO<br><br>
                     </div>
