@@ -963,7 +963,7 @@ async def sources_get_handler(request):
 
 @routes.post('/sources')
 @login_required
-async def search_post_handler(request):
+async def sources_post_handler(request):
     """
         Process query to own db from browser
     :param request:
@@ -1274,6 +1274,7 @@ async def source_post_handler(request):
     """
     # get session:
     session = await get_session(request)
+    user = session['user_id']
 
     try:
         _r = await request.json()
@@ -1286,7 +1287,7 @@ async def source_post_handler(request):
             print(await request.text())
             _r = MyMultipartReader(request._headers, request._payload)
             _r = await _r.next()
-    # print(_r)
+    print(_r)
 
     try:
         _id = request.match_info['source_id']
@@ -1352,12 +1353,29 @@ async def source_post_handler(request):
                 return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'upload_spectrum':
-                # upload spectrum
+                # todo: upload spectrum
 
                 spectrum = _r['data']
 
                 # return web.json_response({'message': 'success'}, status=200)
                 return web.json_response({'message': 'failure: not implemented'}, status=200)
+
+            elif _r['action'] == 'add_note':
+                # todo: add note
+                note = _r['note']
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'note',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': note}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'history': h},
+                                                               '$set': {'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
 
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)

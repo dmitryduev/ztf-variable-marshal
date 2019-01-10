@@ -458,9 +458,9 @@ Examples:
             });
         }
 
-        // save source
+        // merge source
         function source_merge(_id, ra, dec) {
-            // todo: query own db for source at this position +/- 2"
+            // query own db for source at this position +/- 2"
             var query = {"query_type": "cone_search",
                          "object_coordinates": {
                             "radec": "[("+ ra + ", " + dec + ")]",

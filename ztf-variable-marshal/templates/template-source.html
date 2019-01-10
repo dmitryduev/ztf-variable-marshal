@@ -102,7 +102,7 @@
                         Galactic Lon/Lat, &#176;:<br>
                         {{ '%0.6f'| format(source['l']) }} &nbsp;&nbsp; {{ '%0.6f'| format(source['b']) }}<br><br>
 
-                        TODO: MORE INFO<br><br>
+                        {# TODO: MORE INFO<br><br> #}
                     </div>
 
 {#                    <ul class="nav flex-column">#}
@@ -315,16 +315,6 @@
 
                     <div class="tab-pane fade mt-2" id="nav-auxiliary"
                          role="tabpanel" aria-labelledby="nav-auxiliary-tab">
-                        <p>
-                            Complete source database entry:<br>
-                            <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
-                               class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
-                                JSON <i class='fas fa-download'></i></a>
-                        </p>
-                        <hr>
-
-                        <p>TODO: View/add/edit Comments, notes</p>
-                        <p>TODO: Classifications, periods, flags</p>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -353,13 +343,21 @@
                                     Notes: <button type="button" class="btn btn-dark btn-sm"
                                                    id="add_note" onclick="add_note()">
                                     <i class='fas fa-plus-square'></i></button><br>
-                                    {% for note in source['history'] %}
-                                        {{ note }}
+                                    {% for note in source['history'] | reverse %}
+                                        {{ note['time_tag'].strftime('%Y-%b-%d') }} <b>{{ note['user'] }}</b>
+                                        [{{ note['note_type'] }}]: {{ note['note'] }}<br>
                                     {% endfor %}
                                 </p>
                             </div>
                         </div>
+                        <hr>
 
+                        <p>
+                            Complete source database entry:<br>
+                            <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
+                               class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
+                                JSON <i class='fas fa-download'></i></a>
+                        </p>
                         <hr>
 
                         <button type="button" class="btn btn-danger btn-sm"
@@ -606,6 +604,54 @@
             reader.readAsText(f);
 
         });
+
+        {# classification #}
+        function add_note() {
+            var txt_area = "<div class='form-group'>" +
+                "<label for='note_textarea'>Add note:</label>" +
+                "<textarea class='form-control' id='note_textarea' rows='5'></textarea>" +
+                "</div>";
+
+            bootbox.confirm({
+                message: txt_area,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Save'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // get note
+                        var note = $("#note_textarea").val();
+
+                        if (note.length > 0) {
+                            $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                                method: 'POST',
+                                data: JSON.stringify({'action': 'add_note', 'note': note}),
+                                processData: false,
+                                contentType: 'application/json',
+                                success: function(data) {
+                                    if (data['message'] === 'success') {
+                                        showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
+                                        window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    }
+                                    else {
+                                        showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
+                                    }
+                                },
+                                error: function(data) {
+                                    showFlashingMessage('Info:', 'Failed to add note', 'danger');
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
 
         {# init tooltips #}
         $(function () {
