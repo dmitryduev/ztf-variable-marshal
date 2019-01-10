@@ -1115,6 +1115,7 @@ async def source_get_handler(request):
         return web.json_response(source, status=200, dumps=dumps)
 
     # for the web, reformat/compute data fields:
+    # light curves
     bad_lc = []
     for ilc, lc in enumerate(source['lc']):
         try:
@@ -1143,6 +1144,32 @@ async def source_get_handler(request):
 
     for blc in bad_lc[::-1]:
         source['lc'].pop(blc)
+
+    # spectra
+    bad_spec = []
+    for ispec, spec in enumerate(source['spec']):
+        try:
+            # convert to pandas dataframe and replace nans with zeros:
+            df = pd.DataFrame(spec['data']).fillna(0)
+            # don't need this anymore:
+            spec.pop('data', None)
+
+            # todo: transform data if necessary, e.g. convert to same units etc
+            # df['dt'] = df['mjd'].apply(lambda x: mjd_to_datetime(x).strftime('%Y-%m-%d %H:%M:%S'))
+
+            df.sort_values(by=['wavelength'], inplace=True)
+
+            # print(df)
+
+            for field in ('wavelength', 'flux', 'fluxerr'):
+                spec[field] = df[field].values.tolist() if field in df else []
+
+        except Exception as e:
+            print(str(e))
+            bad_spec.append(ispec)
+
+    for bspec in bad_spec[::-1]:
+        source['spec'].pop(bspec)
 
     # source types and tags:
     source_types = config['misc']['source_types']
