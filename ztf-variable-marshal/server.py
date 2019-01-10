@@ -1232,6 +1232,9 @@ async def sources_put_handler(request):
         doc['source_flags'] = []
         doc['history'] = []
 
+        # spectra
+        doc['spec'] = []
+
         # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
         lc = {'telescope': 'PO:1.2m',
               'instrument': 'ZTF',

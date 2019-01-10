@@ -1,0 +1,14 @@
+{"telescope": "KPNO:2.1m",
+ "instrument": "KPED",
+ "filter": "V",
+ "id": 123456789,
+ "lc_type": "temporal",
+ "comment": "example fake data",
+ "data": [
+   {"mjd": 58400.0, "hjd": 2458400.5, "mag": 19.0, "magerr": 0.05},
+   {"mjd": 58401.0, "hjd": 2458401.5, "mag": 19.1, "magerr": 0.05},
+   {"mjd": 58402.5, "hjd": 2458403.0, "mag": 18.9, "magerr": 0.05},
+   {"mjd": 58404.0, "hjd": 2458404.5, "mag": 19.2, "magerr": 0.05},
+   {"mjd": 58407.0, "hjd": 2458407.5, "mag": 18.7, "magerr": 0.05}
+ ]
+}

@@ -1,0 +1,10764 @@
+{
+  "telescope": "PO:5m",
+  "instrument": "DBSP",
+  "filter": "V",
+  "mjd": 58400.0,
+  "comment": "random DBSP spectrum",
+  "data": [
+    {
+      "wavelength": 3400.0,
+      "flux": 20688.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3401.07,
+      "flux": 23494.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3402.14,
+      "flux": 23069.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3403.21,
+      "flux": 22004.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3404.28,
+      "flux": 23031.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3405.35,
+      "flux": 24969.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3406.42,
+      "flux": 23167.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3407.49,
+      "flux": 22169.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3408.56,
+      "flux": 21400.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3409.63,
+      "flux": 21285.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3410.7,
+      "flux": 21219.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3411.77,
+      "flux": 21789.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3412.84,
+      "flux": 22235.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3413.91,
+      "flux": 19718.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3414.98,
+      "flux": 20633.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3416.05,
+      "flux": 20072.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3417.12,
+      "flux": 19554.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3418.19,
+      "flux": 18293.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3419.26,
+      "flux": 19407.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3420.33,
+      "flux": 22282.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3421.4,
+      "flux": 20822.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3422.47,
+      "flux": 20693.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3423.54,
+      "flux": 24548.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3424.61,
+      "flux": 20526.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3425.68,
+      "flux": 21364.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3426.75,
+      "flux": 18352.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3427.82,
+      "flux": 18239.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3428.89,
+      "flux": 17133.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3429.96,
+      "flux": 19720.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3431.03,
+      "flux": 19123.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3432.1,
+      "flux": 18871.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3433.17,
+      "flux": 19407.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3434.24,
+      "flux": 18448.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3435.31,
+      "flux": 19437.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3436.38,
+      "flux": 19586.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3437.45,
+      "flux": 19893.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3438.52,
+      "flux": 18151.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3439.59,
+      "flux": 20146.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3440.66,
+      "flux": 20980.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3441.73,
+      "flux": 17077.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3442.8,
+      "flux": 20020.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3443.87,
+      "flux": 22310.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3444.94,
+      "flux": 21906.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3446.01,
+      "flux": 23712.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3447.08,
+      "flux": 23855.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3448.15,
+      "flux": 20305.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3449.22,
+      "flux": 21029.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3450.29,
+      "flux": 24454.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3451.36,
+      "flux": 27913.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3452.43,
+      "flux": 24316.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3453.5,
+      "flux": 25544.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3454.57,
+      "flux": 27228.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3455.64,
+      "flux": 27491.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3456.71,
+      "flux": 23670.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3457.78,
+      "flux": 24907.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3458.85,
+      "flux": 23791.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3459.92,
+      "flux": 28039.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3460.99,
+      "flux": 25228.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3462.06,
+      "flux": 22920.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3463.13,
+      "flux": 26196.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3464.2,
+      "flux": 26516.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3465.27,
+      "flux": 26377.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3466.34,
+      "flux": 26121.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3467.41,
+      "flux": 24185.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3468.48,
+      "flux": 23362.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3469.55,
+      "flux": 24747.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3470.62,
+      "flux": 25797.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3471.69,
+      "flux": 23328.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3472.76,
+      "flux": 25382.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3473.83,
+      "flux": 25213.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3474.9,
+      "flux": 23060.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3475.97,
+      "flux": 24286.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3477.04,
+      "flux": 26091.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3478.11,
+      "flux": 24726.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3479.18,
+      "flux": 24318.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3480.25,
+      "flux": 23023.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3481.32,
+      "flux": 27230.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3482.39,
+      "flux": 27069.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3483.46,
+      "flux": 22162.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3484.53,
+      "flux": 27564.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3485.6,
+      "flux": 27444.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3486.67,
+      "flux": 24982.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3487.74,
+      "flux": 23675.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3488.81,
+      "flux": 21373.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3489.88,
+      "flux": 25011.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3490.95,
+      "flux": 27104.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3492.02,
+      "flux": 23853.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3493.09,
+      "flux": 21693.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3494.16,
+      "flux": 23631.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3495.23,
+      "flux": 26409.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3496.3,
+      "flux": 27070.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3497.37,
+      "flux": 26244.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3498.44,
+      "flux": 27230.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3499.51,
+      "flux": 26233.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3500.58,
+      "flux": 26699.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3501.65,
+      "flux": 26732.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3502.72,
+      "flux": 26797.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3503.79,
+      "flux": 28773.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3504.86,
+      "flux": 32845.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3505.93,
+      "flux": 33744.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3507.0,
+      "flux": 29948.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3508.07,
+      "flux": 30160.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3509.14,
+      "flux": 30769.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3510.21,
+      "flux": 30287.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3511.28,
+      "flux": 31032.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3512.35,
+      "flux": 32577.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3513.42,
+      "flux": 32406.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3514.49,
+      "flux": 31000.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3515.56,
+      "flux": 32134.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3516.63,
+      "flux": 32662.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3517.7,
+      "flux": 34767.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3518.77,
+      "flux": 34387.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3519.84,
+      "flux": 31632.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3520.91,
+      "flux": 31857.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3521.98,
+      "flux": 33677.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3523.05,
+      "flux": 34658.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3524.12,
+      "flux": 34762.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3525.19,
+      "flux": 34591.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3526.26,
+      "flux": 33936.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3527.33,
+      "flux": 33533.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3528.4,
+      "flux": 34365.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3529.47,
+      "flux": 34554.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3530.54,
+      "flux": 32211.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3531.61,
+      "flux": 30986.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3532.68,
+      "flux": 34055.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3533.75,
+      "flux": 33989.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3534.82,
+      "flux": 34265.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3535.89,
+      "flux": 33880.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3536.96,
+      "flux": 33056.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3538.03,
+      "flux": 33478.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3539.1,
+      "flux": 33245.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3540.17,
+      "flux": 32579.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3541.24,
+      "flux": 35287.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3542.31,
+      "flux": 34408.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3543.38,
+      "flux": 32230.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3544.45,
+      "flux": 28335.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3545.52,
+      "flux": 28625.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3546.59,
+      "flux": 28975.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3547.66,
+      "flux": 27866.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3548.73,
+      "flux": 28139.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3549.8,
+      "flux": 28943.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3550.87,
+      "flux": 30571.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3551.94,
+      "flux": 28454.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3553.01,
+      "flux": 27568.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3554.08,
+      "flux": 32715.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3555.15,
+      "flux": 30409.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3556.22,
+      "flux": 29188.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3557.29,
+      "flux": 27704.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3558.36,
+      "flux": 27839.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3559.43,
+      "flux": 32435.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3560.5,
+      "flux": 29101.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3561.57,
+      "flux": 26565.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3562.64,
+      "flux": 28623.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3563.71,
+      "flux": 29601.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3564.78,
+      "flux": 31915.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3565.85,
+      "flux": 32333.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3566.92,
+      "flux": 33978.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3567.99,
+      "flux": 32163.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3569.06,
+      "flux": 31385.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3570.13,
+      "flux": 33338.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3571.2,
+      "flux": 33560.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3572.27,
+      "flux": 34429.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3573.34,
+      "flux": 32937.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3574.41,
+      "flux": 32712.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3575.48,
+      "flux": 33436.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3576.55,
+      "flux": 32249.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3577.62,
+      "flux": 31088.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3578.69,
+      "flux": 36561.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3579.76,
+      "flux": 36129.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3580.83,
+      "flux": 36662.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3581.9,
+      "flux": 38287.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3582.97,
+      "flux": 36691.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3584.04,
+      "flux": 34448.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3585.11,
+      "flux": 35633.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3586.18,
+      "flux": 36567.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3587.25,
+      "flux": 34782.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3588.32,
+      "flux": 36177.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3589.39,
+      "flux": 39288.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3590.46,
+      "flux": 40056.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3591.53,
+      "flux": 40454.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3592.6,
+      "flux": 38384.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3593.67,
+      "flux": 37848.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3594.74,
+      "flux": 39541.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3595.81,
+      "flux": 40928.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3596.88,
+      "flux": 39869.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3597.95,
+      "flux": 40702.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3599.02,
+      "flux": 40881.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3600.09,
+      "flux": 40355.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3601.16,
+      "flux": 39903.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3602.23,
+      "flux": 39621.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3603.3,
+      "flux": 39246.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3604.37,
+      "flux": 40889.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3605.44,
+      "flux": 41196.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3606.51,
+      "flux": 40636.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3607.58,
+      "flux": 39185.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3608.65,
+      "flux": 39595.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3609.72,
+      "flux": 38500.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3610.79,
+      "flux": 37315.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3611.86,
+      "flux": 37183.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3612.93,
+      "flux": 36786.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3614.0,
+      "flux": 37459.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3615.07,
+      "flux": 36270.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3616.14,
+      "flux": 37063.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3617.21,
+      "flux": 37272.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3618.28,
+      "flux": 38383.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3619.35,
+      "flux": 36565.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3620.42,
+      "flux": 37350.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3621.49,
+      "flux": 37791.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3622.56,
+      "flux": 36003.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3623.63,
+      "flux": 35277.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3624.7,
+      "flux": 37583.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3625.77,
+      "flux": 35770.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3626.84,
+      "flux": 35360.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3627.91,
+      "flux": 35238.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3628.98,
+      "flux": 35170.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3630.05,
+      "flux": 35281.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3631.12,
+      "flux": 35034.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3632.19,
+      "flux": 32875.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3633.26,
+      "flux": 31952.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3634.33,
+      "flux": 34007.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3635.4,
+      "flux": 32078.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3636.47,
+      "flux": 33613.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3637.54,
+      "flux": 35985.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3638.61,
+      "flux": 35755.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3639.68,
+      "flux": 35303.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3640.75,
+      "flux": 35894.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3641.82,
+      "flux": 36714.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3642.89,
+      "flux": 35976.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3643.96,
+      "flux": 35091.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3645.03,
+      "flux": 35316.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3646.1,
+      "flux": 37657.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3647.17,
+      "flux": 40238.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3648.24,
+      "flux": 40895.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3649.31,
+      "flux": 40025.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3650.38,
+      "flux": 38149.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3651.45,
+      "flux": 38009.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3652.52,
+      "flux": 38705.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3653.59,
+      "flux": 39794.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3654.66,
+      "flux": 40782.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3655.73,
+      "flux": 41133.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3656.8,
+      "flux": 40796.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3657.87,
+      "flux": 42549.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3658.94,
+      "flux": 42907.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3660.01,
+      "flux": 43719.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3661.08,
+      "flux": 43953.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3662.15,
+      "flux": 43220.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3663.22,
+      "flux": 44623.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3664.29,
+      "flux": 43676.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3665.36,
+      "flux": 43226.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3666.43,
+      "flux": 44166.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3667.5,
+      "flux": 44385.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3668.57,
+      "flux": 45987.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3669.64,
+      "flux": 46005.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3670.71,
+      "flux": 44703.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3671.78,
+      "flux": 44668.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3672.85,
+      "flux": 46688.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3673.92,
+      "flux": 44776.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3674.99,
+      "flux": 45170.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3676.06,
+      "flux": 45331.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3677.13,
+      "flux": 46318.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3678.2,
+      "flux": 46302.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3679.27,
+      "flux": 45046.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3680.34,
+      "flux": 46487.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3681.41,
+      "flux": 45627.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3682.48,
+      "flux": 46097.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3683.55,
+      "flux": 45741.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3684.62,
+      "flux": 46720.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3685.69,
+      "flux": 46078.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3686.76,
+      "flux": 46993.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3687.83,
+      "flux": 48412.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3688.9,
+      "flux": 46557.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3689.97,
+      "flux": 46887.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3691.04,
+      "flux": 44728.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3692.11,
+      "flux": 44877.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3693.18,
+      "flux": 45706.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3694.25,
+      "flux": 45652.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3695.32,
+      "flux": 47076.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3696.39,
+      "flux": 45814.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3697.46,
+      "flux": 42977.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3698.53,
+      "flux": 44628.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3699.6,
+      "flux": 47684.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3700.67,
+      "flux": 47167.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3701.74,
+      "flux": 46023.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3702.81,
+      "flux": 43218.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3703.88,
+      "flux": 40186.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3704.95,
+      "flux": 37794.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3706.02,
+      "flux": 39011.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3707.09,
+      "flux": 45398.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3708.16,
+      "flux": 45793.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3709.23,
+      "flux": 43921.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3710.3,
+      "flux": 40158.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3711.37,
+      "flux": 38687.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3712.44,
+      "flux": 36571.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3713.51,
+      "flux": 37736.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3714.58,
+      "flux": 41571.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3715.65,
+      "flux": 47383.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3716.72,
+      "flux": 46024.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3717.79,
+      "flux": 45530.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3718.86,
+      "flux": 44255.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3719.93,
+      "flux": 41122.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3721.0,
+      "flux": 37016.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3722.07,
+      "flux": 33385.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3723.14,
+      "flux": 34828.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3724.21,
+      "flux": 40001.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3725.28,
+      "flux": 42610.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3726.35,
+      "flux": 45344.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3727.42,
+      "flux": 48990.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3728.49,
+      "flux": 47978.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3729.56,
+      "flux": 47567.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3730.63,
+      "flux": 47281.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3731.7,
+      "flux": 45719.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3732.77,
+      "flux": 40663.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3733.84,
+      "flux": 37400.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3734.91,
+      "flux": 37218.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3735.98,
+      "flux": 40844.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3737.05,
+      "flux": 44668.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3738.12,
+      "flux": 47844.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3739.19,
+      "flux": 51726.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3740.26,
+      "flux": 54497.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3741.33,
+      "flux": 55677.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3742.4,
+      "flux": 56676.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3743.47,
+      "flux": 55953.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3744.54,
+      "flux": 56760.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3745.61,
+      "flux": 57832.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3746.68,
+      "flux": 55213.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3747.75,
+      "flux": 51086.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3748.82,
+      "flux": 45781.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3749.89,
+      "flux": 41308.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3750.96,
+      "flux": 41628.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3752.03,
+      "flux": 47197.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3753.1,
+      "flux": 52695.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3754.17,
+      "flux": 59221.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3755.24,
+      "flux": 61722.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3756.31,
+      "flux": 62150.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3757.38,
+      "flux": 63324.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3758.45,
+      "flux": 64415.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3759.52,
+      "flux": 65733.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3760.59,
+      "flux": 65978.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3761.66,
+      "flux": 66785.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3762.73,
+      "flux": 65716.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3763.8,
+      "flux": 66490.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3764.87,
+      "flux": 67510.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3765.94,
+      "flux": 65566.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3767.01,
+      "flux": 61545.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3768.08,
+      "flux": 56704.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3769.15,
+      "flux": 51457.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3770.22,
+      "flux": 46882.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3771.29,
+      "flux": 46529.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3772.36,
+      "flux": 49846.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3773.43,
+      "flux": 56358.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3774.5,
+      "flux": 61778.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3775.57,
+      "flux": 66478.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3776.64,
+      "flux": 68096.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3777.71,
+      "flux": 69187.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3778.78,
+      "flux": 70699.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3779.85,
+      "flux": 71067.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3780.92,
+      "flux": 70181.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3781.99,
+      "flux": 70307.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3783.06,
+      "flux": 70516.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3784.13,
+      "flux": 69519.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3785.2,
+      "flux": 69150.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3786.27,
+      "flux": 69642.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3787.34,
+      "flux": 69783.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3788.41,
+      "flux": 69542.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3789.48,
+      "flux": 70807.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3790.55,
+      "flux": 69654.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3791.62,
+      "flux": 68085.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3792.69,
+      "flux": 67711.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3793.76,
+      "flux": 65791.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3794.83,
+      "flux": 61573.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3795.9,
+      "flux": 56782.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3796.97,
+      "flux": 49889.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3798.04,
+      "flux": 47195.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3799.11,
+      "flux": 49097.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3800.18,
+      "flux": 52995.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3801.25,
+      "flux": 58645.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3802.32,
+      "flux": 63643.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3803.39,
+      "flux": 64890.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3804.46,
+      "flux": 65344.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3805.53,
+      "flux": 65686.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3806.6,
+      "flux": 65868.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3807.67,
+      "flux": 67478.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3808.74,
+      "flux": 68716.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3809.81,
+      "flux": 69108.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3810.88,
+      "flux": 69890.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3811.95,
+      "flux": 70502.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3813.02,
+      "flux": 69294.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3814.09,
+      "flux": 69938.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3815.16,
+      "flux": 70633.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3816.23,
+      "flux": 68144.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3817.3,
+      "flux": 65144.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3818.37,
+      "flux": 62069.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3819.44,
+      "flux": 59375.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3820.51,
+      "flux": 60283.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3821.58,
+      "flux": 63285.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3822.65,
+      "flux": 66775.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3823.72,
+      "flux": 69306.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3824.79,
+      "flux": 69753.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3825.86,
+      "flux": 68891.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3826.93,
+      "flux": 69383.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3828.0,
+      "flux": 69026.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3829.07,
+      "flux": 67294.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3830.14,
+      "flux": 65862.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3831.21,
+      "flux": 63374.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3832.28,
+      "flux": 58651.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3833.35,
+      "flux": 52609.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3834.42,
+      "flux": 47670.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3835.49,
+      "flux": 45083.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3836.56,
+      "flux": 46610.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3837.63,
+      "flux": 52686.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3838.7,
+      "flux": 58159.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3839.77,
+      "flux": 62883.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3840.84,
+      "flux": 66313.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3841.91,
+      "flux": 65950.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3842.98,
+      "flux": 66725.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3844.05,
+      "flux": 69161.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3845.12,
+      "flux": 67224.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3846.19,
+      "flux": 64605.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3847.26,
+      "flux": 68020.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3848.33,
+      "flux": 72222.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3849.4,
+      "flux": 70052.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3850.47,
+      "flux": 69980.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3851.54,
+      "flux": 73367.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3852.61,
+      "flux": 71759.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3853.68,
+      "flux": 69099.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3854.75,
+      "flux": 68960.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3855.82,
+      "flux": 72438.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3856.89,
+      "flux": 73689.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3857.96,
+      "flux": 72277.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3859.03,
+      "flux": 72386.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3860.1,
+      "flux": 71327.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3861.17,
+      "flux": 72846.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3862.24,
+      "flux": 75871.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3863.31,
+      "flux": 76753.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3864.38,
+      "flux": 76747.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3865.45,
+      "flux": 76280.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3866.52,
+      "flux": 74226.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3867.59,
+      "flux": 71777.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3868.66,
+      "flux": 72733.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3869.73,
+      "flux": 75504.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3870.8,
+      "flux": 72985.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3871.87,
+      "flux": 71386.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3872.94,
+      "flux": 74082.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3874.01,
+      "flux": 75327.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3875.08,
+      "flux": 76073.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3876.15,
+      "flux": 78046.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3877.22,
+      "flux": 78937.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3878.29,
+      "flux": 78664.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3879.36,
+      "flux": 78007.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3880.43,
+      "flux": 79117.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3881.5,
+      "flux": 79699.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3882.57,
+      "flux": 78215.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3883.64,
+      "flux": 77875.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3884.71,
+      "flux": 76291.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3885.78,
+      "flux": 72181.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3886.85,
+      "flux": 66047.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3887.92,
+      "flux": 59036.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3888.99,
+      "flux": 54862.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3890.06,
+      "flux": 57064.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3891.13,
+      "flux": 63000.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3892.2,
+      "flux": 69792.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3893.27,
+      "flux": 75465.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3894.34,
+      "flux": 79227.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3895.41,
+      "flux": 82261.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3896.48,
+      "flux": 82776.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3897.55,
+      "flux": 83010.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3898.62,
+      "flux": 83618.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3899.69,
+      "flux": 84365.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3900.76,
+      "flux": 84455.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3901.83,
+      "flux": 84933.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3902.9,
+      "flux": 85876.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3903.97,
+      "flux": 86435.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3905.04,
+      "flux": 85427.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3906.11,
+      "flux": 85290.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3907.18,
+      "flux": 85665.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3908.25,
+      "flux": 85323.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3909.32,
+      "flux": 85141.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3910.39,
+      "flux": 85160.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3911.46,
+      "flux": 84114.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3912.53,
+      "flux": 84066.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3913.6,
+      "flux": 85183.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3914.67,
+      "flux": 84909.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3915.74,
+      "flux": 84335.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3916.81,
+      "flux": 84004.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3917.88,
+      "flux": 82993.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3918.95,
+      "flux": 81478.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3920.02,
+      "flux": 81501.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3921.09,
+      "flux": 81736.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3922.16,
+      "flux": 81946.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3923.23,
+      "flux": 82125.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3924.3,
+      "flux": 80983.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3925.37,
+      "flux": 77906.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3926.44,
+      "flux": 75487.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3927.51,
+      "flux": 76494.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3928.58,
+      "flux": 78665.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3929.65,
+      "flux": 80185.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3930.72,
+      "flux": 81802.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3931.79,
+      "flux": 81600.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3932.86,
+      "flux": 79456.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3933.93,
+      "flux": 77638.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3935.0,
+      "flux": 76479.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3936.07,
+      "flux": 77577.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3937.14,
+      "flux": 80086.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3938.21,
+      "flux": 80916.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3939.28,
+      "flux": 80824.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3940.35,
+      "flux": 80755.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3941.42,
+      "flux": 81157.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3942.49,
+      "flux": 80603.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3943.56,
+      "flux": 80011.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3944.63,
+      "flux": 79063.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3945.7,
+      "flux": 79676.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3946.77,
+      "flux": 80265.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3947.84,
+      "flux": 81092.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3948.91,
+      "flux": 81603.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3949.98,
+      "flux": 81557.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3951.05,
+      "flux": 80635.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3952.12,
+      "flux": 81263.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3953.19,
+      "flux": 80632.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3954.26,
+      "flux": 80183.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3955.33,
+      "flux": 80576.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3956.4,
+      "flux": 80804.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3957.47,
+      "flux": 80951.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3958.54,
+      "flux": 81788.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3959.61,
+      "flux": 81379.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3960.68,
+      "flux": 79958.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3961.75,
+      "flux": 78543.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3962.82,
+      "flux": 76562.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3963.89,
+      "flux": 73150.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3964.96,
+      "flux": 71555.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3966.03,
+      "flux": 71385.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3967.1,
+      "flux": 68708.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3968.17,
+      "flux": 62072.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3969.24,
+      "flux": 54791.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3970.31,
+      "flux": 52030.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3971.38,
+      "flux": 56287.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3972.45,
+      "flux": 63544.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3973.52,
+      "flux": 69506.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3974.59,
+      "flux": 74458.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3975.66,
+      "flux": 78727.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3976.73,
+      "flux": 80128.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3977.8,
+      "flux": 80608.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3978.87,
+      "flux": 81635.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3979.94,
+      "flux": 81340.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3981.01,
+      "flux": 81479.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3982.08,
+      "flux": 81699.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3983.15,
+      "flux": 81181.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3984.22,
+      "flux": 81324.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3985.29,
+      "flux": 81022.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3986.36,
+      "flux": 80436.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3987.43,
+      "flux": 80286.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3988.5,
+      "flux": 81088.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3989.57,
+      "flux": 81019.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3990.64,
+      "flux": 80463.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3991.71,
+      "flux": 80793.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3992.78,
+      "flux": 80136.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3993.85,
+      "flux": 78894.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3994.92,
+      "flux": 77765.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3995.99,
+      "flux": 78041.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3997.06,
+      "flux": 79381.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3998.13,
+      "flux": 79771.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 3999.2,
+      "flux": 78630.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4000.27,
+      "flux": 79516.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4001.34,
+      "flux": 80770.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4002.41,
+      "flux": 80194.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4003.48,
+      "flux": 80020.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4004.55,
+      "flux": 79730.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4005.62,
+      "flux": 79735.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4006.69,
+      "flux": 78194.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4007.76,
+      "flux": 75257.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4008.83,
+      "flux": 72218.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4009.9,
+      "flux": 74563.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4010.97,
+      "flux": 76291.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4012.04,
+      "flux": 77795.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4013.11,
+      "flux": 80258.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4014.18,
+      "flux": 80642.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4015.25,
+      "flux": 79822.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4016.32,
+      "flux": 81213.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4017.39,
+      "flux": 81207.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4018.46,
+      "flux": 81691.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4019.53,
+      "flux": 82520.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4020.6,
+      "flux": 81795.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4021.67,
+      "flux": 81063.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4022.74,
+      "flux": 79334.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4023.81,
+      "flux": 77689.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4024.88,
+      "flux": 70611.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4025.95,
+      "flux": 67788.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4027.02,
+      "flux": 69815.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4028.09,
+      "flux": 76728.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4029.16,
+      "flux": 81606.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4030.23,
+      "flux": 83506.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4031.3,
+      "flux": 82921.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4032.37,
+      "flux": 82078.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4033.44,
+      "flux": 83146.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4034.51,
+      "flux": 84043.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4035.58,
+      "flux": 84320.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4036.65,
+      "flux": 84054.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4037.72,
+      "flux": 85301.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4038.79,
+      "flux": 85927.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4039.86,
+      "flux": 85722.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4040.93,
+      "flux": 84825.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4042.0,
+      "flux": 85384.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4043.07,
+      "flux": 85206.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4044.14,
+      "flux": 85556.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4045.21,
+      "flux": 86419.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4046.28,
+      "flux": 86631.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4047.35,
+      "flux": 86752.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4048.42,
+      "flux": 87514.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4049.49,
+      "flux": 87826.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4050.56,
+      "flux": 88089.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4051.63,
+      "flux": 88394.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4052.7,
+      "flux": 87594.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4053.77,
+      "flux": 87796.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4054.84,
+      "flux": 88108.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4055.91,
+      "flux": 88496.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4056.98,
+      "flux": 88699.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4058.05,
+      "flux": 88479.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4059.12,
+      "flux": 89302.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4060.19,
+      "flux": 88587.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4061.26,
+      "flux": 88212.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4062.33,
+      "flux": 88419.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4063.4,
+      "flux": 88805.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4064.47,
+      "flux": 88907.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4065.54,
+      "flux": 89249.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4066.61,
+      "flux": 89807.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4067.68,
+      "flux": 89139.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4068.75,
+      "flux": 87774.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4069.82,
+      "flux": 86511.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4070.89,
+      "flux": 85957.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4071.96,
+      "flux": 85848.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4073.03,
+      "flux": 86334.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4074.1,
+      "flux": 86447.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4075.17,
+      "flux": 86138.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4076.24,
+      "flux": 86105.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4077.31,
+      "flux": 86412.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4078.38,
+      "flux": 87248.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4079.45,
+      "flux": 87604.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4080.52,
+      "flux": 87643.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4081.59,
+      "flux": 87656.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4082.66,
+      "flux": 86750.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4083.73,
+      "flux": 86379.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4084.8,
+      "flux": 86151.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4085.87,
+      "flux": 85869.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4086.94,
+      "flux": 86044.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4088.01,
+      "flux": 85774.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4089.08,
+      "flux": 85619.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4090.15,
+      "flux": 85790.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4091.22,
+      "flux": 86254.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4092.29,
+      "flux": 85944.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4093.36,
+      "flux": 85375.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4094.43,
+      "flux": 84682.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4095.5,
+      "flux": 83117.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4096.57,
+      "flux": 81175.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4097.64,
+      "flux": 78708.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4098.71,
+      "flux": 74710.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4099.78,
+      "flux": 67978.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4100.85,
+      "flux": 60673.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4101.92,
+      "flux": 56539.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4102.99,
+      "flux": 59858.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4104.06,
+      "flux": 67540.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4105.13,
+      "flux": 74562.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4106.2,
+      "flux": 78842.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4107.27,
+      "flux": 81556.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4108.34,
+      "flux": 83657.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4109.41,
+      "flux": 84774.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4110.48,
+      "flux": 84796.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4111.55,
+      "flux": 84639.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4112.62,
+      "flux": 85403.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4113.69,
+      "flux": 86097.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4114.76,
+      "flux": 86714.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4115.83,
+      "flux": 87148.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4116.9,
+      "flux": 86712.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4117.97,
+      "flux": 85425.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4119.04,
+      "flux": 83250.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4120.11,
+      "flux": 81549.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4121.18,
+      "flux": 81088.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4122.25,
+      "flux": 83018.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4123.32,
+      "flux": 85483.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4124.39,
+      "flux": 87330.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4125.46,
+      "flux": 87882.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4126.53,
+      "flux": 87875.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4127.6,
+      "flux": 87734.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4128.67,
+      "flux": 87750.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4129.74,
+      "flux": 87132.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4130.81,
+      "flux": 87168.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4131.88,
+      "flux": 87116.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4132.95,
+      "flux": 87036.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4134.02,
+      "flux": 87042.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4135.09,
+      "flux": 87912.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4136.16,
+      "flux": 88157.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4137.23,
+      "flux": 88243.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4138.3,
+      "flux": 88430.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4139.37,
+      "flux": 88105.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4140.44,
+      "flux": 87914.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4141.51,
+      "flux": 85754.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4142.58,
+      "flux": 81513.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4143.65,
+      "flux": 78232.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4144.72,
+      "flux": 79775.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4145.79,
+      "flux": 83728.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4146.86,
+      "flux": 86711.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4147.93,
+      "flux": 88306.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4149.0,
+      "flux": 88914.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4150.07,
+      "flux": 89298.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4151.14,
+      "flux": 88953.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4152.21,
+      "flux": 88241.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4153.28,
+      "flux": 87898.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4154.35,
+      "flux": 87946.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4155.42,
+      "flux": 88262.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4156.49,
+      "flux": 88992.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4157.56,
+      "flux": 89181.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4158.63,
+      "flux": 88497.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4159.7,
+      "flux": 88636.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4160.77,
+      "flux": 89152.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4161.84,
+      "flux": 88913.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4162.91,
+      "flux": 88412.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4163.98,
+      "flux": 88220.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4165.05,
+      "flux": 88231.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4166.12,
+      "flux": 88154.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4167.19,
+      "flux": 87723.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4168.26,
+      "flux": 86375.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4169.33,
+      "flux": 85815.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4170.4,
+      "flux": 86564.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4171.47,
+      "flux": 86841.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4172.54,
+      "flux": 87026.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4173.61,
+      "flux": 86875.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4174.68,
+      "flux": 86204.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4175.75,
+      "flux": 86434.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4176.82,
+      "flux": 87165.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4177.89,
+      "flux": 87453.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4178.96,
+      "flux": 87091.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4180.03,
+      "flux": 85041.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4181.1,
+      "flux": 84995.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4182.17,
+      "flux": 86845.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4183.24,
+      "flux": 85852.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4184.31,
+      "flux": 85946.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4185.38,
+      "flux": 85885.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4186.45,
+      "flux": 85811.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4187.52,
+      "flux": 85822.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4188.59,
+      "flux": 85307.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4189.66,
+      "flux": 84673.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4190.73,
+      "flux": 84453.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4191.8,
+      "flux": 84507.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4192.87,
+      "flux": 84516.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4193.94,
+      "flux": 84249.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4195.01,
+      "flux": 84006.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4196.08,
+      "flux": 83701.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4197.15,
+      "flux": 82753.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4198.22,
+      "flux": 82255.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4199.29,
+      "flux": 82584.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4200.36,
+      "flux": 81897.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4201.43,
+      "flux": 81206.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4202.5,
+      "flux": 80477.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4203.57,
+      "flux": 80763.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4204.64,
+      "flux": 81823.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4205.71,
+      "flux": 81125.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4206.78,
+      "flux": 81808.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4207.85,
+      "flux": 81680.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4208.92,
+      "flux": 80753.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4209.99,
+      "flux": 79067.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4211.06,
+      "flux": 80153.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4212.13,
+      "flux": 80763.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4213.2,
+      "flux": 79160.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4214.27,
+      "flux": 80293.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4215.34,
+      "flux": 79932.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4216.41,
+      "flux": 80618.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4217.48,
+      "flux": 80451.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4218.55,
+      "flux": 79265.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4219.62,
+      "flux": 80292.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4220.69,
+      "flux": 80723.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4221.76,
+      "flux": 81055.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4222.83,
+      "flux": 82424.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4223.9,
+      "flux": 79965.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4224.97,
+      "flux": 79224.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4226.04,
+      "flux": 79664.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4227.11,
+      "flux": 78871.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4228.18,
+      "flux": 80918.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4229.25,
+      "flux": 80967.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4230.32,
+      "flux": 80585.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4231.39,
+      "flux": 82502.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4232.46,
+      "flux": 82401.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4233.53,
+      "flux": 83821.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4234.6,
+      "flux": 84921.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4235.67,
+      "flux": 83021.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4236.74,
+      "flux": 82035.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4237.81,
+      "flux": 82642.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4238.88,
+      "flux": 81765.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4239.95,
+      "flux": 82154.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4241.02,
+      "flux": 83472.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4242.09,
+      "flux": 84565.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4243.16,
+      "flux": 85732.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4244.23,
+      "flux": 85286.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4245.3,
+      "flux": 84108.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4246.37,
+      "flux": 83269.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4247.44,
+      "flux": 84099.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4248.51,
+      "flux": 84559.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4249.58,
+      "flux": 83797.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4250.65,
+      "flux": 84261.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4251.72,
+      "flux": 85001.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4252.79,
+      "flux": 84942.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4253.86,
+      "flux": 84566.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4254.93,
+      "flux": 84492.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4256.0,
+      "flux": 85416.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4257.07,
+      "flux": 85696.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4258.14,
+      "flux": 86180.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4259.21,
+      "flux": 86705.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4260.28,
+      "flux": 86253.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4261.35,
+      "flux": 86176.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4262.42,
+      "flux": 86560.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4263.49,
+      "flux": 87318.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4264.56,
+      "flux": 86791.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4265.63,
+      "flux": 85416.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4266.7,
+      "flux": 84559.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4267.77,
+      "flux": 84767.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4268.84,
+      "flux": 86255.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4269.91,
+      "flux": 87483.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4270.98,
+      "flux": 87872.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4272.05,
+      "flux": 87945.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4273.12,
+      "flux": 88056.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4274.19,
+      "flux": 87634.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4275.26,
+      "flux": 87346.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4276.33,
+      "flux": 86978.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4277.4,
+      "flux": 87062.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4278.47,
+      "flux": 87593.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4279.54,
+      "flux": 88186.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4280.61,
+      "flux": 88097.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4281.68,
+      "flux": 87835.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4282.75,
+      "flux": 87286.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4283.82,
+      "flux": 87055.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4284.89,
+      "flux": 87201.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4285.96,
+      "flux": 86877.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4287.03,
+      "flux": 87048.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4288.1,
+      "flux": 87491.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4289.17,
+      "flux": 88067.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4290.24,
+      "flux": 87679.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4291.31,
+      "flux": 87164.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4292.38,
+      "flux": 87281.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4293.45,
+      "flux": 87380.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4294.52,
+      "flux": 87333.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4295.59,
+      "flux": 87568.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4296.66,
+      "flux": 87632.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4297.73,
+      "flux": 87624.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4298.8,
+      "flux": 87384.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4299.87,
+      "flux": 87058.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4300.94,
+      "flux": 87130.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4302.01,
+      "flux": 87028.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4303.08,
+      "flux": 86549.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4304.15,
+      "flux": 86329.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4305.22,
+      "flux": 86115.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4306.29,
+      "flux": 86054.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4307.36,
+      "flux": 86037.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4308.43,
+      "flux": 86027.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4309.5,
+      "flux": 86384.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4310.57,
+      "flux": 86289.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4311.64,
+      "flux": 85834.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4312.71,
+      "flux": 85902.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4313.78,
+      "flux": 85665.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4314.85,
+      "flux": 84886.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4315.92,
+      "flux": 84567.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4316.99,
+      "flux": 84306.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4318.06,
+      "flux": 83787.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4319.13,
+      "flux": 83854.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4320.2,
+      "flux": 84217.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4321.27,
+      "flux": 84684.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4322.34,
+      "flux": 85251.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4323.41,
+      "flux": 85126.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4324.48,
+      "flux": 85076.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4325.55,
+      "flux": 84860.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4326.62,
+      "flux": 84859.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4327.69,
+      "flux": 84820.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4328.76,
+      "flux": 84481.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4329.83,
+      "flux": 83469.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4330.9,
+      "flux": 83217.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4331.97,
+      "flux": 82790.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4333.04,
+      "flux": 82640.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4334.11,
+      "flux": 81397.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4335.18,
+      "flux": 79731.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4336.25,
+      "flux": 77072.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4337.32,
+      "flux": 72443.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4338.39,
+      "flux": 65791.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4339.46,
+      "flux": 58324.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4340.53,
+      "flux": 55221.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4341.6,
+      "flux": 59231.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4342.67,
+      "flux": 66020.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4343.74,
+      "flux": 71758.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4344.81,
+      "flux": 74863.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4345.88,
+      "flux": 77191.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4346.95,
+      "flux": 78457.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4348.02,
+      "flux": 78376.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4349.09,
+      "flux": 78016.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4350.16,
+      "flux": 78577.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4351.23,
+      "flux": 80151.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4352.3,
+      "flux": 81169.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4353.37,
+      "flux": 82308.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4354.44,
+      "flux": 82892.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4355.51,
+      "flux": 82517.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4356.58,
+      "flux": 82454.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4357.65,
+      "flux": 82956.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4358.72,
+      "flux": 82856.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4359.79,
+      "flux": 82502.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4360.86,
+      "flux": 82629.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4361.93,
+      "flux": 82630.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4363.0,
+      "flux": 83137.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4364.07,
+      "flux": 83103.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4365.14,
+      "flux": 83160.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4366.21,
+      "flux": 82491.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4367.28,
+      "flux": 81956.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4368.35,
+      "flux": 82286.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4369.42,
+      "flux": 82632.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4370.49,
+      "flux": 82569.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4371.56,
+      "flux": 83140.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4372.63,
+      "flux": 83514.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4373.7,
+      "flux": 83113.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4374.77,
+      "flux": 82890.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4375.84,
+      "flux": 83330.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4376.91,
+      "flux": 83909.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4377.98,
+      "flux": 83594.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4379.05,
+      "flux": 83107.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4380.12,
+      "flux": 83390.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4381.19,
+      "flux": 83975.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4382.26,
+      "flux": 83902.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4383.33,
+      "flux": 83664.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4384.4,
+      "flux": 83570.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4385.47,
+      "flux": 81329.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4386.54,
+      "flux": 76656.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4387.61,
+      "flux": 73427.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4388.68,
+      "flux": 75061.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4389.75,
+      "flux": 79531.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4390.82,
+      "flux": 82397.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4391.89,
+      "flux": 83761.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4392.96,
+      "flux": 84436.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4394.03,
+      "flux": 84564.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4395.1,
+      "flux": 84621.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4396.17,
+      "flux": 84782.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4397.24,
+      "flux": 84816.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4398.31,
+      "flux": 84682.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4399.38,
+      "flux": 84754.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4400.45,
+      "flux": 84564.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4401.52,
+      "flux": 84638.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4402.59,
+      "flux": 84825.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4403.66,
+      "flux": 85384.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4404.73,
+      "flux": 85428.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4405.8,
+      "flux": 84812.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4406.87,
+      "flux": 84808.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4407.94,
+      "flux": 84762.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4409.01,
+      "flux": 84556.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4410.08,
+      "flux": 85020.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4411.15,
+      "flux": 84686.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4412.22,
+      "flux": 84200.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4413.29,
+      "flux": 83363.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4414.36,
+      "flux": 82205.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4415.43,
+      "flux": 81838.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4416.5,
+      "flux": 82223.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4417.57,
+      "flux": 82493.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4418.64,
+      "flux": 83765.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4419.71,
+      "flux": 84540.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4420.78,
+      "flux": 84744.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4421.85,
+      "flux": 84366.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4422.92,
+      "flux": 84761.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4423.99,
+      "flux": 84435.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4425.06,
+      "flux": 84365.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4426.13,
+      "flux": 83898.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4427.2,
+      "flux": 83761.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4428.27,
+      "flux": 83942.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4429.34,
+      "flux": 83890.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4430.41,
+      "flux": 83513.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4431.48,
+      "flux": 83332.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4432.55,
+      "flux": 83160.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4433.62,
+      "flux": 83836.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4434.69,
+      "flux": 83954.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4435.76,
+      "flux": 83124.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4436.83,
+      "flux": 82528.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4437.9,
+      "flux": 82025.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4438.97,
+      "flux": 82639.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4440.04,
+      "flux": 83673.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4441.11,
+      "flux": 84076.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4442.18,
+      "flux": 84599.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4443.25,
+      "flux": 84470.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4444.32,
+      "flux": 83953.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4445.39,
+      "flux": 83684.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4446.46,
+      "flux": 83778.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4447.53,
+      "flux": 83923.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4448.6,
+      "flux": 83631.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4449.67,
+      "flux": 83536.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4450.74,
+      "flux": 83070.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4451.81,
+      "flux": 83449.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4452.88,
+      "flux": 83883.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4453.95,
+      "flux": 84116.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4455.02,
+      "flux": 84431.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4456.09,
+      "flux": 84125.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4457.16,
+      "flux": 83666.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4458.23,
+      "flux": 83960.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4459.3,
+      "flux": 84491.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4460.37,
+      "flux": 84066.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4461.44,
+      "flux": 83953.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4462.51,
+      "flux": 84168.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4463.58,
+      "flux": 83677.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4464.65,
+      "flux": 83840.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4465.72,
+      "flux": 83568.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4466.79,
+      "flux": 82964.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4467.86,
+      "flux": 81676.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4468.93,
+      "flux": 78789.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4470.0,
+      "flux": 73398.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4471.07,
+      "flux": 69495.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4472.14,
+      "flux": 71310.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4473.21,
+      "flux": 76300.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4474.28,
+      "flux": 80714.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4475.35,
+      "flux": 82991.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4476.42,
+      "flux": 83287.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4477.49,
+      "flux": 82977.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4478.56,
+      "flux": 82827.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4479.63,
+      "flux": 81982.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4480.7,
+      "flux": 80757.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4481.77,
+      "flux": 81264.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4482.84,
+      "flux": 82184.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4483.91,
+      "flux": 82820.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4484.98,
+      "flux": 83000.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4486.05,
+      "flux": 83070.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4487.12,
+      "flux": 82693.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4488.19,
+      "flux": 82932.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4489.26,
+      "flux": 83150.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4490.33,
+      "flux": 82610.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4491.4,
+      "flux": 82734.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4492.47,
+      "flux": 83166.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4493.54,
+      "flux": 83107.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4494.61,
+      "flux": 82840.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4495.68,
+      "flux": 82907.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4496.75,
+      "flux": 82418.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4497.82,
+      "flux": 82776.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4498.89,
+      "flux": 83401.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4499.96,
+      "flux": 83087.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4501.03,
+      "flux": 82500.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4502.1,
+      "flux": 81914.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4503.17,
+      "flux": 81988.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4504.24,
+      "flux": 82582.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4505.31,
+      "flux": 82562.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4506.38,
+      "flux": 82070.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4507.45,
+      "flux": 82039.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4508.52,
+      "flux": 81959.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4509.59,
+      "flux": 82184.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4510.66,
+      "flux": 82014.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4511.73,
+      "flux": 81574.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4512.8,
+      "flux": 82038.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4513.87,
+      "flux": 82011.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4514.94,
+      "flux": 82482.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4516.01,
+      "flux": 81826.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4517.08,
+      "flux": 81614.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4518.15,
+      "flux": 81543.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4519.22,
+      "flux": 81331.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4520.29,
+      "flux": 81278.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4521.36,
+      "flux": 81673.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4522.43,
+      "flux": 81008.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4523.5,
+      "flux": 81352.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4524.57,
+      "flux": 81431.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4525.64,
+      "flux": 81447.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4526.71,
+      "flux": 81264.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4527.78,
+      "flux": 80617.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4528.85,
+      "flux": 80803.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4529.92,
+      "flux": 80196.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4530.99,
+      "flux": 79997.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4532.06,
+      "flux": 80761.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4533.13,
+      "flux": 81134.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4534.2,
+      "flux": 80693.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4535.27,
+      "flux": 81172.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4536.34,
+      "flux": 80653.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4537.41,
+      "flux": 80772.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4538.48,
+      "flux": 80714.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4539.55,
+      "flux": 80326.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4540.62,
+      "flux": 80383.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4541.69,
+      "flux": 80559.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4542.76,
+      "flux": 80601.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4543.83,
+      "flux": 80158.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4544.9,
+      "flux": 80400.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4545.97,
+      "flux": 79905.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4547.04,
+      "flux": 79841.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4548.11,
+      "flux": 79962.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4549.18,
+      "flux": 79950.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4550.25,
+      "flux": 79002.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4551.32,
+      "flux": 77622.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4552.39,
+      "flux": 76547.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4553.46,
+      "flux": 76869.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4554.53,
+      "flux": 78130.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4555.6,
+      "flux": 79103.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4556.67,
+      "flux": 79244.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4557.74,
+      "flux": 79147.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4558.81,
+      "flux": 79216.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4559.88,
+      "flux": 79316.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4560.95,
+      "flux": 79521.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4562.02,
+      "flux": 79058.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4563.09,
+      "flux": 78938.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4564.16,
+      "flux": 79517.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4565.23,
+      "flux": 79023.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4566.3,
+      "flux": 77551.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4567.37,
+      "flux": 76719.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4568.44,
+      "flux": 76878.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4569.51,
+      "flux": 77481.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4570.58,
+      "flux": 78426.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4571.65,
+      "flux": 78763.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4572.72,
+      "flux": 78411.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4573.79,
+      "flux": 77364.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4574.86,
+      "flux": 77013.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4575.93,
+      "flux": 77802.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4577.0,
+      "flux": 78284.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4578.07,
+      "flux": 78394.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4579.14,
+      "flux": 77948.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4580.21,
+      "flux": 77586.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4581.28,
+      "flux": 78105.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4582.35,
+      "flux": 78112.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4583.42,
+      "flux": 77579.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4584.49,
+      "flux": 77735.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4585.56,
+      "flux": 77890.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4586.63,
+      "flux": 77491.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4587.7,
+      "flux": 77317.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4588.77,
+      "flux": 77493.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4589.84,
+      "flux": 76970.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4590.91,
+      "flux": 76956.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4591.98,
+      "flux": 77183.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4593.05,
+      "flux": 77365.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4594.12,
+      "flux": 76939.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4595.19,
+      "flux": 76270.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4596.26,
+      "flux": 76393.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4597.33,
+      "flux": 76362.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4598.4,
+      "flux": 76700.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4599.47,
+      "flux": 76566.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4600.54,
+      "flux": 76328.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4601.61,
+      "flux": 76228.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4602.68,
+      "flux": 76375.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4603.75,
+      "flux": 76755.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4604.82,
+      "flux": 76501.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4605.89,
+      "flux": 76052.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4606.96,
+      "flux": 75732.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4608.03,
+      "flux": 75144.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4609.1,
+      "flux": 75110.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4610.17,
+      "flux": 75625.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4611.24,
+      "flux": 75980.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4612.31,
+      "flux": 75916.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4613.38,
+      "flux": 75276.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4614.45,
+      "flux": 75503.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4615.52,
+      "flux": 75520.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4616.59,
+      "flux": 75148.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4617.66,
+      "flux": 75292.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4618.73,
+      "flux": 75135.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4619.8,
+      "flux": 74919.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4620.87,
+      "flux": 75232.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4621.94,
+      "flux": 75231.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4623.01,
+      "flux": 74933.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4624.08,
+      "flux": 74978.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4625.15,
+      "flux": 75034.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4626.22,
+      "flux": 74943.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4627.29,
+      "flux": 74741.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4628.36,
+      "flux": 74327.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4629.43,
+      "flux": 73600.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4630.5,
+      "flux": 73579.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4631.57,
+      "flux": 73918.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4632.64,
+      "flux": 73908.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4633.71,
+      "flux": 74298.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4634.78,
+      "flux": 74616.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4635.85,
+      "flux": 73857.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4636.92,
+      "flux": 73597.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4637.99,
+      "flux": 72991.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4639.06,
+      "flux": 72337.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4640.13,
+      "flux": 71841.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4641.2,
+      "flux": 71372.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4642.27,
+      "flux": 71708.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4643.34,
+      "flux": 72265.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4644.41,
+      "flux": 73104.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4645.48,
+      "flux": 73666.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4646.55,
+      "flux": 73056.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4647.62,
+      "flux": 71470.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4648.69,
+      "flux": 70632.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4649.76,
+      "flux": 69747.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4650.83,
+      "flux": 71156.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4651.9,
+      "flux": 72608.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4652.97,
+      "flux": 72876.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4654.04,
+      "flux": 73239.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4655.11,
+      "flux": 73028.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4656.18,
+      "flux": 73424.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4657.25,
+      "flux": 73047.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4658.32,
+      "flux": 73058.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4659.39,
+      "flux": 72639.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4660.46,
+      "flux": 72573.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4661.53,
+      "flux": 71786.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4662.6,
+      "flux": 71780.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4663.67,
+      "flux": 72421.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4664.74,
+      "flux": 72506.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4665.81,
+      "flux": 72910.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4666.88,
+      "flux": 72545.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4667.95,
+      "flux": 72256.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4669.02,
+      "flux": 72147.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4670.09,
+      "flux": 72714.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4671.16,
+      "flux": 72609.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4672.23,
+      "flux": 71767.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4673.3,
+      "flux": 71582.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4674.37,
+      "flux": 71492.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4675.44,
+      "flux": 70467.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4676.51,
+      "flux": 70637.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4677.58,
+      "flux": 71920.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4678.65,
+      "flux": 71745.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4679.72,
+      "flux": 71256.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4680.79,
+      "flux": 71642.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4681.86,
+      "flux": 71854.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4682.93,
+      "flux": 71905.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4684.0,
+      "flux": 71369.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4685.07,
+      "flux": 70792.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4686.14,
+      "flux": 71322.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4687.21,
+      "flux": 71555.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4688.28,
+      "flux": 71395.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4689.35,
+      "flux": 71267.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4690.42,
+      "flux": 71011.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4691.49,
+      "flux": 70729.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4692.56,
+      "flux": 71353.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4693.63,
+      "flux": 70894.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4694.7,
+      "flux": 70278.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4695.77,
+      "flux": 70687.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4696.84,
+      "flux": 70701.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4697.91,
+      "flux": 69740.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4698.98,
+      "flux": 69216.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4700.05,
+      "flux": 69911.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4701.12,
+      "flux": 70139.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4702.19,
+      "flux": 69904.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4703.26,
+      "flux": 69341.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4704.33,
+      "flux": 69141.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4705.4,
+      "flux": 69156.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4706.47,
+      "flux": 69710.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4707.54,
+      "flux": 70438.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4708.61,
+      "flux": 69412.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4709.68,
+      "flux": 69580.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4710.75,
+      "flux": 68430.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4711.82,
+      "flux": 66263.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4712.89,
+      "flux": 64860.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4713.96,
+      "flux": 65822.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4715.03,
+      "flux": 67650.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4716.1,
+      "flux": 68695.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4717.17,
+      "flux": 68998.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4718.24,
+      "flux": 69249.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4719.31,
+      "flux": 69168.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4720.38,
+      "flux": 68889.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4721.45,
+      "flux": 68814.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4722.52,
+      "flux": 69029.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4723.59,
+      "flux": 68814.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4724.66,
+      "flux": 68885.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4725.73,
+      "flux": 68975.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4726.8,
+      "flux": 68719.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4727.87,
+      "flux": 68924.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4728.94,
+      "flux": 68945.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4730.01,
+      "flux": 68347.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4731.08,
+      "flux": 68412.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4732.15,
+      "flux": 68624.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4733.22,
+      "flux": 68358.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4734.29,
+      "flux": 68308.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4735.36,
+      "flux": 68316.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4736.43,
+      "flux": 67961.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4737.5,
+      "flux": 67971.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4738.57,
+      "flux": 68143.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4739.64,
+      "flux": 67953.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4740.71,
+      "flux": 67590.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4741.78,
+      "flux": 67443.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4742.85,
+      "flux": 67627.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4743.92,
+      "flux": 67379.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4744.99,
+      "flux": 66977.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4746.06,
+      "flux": 67255.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4747.13,
+      "flux": 67645.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4748.2,
+      "flux": 67373.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4749.27,
+      "flux": 67231.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4750.34,
+      "flux": 67479.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4751.41,
+      "flux": 67227.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4752.48,
+      "flux": 66738.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4753.55,
+      "flux": 66878.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4754.62,
+      "flux": 67156.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4755.69,
+      "flux": 66784.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4756.76,
+      "flux": 66753.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4757.83,
+      "flux": 66384.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4758.9,
+      "flux": 66160.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4759.97,
+      "flux": 66393.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4761.04,
+      "flux": 66038.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4762.11,
+      "flux": 66003.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4763.18,
+      "flux": 66102.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4764.25,
+      "flux": 65774.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4765.32,
+      "flux": 66164.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4766.39,
+      "flux": 66123.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4767.46,
+      "flux": 65392.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4768.53,
+      "flux": 65825.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4769.6,
+      "flux": 66162.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4770.67,
+      "flux": 66238.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4771.74,
+      "flux": 65627.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4772.81,
+      "flux": 65547.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4773.88,
+      "flux": 65755.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4774.95,
+      "flux": 65636.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4776.02,
+      "flux": 65473.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4777.09,
+      "flux": 65399.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4778.16,
+      "flux": 65447.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4779.23,
+      "flux": 65410.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4780.3,
+      "flux": 65591.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4781.37,
+      "flux": 65464.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4782.44,
+      "flux": 65171.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4783.51,
+      "flux": 65147.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4784.58,
+      "flux": 65322.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4785.65,
+      "flux": 65101.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4786.72,
+      "flux": 64876.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4787.79,
+      "flux": 65161.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4788.86,
+      "flux": 65178.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4789.93,
+      "flux": 64886.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4791.0,
+      "flux": 64602.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4792.07,
+      "flux": 64583.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4793.14,
+      "flux": 64897.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4794.21,
+      "flux": 64837.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4795.28,
+      "flux": 64688.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4796.35,
+      "flux": 65041.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4797.42,
+      "flux": 65026.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4798.49,
+      "flux": 64370.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4799.56,
+      "flux": 64015.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4800.63,
+      "flux": 63939.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4801.7,
+      "flux": 63849.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4802.77,
+      "flux": 63883.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4803.84,
+      "flux": 64007.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4804.91,
+      "flux": 64085.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4805.98,
+      "flux": 63791.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4807.05,
+      "flux": 63834.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4808.12,
+      "flux": 64330.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4809.19,
+      "flux": 64165.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4810.26,
+      "flux": 63971.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4811.33,
+      "flux": 63735.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4812.4,
+      "flux": 63860.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4813.47,
+      "flux": 63923.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4814.54,
+      "flux": 63701.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4815.61,
+      "flux": 63436.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4816.68,
+      "flux": 63458.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4817.75,
+      "flux": 63291.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4818.82,
+      "flux": 63154.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4819.89,
+      "flux": 63379.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4820.96,
+      "flux": 63220.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4822.03,
+      "flux": 63309.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4823.1,
+      "flux": 63157.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4824.17,
+      "flux": 62856.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4825.24,
+      "flux": 62799.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4826.31,
+      "flux": 62904.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4827.38,
+      "flux": 62981.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4828.45,
+      "flux": 63214.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4829.52,
+      "flux": 63294.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4830.59,
+      "flux": 63363.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4831.66,
+      "flux": 63311.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4832.73,
+      "flux": 63089.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4833.8,
+      "flux": 62899.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4834.87,
+      "flux": 62610.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4835.94,
+      "flux": 62424.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4837.01,
+      "flux": 62806.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4838.08,
+      "flux": 62722.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4839.15,
+      "flux": 62556.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4840.22,
+      "flux": 62376.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4841.29,
+      "flux": 62011.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4842.36,
+      "flux": 61847.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4843.43,
+      "flux": 62138.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4844.5,
+      "flux": 62192.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4845.57,
+      "flux": 61807.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4846.64,
+      "flux": 61715.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4847.71,
+      "flux": 61474.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4848.78,
+      "flux": 61316.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4849.85,
+      "flux": 60890.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4850.92,
+      "flux": 60711.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4851.99,
+      "flux": 60693.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4853.06,
+      "flux": 60154.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4854.13,
+      "flux": 59356.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4855.2,
+      "flux": 58489.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4856.27,
+      "flux": 57239.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4857.34,
+      "flux": 54994.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4858.41,
+      "flux": 51860.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4859.48,
+      "flux": 46926.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4860.55,
+      "flux": 42722.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4861.62,
+      "flux": 43312.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4862.69,
+      "flux": 46521.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4863.76,
+      "flux": 50262.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4864.83,
+      "flux": 53849.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4865.9,
+      "flux": 56109.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4866.97,
+      "flux": 57597.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4868.04,
+      "flux": 58663.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4869.11,
+      "flux": 59177.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4870.18,
+      "flux": 59717.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4871.25,
+      "flux": 59957.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4872.32,
+      "flux": 60058.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4873.39,
+      "flux": 60119.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4874.46,
+      "flux": 60209.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4875.53,
+      "flux": 60387.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4876.6,
+      "flux": 60226.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4877.67,
+      "flux": 60187.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4878.74,
+      "flux": 60152.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4879.81,
+      "flux": 60557.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4880.88,
+      "flux": 60233.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4881.95,
+      "flux": 60345.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4883.02,
+      "flux": 60016.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4884.09,
+      "flux": 59912.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4885.16,
+      "flux": 59865.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4886.23,
+      "flux": 59804.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4887.3,
+      "flux": 59749.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4888.37,
+      "flux": 59534.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4889.44,
+      "flux": 59431.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4890.51,
+      "flux": 59219.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4891.58,
+      "flux": 59267.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4892.65,
+      "flux": 59294.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4893.72,
+      "flux": 59184.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4894.79,
+      "flux": 59777.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4895.86,
+      "flux": 59586.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4896.93,
+      "flux": 59513.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4898.0,
+      "flux": 59317.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4899.07,
+      "flux": 59183.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4900.14,
+      "flux": 59489.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4901.21,
+      "flux": 59180.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4902.28,
+      "flux": 59153.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4903.35,
+      "flux": 59244.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4904.42,
+      "flux": 59126.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4905.49,
+      "flux": 58970.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4906.56,
+      "flux": 59104.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4907.63,
+      "flux": 58951.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4908.7,
+      "flux": 59097.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4909.77,
+      "flux": 59338.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4910.84,
+      "flux": 59087.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4911.91,
+      "flux": 58937.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4912.98,
+      "flux": 58966.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4914.05,
+      "flux": 58856.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4915.12,
+      "flux": 58572.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4916.19,
+      "flux": 58583.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4917.26,
+      "flux": 58665.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4918.33,
+      "flux": 58231.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4919.4,
+      "flux": 56432.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4920.47,
+      "flux": 52931.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4921.54,
+      "flux": 50757.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4922.61,
+      "flux": 52217.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4923.68,
+      "flux": 54809.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4924.75,
+      "flux": 56509.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4925.82,
+      "flux": 57675.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4926.89,
+      "flux": 58397.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4927.96,
+      "flux": 58818.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4929.03,
+      "flux": 58879.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4930.1,
+      "flux": 58899.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4931.17,
+      "flux": 58929.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4932.24,
+      "flux": 58526.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4933.31,
+      "flux": 58345.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4934.38,
+      "flux": 58501.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4935.45,
+      "flux": 58818.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4936.52,
+      "flux": 59116.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4937.59,
+      "flux": 58886.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4938.66,
+      "flux": 58676.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4939.73,
+      "flux": 58623.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4940.8,
+      "flux": 58577.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4941.87,
+      "flux": 58344.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4942.94,
+      "flux": 58204.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4944.01,
+      "flux": 58184.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4945.08,
+      "flux": 58626.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4946.15,
+      "flux": 58439.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4947.22,
+      "flux": 58347.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4948.29,
+      "flux": 58216.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4949.36,
+      "flux": 58643.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4950.43,
+      "flux": 58570.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4951.5,
+      "flux": 58592.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4952.57,
+      "flux": 58574.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4953.64,
+      "flux": 58285.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4954.71,
+      "flux": 57912.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4955.78,
+      "flux": 57949.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4956.85,
+      "flux": 58078.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4957.92,
+      "flux": 58120.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4958.99,
+      "flux": 58122.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4960.06,
+      "flux": 58345.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4961.13,
+      "flux": 58722.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4962.2,
+      "flux": 58554.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4963.27,
+      "flux": 58406.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4964.34,
+      "flux": 58394.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4965.41,
+      "flux": 58248.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4966.48,
+      "flux": 58502.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4967.55,
+      "flux": 58192.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4968.62,
+      "flux": 58268.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4969.69,
+      "flux": 58558.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4970.76,
+      "flux": 58390.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4971.83,
+      "flux": 58431.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4972.9,
+      "flux": 58275.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4973.97,
+      "flux": 57885.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4975.04,
+      "flux": 57972.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4976.11,
+      "flux": 58188.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4977.18,
+      "flux": 58079.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4978.25,
+      "flux": 58110.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4979.32,
+      "flux": 58297.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4980.39,
+      "flux": 58278.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4981.46,
+      "flux": 58425.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4982.53,
+      "flux": 58351.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4983.6,
+      "flux": 58172.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4984.67,
+      "flux": 58286.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4985.74,
+      "flux": 58375.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4986.81,
+      "flux": 58409.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4987.88,
+      "flux": 58025.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4988.95,
+      "flux": 57819.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4990.02,
+      "flux": 58241.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4991.09,
+      "flux": 58426.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4992.16,
+      "flux": 57984.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4993.23,
+      "flux": 57583.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4994.3,
+      "flux": 57819.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4995.37,
+      "flux": 57583.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4996.44,
+      "flux": 57352.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4997.51,
+      "flux": 57891.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4998.58,
+      "flux": 57820.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 4999.65,
+      "flux": 56942.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5000.72,
+      "flux": 56093.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5001.79,
+      "flux": 55979.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5002.86,
+      "flux": 56579.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5003.93,
+      "flux": 56460.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5005.0,
+      "flux": 56311.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5006.07,
+      "flux": 56069.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5007.14,
+      "flux": 56496.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5008.21,
+      "flux": 56902.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5009.28,
+      "flux": 56547.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5010.35,
+      "flux": 56652.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5011.42,
+      "flux": 56892.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5012.49,
+      "flux": 56751.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5013.56,
+      "flux": 54938.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5014.63,
+      "flux": 52909.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5015.7,
+      "flux": 53178.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5016.77,
+      "flux": 54287.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5017.84,
+      "flux": 55240.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5018.91,
+      "flux": 55976.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5019.98,
+      "flux": 56541.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5021.05,
+      "flux": 56800.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5022.12,
+      "flux": 56514.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5023.19,
+      "flux": 56359.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5024.26,
+      "flux": 56162.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5025.33,
+      "flux": 56212.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5026.4,
+      "flux": 55897.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5027.47,
+      "flux": 55916.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5028.54,
+      "flux": 56029.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5029.61,
+      "flux": 55843.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5030.68,
+      "flux": 55951.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5031.75,
+      "flux": 55892.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5032.82,
+      "flux": 55897.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5033.89,
+      "flux": 55567.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5034.96,
+      "flux": 55572.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5036.03,
+      "flux": 55786.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5037.1,
+      "flux": 55743.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5038.17,
+      "flux": 55384.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5039.24,
+      "flux": 55349.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5040.31,
+      "flux": 55368.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5041.38,
+      "flux": 55254.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5042.45,
+      "flux": 55068.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5043.52,
+      "flux": 54497.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5044.59,
+      "flux": 54337.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5045.66,
+      "flux": 53496.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5046.73,
+      "flux": 52363.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5047.8,
+      "flux": 52572.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5048.87,
+      "flux": 53324.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5049.94,
+      "flux": 54050.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5051.01,
+      "flux": 54418.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5052.08,
+      "flux": 54564.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5053.15,
+      "flux": 54707.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5054.22,
+      "flux": 54452.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5055.29,
+      "flux": 54153.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5056.36,
+      "flux": 54234.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5057.43,
+      "flux": 54412.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5058.5,
+      "flux": 54432.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5059.57,
+      "flux": 54322.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5060.64,
+      "flux": 54385.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5061.71,
+      "flux": 54299.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5062.78,
+      "flux": 54467.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5063.85,
+      "flux": 54443.64,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5064.92,
+      "flux": 53839.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5065.99,
+      "flux": 54017.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5067.06,
+      "flux": 54126.3,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5068.13,
+      "flux": 53970.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5069.2,
+      "flux": 53959.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5070.27,
+      "flux": 53779.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5071.34,
+      "flux": 53485.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5072.41,
+      "flux": 53338.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5073.48,
+      "flux": 53174.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5074.55,
+      "flux": 53501.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5075.62,
+      "flux": 53747.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5076.69,
+      "flux": 53324.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5077.76,
+      "flux": 53087.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5078.83,
+      "flux": 53342.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5079.9,
+      "flux": 53453.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5080.97,
+      "flux": 53471.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5082.04,
+      "flux": 53426.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5083.11,
+      "flux": 53511.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5084.18,
+      "flux": 52998.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5085.25,
+      "flux": 52905.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5086.32,
+      "flux": 53039.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5087.39,
+      "flux": 53228.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5088.46,
+      "flux": 53164.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5089.53,
+      "flux": 53342.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5090.6,
+      "flux": 53323.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5091.67,
+      "flux": 52941.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5092.74,
+      "flux": 52968.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5093.81,
+      "flux": 52587.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5094.88,
+      "flux": 52536.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5095.95,
+      "flux": 52878.75,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5097.02,
+      "flux": 52765.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5098.09,
+      "flux": 52531.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5099.16,
+      "flux": 52581.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5100.23,
+      "flux": 52451.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5101.3,
+      "flux": 52185.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5102.37,
+      "flux": 52449.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5103.44,
+      "flux": 52553.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5104.51,
+      "flux": 52931.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5105.58,
+      "flux": 53003.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5106.65,
+      "flux": 52579.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5107.72,
+      "flux": 52184.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5108.79,
+      "flux": 51860.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5109.86,
+      "flux": 52162.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5110.93,
+      "flux": 52245.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5112.0,
+      "flux": 52081.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5113.07,
+      "flux": 52081.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5114.14,
+      "flux": 52116.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5115.21,
+      "flux": 52201.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5116.28,
+      "flux": 52072.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5117.35,
+      "flux": 51925.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5118.42,
+      "flux": 51934.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5119.49,
+      "flux": 51965.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5120.56,
+      "flux": 51893.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5121.63,
+      "flux": 51744.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5122.7,
+      "flux": 51665.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5123.77,
+      "flux": 51691.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5124.84,
+      "flux": 51663.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5125.91,
+      "flux": 51519.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5126.98,
+      "flux": 51626.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5128.05,
+      "flux": 51723.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5129.12,
+      "flux": 51639.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5130.19,
+      "flux": 51586.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5131.26,
+      "flux": 51317.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5132.33,
+      "flux": 51163.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5133.4,
+      "flux": 50946.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5134.47,
+      "flux": 50723.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5135.54,
+      "flux": 51064.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5136.61,
+      "flux": 50900.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5137.68,
+      "flux": 50825.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5138.75,
+      "flux": 50646.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5139.82,
+      "flux": 50960.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5140.89,
+      "flux": 51164.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5141.96,
+      "flux": 50654.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5143.03,
+      "flux": 50595.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5144.1,
+      "flux": 50609.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5145.17,
+      "flux": 50083.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5146.24,
+      "flux": 50214.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5147.31,
+      "flux": 50297.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5148.38,
+      "flux": 50234.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5149.45,
+      "flux": 50173.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5150.52,
+      "flux": 49880.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5151.59,
+      "flux": 49715.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5152.66,
+      "flux": 49843.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5153.73,
+      "flux": 49636.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5154.8,
+      "flux": 49740.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5155.87,
+      "flux": 49788.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5156.94,
+      "flux": 49738.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5158.01,
+      "flux": 49538.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5159.08,
+      "flux": 49533.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5160.15,
+      "flux": 49317.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5161.22,
+      "flux": 49073.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5162.29,
+      "flux": 48956.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5163.36,
+      "flux": 48968.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5164.43,
+      "flux": 48641.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5165.5,
+      "flux": 48619.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5166.57,
+      "flux": 49023.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5167.64,
+      "flux": 48736.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5168.71,
+      "flux": 48182.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5169.78,
+      "flux": 48075.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5170.85,
+      "flux": 48534.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5171.92,
+      "flux": 48365.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5172.99,
+      "flux": 47937.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5174.06,
+      "flux": 48298.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5175.13,
+      "flux": 48330.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5176.2,
+      "flux": 47694.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5177.27,
+      "flux": 47542.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5178.34,
+      "flux": 47585.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5179.41,
+      "flux": 47621.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5180.48,
+      "flux": 47425.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5181.55,
+      "flux": 47089.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5182.62,
+      "flux": 47141.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5183.69,
+      "flux": 47163.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5184.76,
+      "flux": 47016.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5185.83,
+      "flux": 46994.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5186.9,
+      "flux": 47046.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5187.97,
+      "flux": 46968.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5189.04,
+      "flux": 46552.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5190.11,
+      "flux": 46266.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5191.18,
+      "flux": 46478.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5192.25,
+      "flux": 46709.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5193.32,
+      "flux": 46485.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5194.39,
+      "flux": 46209.99,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5195.46,
+      "flux": 46457.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5196.53,
+      "flux": 46585.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5197.6,
+      "flux": 46236.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5198.67,
+      "flux": 45845.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5199.74,
+      "flux": 46055.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5200.81,
+      "flux": 46381.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5201.88,
+      "flux": 45958.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5202.95,
+      "flux": 45796.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5204.02,
+      "flux": 45680.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5205.09,
+      "flux": 45124.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5206.16,
+      "flux": 44786.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5207.23,
+      "flux": 44921.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5208.3,
+      "flux": 44953.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5209.37,
+      "flux": 45023.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5210.44,
+      "flux": 44861.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5211.51,
+      "flux": 44858.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5212.58,
+      "flux": 44982.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5213.65,
+      "flux": 45081.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5214.72,
+      "flux": 44979.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5215.79,
+      "flux": 44782.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5216.86,
+      "flux": 44755.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5217.93,
+      "flux": 44768.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5219.0,
+      "flux": 44681.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5220.07,
+      "flux": 44567.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5221.14,
+      "flux": 44175.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5222.21,
+      "flux": 44221.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5223.28,
+      "flux": 44287.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5224.35,
+      "flux": 44315.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5225.42,
+      "flux": 44364.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5226.49,
+      "flux": 44028.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5227.56,
+      "flux": 43662.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5228.63,
+      "flux": 43828.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5229.7,
+      "flux": 44271.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5230.77,
+      "flux": 44323.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5231.84,
+      "flux": 43748.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5232.91,
+      "flux": 43412.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5233.98,
+      "flux": 43256.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5235.05,
+      "flux": 43479.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5236.12,
+      "flux": 43980.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5237.19,
+      "flux": 43987.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5238.26,
+      "flux": 43956.14,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5239.33,
+      "flux": 43767.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5240.4,
+      "flux": 43251.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5241.47,
+      "flux": 43778.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5242.54,
+      "flux": 43595.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5243.61,
+      "flux": 43564.52,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5244.68,
+      "flux": 43269.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5245.75,
+      "flux": 43269.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5246.82,
+      "flux": 43517.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5247.89,
+      "flux": 43386.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5248.96,
+      "flux": 43004.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5250.03,
+      "flux": 43123.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5251.1,
+      "flux": 42885.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5252.17,
+      "flux": 43038.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5253.24,
+      "flux": 43089.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5254.31,
+      "flux": 43075.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5255.38,
+      "flux": 42744.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5256.45,
+      "flux": 42696.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5257.52,
+      "flux": 43050.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5258.59,
+      "flux": 42974.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5259.66,
+      "flux": 42690.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5260.73,
+      "flux": 42681.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5261.8,
+      "flux": 42868.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5262.87,
+      "flux": 42760.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5263.94,
+      "flux": 42562.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5265.01,
+      "flux": 42896.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5266.08,
+      "flux": 43002.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5267.15,
+      "flux": 42970.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5268.22,
+      "flux": 42798.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5269.29,
+      "flux": 42837.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5270.36,
+      "flux": 42819.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5271.43,
+      "flux": 42750.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5272.5,
+      "flux": 42667.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5273.57,
+      "flux": 42423.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5274.64,
+      "flux": 42078.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5275.71,
+      "flux": 41900.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5276.78,
+      "flux": 42052.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5277.85,
+      "flux": 42101.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5278.92,
+      "flux": 41908.17,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5279.99,
+      "flux": 41593.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5281.06,
+      "flux": 41639.58,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5282.13,
+      "flux": 41503.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5283.2,
+      "flux": 41174.69,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5284.27,
+      "flux": 41499.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5285.34,
+      "flux": 41667.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5286.41,
+      "flux": 41518.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5287.48,
+      "flux": 41250.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5288.55,
+      "flux": 40944.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5289.62,
+      "flux": 40822.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5290.69,
+      "flux": 40799.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5291.76,
+      "flux": 40811.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5292.83,
+      "flux": 40568.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5293.9,
+      "flux": 40601.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5294.97,
+      "flux": 40481.74,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5296.04,
+      "flux": 40202.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5297.11,
+      "flux": 40320.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5298.18,
+      "flux": 40252.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5299.25,
+      "flux": 40277.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5300.32,
+      "flux": 39942.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5301.39,
+      "flux": 39740.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5302.46,
+      "flux": 39451.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5303.53,
+      "flux": 39678.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5304.6,
+      "flux": 39651.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5305.67,
+      "flux": 39453.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5306.74,
+      "flux": 39496.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5307.81,
+      "flux": 39151.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5308.88,
+      "flux": 38846.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5309.95,
+      "flux": 38609.09,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5311.02,
+      "flux": 38294.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5312.09,
+      "flux": 38211.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5313.16,
+      "flux": 38148.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5314.23,
+      "flux": 37748.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5315.3,
+      "flux": 37771.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5316.37,
+      "flux": 37790.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5317.44,
+      "flux": 37668.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5318.51,
+      "flux": 37471.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5319.58,
+      "flux": 37218.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5320.65,
+      "flux": 37172.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5321.72,
+      "flux": 37061.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5322.79,
+      "flux": 36721.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5323.86,
+      "flux": 36600.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5324.93,
+      "flux": 36058.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5326.0,
+      "flux": 36128.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5327.07,
+      "flux": 36088.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5328.14,
+      "flux": 35781.65,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5329.21,
+      "flux": 35729.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5330.28,
+      "flux": 35409.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5331.35,
+      "flux": 35103.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5332.42,
+      "flux": 35199.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5333.49,
+      "flux": 35303.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5334.56,
+      "flux": 34878.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5335.63,
+      "flux": 34466.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5336.7,
+      "flux": 34513.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5337.77,
+      "flux": 34459.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5338.84,
+      "flux": 34309.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5339.91,
+      "flux": 33941.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5340.98,
+      "flux": 33714.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5342.05,
+      "flux": 33482.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5343.12,
+      "flux": 33286.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5344.19,
+      "flux": 33012.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5345.26,
+      "flux": 32932.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5346.33,
+      "flux": 32715.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5347.4,
+      "flux": 32478.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5348.47,
+      "flux": 32279.59,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5349.54,
+      "flux": 32178.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5350.61,
+      "flux": 32053.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5351.68,
+      "flux": 31803.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5352.75,
+      "flux": 31681.04,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5353.82,
+      "flux": 31608.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5354.89,
+      "flux": 31284.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5355.96,
+      "flux": 31044.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5357.03,
+      "flux": 30820.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5358.1,
+      "flux": 30653.21,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5359.17,
+      "flux": 30535.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5360.24,
+      "flux": 30492.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5361.31,
+      "flux": 30446.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5362.38,
+      "flux": 30189.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5363.45,
+      "flux": 29873.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5364.52,
+      "flux": 29766.85,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5365.59,
+      "flux": 29662.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5366.66,
+      "flux": 29471.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5367.73,
+      "flux": 29379.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5368.8,
+      "flux": 29111.4,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5369.87,
+      "flux": 28776.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5370.94,
+      "flux": 28829.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5372.01,
+      "flux": 28765.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5373.08,
+      "flux": 28457.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5374.15,
+      "flux": 28484.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5375.22,
+      "flux": 28414.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5376.29,
+      "flux": 28134.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5377.36,
+      "flux": 28033.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5378.43,
+      "flux": 28110.48,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5379.5,
+      "flux": 28041.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5380.57,
+      "flux": 27745.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5381.64,
+      "flux": 27590.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5382.71,
+      "flux": 27471.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5383.78,
+      "flux": 27201.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5384.85,
+      "flux": 27127.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5385.92,
+      "flux": 27063.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5386.99,
+      "flux": 26920.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5388.06,
+      "flux": 26970.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5389.13,
+      "flux": 26799.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5390.2,
+      "flux": 26634.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5391.27,
+      "flux": 26473.51,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5392.34,
+      "flux": 26425.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5393.41,
+      "flux": 26423.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5394.48,
+      "flux": 26378.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5395.55,
+      "flux": 26009.29,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5396.62,
+      "flux": 25720.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5397.69,
+      "flux": 25812.53,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5398.76,
+      "flux": 25827.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5399.83,
+      "flux": 25727.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5400.9,
+      "flux": 25600.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5401.97,
+      "flux": 25584.28,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5403.04,
+      "flux": 25515.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5404.11,
+      "flux": 25281.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5405.18,
+      "flux": 25210.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5406.25,
+      "flux": 25170.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5407.32,
+      "flux": 24801.32,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5408.39,
+      "flux": 24771.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5409.46,
+      "flux": 24710.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5410.53,
+      "flux": 24717.25,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5411.6,
+      "flux": 24541.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5412.67,
+      "flux": 24451.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5413.74,
+      "flux": 24458.92,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5414.81,
+      "flux": 24308.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5415.88,
+      "flux": 24139.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5416.95,
+      "flux": 24374.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5418.02,
+      "flux": 24112.45,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5419.09,
+      "flux": 24004.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5420.16,
+      "flux": 24027.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5421.23,
+      "flux": 23951.9,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5422.3,
+      "flux": 23767.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5423.37,
+      "flux": 23636.23,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5424.44,
+      "flux": 23768.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5425.51,
+      "flux": 23663.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5426.58,
+      "flux": 23451.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5427.65,
+      "flux": 23420.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5428.72,
+      "flux": 23443.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5429.79,
+      "flux": 23443.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5430.86,
+      "flux": 23450.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5431.93,
+      "flux": 23179.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5433.0,
+      "flux": 23117.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5434.07,
+      "flux": 22918.96,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5435.14,
+      "flux": 22989.82,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5436.21,
+      "flux": 23182.43,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5437.28,
+      "flux": 22925.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5438.35,
+      "flux": 22591.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5439.42,
+      "flux": 22645.11,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5440.49,
+      "flux": 22489.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5441.56,
+      "flux": 22366.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5442.63,
+      "flux": 22486.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5443.7,
+      "flux": 22516.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5444.77,
+      "flux": 22477.6,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5445.84,
+      "flux": 22433.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5446.91,
+      "flux": 22402.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5447.98,
+      "flux": 22315.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5449.05,
+      "flux": 22349.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5450.12,
+      "flux": 22233.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5451.19,
+      "flux": 22224.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5452.26,
+      "flux": 21965.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5453.33,
+      "flux": 21916.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5454.4,
+      "flux": 22052.55,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5455.47,
+      "flux": 21841.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5456.54,
+      "flux": 21560.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5457.61,
+      "flux": 21490.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5458.68,
+      "flux": 21347.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5459.75,
+      "flux": 21400.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5460.82,
+      "flux": 21302.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5461.89,
+      "flux": 20988.44,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5462.96,
+      "flux": 20920.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5464.03,
+      "flux": 20810.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5465.1,
+      "flux": 20961.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5466.17,
+      "flux": 20957.39,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5467.24,
+      "flux": 21037.77,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5468.31,
+      "flux": 20864.88,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5469.38,
+      "flux": 20716.13,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5470.45,
+      "flux": 20652.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5471.52,
+      "flux": 20416.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5472.59,
+      "flux": 20326.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5473.66,
+      "flux": 20171.61,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5474.73,
+      "flux": 20144.7,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5475.8,
+      "flux": 20069.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5476.87,
+      "flux": 20046.81,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5477.94,
+      "flux": 19709.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5479.01,
+      "flux": 19304.62,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5480.08,
+      "flux": 19272.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5481.15,
+      "flux": 19266.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5482.22,
+      "flux": 19134.36,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5483.29,
+      "flux": 19044.47,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5484.36,
+      "flux": 18851.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5485.43,
+      "flux": 18936.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5486.5,
+      "flux": 18679.78,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5487.57,
+      "flux": 18374.93,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5488.64,
+      "flux": 18386.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5489.71,
+      "flux": 18192.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5490.78,
+      "flux": 18121.1,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5491.85,
+      "flux": 18046.79,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5492.92,
+      "flux": 17781.02,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5493.99,
+      "flux": 17455.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5495.06,
+      "flux": 17282.91,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5496.13,
+      "flux": 17218.71,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5497.2,
+      "flux": 17040.68,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5498.27,
+      "flux": 17012.97,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5499.34,
+      "flux": 16848.07,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5500.41,
+      "flux": 16705.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5501.48,
+      "flux": 16620.16,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5502.55,
+      "flux": 16449.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5503.62,
+      "flux": 16350.46,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5504.69,
+      "flux": 16325.67,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5505.76,
+      "flux": 15917.94,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5506.83,
+      "flux": 15523.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5507.9,
+      "flux": 15223.34,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5508.97,
+      "flux": 15110.08,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5510.04,
+      "flux": 15167.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5511.11,
+      "flux": 14901.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5512.18,
+      "flux": 14765.33,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5513.25,
+      "flux": 14585.35,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5514.32,
+      "flux": 14322.05,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5515.39,
+      "flux": 14293.49,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5516.46,
+      "flux": 13978.26,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5517.53,
+      "flux": 13785.56,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5518.6,
+      "flux": 13841.42,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5519.67,
+      "flux": 13688.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5520.74,
+      "flux": 13445.31,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5521.81,
+      "flux": 13156.86,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5522.88,
+      "flux": 12870.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5523.95,
+      "flux": 12638.03,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5525.02,
+      "flux": 12576.73,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5526.09,
+      "flux": 12467.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5527.16,
+      "flux": 12314.87,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5528.23,
+      "flux": 12182.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5529.3,
+      "flux": 11981.0,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5530.37,
+      "flux": 11816.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5531.44,
+      "flux": 11740.12,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5532.51,
+      "flux": 11595.27,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5533.58,
+      "flux": 11314.38,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5534.65,
+      "flux": 11158.18,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5535.72,
+      "flux": 10949.19,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5536.79,
+      "flux": 10842.95,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5537.86,
+      "flux": 10847.2,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5538.93,
+      "flux": 10616.22,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5540.0,
+      "flux": 10366.15,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5541.07,
+      "flux": 10191.57,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5542.14,
+      "flux": 10129.83,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5543.21,
+      "flux": 9994.622,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5544.28,
+      "flux": 9819.009,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5545.35,
+      "flux": 9727.817,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5546.42,
+      "flux": 9706.573,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5547.49,
+      "flux": 9518.192,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5548.56,
+      "flux": 9307.849,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5549.63,
+      "flux": 9231.343,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5550.7,
+      "flux": 9073.351,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5551.77,
+      "flux": 9010.917,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5552.84,
+      "flux": 8937.638,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5553.91,
+      "flux": 8755.573,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5554.98,
+      "flux": 8689.204,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5556.05,
+      "flux": 8630.629,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5557.12,
+      "flux": 8548.822,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5558.19,
+      "flux": 8466.655,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5559.26,
+      "flux": 8510.877,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5560.33,
+      "flux": 8276.893,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5561.4,
+      "flux": 8206.174,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5562.47,
+      "flux": 8283.896999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5563.54,
+      "flux": 8171.3859999999995,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5564.61,
+      "flux": 8173.723000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5565.68,
+      "flux": 8018.172,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5566.75,
+      "flux": 7753.224,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5567.82,
+      "flux": 7762.319,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5568.89,
+      "flux": 7719.98,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5569.96,
+      "flux": 7639.251,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5571.03,
+      "flux": 7549.593000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5572.1,
+      "flux": 7614.643,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5573.17,
+      "flux": 7771.776999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5574.24,
+      "flux": 7748.064,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5575.31,
+      "flux": 7687.911999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5576.38,
+      "flux": 7493.791,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5577.45,
+      "flux": 7483.249,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5578.52,
+      "flux": 7558.515,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5579.59,
+      "flux": 7495.106,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5580.66,
+      "flux": 7363.929,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5581.73,
+      "flux": 7214.5,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5582.8,
+      "flux": 7186.715,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5583.87,
+      "flux": 7333.934,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5584.94,
+      "flux": 7393.946999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5586.01,
+      "flux": 7214.5830000000005,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5587.08,
+      "flux": 7215.54,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5588.15,
+      "flux": 7162.24,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5589.22,
+      "flux": 7073.389,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5590.29,
+      "flux": 7080.294,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5591.36,
+      "flux": 7186.1990000000005,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5592.43,
+      "flux": 6966.343000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5593.5,
+      "flux": 7044.141,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5594.57,
+      "flux": 7110.8330000000005,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5595.64,
+      "flux": 6994.768,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5596.71,
+      "flux": 7052.8,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5597.78,
+      "flux": 6900.879,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5598.85,
+      "flux": 6755.37,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5599.92,
+      "flux": 6680.943,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5600.99,
+      "flux": 6788.63,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5602.06,
+      "flux": 6738.934,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5603.13,
+      "flux": 6659.973000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5604.2,
+      "flux": 6660.72,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5605.27,
+      "flux": 6512.01,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5606.34,
+      "flux": 6545.451,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5607.41,
+      "flux": 6465.783,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5608.48,
+      "flux": 6432.558000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5609.55,
+      "flux": 6387.829000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5610.62,
+      "flux": 6324.3730000000005,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5611.69,
+      "flux": 6331.884,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5612.76,
+      "flux": 6289.894,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5613.83,
+      "flux": 6193.155,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5614.9,
+      "flux": 6102.036999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5615.97,
+      "flux": 5999.41,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5617.04,
+      "flux": 5995.651,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5618.11,
+      "flux": 6036.647,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5619.18,
+      "flux": 6049.963000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5620.25,
+      "flux": 5823.246999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5621.32,
+      "flux": 5730.058000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5622.39,
+      "flux": 5819.84,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5623.46,
+      "flux": 5684.66,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5624.53,
+      "flux": 5479.376,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5625.6,
+      "flux": 5493.245,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5626.67,
+      "flux": 5387.847,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5627.74,
+      "flux": 5246.234,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5628.81,
+      "flux": 5210.708,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5629.88,
+      "flux": 5134.404,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5630.95,
+      "flux": 4936.515,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5632.02,
+      "flux": 5095.686,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5633.09,
+      "flux": 4960.018,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5634.16,
+      "flux": 4817.603,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5635.23,
+      "flux": 4783.119000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5636.3,
+      "flux": 4735.454000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5637.37,
+      "flux": 4559.292,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5638.44,
+      "flux": 4455.644,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5639.51,
+      "flux": 4357.609,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5640.58,
+      "flux": 4332.015,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5641.65,
+      "flux": 4225.149,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5642.72,
+      "flux": 4198.788,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5643.79,
+      "flux": 4163.798,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5644.86,
+      "flux": 4160.8859999999995,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5645.93,
+      "flux": 3853.985,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5647.0,
+      "flux": 3775.89,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5648.07,
+      "flux": 3737.909,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5649.14,
+      "flux": 3605.705,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5650.21,
+      "flux": 3626.8790000000004,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5651.28,
+      "flux": 3589.797,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5652.35,
+      "flux": 3404.903,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5653.42,
+      "flux": 3348.653,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5654.49,
+      "flux": 3341.06,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5655.56,
+      "flux": 3255.6890000000003,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5656.63,
+      "flux": 3243.192,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5657.7,
+      "flux": 3035.907,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5658.77,
+      "flux": 2915.2940000000003,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5659.84,
+      "flux": 2915.8940000000002,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5660.91,
+      "flux": 2825.804,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5661.98,
+      "flux": 2829.76,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5663.05,
+      "flux": 2805.2009999999996,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5664.12,
+      "flux": 2516.3320000000003,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5665.19,
+      "flux": 2566.093,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5666.26,
+      "flux": 2429.547,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5667.33,
+      "flux": 2473.778,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5668.4,
+      "flux": 2511.464,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5669.47,
+      "flux": 2313.486,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5670.54,
+      "flux": 2140.534,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5671.61,
+      "flux": 2098.6929999999998,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5672.68,
+      "flux": 2102.1839999999997,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5673.75,
+      "flux": 1905.7160000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5674.82,
+      "flux": 1836.2839999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5675.89,
+      "flux": 1894.783,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5676.96,
+      "flux": 1815.4879999999998,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5678.03,
+      "flux": 1648.2020000000002,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5679.1,
+      "flux": 1635.894,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5680.17,
+      "flux": 1630.754,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5681.24,
+      "flux": 1577.211,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5682.31,
+      "flux": 1481.961,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5683.38,
+      "flux": 1404.8020000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5684.45,
+      "flux": 1400.017,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5685.52,
+      "flux": 1308.7069999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5686.59,
+      "flux": 1303.461,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5687.66,
+      "flux": 1251.974,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5688.73,
+      "flux": 1206.2910000000002,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5689.8,
+      "flux": 1109.573,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5690.87,
+      "flux": 1137.5919999999999,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5691.94,
+      "flux": 1090.516,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5693.01,
+      "flux": 1080.0610000000001,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5694.08,
+      "flux": 1032.339,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5695.15,
+      "flux": 951.8398,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5696.22,
+      "flux": 913.4031,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5697.29,
+      "flux": 888.0204,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5698.36,
+      "flux": 834.8038,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5699.43,
+      "flux": 801.0426,
+      "fluxerr": 0.5
+    },
+    {
+      "wavelength": 5700.5,
+      "flux": 793.8932,
+      "fluxerr": 0.5
+    }
+  ]
+}
