@@ -336,7 +336,7 @@
                                     <i class='fas fa-plus-square'></i></button><br>
                                     <ul>
                                     {% for p in source['p'] %}
-                                        <li>{{ p }}</li>
+                                        <li>{{ p['period'] }} {{ p['period_unit'] }}</li>
                                     {% endfor %}
                                     </ul>
                                 </p>
@@ -690,7 +690,7 @@
                 callback: function (result) {
                     // confirmed?
                     if (result) {
-                        // get note
+                        // get data
                         var source_type = $("#source_type_select").val();
                         //console.log(source_type);
 
@@ -716,6 +716,61 @@
                 }
             });
         }
+
+        function add_period() {
+            var elem = "<div class='form-group row'>" +
+                "<label class='col-12' for='source_period'>Add source period:</label>" +
+                "<input type='text' class='form-control form-control-sm col-sm-4 ml-3' id='source_period'>" +
+                "<select class='form-control form-control-sm col-sm-4' id='source_period_unit'>" +
+                "<option>Minutes</option>" +
+                "<option>Hours</option>" +
+                "<option>Days</option>" +
+                "</select>" +
+                "</div>";
+
+            bootbox.confirm({
+                message: elem,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Add'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // get data
+                        var period = $("#source_period").val();
+                        var period_unit = $("#source_period_unit").val();
+
+                        if (period.length > 0) {
+                            $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                                method: 'POST',
+                                data: JSON.stringify({'action': 'add_period', 'period': period, 'period_unit': period_unit}),
+                                processData: false,
+                                contentType: 'application/json',
+                                success: function(data) {
+                                    if (data['message'] === 'success') {
+                                        showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
+                                        window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    }
+                                    else {
+                                        showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
+                                    }
+                                },
+                                error: function(data) {
+                                    showFlashingMessage('Info:', 'Failed to add note', 'danger');
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+
+
 
         {# init tooltips #}
         $(function () {

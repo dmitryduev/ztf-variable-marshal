@@ -1378,7 +1378,7 @@ async def source_post_handler(request):
                 return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'add_source_type':
-                # todo: add source type
+                # add source type
                 source_type = _r['source_type']
 
                 if source_type in source['source_types']:
@@ -1393,6 +1393,30 @@ async def source_post_handler(request):
 
                 await request.app['mongo'].sources.update_one({'_id': _id},
                                                               {'$push': {'source_types': source_type,
+                                                                         'history': h},
+                                                               '$set': {'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
+            elif _r['action'] == 'add_period':
+                # add period
+                period = _r['period']
+                period_unit = _r['period_unit']
+
+                p = {'period': period, 'period_unit': period_unit}
+
+                if p in source['p']:
+                    return web.json_response({'message': 'period already added'}, status=200)
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'period',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'{period} {period_unit}'}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'p': p,
                                                                          'history': h},
                                                                '$set': {'last_modified': time_tag}})
 
