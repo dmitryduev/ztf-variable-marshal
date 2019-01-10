@@ -1361,7 +1361,7 @@ async def source_post_handler(request):
                 return web.json_response({'message': 'failure: not implemented'}, status=200)
 
             elif _r['action'] == 'add_note':
-                # todo: add note
+                # add note
                 note = _r['note']
 
                 # make history
@@ -1377,11 +1377,32 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'add_source_type':
+                # todo: add source type
+                source_type = _r['source_type']
+
+                if source_type in source['source_types']:
+                    return web.json_response({'message': 'source type already added'}, status=200)
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'type',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': source_type}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'source_types': source_type,
+                                                                         'history': h},
+                                                               '$set': {'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 
         else:
-            return web.json_response({'message': 'failure: action not speified'}, status=200)
+            return web.json_response({'message': 'failure: action not specified'}, status=200)
 
     except Exception as _e:
         print(f'Failed to merge source: {str(_e)}')

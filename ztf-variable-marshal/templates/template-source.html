@@ -244,10 +244,12 @@
  "filter": "zr",
  "mjd": mjd,
  "data": [
-    {"wavelen": w_angstrom, "flux": flux, "fluxerr": fluxerr, "unit": unit},
+    {"wavelen": wavelen, "wavelen_unit": "A", "flux": flux, "fluxerr": fluxerr, "flux_unit": unit},
     ...
  ]
 }</code></pre>
+                        "wavelen_unit" can be "A", "nm", or "m".
+                        These fields are mandatory, however you can add any custom fields.
                         </p>
                     </div>
 
@@ -322,19 +324,31 @@
                                     Source type(s): <button type="button" class="btn btn-dark btn-sm"
                                                    id="add_note" onclick="add_source_type()">
                                     <i class='fas fa-plus-square'></i></button><br>
-                                    {{ source['source_types'] }}
+                                    <ul>
+                                    {% for st in source['source_types'] %}
+                                        <li>{{ st }}</li>
+                                    {% endfor %}
+                                    </ul>
                                 </p>
                                 <p>
                                     Period: <button type="button" class="btn btn-dark btn-sm"
                                                    id="add_note" onclick="add_period()">
                                     <i class='fas fa-plus-square'></i></button><br>
-                                    {{ source['p'] }}
+                                    <ul>
+                                    {% for p in source['p'] %}
+                                        <li>{{ p }}</li>
+                                    {% endfor %}
+                                    </ul>
                                 </p>
                                 <p>
                                     Flags: <button type="button" class="btn btn-dark btn-sm"
                                                    id="add_note" onclick="add_source_flag()">
                                     <i class='fas fa-plus-square'></i></button><br>
-                                    {{ source['source_flags'] }}
+                                    <ul>
+                                    {% for sf in source['source_flags'] %}
+                                        <li>{{ sf }}</li>
+                                    {% endfor %}
+                                    </ul>
                                 </p>
                             </div>
 
@@ -648,6 +662,56 @@
                                 }
                             });
                         }
+                    }
+                }
+            });
+        }
+
+        function add_source_type() {
+            var txt_area = "<div class='form-group'>" +
+                "<label for='source_type_select'>Add source type:</label>" +
+                "<select class='form-control' id='source_type_select'>" +
+                {% for st in source_types %}
+                    "<option>{{ st }}</option>" +
+                {% endfor %}
+                "</select>" +
+                "</div>";
+
+            bootbox.confirm({
+                message: txt_area,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Add'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // get note
+                        var source_type = $("#source_type_select").val();
+                        //console.log(source_type);
+
+                        $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                            method: 'POST',
+                            data: JSON.stringify({'action': 'add_source_type', 'source_type': source_type}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
+                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                showFlashingMessage('Info:', 'Failed to add note', 'danger');
+                            }
+                        });
                     }
                 }
             });
