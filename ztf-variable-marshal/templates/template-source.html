@@ -511,11 +511,11 @@
                     name: 'SPEC_{{ loop.index }}'
                 };
 
-                spec.push(spec_{{ loop.index }});
+                spectra.push(spec_{{ loop.index }});
 
             {% endfor %}
 
-            Plotly.newPlot('spec', spec, layout);
+            Plotly.newPlot('spec', spectra, layout);
         }
 
         $(document).ready(function() {
