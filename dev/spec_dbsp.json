@@ -3,6 +3,8 @@
   "instrument": "DBSP",
   "filter": "V",
   "mjd": 58400.0,
+  "wavelength_unit": "A",
+  "flux_unit": "arbitrary",
   "comment": "random DBSP spectrum",
   "data": [
     {

@@ -606,11 +606,11 @@
                                 window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
                             }
                             else {
-                                showFlashingMessage('Info:', 'Failed to upload light curve: ' + data['message'], 'danger');
+                                showFlashingMessage('Info:', 'Upload failed: ' + data['message'], 'danger');
                             }
                         },
                         error: function(data) {
-                            showFlashingMessage('Info:', 'Failed to upload light curve', 'danger');
+                            showFlashingMessage('Info:', 'Upload failed', 'danger');
                         }
                     });
                 };

@@ -211,14 +211,14 @@ Examples:
             columns: [
                 [
                     {% for field_id in ('_id', 'ra', 'dec',
-                                        'p', 'source_type', 'lc', 'created') %}
+                                        'p', 'source_types', 'source_flags', 'spec', 'lc', 'created') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                        {% if field_id in ('lc',) %}
+                        {% if field_id in ('lc', 'spec') %}
                         visible: false,
                         {% else %}
                         visible: true
@@ -231,11 +231,11 @@ Examples:
                 {% for entry in data %}
                     {
                         {% for field_id in ('_id', 'ra', 'dec',
-                                        'p', 'source_type', 'created') %}
+                                        'p', 'source_types', 'source_flags', 'created') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
-                        {% for field_id in ('lc',) %}
+                        {% for field_id in ('lc', 'spec') %}
                         {{ field_id }}: "{{entry[field_id] | safe}}",
                         {% endfor %}
                     },

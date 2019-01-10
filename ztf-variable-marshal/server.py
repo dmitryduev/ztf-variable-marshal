@@ -1290,7 +1290,7 @@ async def source_post_handler(request):
             print(await request.text())
             _r = MyMultipartReader(request._headers, request._payload)
             _r = await _r.next()
-    print(_r)
+    # print(_r)
 
     try:
         _id = request.match_info['source_id']
@@ -1330,8 +1330,16 @@ async def source_post_handler(request):
                       'lc_type': 'temporal',
                       'data': ztf_source['data']}
 
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'merge',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'{ztf_source["_id"]}'}
+
                 await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'lc': lc},
+                                                              {'$push': {'lc': lc,
+                                                                         'history': h},
                                                                '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
@@ -1349,19 +1357,47 @@ async def source_post_handler(request):
                     for kk in ('mjd', 'mag', 'magerr'):
                         assert kk in dp, f'{kk} key not set for data point #{idp+1}'
 
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'lc',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'{lc["telescope"]} {lc["instrument"]} {lc["filter"]} {lc["id"]}'}
+
                 await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'lc': lc},
+                                                              {'$push': {'lc': lc,
+                                                                         'history': h},
                                                                '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'upload_spectrum':
-                # todo: upload spectrum
+                # upload spectrum
 
                 spectrum = _r['data']
 
-                # return web.json_response({'message': 'success'}, status=200)
-                return web.json_response({'message': 'failure: not implemented'}, status=200)
+                # check data format:
+                for kk in ('telescope', 'instrument', 'filter', 'mjd', 'wavelength_unit', 'flux_unit', 'data'):
+                    assert kk in spectrum, f'{kk} key not set'
+                for idp, dp in enumerate(spectrum['data']):
+                    # fixme when the time comes:
+                    for kk in ('wavelength', 'flux', 'fluxerr'):
+                        assert kk in dp, f'{kk} key not set for data point #{idp + 1}'
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'spec',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'{spectrum["telescope"]} {spectrum["instrument"]} {spectrum["filter"]}'}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'spec': spectrum,
+                                                                         'history': h},
+                                                               '$set': {'last_modified': utc_now()}})
+
+                return web.json_response({'message': 'success'}, status=200)
+                # return web.json_response({'message': 'failure: not implemented'}, status=200)
 
             elif _r['action'] == 'add_note':
                 # add note
@@ -1450,7 +1486,7 @@ async def source_post_handler(request):
             return web.json_response({'message': 'failure: action not specified'}, status=200)
 
     except Exception as _e:
-        print(f'Failed to merge source: {str(_e)}')
+        print(f'POST failed: {str(_e)}')
 
         return web.json_response({'message': f'action failed: {str(_e)}'}, status=200)
 
