@@ -316,14 +316,52 @@
                     <div class="tab-pane fade mt-2" id="nav-auxiliary"
                          role="tabpanel" aria-labelledby="nav-auxiliary-tab">
                         <p>
-                            TODO: Detailed source info<br>
+                            Complete source database entry:<br>
                             <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
                                class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
                                 JSON <i class='fas fa-download'></i></a>
                         </p>
+                        <hr>
+
                         <p>TODO: View/add/edit Comments, notes</p>
                         <p>TODO: Classifications, periods, flags</p>
-                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    Source type(s): <button type="button" class="btn btn-dark btn-sm"
+                                                   id="add_note" onclick="add_source_type()">
+                                    <i class='fas fa-plus-square'></i></button><br>
+                                    {{ source['source_types'] }}
+                                </p>
+                                <p>
+                                    Period: <button type="button" class="btn btn-dark btn-sm"
+                                                   id="add_note" onclick="add_period()">
+                                    <i class='fas fa-plus-square'></i></button><br>
+                                    {{ source['p'] }}
+                                </p>
+                                <p>
+                                    Flags: <button type="button" class="btn btn-dark btn-sm"
+                                                   id="add_note" onclick="add_source_flag()">
+                                    <i class='fas fa-plus-square'></i></button><br>
+                                    {{ source['source_flags'] }}
+                                </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>
+                                    Notes: <button type="button" class="btn btn-dark btn-sm"
+                                                   id="add_note" onclick="add_note()">
+                                    <i class='fas fa-plus-square'></i></button><br>
+                                    {% for note in source['history'] %}
+                                        {{ note }}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <button type="button" class="btn btn-danger btn-sm"
                                 id="remove_source">Remove source</button>
                     </div>

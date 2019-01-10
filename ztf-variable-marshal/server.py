@@ -1128,7 +1128,7 @@ async def source_get_handler(request):
 
                 df.sort_values(by=['mjd'], inplace=True)
 
-                # fixme:
+                # fixme: ?
                 if 'hjd' not in df:
                     df['hjd'] = df['mjd'] + 2400000.5
 
@@ -1144,9 +1144,16 @@ async def source_get_handler(request):
     for blc in bad_lc[::-1]:
         source['lc'].pop(blc)
 
+    # source types and tags:
+    source_types = config['misc']['source_types']
+    source_flags = config['misc']['source_flags']
+
     context = {'logo': config['server']['logo'],
                'user': session['user_id'],
-               'source': source}
+               'source': source,
+               'source_types': source_types,
+               'source_flags': source_flags
+               }
     response = aiohttp_jinja2.render_template('template-source.html',
                                               request,
                                               context)
@@ -1208,16 +1215,23 @@ async def sources_put_handler(request):
 
         c = SkyCoord(ra=ztf_source['ra'] * u.degree, dec=ztf_source['dec'] * u.degree, frame='icrs')
 
+        # unique (sequential) id:
         doc['_id'] = source_id
+
+        # coordinates:
         doc['ra'] = ztf_source['ra']
         doc['dec'] = ztf_source['dec']
         # Galactic coordinates:
         doc['l'] = c.galactic.l.degree  # longitude
         doc['b'] = c.galactic.b.degree  # latitude
         doc['coordinates'] = ztf_source['coordinates']
+
         # [{'period': float, 'period_error': float}]:
         doc['p'] = []
-        doc['source_type'] = []
+        doc['source_types'] = []
+        doc['source_flags'] = []
+        doc['history'] = []
+
         # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
         lc = {'telescope': 'PO:1.2m',
               'instrument': 'ZTF',
@@ -1228,8 +1242,12 @@ async def sources_put_handler(request):
         doc['lc'] = [lc]
 
         doc['created_by'] = user
-        doc['created'] = utc_now()
-        doc['last_modified'] = utc_now()
+        time_tag = utc_now()
+        doc['created'] = time_tag
+        doc['last_modified'] = time_tag
+
+        # make history
+        doc['history'].append({'note_type': 'info', 'time_tag': time_tag, 'user': user, 'note': 'Saved'})
 
         await request.app['mongo'].sources.insert_one(doc)
 
