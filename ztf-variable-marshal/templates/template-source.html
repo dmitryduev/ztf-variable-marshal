@@ -342,7 +342,7 @@
                                 </p>
                                 <p>
                                     Flags: <button type="button" class="btn btn-dark btn-sm"
-                                                   id="add_note" onclick="add_source_flag()">
+                                                   id="add_note" onclick="add_source_flags()">
                                     <i class='fas fa-plus-square'></i></button><br>
                                     <ul>
                                     {% for sf in source['source_flags'] %}
@@ -770,6 +770,55 @@
             });
         }
 
+        function add_source_flags() {
+            var txt_area = "<div class='form-group'>" +
+                "<label for='source_flags_select'>Add source type:</label>" +
+                "<select multiple class='form-control' id='source_flags_select'>" +
+                {% for sf in source_flags %}
+                    "<option{% if sf in source['source_flags']%} selected{% endif %}>{{ sf }}</option>" +
+                {% endfor %}
+                "</select>" +
+                "</div>";
+
+            bootbox.confirm({
+                message: txt_area,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Save'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // get data
+                        var source_flags = $("#source_flags_select").val();
+                        console.log(source_flags);
+
+                        $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                            method: 'POST',
+                            data: JSON.stringify({'action': 'add_source_flags', 'source_flags': source_flags}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
+                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                showFlashingMessage('Info:', 'Failed to add note', 'danger');
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
 
         {# init tooltips #}
