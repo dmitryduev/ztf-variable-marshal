@@ -1259,6 +1259,51 @@ async def sources_put_handler(request):
         doc['source_flags'] = []
         doc['history'] = []
 
+        # cross match:
+        kowalski_query_xmatch = {"query_type": "cone_search",
+                                 "object_coordinates": {
+                                     "radec": f"[({doc['ra']}, {doc['dec']})]",
+                                     "cone_search_radius": f"{config['misc']['xmatch_radius_arcsec']}",
+                                     "cone_search_unit": "arcsec"},
+                                 "catalogs": {
+                                     "PanSTARRS1": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, 'gMeanPSFMag': 1, " +
+                                                       "'gMeanPSFMagErr': 1, 'rMeanPSFMag': 1, 'rMeanPSFMagErr': 1, " +
+                                                       "'iMeanPSFMag': 1, 'iMeanPSFMagErr': 1, 'zMeanPSFMag': 1, " +
+                                                       "'zMeanPSFMagErr': 1, 'yMeanPSFMag': 1, 'yMeanPSFMagErr': 1}"
+                                     },
+                                     "IPHAS_DR2": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 0, 'name': 1, 'r': 1, 'rErr': 1, 'i': 1, " +
+                                                       "'iErr': 1, 'ha': 1, 'haErr': 1}"
+                                     },
+                                     "Gaia_DR2": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'phot_g_mean_mag': 1, 'phot_bp_mean_mag': 1, " +
+                                                       "'phot_rp_mean_mag': 1}"
+                                     },
+                                     "2MASS_PSC": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'j_m': 1, 'h_m': 1, 'k_m': 1}"
+                                     }
+                                 }
+                                 }
+        # print(kowalski_query_xmatch)
+
+        resp = request.app['kowalski'].query(kowalski_query_xmatch)
+        xmatch = resp['result_data']
+
+        # reformat for ingestion (we queried only one sky position):
+        for cat in xmatch.keys():
+            kk = list(xmatch[cat].keys())[0]
+            xmatch[cat] = xmatch[cat][kk]
+
+        # print(xmatch)
+        doc['xmatch'] = xmatch
+
         # spectra
         doc['spec'] = []
 

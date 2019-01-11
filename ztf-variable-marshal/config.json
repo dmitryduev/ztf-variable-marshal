@@ -97,6 +97,7 @@
       "Spectrum but Unclassified",
       "X-Ray Source"],
     "logging_level": "debug",
-    "query_expiration_interval": 10
+    "query_expiration_interval": 10,
+    "xmatch_radius_arcsec": 5
   }
 }
