@@ -172,7 +172,7 @@
                                 Epoch:
                             </label>
 
-                            <div class="col-md-4 row">
+                            <div class="col-md-4">
                                 <select class="form-control form-control-sm col-lg-6" id="epoch" name="epoch">
                                     <option>date</option>
                                     <option>mjd</option>
@@ -627,6 +627,8 @@
             // show default mag vs time
             data = [];
             plot_lc();
+            // enable back epoch select and set to default
+            $("#epoch").prop('disabled', false);
             $('#epoch').val('date');
         }
 
@@ -689,6 +691,9 @@
             }
 
             Plotly.newPlot('lc', data_folded, layout);
+
+            // disable epoch select
+            $("#epoch").prop('disabled', 'disabled');
         }
 
         {# remove source #}
