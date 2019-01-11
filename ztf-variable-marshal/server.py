@@ -1133,9 +1133,14 @@ async def source_get_handler(request):
                 if 'hjd' not in df:
                     df['hjd'] = df['mjd'] + 2400000.5
 
+                if 'jd' not in df:
+                    df['jd'] = df['mjd'] + 2400000.5
+
+                # todo: add days ago
+
                 # print(df)
 
-                for field in ('mag', 'magerr', 'mjd', 'hjd', 'dt'):
+                for field in ('mag', 'magerr', 'mjd', 'hjd', 'jd', 'dt'):
                     lc[field] = df[field].values.tolist() if field in df else []
 
         except Exception as e:
