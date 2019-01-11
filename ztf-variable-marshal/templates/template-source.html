@@ -479,15 +479,16 @@
 
             let layout = {yaxis: {autorange: 'reversed'},
                           showlegend: true,
-                          {#automargin: true,#}
-                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1,
+                          automargin: true,
+                          {#margin: {b: 30, t: 30, l: 50, r: 50, pad: 1,#}
                           updatemenus: [
-                              {yanchor: 'bottom',
-                                buttons: [{
+                              {y: 1,
+                               yanchor: 'top',
+                               buttons: [{
                                     method: 'restyle',
                                     args: ['line.color', 'red'],
                                     label: 'red'
-                                }]
+                               }]
                               }
                           ]
                           }
