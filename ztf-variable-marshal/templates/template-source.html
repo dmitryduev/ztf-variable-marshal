@@ -450,7 +450,6 @@
     <script>
         {# Plot light curves and spectra #}
         var data = [];
-        var spectra = [];
 
         function plot_lc() {
             {#// flush first:#}
@@ -492,6 +491,8 @@
 
         function plot_spec() {
 
+            var spectra = [];
+
             let layout = {showlegend: true,
                           margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
             };
@@ -507,6 +508,7 @@
                               opacity: 0.5,
                               visible: true},
                     line: {shape: 'spline', width: 0.5},
+                    marker: {size: 4},
                     mode: 'lines+markers',
                     name: 'SPEC_{{ loop.index }}'
                 };
@@ -518,15 +520,23 @@
             Plotly.newPlot('spec', spectra, layout);
         }
 
+        {% if source['lc'] | length > 0 %}
         $(document).ready(function() {
-            // wait for whole document to load before plotting light curves and spectra
-            {% if source['lc'] | length > 0 %}
+            // wait for whole document to load before plotting light curves
             plot_lc();
-            {% endif %}
-            {% if source['spec'] | length > 0 %}
-            plot_spec();
-            {% endif %}
         });
+        {% endif %}
+
+        {% if source['spec'] | length > 0 %}
+        var spec_plotted = false;
+        // wait for tab to be shown for the first time before plotting spectra
+        $('a[href="#nav-spectroscopy"]').on('shown.bs.tab', function (event) {
+            if (spec_plotted === false) {
+                plot_spec();
+                spec_plotted = true;
+            }
+        });
+        {% endif %}
 
         {# folding #}
         function unsetFolding(){
