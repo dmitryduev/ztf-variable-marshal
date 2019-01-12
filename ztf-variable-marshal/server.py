@@ -921,7 +921,7 @@ async def sources_get_handler(request):
 
     try:
 
-        # todo: display light curves?
+        # todo: display light curves? for now, omit the actual data
 
         # get last 20 added sources
         # sources = await request.app['mongo'].sources.find({},
@@ -934,7 +934,7 @@ async def sources_get_handler(request):
         #     length=None)
         sources = await request.app['mongo'].sources.find({},
                                                           {'coordinates': 0,
-                                                           'lc.data': 0}).limit(20).\
+                                                           'spec.data': 0, 'lc.data': 0}).limit(20).\
             sort([('created', -1)]).to_list(length=None)
 
         context = {'logo': config['server']['logo'],
