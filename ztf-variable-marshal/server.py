@@ -1125,15 +1125,15 @@ async def source_get_handler(request):
                 # don't need this anymore:
                 lc.pop('data', None)
 
+                # fixme?
+                if 'mjd' not in df:
+                    df['mjd'] = df['hjd'] - 2400000.5
+
                 df['datetime'] = df['mjd'].apply(lambda x: mjd_to_datetime(x))
                 # strings for plotly:
                 df['dt'] = df['datetime'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
 
                 df.sort_values(by=['mjd'], inplace=True)
-
-                # fixme: ?
-                if 'hjd' not in df:
-                    df['hjd'] = df['mjd'] + 2400000.5
 
                 if 'jd' not in df:
                     df['jd'] = df['mjd'] + 2400000.5
@@ -1435,8 +1435,9 @@ async def source_post_handler(request):
                     assert kk in lc, f'{kk} key not set'
                 for idp, dp in enumerate(lc['data']):
                     # fixme when the time comes:
-                    for kk in ('mjd', 'mag', 'magerr'):
+                    for kk in ('mag', 'magerr'):
                         assert kk in dp, f'{kk} key not set for data point #{idp+1}'
+                    assert (('mjd' in dp) or ('hjd' in dp)), f'time stamp (mjd/hjd) not set for data point #{idp + 1}'
 
                 # make history
                 time_tag = utc_now()
@@ -1458,8 +1459,11 @@ async def source_post_handler(request):
                 spectrum = _r['data']
 
                 # check data format:
-                for kk in ('telescope', 'instrument', 'filter', 'mjd', 'wavelength_unit', 'flux_unit', 'data'):
+                for kk in ('telescope', 'instrument', 'filter', 'wavelength_unit', 'flux_unit', 'data'):
                     assert kk in spectrum, f'{kk} key not set'
+                assert (('mjd' in spectrum) or ('hjd' in spectrum)), \
+                    f'time stamp (mjd/hjd) not set'
+
                 for idp, dp in enumerate(spectrum['data']):
                     # fixme when the time comes:
                     for kk in ('wavelength', 'flux', 'fluxerr'):
@@ -1659,12 +1663,12 @@ async def search_post_handler(request):
                           "catalogs": {
                               config['kowalski']['coll_sources']: {
                                   "filter": _query['filter'] if len(_query['filter']) > 0 else "{}",
-                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1," +
-                                                "'vonneumannratio': 1, 'filter': 1," +
-                                                "'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1," +
-                                                "'medianmag': 1, 'minmag': 1, 'ngoodobs': 1," +
-                                                "'nobs': 1, 'refmag': 1, 'iqr': 1, " +
-                                                "'data.mag': 1, 'data.magerr': 1, 'data.mjd': 1, 'coordinates': 1}"
+                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'bestmagrms': 1, 'bestmaxmag': 1," +
+                                                "'bestvonneumannratio': 1, 'filter': 1," +
+                                                "'bestmaxslope': 1, 'bestmeanmag': 1, 'bestmedianabsdev': 1," +
+                                                "'bestmedianmag': 1, 'bestminmag': 1, 'nbestobs': 1," +
+                                                "'nobs': 1, 'refchi': 1, 'refmag': 1, 'refmagerr': 1, 'iqr': 1, " +
+                                                "'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'coordinates': 1}"
                               }
                           }
                           }
@@ -1681,8 +1685,9 @@ async def search_post_handler(request):
             # print(lc)
             mags = np.array([llc['mag'] for llc in lc])
             magerrs = np.array([llc['magerr'] for llc in lc])
-            mjds = np.array([llc['mjd'] for llc in lc])
-            datetimes = np.array([mjd_to_datetime(llc['mjd']).strftime('%Y-%m-%d %H:%M:%S') for llc in lc])
+            hjds = np.array([llc['hjd'] for llc in lc])
+            mjds = hjds - 2400000.5
+            datetimes = np.array([mjd_to_datetime(llc['hjd'] - 2400000.5).strftime('%Y-%m-%d %H:%M:%S') for llc in lc])
 
             ind_sort = np.argsort(mjds)
             mags = mags[ind_sort].tolist()

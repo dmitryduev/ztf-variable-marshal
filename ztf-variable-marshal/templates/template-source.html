@@ -242,11 +242,12 @@
  "id": UNIQUE_ID,
  "lc_type": "temporal",
  "data": [
-   {"mjd": MJD, "mag": MAG, "magerr": MAGERROR},
+   {"mjd": MJD, ["hjd": HJD,] "mag": MAG, "magerr": MAGERROR},
    ...
  ]
 }</code></pre>
-                    These fields are mandatory, however you can add any custom fields.
+                    You can use either or both mjd or hjd for the time stamps.
+                    Other fields above are mandatory, however you can add any custom fields.
                         </p>
 
                         <hr>
@@ -302,7 +303,8 @@
  ]
 }</code></pre>
                         "wavelen_unit" can be "A", "nm", or "m".
-                        These fields are mandatory, however you can add any custom fields.
+                        You can use either mjd or hjd for the time stamp.
+                        Other fields above are mandatory, however you can add any custom fields.
                         </p>
                     </div>
 
@@ -682,7 +684,7 @@
                 data_folded.push({x: phase,
                                   y: lc_.y,
                                   error_y: lc_.error_y,
-                                  line: {shape: 'spline', width: 0.5},
+                                  line: {shape: 'spline', width: 0.2},
                                   mode: 'markers',
                                   name: 'LC_' + ii});
 

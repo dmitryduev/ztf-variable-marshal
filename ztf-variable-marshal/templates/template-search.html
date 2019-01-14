@@ -211,9 +211,9 @@ Examples:
             columns: [
                 [
                     {% for field_id in ('_id', 'ra', 'dec', 'filter',
-                                        'magrms', 'maxmag', 'maxslope', 'meanmag',
-                                        'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
-                                        'ngoodobs', 'nobs', 'refmag', 'iqr',
+                                        'bestmagrms', 'bestmaxmag', 'bestmaxslope', 'bestmeanmag',
+                                        'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'bestvonneumannratio',
+                                        'nbestobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr',
                                         'mag', 'magerr', 'mjd') %}
                     {
                         field: '{{field_id}}',
@@ -221,8 +221,8 @@ Examples:
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                        {% if field_id in ('magrms', 'maxmag', 'maxslope',
-                                           'medianabsdev', 'medianmag', 'minmag', 'nobs',
+                        {% if field_id in ('bestmagrms', 'bestmaxmag', 'bestmaxslope',
+                                           'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'nobs',
                                            'mag', 'magerr', 'mjd') %}
                         visible: false,
                         {% else %}
@@ -236,9 +236,9 @@ Examples:
                 {% for entry in data %}
                     {
                         {% for field_id in ('_id', 'ra', 'dec', 'filter',
-                                            'maxmag', 'maxslope', 'meanmag',
-                                            'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
-                                            'ngoodobs', 'nobs', 'refmag', 'iqr') %}
+                                            'bestmaxmag', 'bestmaxslope', 'bestmeanmag',
+                                            'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'bestvonneumannratio',
+                                            'nbestobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
@@ -267,7 +267,7 @@ Examples:
                          "y: " + row['mag'] +", " +
                          {#"error_y: {type: 'data', array: " + row['magerr'] + ", visible: true}, " +#}
                          {# lines+markers#}
-                         "line: {shape: 'spline', width: 0.5, color: '#00415a'}, " +
+                         "line: {shape: 'spline', width: 0.2, color: '#00415a'}, " +
                          "mode: 'lines+markers'} ]; " +
                          {# , automargin: true #}
                          "var layout = {yaxis: {autorange: 'reversed'}, margin: {l: 50, r: 50, b: 30, t: 30, pad: 1}}; " +
