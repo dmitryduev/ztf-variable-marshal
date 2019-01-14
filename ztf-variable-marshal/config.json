@@ -24,8 +24,8 @@
   },
 
   "kowalski": {
-    "coll_sources": "ZTF_matchfiles_sources_20181219",
-    "coll_exposures": "ZTF_matchfiles_exposures_20181219"
+    "coll_sources": "ZTF_sources_20181220",
+    "coll_exposures": "ZTF_exposures_20181220"
   },
 
   "misc": {
