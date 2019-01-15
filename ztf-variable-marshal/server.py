@@ -82,7 +82,7 @@ async def init_db():
 
 async def add_admin(_mongo):
     """
-        Create admin user for the web interface if it does not exists already
+        Create admin user for the web interface if it does not exist already
     :return:
     """
     ex_admin = await _mongo.users.find_one({'_id': config['server']['admin_username']})
@@ -93,6 +93,29 @@ async def add_admin(_mongo):
                                            'permissions': {},
                                            'last_modified': utc_now()
                                            })
+        except Exception as e:
+            print(f'Got error: {str(e)}')
+            _err = traceback.format_exc()
+            print(_err)
+
+
+async def add_master_program(_mongo):
+    """
+        Create program id 1 if it does not exist already
+    :param _mongo:
+    :return:
+    """
+    # get number of programs
+    ex_program_1 = await _mongo.programs.find_one({'_id': 1})
+
+    # add program to programs collection:
+    if ex_program_1 is None or len(ex_program_1) == 0:
+        try:
+            await _mongo.programs.insert_one({'_id': 1,
+                                              'name': 'skipper',
+                                              'description': 'default program',
+                                              'last_modified': utc_now()
+                                              })
         except Exception as e:
             print(f'Got error: {str(e)}')
             _err = traceback.format_exc()
@@ -532,6 +555,72 @@ async def edit_user(request):
             return web.json_response({'message': f'Failed to remove user: {_err}'}, status=500)
     else:
         return web.json_response({'message': '403 Forbidden'}, status=403)
+
+
+''' manage user programs: API '''
+
+
+@routes.get('/programs')
+@login_required
+async def programs_get_handler(request):
+    """
+        Serve programs page for the browser
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    programs = await request.app['mongo'].programs.find({}).to_list(length=1000)
+    # print(programs)
+
+    context = {'logo': config['server']['logo'],
+               'user': session['user_id'],
+               'programs': programs}
+    response = aiohttp_jinja2.render_template('template-programs.html',
+                                              request,
+                                              context)
+    return response
+
+
+@routes.put('/programs')
+@login_required
+async def programs_put_handler(request):
+    """
+        Add new program to DB
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _data = await request.json()
+    # print(_data)
+
+    try:
+        program_name = _data['program_name'] if 'program_name' in _data else None
+        program_description = _data['program_description'] if 'program_description' in _data else None
+
+        if len(program_name) == 0 or len(program_description) == 0:
+            return web.json_response({'message': 'program name and description must be set'}, status=500)
+
+        # get number of programs
+        num_programs = await request.app['mongo'].programs.count_documents({})
+
+        # add program to programs collection:
+        await request.app['mongo'].programs.insert_one(
+            {'_id': int(num_programs + 1),
+             'name': program_name,
+             'description': program_description,
+             'last_modified': datetime.datetime.now()}
+        )
+
+        return web.json_response({'message': 'success'}, status=200)
+
+    except Exception as _e:
+        print(f'Got error: {str(_e)}')
+        _err = traceback.format_exc()
+        print(_err)
+        return web.json_response({'message': f'Failed to add user: {_err}'}, status=500)
 
 
 ''' query API'''
@@ -1200,7 +1289,7 @@ async def source_get_handler(request):
 @login_required
 async def sources_put_handler(request):
     """
-        Save ZTF source to own db assigning a unique id
+        Save ZTF source to own db assigning a unique id and assigning to a program
     :param request:
     :return:
     """
@@ -1217,6 +1306,7 @@ async def sources_put_handler(request):
 
     try:
         assert '_id' in _r, '_id not specified'
+        assert 'zvm_program_id' in _r, 'zvm_program_id not specified'
 
         kowalski_query = {"query_type": "general_search",
                           "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
@@ -1253,6 +1343,9 @@ async def sources_put_handler(request):
 
         # unique (sequential) id:
         doc['_id'] = source_id
+
+        # assign to zvm_program_id:
+        doc['zvm_program_id'] = int(_r['zvm_program_id'])
 
         # coordinates:
         doc['ra'] = ztf_source['ra']
@@ -1623,8 +1716,12 @@ async def search_get_handler(request):
     # get session:
     session = await get_session(request)
 
+    # get ZVM programs:
+    programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
+
     context = {'logo': config['server']['logo'],
-               'user': session['user_id']}
+               'user': session['user_id'],
+               'programs': programs}
     response = aiohttp_jinja2.render_template('template-search.html',
                                               request,
                                               context)
@@ -1703,9 +1800,13 @@ async def search_post_handler(request):
 
         # print(data)
 
+        # get ZVM programs:
+        programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
+
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
                    'data': data,
+                   'programs': programs,
                    'form': _query}
         response = aiohttp_jinja2.render_template('template-search.html',
                                                   request,
@@ -1797,6 +1898,9 @@ async def app_factory():
     # add site admin if necessary
     await add_admin(mongo)
 
+    # add program id 1 if necessary
+    await add_master_program(mongo)
+
     # init app with auth middleware
     app = web.Application(middlewares=[auth_middleware])
 
@@ -1807,6 +1911,7 @@ async def app_factory():
     await app['mongo'].sources.create_index([('coordinates.radec_geojson', '2dsphere'),
                                              ('_id', 1)], background=True)
     await app['mongo'].sources.create_index([('created', -1)], background=True)
+    await app['mongo'].sources.create_index([('zvm_program_id', 1)], background=True)
     await app['mongo'].sources.create_index([('lc.id', 1)], background=True)
 
     # graciously close mongo client on shutdown

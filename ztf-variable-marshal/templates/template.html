@@ -69,6 +69,7 @@
                         Logged in as <strong>{{ user }}</strong>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{-script_root-}}/programs">Manage programs</a>
                         {% if user == 'admin' %}
                             <a class="dropdown-item" href="{{-script_root-}}/users">Manage users</a>
                         {% endif %}

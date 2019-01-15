@@ -421,8 +421,35 @@ Examples:
 
         // save source
         function source_save(_id) {
+            let radios = "";
+                let sn = 1;
+                let programs = {{ programs | safe }};
+                for (s of programs) {
+                    if (sn === 1) {
+                        radios = radios +
+                            "<div class='form-check'>" +
+                            "<input class='form-check-input' type='radio' name='program_radios' id='program_radio1' value='" + s['_id'] + "' checked>" +
+                            "<label class='form-check-label' for='program_radio1'>" +
+                            JSON.stringify(s) +
+                            "</label>" +
+                            "</div>"
+                    }
+                    else {
+                        radios = radios +
+                            "<div class='form-check'>" +
+                            "<input class='form-check-input' type='radio' name='program_radios' id='program_radio" + sn + "' value='" + s['_id'] + "'>" +
+                            "<label class='form-check-label' for='program_radio" + sn + "'>" +
+                            JSON.stringify(s) +
+                            "</label>" +
+                            "</div>"
+                    }
+                    //console.log(JSON.stringify(s));
+                    //console.log(radios);
+                    sn = sn + 1;
+                }
             bootbox.confirm({
-                message: "Do you want to save the source to the Marshal assigning a unique id?",
+                message: "Do you want to save the source to the Marshal assigning a unique id?<br>" +
+                         "Assign to program:<br>" + radios,
                 buttons: {
                     cancel: {
                         label: '<i class="fas fa-times"></i> Cancel'
@@ -435,9 +462,10 @@ Examples:
                     // confirmed?
                     if (result) {
                         //console.log(id);
+                        const program_to_add_to = document.querySelector('input[name="program_radios"]:checked').value;
                         $.ajax({url: '{{-script_root-}}/sources',
                             method: 'PUT',
-                            data: JSON.stringify({'_id': _id}),
+                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to}),
                             processData: false,
                             contentType: 'application/json',
                             success: function(data) {

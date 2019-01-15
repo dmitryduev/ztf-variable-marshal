@@ -1,0 +1,145 @@
+{% extends "template.html" %}
+
+{% block css %}
+    <style>
+        .form-group {
+            margin-bottom:5px !important;
+            margin-top: 2px !important;
+        }
+        .slider.slider-horizontal {
+            width: 100% !important;
+        }
+        .show_hide_password a, a:hover{
+           color: #333;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h2>Programs</h2><br>
+
+        <button type="button" class="btn btn-primary btn-lg btn-block"
+                data-toggle="modal" data-target="#addProgramModal"
+                data-user="">Add program</button>
+        <br>
+
+        {% if programs|length > 0 %}
+            <table class="table table-sm table-hover tablesorter" id="program-table">
+                <thead>
+                <tr>
+                    <th scope="col">_id</th>
+                    <th scope="col">name</th>
+                    <th scope="col">description</th>
+                    {#<th scope="col">actions</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for p in programs %}
+                    <tr>
+                        <th scope="row" style="width: 20%">{{ p['_id'] }}</th>
+                        <td style="width: 30%">{{ p['name'] }}</td>
+                        <td style="width: 50%">{{ p['description'] }}</td>
+{#                        <td style="width: 30%">#}
+{#                            <button type="button" class="btn btn-sm btn-primary editButton"#}
+{#                                    data-toggle="modal" data-target="#editUserModal"#}
+{#                                    data-user="{{ u['_id'] }}" data-permissions="'{{ u['permissions'] }}'">#}
+{#                                edit</button>#}
+{#                            <button type="button" class="btn btn-sm btn-danger removeButton"#}
+{#                                    data-user="{{ u['_id'] }}">#}
+{#                                remove</button>#}
+{#                        </td>#}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+    </div>
+
+    <!-- Modal to add a program-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="addProgramModal" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add program</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="tempAddProgram">
+                        <div class="form-group">
+                            <label for="form-prog">program name</label>
+                            <input id="form-prog" type="text" class="form-control"
+                                   name="program_name" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-dscr">program description</label>
+                            <input id="form-dscr" type="text" class="form-control"
+                                   name="program_description" autocomplete="off">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addProgramButton">Add program</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- End Modal -->
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{-script_root-}}/static/js/jquery.tablesorter.min.js"></script>
+    <script>
+        // for AJAX requests [absolute website's uri]:
+        // $SCRIPT_ROOT = '';
+
+        $(document).ready(function() {
+            // call the tablesorter plugin
+            $("#program-table").tablesorter({
+                // sort on the first column and third column, order asc
+                sortList: [[0,0]]
+            });
+        });
+
+
+        // send AJAX PUT request to server
+        $('#addProgramButton').click(function (e) {
+            $.ajax({url: '{{-script_root-}}/programs',
+                method: 'PUT',
+                data: JSON.stringify($('#tempAddProgram').serializeJSON()),
+                processData: false,
+                contentType: 'application/json',
+                success: function(data) {
+                    if (data['message'] === 'success') {
+                        location.reload(true);
+                    }
+                    else {
+                        $('#addUserModal').modal('hide');
+                        showFlashingMessage('Info:', 'Failed to add program' + data['message'], 'danger');
+                    }
+                },
+                error: function(data) {
+                    $('#addUserModal').modal('hide');
+                    showFlashingMessage('Info:', 'Failed to add program', 'danger');
+                }
+            });
+            return false;
+        });
+
+    </script>
+
+    {% if messages | length > 0 %}
+        $(document).ready(function() {
+            {% for message in messages %}
+                showFlashingMessage('Info:', '{{ message[0] }}', '{{ message[1] }}');
+            {% endfor %}
+        });
+    {% endif %}
+{% endblock %}

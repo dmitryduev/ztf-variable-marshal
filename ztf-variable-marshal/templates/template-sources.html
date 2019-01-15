@@ -211,7 +211,8 @@ Examples:
             columns: [
                 [
                     {% for field_id in ('_id', 'ra', 'dec',
-                                        'p', 'source_types', 'source_flags', 'spec', 'lc', 'created') %}
+                                        'p', 'zvm_program_id',
+                                        'source_types', 'source_flags', 'spec', 'lc', 'created') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
@@ -231,7 +232,8 @@ Examples:
                 {% for entry in data %}
                     {
                         {% for field_id in ('_id', 'ra', 'dec',
-                                        'p', 'source_types', 'source_flags', 'created') %}
+                                        'p', 'zvm_program_id',
+                                        'source_types', 'source_flags', 'created') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
