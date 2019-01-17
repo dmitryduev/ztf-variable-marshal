@@ -439,6 +439,7 @@ Examples:
     </script>
 
     {# populate form from previous request #}
+    {% if form | length > 0 %}
     <script>
         $(document).ready(function() {
             {%-for key in form-%}
@@ -450,5 +451,6 @@ Examples:
             {%-endfor-%}
         })
     </script>
+    {% endif %}
 
 {% endblock %}
