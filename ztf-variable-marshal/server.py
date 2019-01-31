@@ -1383,6 +1383,7 @@ async def sources_put_handler(request):
                                      "Gaia_DR2": {
                                          "filter": "{}",
                                          "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'parallax': 1, 'parallax_error': 1, " +
                                                        "'phot_g_mean_mag': 1, 'phot_bp_mean_mag': 1, " +
                                                        "'phot_rp_mean_mag': 1}"
                                      },
@@ -1390,6 +1391,13 @@ async def sources_put_handler(request):
                                          "filter": "{}",
                                          "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
                                                        "'j_m': 1, 'h_m': 1, 'k_m': 1}"
+                                     },
+                                     "AllWISE": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'w1mpro': 1, 'w1sigmpro': 1, 'w2mpro': 1, 'w2sigmpro': 1, " +
+                                                       "'w3mpro': 1, 'w3sigmpro': 1, 'w4mpro': 1, 'w4sigmpro': 1, " +
+                                                       "'ph_qual': 1}"
                                      }
                                  }
                                  }
