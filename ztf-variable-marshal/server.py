@@ -1273,11 +1273,15 @@ async def source_get_handler(request):
     source_types = config['misc']['source_types']
     source_flags = config['misc']['source_flags']
 
+    # get ZVM programs:
+    programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
+
     context = {'logo': config['server']['logo'],
                'user': session['user_id'],
                'source': source,
                'source_types': source_types,
-               'source_flags': source_flags
+               'source_flags': source_flags,
+               'programs': programs
                }
     response = aiohttp_jinja2.render_template('template-source.html',
                                               request,
@@ -1584,6 +1588,24 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
                 # return web.json_response({'message': 'failure: not implemented'}, status=200)
+
+            elif _r['action'] == 'transfer_source':
+                # add note
+                new_pid = _r['zvm_program_id']
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'transfer',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': new_pid}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'history': h},
+                                                               '$set': {'zvm_program_id': int(new_pid),
+                                                                        'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'add_note':
                 # add note

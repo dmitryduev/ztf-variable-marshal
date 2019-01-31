@@ -377,6 +377,10 @@
                             <div class="col-md-6">
                                 <p>
                                     ZTF VM Program id: {{ source['zvm_program_id'] }}
+                                    <button type="button" class="btn btn-dark btn-sm"
+                                            id="transfer_source" onclick="transfer_source()">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button><br>
                                 </p>
                                 <p>
                                     Source type(s): <button type="button" class="btn btn-dark btn-sm"
@@ -785,6 +789,76 @@
         });
 
         {# classification #}
+        // transfer source
+        function transfer_source() {
+            let radios = "";
+                let sn = 1;
+                let current_pid = {{ source['zvm_program_id'] }};
+                let programs = {{ programs | safe }};
+                for (s of programs) {
+                    if (s['_id'] === current_pid) {
+                        radios = radios +
+                            "<div class='form-check'>" +
+                            "<input class='form-check-input' type='radio' name='program_radios' id='program_radio" + sn + "' value='" + s['_id'] + "' checked>" +
+                            "<label class='form-check-label' for='program_radio" + sn + "'>" +
+                            JSON.stringify(s) +
+                            "</label>" +
+                            "</div>"
+                    }
+                    else {
+                        radios = radios +
+                            "<div class='form-check'>" +
+                            "<input class='form-check-input' type='radio' name='program_radios' id='program_radio" + sn + "' value='" + s['_id'] + "'>" +
+                            "<label class='form-check-label' for='program_radio" + sn + "'>" +
+                            JSON.stringify(s) +
+                            "</label>" +
+                            "</div>"
+                    }
+                    //console.log(JSON.stringify(s));
+                    //console.log(radios);
+                    sn = sn + 1;
+                }
+            bootbox.confirm({
+                message: "Do you want to transfer the source to a different program?<br>" +
+                         radios,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Confirm'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        // get pid
+                        const program_to_transfer_to = document.querySelector('input[name="program_radios"]:checked').value;
+
+                        $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                            method: 'POST',
+                            data: JSON.stringify({'action': 'transfer_source', 'zvm_program_id': program_to_transfer_to}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    showFlashingMessage('Info:', 'Successfully transferred source: ' + data['message'], 'success');
+                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to transfer source: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                showFlashingMessage('Info:', 'Failed to transfer source', 'danger');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // add note
         function add_note() {
             var txt_area = "<div class='form-group'>" +
                 "<label for='note_textarea'>Add note:</label>" +
