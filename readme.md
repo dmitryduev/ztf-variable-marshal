@@ -38,7 +38,7 @@ Create `secrets.json` with confidential/secret data:
 
 Change `skipper.caltech.edu` in `docker-compose.yml` and in `traefik/traefik.toml` if necessary. 
 
-Run `docker-compose` to build and start the service:
+Run `docker-compose` to build and start the service (may have to sudo if acme complains):
 ```bash
 docker-compose up --build -d
 ```
