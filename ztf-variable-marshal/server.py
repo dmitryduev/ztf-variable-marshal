@@ -1848,6 +1848,7 @@ async def search_post_handler(request):
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
+                   'programs': [],
                    'messages': [[str(_e), 'danger']]}
         response = aiohttp_jinja2.render_template('template-search.html',
                                                   request,
