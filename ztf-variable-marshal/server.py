@@ -1402,6 +1402,19 @@ async def sources_put_handler(request):
                                                        "'w1mpro': 1, 'w1sigmpro': 1, 'w2mpro': 1, 'w2sigmpro': 1, " +
                                                        "'w3mpro': 1, 'w3sigmpro': 1, 'w4mpro': 1, 'w4sigmpro': 1, " +
                                                        "'ph_qual': 1}"
+                                     },
+                                     "ZTF_alerts": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'candidate.jd': 1, 'candidate.pid': 1, " +
+                                                       "'candidate.magpsf': 1, 'candidate.sigmapsf': 1}"
+                                     },
+                                     "RFC_2018d": {
+                                         "filter": "{}",
+                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
+                                                       "'category': 1, 'S_band_flux_total': 1, " +
+                                                       "'C_band_flux_total': 1, 'X_band_flux_total': 1, " +
+                                                       "'U_band_flux_total': 1, 'K_band_flux_total': 1}"
                                      }
                                  }
                                  }
@@ -1444,6 +1457,15 @@ async def sources_put_handler(request):
 
     except Exception as _e:
         print(f'Failed to ingest source: {str(_e)}')
+
+        try:
+            if not request.app['kowalski'].check_connection():
+                print('Apparently lost connection to Kowalski, trying to reset')
+                request.app['kowalski'] = Kowalski(username=config['kowalski']['username'],
+                                                   password=config['kowalski']['password'])
+                print('Success')
+        except Exception as __e:
+            print(str(__e))
 
         return web.json_response({'message': f'ingestion failed {str(_e)}'}, status=200)
 
@@ -1845,6 +1867,15 @@ async def search_post_handler(request):
 
     except Exception as _e:
         print(f'Querying Kowalski failed: {str(_e)}')
+
+        try:
+            if not request.app['kowalski'].check_connection():
+                print('Apparently lost connection to Kowalski, trying to reset')
+                request.app['kowalski'] = Kowalski(username=config['kowalski']['username'],
+                                                   password=config['kowalski']['password'])
+                print('Success')
+        except Exception as __e:
+            print(str(__e))
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
