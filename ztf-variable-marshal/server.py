@@ -1555,28 +1555,33 @@ async def source_post_handler(request):
             elif _r['action'] == 'upload_lc':
                 # upload light curve
 
-                lc = _r['data']
+                lcs = _r['data']
 
-                # check data format:
-                for kk in ('telescope', 'instrument', 'filter', 'id', 'lc_type', 'data'):
-                    assert kk in lc, f'{kk} key not set'
-                for idp, dp in enumerate(lc['data']):
-                    # fixme when the time comes:
-                    for kk in ('mag', 'magerr'):
-                        assert kk in dp, f'{kk} key not set for data point #{idp+1}'
-                    assert (('mjd' in dp) or ('hjd' in dp)), f'time stamp (mjd/hjd) not set for data point #{idp + 1}'
+                if isinstance(lcs, dict):
+                    lcs = [lcs]
 
-                # make history
-                time_tag = utc_now()
-                h = {'note_type': 'lc',
-                     'time_tag': time_tag,
-                     'user': user,
-                     'note': f'{lc["telescope"]} {lc["instrument"]} {lc["filter"]} {lc["id"]}'}
+                for lc in lcs:
+                    # check data format:
+                    for kk in ('telescope', 'instrument', 'filter', 'id', 'lc_type', 'data'):
+                        assert kk in lc, f'{kk} key not set'
+                    for idp, dp in enumerate(lc['data']):
+                        # fixme when the time comes:
+                        for kk in ('mag', 'magerr'):
+                            assert kk in dp, f'{kk} key not set for data point #{idp+1}'
+                        assert (('mjd' in dp) or ('hjd' in dp)), \
+                            f'time stamp (mjd/hjd) not set for data point #{idp + 1}'
 
-                await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'lc': lc,
-                                                                         'history': h},
-                                                               '$set': {'last_modified': utc_now()}})
+                    # make history
+                    time_tag = utc_now()
+                    h = {'note_type': 'lc',
+                         'time_tag': time_tag,
+                         'user': user,
+                         'note': f'{lc["telescope"]} {lc["instrument"]} {lc["filter"]} {lc["id"]}'}
+
+                    await request.app['mongo'].sources.update_one({'_id': _id},
+                                                                  {'$push': {'lc': lc,
+                                                                             'history': h},
+                                                                   '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
 
