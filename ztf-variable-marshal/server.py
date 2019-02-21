@@ -1218,22 +1218,24 @@ async def source_get_handler(request):
                 if 'mjd' not in df:
                     df['mjd'] = df['hjd'] - 2400000.5
 
-                df['datetime'] = df['mjd'].apply(lambda x: mjd_to_datetime(x))
+                if 'datetime' not in df:
+                    df['datetime'] = df['mjd'].apply(lambda x: mjd_to_datetime(x))
                 # strings for plotly:
-                df['dt'] = df['datetime'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
+                if 'dt' not in df:
+                    df['dt'] = df['datetime'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
 
                 df.sort_values(by=['mjd'], inplace=True)
 
                 if 'jd' not in df:
                     df['jd'] = df['mjd'] + 2400000.5
 
-                # todo: add fractional days ago
-                df['days_ago'] = df['datetime'].apply(lambda x:
-                                                      (datetime.datetime.utcnow() - x).total_seconds()/86400.)
+                # fractional days ago
+                t_utc = datetime.datetime.utcnow()
+                df['days_ago'] = df['datetime'].apply(lambda x: (t_utc - x).total_seconds()/86400.)
 
                 # print(df)
 
-                for field in ('mag', 'magerr', 'mjd', 'hjd', 'jd', 'dt', 'days_ago'):
+                for field in ('mag', 'magerr', 'mag_llim', 'mag_ulim', 'mjd', 'hjd', 'jd', 'dt', 'days_ago'):
                     lc[field] = df[field].values.tolist() if field in df else []
 
         except Exception as e:
