@@ -503,21 +503,21 @@
     </script>
 
     <script>
+        var colors = {1: ['#28a745', '#0b6623', '#043927', '#4F7942',
+                          '#4CBB17', '#006E51', '#79C753'],
+                      2: ['#dc3545', '#8d021f', '#960018', '#Dff2800',
+                          '#FF0800', '#FF2400', '#7C0A02'],
+                      3: ['#343a40', '#343434', '#36454F', '#909090',
+                          '#536267', '#4C5866', '#9896A4'],
+                      'zg': ['#28a745', '#0b6623', '#043927', '#4F7942',
+                             '#4CBB17', '#006E51', '#79C753'],
+                      'zr': ['#dc3545', '#8d021f', '#960018', '#Dff2800',
+                             '#FF0800', '#FF2400', '#7C0A02'],
+                      'zi': ['#343a40', '#343434', '#36454F', '#909090',
+                             '#536267', '#4C5866', '#9896A4'],
+                      'default': ['#00415a', '#005960', '#20208b']};
         {# Plot light curves and spectra #}
         function lc_colors(color='default', ind=0) {
-             const colors = {1: ['#28a745', '#0b6623', '#043927', '#4F7942',
-                                 '#4CBB17', '#006E51', '#79C753'],
-                             2: ['#dc3545', '#8d021f', '#960018', '#Dff2800',
-                                 '#FF0800', '#FF2400', '#7C0A02'],
-                             3: ['#343a40', '#343434', '#36454F', '#909090',
-                                 '#536267', '#4C5866', '#9896A4'],
-                             'zg': ['#28a745', '#0b6623', '#043927', '#4F7942',
-                                    '#4CBB17', '#006E51', '#79C753'],
-                             'zr': ['#dc3545', '#8d021f', '#960018', '#Dff2800',
-                                    '#FF0800', '#FF2400', '#7C0A02'],
-                             'zi': ['#343a40', '#343434', '#36454F', '#909090',
-                                    '#536267', '#4C5866', '#9896A4'],
-                             'default': ['#00415a', '#005960', '#20208b']};
              if (color in colors) {
                  // re-use if ran out of available colors:
                  return colors[color][ind % (colors[color].length)]
@@ -534,6 +534,8 @@
             {#// flush first:#}
             {#Plotly.newPlot('lc');#}
 
+            let lc_cs = {};
+
             let layout = {xaxis: {autorange: true},
                           yaxis: {autorange: 'reversed'},
                           margin: {b: 30, t: 30, l: 50, r: 50, pad: 1},
@@ -542,6 +544,13 @@
             {# iterate over individual light-curves #}
             {% for lc in source['lc'] %}
                 {% set lc_ind = loop.index %}
+
+                if ({{-lc['filter']-}} in lc_cs) {
+                    ++lc_cs[{{-lc['filter']-}}]
+                }
+                else {
+                    lc_cs[{{-lc['filter']-}}] = 0
+                }
 
                 {# iterate over detections and non-detections #}
                 {% for key in lc['data'] %}
@@ -561,21 +570,21 @@
                                       array: {{ lc['data'][key]['magerr'] }},
                                       width: 2,
                                       thickness: 0.8,
-                                      color: lc_colors({{ lc['filter'] }}, {{ lc_ind-1 }}),
+                                      color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]),
                                       opacity: 0.5,
                                       visible: true},
                             name: 'LC_{{ lc_ind }}',
-                            marker: {color: lc_colors({{ lc['filter'] }}, {{ lc_ind-1 }})},
+                            marker: {color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}])},
                             showlegend: true,
                             {% elif key == 'lc_nodet_u' %}
                             y: {{ lc['data'][key]['mag_ulim'] }},
                             name: 'LC_{{ lc_ind }}_nodet_u',
-                            marker: {symbol: 'triangle-down', color: lc_colors({{ lc['filter'] }}, {{ lc_ind-1 }}), opacity: 0.4},
+                            marker: {symbol: 'triangle-down', color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]), opacity: 0.4},
                             showlegend: true,
                             {% elif key == 'lc_nodet_l' %}
                             y: {{ lc['data'][key]['mag_llim'] }},
                             name: 'LC_{{ lc_ind }}_nodet_l',
-                            marker: {symbol: 'triangle-up', color: lc_colors({{ lc['filter'] }}, {{ lc_ind-1 }}), opacity: 0.4},
+                            marker: {symbol: 'triangle-up', color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]), opacity: 0.4},
                             showlegend: true,
                             {% endif %}
 
