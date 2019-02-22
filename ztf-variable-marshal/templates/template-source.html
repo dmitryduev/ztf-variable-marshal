@@ -513,13 +513,13 @@
                                     '#FF0800', '#FF2400', '#7C0A02'],
                              'zi': ['#343a40', '#343434', '#36454F', '#909090',
                                     '#536267', '#4C5866', '#9896A4'],
-                             'default': ['#00415a', '#005960']};
+                             'default': ['#00415a', '#005960', '#20208b']};
              if (color in colors) {
                  // re-use if ran out of available colors:
                  return colors[color][ind % (colors[color].length)]
              }
              else {
-                 return colors['default'][ind % (colors[color].length]
+                 return colors['default'][ind % (colors[color].length)]
              }
         }
         var data_det = [];
