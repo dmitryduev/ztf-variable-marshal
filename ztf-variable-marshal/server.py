@@ -1427,7 +1427,7 @@ async def sources_put_handler(request):
                                      "ZTF_alerts": {
                                          "filter": "{}",
                                          "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'candidate.jd': 1, 'candidate.pid': 1, " +
+                                                       "'candidate.jd': 1, 'candidate.programid': 1, " +
                                                        "'candidate.magpsf': 1, 'candidate.sigmapsf': 1}"
                                      },
                                      "RFC_2018d": {
