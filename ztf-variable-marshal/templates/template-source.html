@@ -260,6 +260,35 @@
                             <b>Cross-matched sources from external catalogs within 5":</b><br>
                             <pre id="json-renderer" class="pl-4 pr-4"></pre>
                         </p>
+
+                        <hr>
+
+                        <p>
+                            <b>Surveys</b>
+                        </p>
+                        <p>
+                            {% if source['dec'] >= 0 %}
+                                {% set dec_string = '+' + (source['dec'] | string) %}
+                            {% else %}
+                                {% set dec_string = source['dec'] | string %}
+                            {% endif %}
+                            <a href="javascript:document.getElementById('kowalski_form').submit();"
+                               target="_blank" role="button" class="btn btn-secondary btn-sm"
+                                    id="survey_ztf_alerts">ZTF Alerts</a>
+                            <a href="https://ps1images.stsci.edu/cgi-bin/ps1cutouts?pos={{ source['ra'] }}{{ dec_string }}&filter=color&filter=g&filter=r&filter=i&filter=z&filter=y&filetypes=stack&auxiliary=data&size=240&output_size=0&verbose=0&autoscale=99.500000&catlist="
+                               target="_blank" role="button" class="btn btn-secondary btn-sm"
+                                    id="survey_panstarrs">PanSTARRS-1</a>
+                        </p>
+
+                        <div id="kowalski" style="display:none">
+                            <form id="kowalski_form" target="_blank" method="POST"
+                                  action="https://kowalski.caltech.edu/lab/ztf-alerts">
+                                <input name="radec" value="[({{ source['ra'] }}, {{ source['dec'] }})]"/>
+                                <input name="cone_search_radius" value="5"/>
+                                <input name="cone_search_unit" value="arcsec"/>
+                                <input name="filter" value=""/>
+                            </form>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade mt-2" id="nav-spectroscopy"
