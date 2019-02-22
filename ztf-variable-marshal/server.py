@@ -1211,12 +1211,12 @@ async def source_get_handler(request):
             if lc['lc_type'] == 'temporal':
                 # convert to pandas dataframe and replace nans with zeros:
                 df = pd.DataFrame(lc['data']).fillna(0)
-                # don't need this anymore:
-                lc.pop('data', None)
 
                 # fixme?
                 if 'mjd' not in df:
                     df['mjd'] = df['hjd'] - 2400000.5
+                if 'hjd' not in df:
+                    df['hjd'] = df['mjd'] + 2400000.5
 
                 if 'datetime' not in df:
                     df['datetime'] = df['mjd'].apply(lambda x: mjd_to_datetime(x))
@@ -1235,8 +1235,27 @@ async def source_get_handler(request):
 
                 # print(df)
 
-                for field in ('mag', 'magerr', 'mag_llim', 'mag_ulim', 'mjd', 'hjd', 'jd', 'dt', 'days_ago'):
-                    lc[field] = df[field].values.tolist() if field in df else []
+                # convert back to dict:
+                lc['data'] = df.to_dict('records')
+
+                # for field in ('mag', 'magerr', 'mag_llim', 'mag_ulim', 'mjd', 'hjd', 'jd', 'dt', 'days_ago'):
+                #     lc[field] = df[field].values.tolist() if field in df else []
+
+                # pre-process for plotly:
+                lc__ = {'lc_det': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag': [], 'magerr': []},
+                        'lc_nodet_u': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag_ulim': []},
+                        'lc_nodet_l': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag_llim': []}}
+                for dp in lc['data']:
+                    if ('mag_ulim' in dp) and (dp['mag_ulim'] > 0.01):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag_ulim'):
+                            lc__['lc_nodet_u'][kk].append(dp[kk])
+                    if ('mag_llim' in dp) and (dp['mag_llim'] > 0.01):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag_llim'):
+                            lc__['lc_nodet_l'][kk].append(dp[kk])
+                    if ('mag' in dp) and (dp['mag'] > 0.01):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag', 'magerr'):
+                            lc__['lc_det'][kk].append(dp[kk])
+                lc['data'] = lc__
 
         except Exception as e:
             print(str(e))
@@ -1568,8 +1587,8 @@ async def source_post_handler(request):
                         assert kk in lc, f'{kk} key not set'
                     for idp, dp in enumerate(lc['data']):
                         # fixme when the time comes:
-                        for kk in ('mag', 'magerr'):
-                            assert kk in dp, f'{kk} key not set for data point #{idp+1}'
+                        is_goed = (('mag' in dp) and ('magerr' in dp)) or (('mag_llim' in dp) or ('mag_ulim' in dp))
+                        assert is_goed, f'bad photometry for data point #{idp+1}'
                         assert (('mjd' in dp) or ('hjd' in dp)), \
                             f'time stamp (mjd/hjd) not set for data point #{idp + 1}'
 
