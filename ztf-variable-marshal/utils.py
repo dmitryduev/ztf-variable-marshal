@@ -272,7 +272,7 @@ def compute_hash(_task):
     return hsh
 
 
-def random_alphanumeric_str(length: int=8):
+def random_alphanumeric_str(length: int = 8):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(length)).lower()
 
 
@@ -296,3 +296,25 @@ def num2alphabet(num: int):
 def alphabet2num(dg: str):
     return sum(((ord(dg[x])-ord('a')+1) * (26 ** (len(dg)-x-1)) for x in range(0, len(dg))))
 
+
+colors = {1: ['#28a745', '#043927', '#0b6623', '#4F7942',
+              '#4CBB17', '#006E51', '#79C753'],
+          2: ['#dc3545', '#8d021f', '#FF0800', '#ff2800',
+              '#960018', '#FF2400', '#7C0A02'],
+          3: ['#343a40', '#343434', '#36454F', '#909090',
+              '#536267', '#4C5866', '#9896A4'],
+          'zg': ['#28a745', '#0b6623', '#043927', '#4F7942',
+                 '#4CBB17', '#006E51', '#79C753'],
+          'zr': ['#dc3545', '#8d021f', '#960018', '#ff2800',
+                 '#FF0800', '#FF2400', '#7C0A02'],
+          'zi': ['#343a40', '#343434', '#36454F', '#909090',
+                 '#536267', '#4C5866', '#9896A4'],
+          'default': ['#00415a', '#005960', '#20208b']}
+
+
+def lc_colors(color='default', ind: int = 0):
+    if color in colors:
+        # re-use if ran out of available colors:
+        return colors[color][ind % len(colors[color])]
+    else:
+        return colors['default'][ind % len(colors[color])]

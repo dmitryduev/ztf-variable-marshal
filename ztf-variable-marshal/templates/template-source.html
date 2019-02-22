@@ -242,7 +242,7 @@
  "id": UNIQUE_ID,
  "lc_type": "temporal",
  "data": [
-   {"mjd": MJD, "hjd": HJD, "mag": MAG, "magerr": MAGERROR}, "mag_llim": MAG_LLIM, "mag_ulim": MAG_ULIM},
+   {"mjd": MJD, "hjd": HJD, "mag": MAG, "magerr": MAGERROR, "mag_llim": MAG_LLIM, "mag_ulim": MAG_ULIM},
    ...
  ]
 }</code></pre>
@@ -503,29 +503,7 @@
     </script>
 
     <script>
-        var colors = {1: ['#28a745', '#0b6623', '#043927', '#4F7942',
-                          '#4CBB17', '#006E51', '#79C753'],
-                      2: ['#dc3545', '#8d021f', '#960018', '#Dff2800',
-                          '#FF0800', '#FF2400', '#7C0A02'],
-                      3: ['#343a40', '#343434', '#36454F', '#909090',
-                          '#536267', '#4C5866', '#9896A4'],
-                      'zg': ['#28a745', '#0b6623', '#043927', '#4F7942',
-                             '#4CBB17', '#006E51', '#79C753'],
-                      'zr': ['#dc3545', '#8d021f', '#960018', '#Dff2800',
-                             '#FF0800', '#FF2400', '#7C0A02'],
-                      'zi': ['#343a40', '#343434', '#36454F', '#909090',
-                             '#536267', '#4C5866', '#9896A4'],
-                      'default': ['#00415a', '#005960', '#20208b']};
-        {# Plot light curves and spectra #}
-        function lc_colors(color='default', ind=0) {
-             if (color in colors) {
-                 // re-use if ran out of available colors:
-                 return colors[color][ind % (colors[color].length)]
-             }
-             else {
-                 return colors['default'][ind % (colors[color].length)]
-             }
-        }
+
         var data_det = [];
         var data_non_det_u = [];
         var data_non_det_l = [];
@@ -545,13 +523,6 @@
             {% for lc in source['lc'] %}
                 {% set lc_ind = loop.index %}
 
-                if ({{ lc['filter'] }} in lc_cs) {
-                    ++lc_cs[{{ lc['filter'] }}]
-                }
-                else {
-                    lc_cs[{{ lc['filter'] }}] = 0
-                }
-
                 {# iterate over detections and non-detections #}
                 {% for key in lc['data'] %}
 
@@ -563,6 +534,7 @@
                             dt: {{ lc['data'][key]['dt'] | safe }},
                             days_ago: {{ lc['data'][key]['days_ago'] }},
                             mjd: {{ lc['data'][key]['mjd'] }},
+                            hjd: {{ lc['data'][key]['hjd'] }},
                             jd: {{ lc['data'][key]['jd'] }},
                             {% if key == 'lc_det' %}
                             y: {{ lc['data'][key]['mag'] }},
@@ -570,21 +542,21 @@
                                       array: {{ lc['data'][key]['magerr'] }},
                                       width: 2,
                                       thickness: 0.8,
-                                      color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]),
+                                      color: "{{ lc['color'] }}",
                                       opacity: 0.5,
                                       visible: true},
                             name: 'LC_{{ lc_ind }}',
-                            marker: {color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}])},
+                            marker: {color: "{{ lc['color'] }}"},
                             showlegend: true,
                             {% elif key == 'lc_nodet_u' %}
                             y: {{ lc['data'][key]['mag_ulim'] }},
                             name: 'LC_{{ lc_ind }}_nodet_u',
-                            marker: {symbol: 'triangle-down', color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]), opacity: 0.4},
+                            marker: {symbol: 'triangle-down', color: "{{ lc['color'] }}", opacity: 0.4},
                             showlegend: true,
                             {% elif key == 'lc_nodet_l' %}
                             y: {{ lc['data'][key]['mag_llim'] }},
                             name: 'LC_{{ lc_ind }}_nodet_l',
-                            marker: {symbol: 'triangle-up', color: lc_colors({{ lc['filter'] }}, lc_cs[{{-lc['filter']-}}]), opacity: 0.4},
+                            marker: {symbol: 'triangle-up', color: "{{ lc['color'] }}", opacity: 0.4},
                             showlegend: true,
                             {% endif %}
 
@@ -702,7 +674,10 @@
         {# folding #}
         function unsetFolding(){
             // show default mag vs time
-            data = [];
+            lc_cs = {};
+            data_det = [];
+            data_non_det_u = [];
+            data_non_det_l = [];
             plot_lc();
             // enable back epoch select and set to default
             $("#epoch").prop('disabled', false);
@@ -729,7 +704,7 @@
             let data_folded = [];
 
             let ii = 1;
-            for (const lc_ of data) {
+            for (const lc_ of data_det) {
                 {#console.log(lc_.mjd);#}
                 let phase = lc_.hjd;
                 let t_0 = lc_.hjd[0];

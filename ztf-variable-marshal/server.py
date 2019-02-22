@@ -1206,6 +1206,7 @@ async def source_get_handler(request):
     # for the web, reformat/compute data fields:
     # light curves
     bad_lc = []
+    lc_color_indexes = dict()
     for ilc, lc in enumerate(source['lc']):
         try:
             if lc['lc_type'] == 'temporal':
@@ -1242,18 +1243,23 @@ async def source_get_handler(request):
                 #     lc[field] = df[field].values.tolist() if field in df else []
 
                 # pre-process for plotly:
-                lc__ = {'lc_det': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag': [], 'magerr': []},
-                        'lc_nodet_u': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag_ulim': []},
-                        'lc_nodet_l': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'mag_llim': []}}
+                # display color:
+                lc_color_indexes[lc['filter']] = lc_color_indexes[lc['filter']] + 1 \
+                    if lc['filter'] in lc_color_indexes else 0
+                lc['color'] = lc_colors(lc['filter'], lc_color_indexes[lc['filter']])
+
+                lc__ = {'lc_det': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'hjd': [], 'mag': [], 'magerr': []},
+                        'lc_nodet_u': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'hjd': [], 'mag_ulim': []},
+                        'lc_nodet_l': {'dt': [], 'days_ago': [], 'jd': [], 'mjd': [], 'hjd': [], 'mag_llim': []}}
                 for dp in lc['data']:
                     if ('mag_ulim' in dp) and (dp['mag_ulim'] > 0.01):
-                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag_ulim'):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'hjd', 'mag_ulim'):
                             lc__['lc_nodet_u'][kk].append(dp[kk])
                     if ('mag_llim' in dp) and (dp['mag_llim'] > 0.01):
-                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag_llim'):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'hjd', 'mag_llim'):
                             lc__['lc_nodet_l'][kk].append(dp[kk])
                     if ('mag' in dp) and (dp['mag'] > 0.01):
-                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'mag', 'magerr'):
+                        for kk in ('dt', 'days_ago', 'jd', 'mjd', 'hjd', 'mag', 'magerr'):
                             lc__['lc_det'][kk].append(dp[kk])
                 lc['data'] = lc__
 
