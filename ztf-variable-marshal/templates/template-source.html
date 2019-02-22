@@ -545,11 +545,11 @@
             {% for lc in source['lc'] %}
                 {% set lc_ind = loop.index %}
 
-                if ({{-lc['filter']-}} in lc_cs) {
-                    ++lc_cs[{{-lc['filter']-}}]
+                if ({{ lc['filter'] }} in lc_cs) {
+                    ++lc_cs[{{ lc['filter'] }}]
                 }
                 else {
-                    lc_cs[{{-lc['filter']-}}] = 0
+                    lc_cs[{{ lc['filter'] }}] = 0
                 }
 
                 {# iterate over detections and non-detections #}
