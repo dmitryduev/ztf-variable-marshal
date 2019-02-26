@@ -29,6 +29,7 @@
   },
 
   "misc": {
+    "filter_MSIP": true,
     "source_types": [
       "AGB",
       "AGN",

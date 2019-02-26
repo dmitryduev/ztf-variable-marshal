@@ -1234,7 +1234,7 @@ async def source_get_handler(request):
                 t_utc = datetime.datetime.utcnow()
                 df['days_ago'] = df['datetime'].apply(lambda x: (t_utc - x).total_seconds()/86400.)
 
-                # print(df)
+                # print(df['programid'])
 
                 # convert back to dict:
                 lc['data'] = df.to_dict('records')
@@ -1849,7 +1849,8 @@ async def search_post_handler(request):
                                                 "'bestmaxslope': 1, 'bestmeanmag': 1, 'bestmedianabsdev': 1," +
                                                 "'bestmedianmag': 1, 'bestminmag': 1, 'nbestobs': 1," +
                                                 "'nobs': 1, 'refchi': 1, 'refmag': 1, 'refmagerr': 1, 'iqr': 1, " +
-                                                "'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'coordinates': 1}"
+                                                "'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'data.programid': 1, " +
+                                                "'coordinates': 1}"
                               }
                           }
                           }
@@ -1860,9 +1861,19 @@ async def search_post_handler(request):
         pos_key = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
         data = resp['result_data'][config['kowalski']['coll_sources']][pos_key]
 
+        data_formatted = []
+
         # re-format data (mjd, mag, magerr) for easier previews in the browser:
         for source in data:
+
             lc = source['data']
+
+            # filter lc for MSIP data
+            if config['misc']['filter_MSIP']:
+                lc = [p for p in lc if p['programid'] != 1]
+                if len(lc) == 0:
+                    continue
+
             # print(lc)
             mags = np.array([llc['mag'] for llc in lc])
             magerrs = np.array([llc['magerr'] for llc in lc])
@@ -1882,6 +1893,8 @@ async def search_post_handler(request):
             # source['mjd'] = mjds
             source['mjd'] = datetimes
 
+            data_formatted.append(source)
+
         # print(data)
 
         # get ZVM programs:
@@ -1889,7 +1902,7 @@ async def search_post_handler(request):
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
-                   'data': data,
+                   'data': data_formatted,
                    'programs': programs,
                    'form': _query}
         response = aiohttp_jinja2.render_template('template-search.html',
