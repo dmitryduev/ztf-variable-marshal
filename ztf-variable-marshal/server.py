@@ -1631,8 +1631,6 @@ async def source_post_handler(request):
 
                 lc_id = _r['lc_id']
 
-                # todo
-
                 # make history
                 time_tag = utc_now()
                 h = {'note_type': 'lc',
@@ -1640,9 +1638,10 @@ async def source_post_handler(request):
                      'user': user,
                      'note': f'removed {lc_id}'}
 
-                # await request.app['mongo'].sources.update_one({'_id': _id},
-                #                                               {'$push': {'history': h},
-                #                                                '$set': {'last_modified': utc_now()}})
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$pull': {'lc': {'_id': lc_id}},
+                                                               '$push': {'history': h},
+                                                               '$set': {'last_modified': utc_now()}})
 
                 return web.json_response({'message': 'success'}, status=200)
 

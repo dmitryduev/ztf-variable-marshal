@@ -193,7 +193,7 @@
                                                   'filter': lc['filter'],
                                                   'id': lc['id']} %}
                                 <b>LC_{{ loop.index }}:</b> {{ lc_info | safe }}
-                                <a href="#" class="remove_lc" data-lcid="lc['_id']"><i class="fas fa-times"></i></a>
+                                <a href="#" class="remove_lc" data-lcid="{{ lc['_id'] }}"><i class="fas fa-times"></i></a>
                                 <br>
                             {% endif %}
                         {% endfor %}
