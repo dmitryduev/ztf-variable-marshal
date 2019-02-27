@@ -1626,6 +1626,26 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'remove_lc':
+                # upload light curve
+
+                lc_id = _r['lc_id']
+
+                # todo
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'lc',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'removed {lc_id}'}
+
+                # await request.app['mongo'].sources.update_one({'_id': _id},
+                #                                               {'$push': {'history': h},
+                #                                                '$set': {'last_modified': utc_now()}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
             elif _r['action'] == 'upload_spectrum':
                 # upload spectrum
 
