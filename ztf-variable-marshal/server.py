@@ -1461,6 +1461,12 @@ async def sources_put_handler(request):
         # spectra
         doc['spec'] = []
 
+        # filter lc for MSIP data
+        if config['misc']['filter_MSIP']:
+            # print(len(ztf_source['data']))
+            ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+            # print(len(ztf_source['data']))
+
         # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
         lc = {'telescope': 'PO:1.2m',
               'instrument': 'ZTF',
@@ -1557,6 +1563,12 @@ async def source_post_handler(request):
 
                 resp = request.app['kowalski'].query(kowalski_query)
                 ztf_source = resp['result_data']['query_result'][0]
+
+                # filter lc for MSIP data
+                if config['misc']['filter_MSIP']:
+                    # print(len(ztf_source['data']))
+                    ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+                    # print(len(ztf_source['data']))
 
                 lc = {'telescope': 'PO:1.2m',
                       'instrument': 'ZTF',
