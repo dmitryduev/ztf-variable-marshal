@@ -1468,7 +1468,8 @@ async def sources_put_handler(request):
             # print(len(ztf_source['data']))
 
         # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
-        lc = {'telescope': 'PO:1.2m',
+        lc = {'_id': random_alphanumeric_str(length=24),
+              'telescope': 'PO:1.2m',
               'instrument': 'ZTF',
               'id': ztf_source['_id'],
               'filter': ztf_source['filter'],
@@ -1570,7 +1571,8 @@ async def source_post_handler(request):
                     ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
                     # print(len(ztf_source['data']))
 
-                lc = {'telescope': 'PO:1.2m',
+                lc = {'_id': random_alphanumeric_str(length=24),
+                      'telescope': 'PO:1.2m',
                       'instrument': 'ZTF',
                       'id': ztf_source['_id'],
                       'filter': ztf_source['filter'],

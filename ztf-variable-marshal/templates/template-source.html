@@ -192,7 +192,10 @@
                                                   'instrument': lc['instrument'],
                                                   'filter': lc['filter'],
                                                   'id': lc['id']} %}
-                                <b>LC_{{ loop.index }}:</b> {{ lc_info | safe }}<br>
+                                <b>LC_{{ loop.index }}:</b> {{ lc_info | safe }}
+                                <a href="#" class="removeUserLink" data-user="qye" data-projectid="5b96af9c0354c9000b0aea36">
+                                    <i class="fas fa-times"></i></a>
+                                <br>
                             {% endif %}
                         {% endfor %}
                         </p>
