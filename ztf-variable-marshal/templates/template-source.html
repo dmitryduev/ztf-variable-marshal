@@ -228,14 +228,17 @@
 
                         {% if source['p'] | length > 0 %}
                         <div class="form-group row mt-3">
-                            {% for p in source['p'] %}
-                            <p>
-                                {{ p['period'] }} {{ p['period_unit'] }}
-                                <button type="button" class="btn btn-dark btn-sm"
-                                        id="fold_lc" onclick="setSavedFolding('{{ p['period'] }}',
-                                                                              '{{ p['period_unit'] }}')">Set</button>
-                            </p>
-                            {% endfor %}
+                            <div class="col">
+                                Saved periods:
+                                {% for p in source['p'] %}
+                                <p class="mb-1">
+                                    {{ p['period'] }} {{ p['period_unit'] }}
+                                    <button type="button" class="btn btn-dark btn-sm"
+                                            id="fold_lc" onclick="setSavedFolding('{{ p['period'] }}',
+                                                                                  '{{ p['period_unit'] }}')">Set</button>
+                                </p>
+                                {% endfor %}
+                            </div>
                         </div>
                         {% endif %}
 
