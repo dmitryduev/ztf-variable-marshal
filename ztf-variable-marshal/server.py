@@ -1868,9 +1868,18 @@ async def search_post_handler(request):
     try:
         # convert to Kowalski query and execute
 
+        # comb radecs for single sources as per Tom's request:
+        radec = _query['radec'].strip()
+        if radec[0] not in ('[', '(', '{'):
+            ra, dec = radec.split()
+            if ('s' in radec) or (':' in radec):
+                radec = f"[('{ra}', '{dec}')]"
+            else:
+                radec = f"[({ra}, {dec})]"
+
         kowalski_query = {"query_type": "cone_search",
                           "object_coordinates": {
-                              "radec": _query['radec'],
+                              "radec": radec,
                               "cone_search_radius": _query['cone_search_radius'],
                               "cone_search_unit": _query['cone_search_unit']
                           },
