@@ -226,6 +226,19 @@
                             </div>
                         </div>
 
+                        {% if source['p'] | length > 0 %}
+                        <div class="form-group row mt-3">
+                            {% for p in source['p'] %}
+                            <p>
+                                {{ p['period'] }} {{ p['period_unit'] }}
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="fold_lc" onclick="setSavedFolding('{{ p['period'] }}',
+                                                                              '{{ p['period_unit'] }}')">Set</button>
+                            </p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
                         <hr>
                         {% endif %}
 
@@ -700,6 +713,12 @@
             if (per <= 0) return;
 
             $("#fold_lc_period").val(per*2);
+            setFolding();
+        }
+
+        function setSavedFolding(per, units){
+            $("#fold_lc_period").val(per);
+            $('#fold_lc_unit').val(units);
             setFolding();
         }
 
