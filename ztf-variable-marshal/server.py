@@ -1105,8 +1105,18 @@ async def sources_post_handler(request):
                 raise Exception('Unknown cone search unit. Must be in [deg, rad, arcsec, arcmin]')
 
             # parse coordinate list
+
+            # comb radecs for single sources as per Tom's request:
+            radec = _query['radec'].strip()
+            if radec[0] not in ('[', '(', '{'):
+                ra, dec = radec.split()
+                if ('s' in radec) or (':' in radec):
+                    radec = f"[('{ra}', '{dec}')]"
+                else:
+                    radec = f"[({ra}, {dec})]"
+
             # print(task['object_coordinates']['radec'])
-            objects = literal_eval(_query['radec'].strip())
+            objects = literal_eval(radec)
             # print(type(objects), isinstance(objects, dict), isinstance(objects, list))
 
             # this could either be list [(ra1, dec1), (ra2, dec2), ..] or dict {'name': (ra1, dec1), ...}
