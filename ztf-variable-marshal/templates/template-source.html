@@ -745,6 +745,11 @@
             let data_folded = [];
 
             let t_0 = data[0].hjd[0];
+            for (const lc_ of data) {
+                if (lc_.hjd[0] < t_0) {
+                    t_0 = lc_.hjd[0];
+                }
+            }
 
             for (const lc_ of data) {
                 {#console.log(lc_.mjd);#}
