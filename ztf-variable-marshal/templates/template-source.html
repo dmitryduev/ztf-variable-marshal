@@ -219,6 +219,8 @@
                             <div class="col-md-3">
                                 <button type="button" class="btn btn-dark btn-sm"
                                         id="fold_lc" onclick="setFolding()">Set</button>
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="double_folding_period" onclick="doubleFoldingPeriod()">&times;2</button>
                                 <button type="button" class="btn btn-outline-dark btn-sm"
                                         id="reset_lc" onclick="unsetFolding()">Reset</button>
                             </div>
@@ -693,6 +695,14 @@
             $('#epoch').val('date');
         }
 
+        function doubleFoldingPeriod(){
+            let per = Number($("#fold_lc_period").val());
+            if (per <= 0) return;
+
+            $("#fold_lc_period").val(per*2);
+            setFolding();
+        }
+
         function setFolding(){
             // fold light curves at a given period
 
@@ -712,10 +722,12 @@
 
             let data_folded = [];
 
+            let t_0 = data[0].hjd[0];
+
             for (const lc_ of data) {
                 {#console.log(lc_.mjd);#}
                 let phase = lc_.hjd;
-                let t_0 = lc_.hjd[0];
+                {#let t_0 = lc_.hjd[0];#}
                 {#let phase = lc_.mjd;#}
                 {#let t_0 = lc_.mjd[0];#}
                 // let t[0] be zero phase
