@@ -216,7 +216,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                 [
                     {% for field_id in ('_id', 'ra', 'dec',
                                         'p', 'zvm_program_id',
-                                        'source_types', 'source_flags', 'spec', 'lc', 'created') %}
+                                        'source_types', 'source_flags', 'spec', 'lc', 'created', 'created_by') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
@@ -237,7 +237,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                     {
                         {% for field_id in ('_id', 'ra', 'dec',
                                         'p', 'zvm_program_id',
-                                        'source_types', 'source_flags', 'created') %}
+                                        'source_types', 'source_flags', 'created', 'created_by') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
