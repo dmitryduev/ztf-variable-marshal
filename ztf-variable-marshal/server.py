@@ -1159,7 +1159,7 @@ async def sources_post_handler(request):
 
             sources = await request.app['mongo'].sources.find(q,
                                                               {'coordinates.radec_str': 0,
-                                                               'lc.data': 0}). \
+                                                               'spec.data': 0, 'lc.data': 0}). \
                 sort([('created', -1)]).to_list(length=None)
 
             context = {'logo': config['server']['logo'],
