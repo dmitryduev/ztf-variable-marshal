@@ -215,9 +215,9 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             columns: [
                 [
                     {% for field_id in ('_id', 'ra', 'dec', 'filter',
-                                        'bestmagrms', 'bestmaxmag', 'bestmaxslope', 'bestmeanmag',
-                                        'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'bestvonneumannratio',
-                                        'nbestobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr',
+                                        'magrms', 'maxmag', 'maxslope', 'meanmag',
+                                        'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
+                                        'nobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr',
                                         'mag', 'magerr', 'mjd') %}
                     {
                         field: '{{field_id}}',
@@ -225,8 +225,8 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                        {% if field_id in ('bestmagrms', 'bestmaxmag', 'bestmaxslope',
-                                           'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'nobs',
+                        {% if field_id in ('magrms', 'maxmag', 'maxslope',
+                                           'medianabsdev', 'medianmag', 'minmag', 'nobs',
                                            'mag', 'magerr', 'mjd') %}
                         visible: false,
                         {% else %}
@@ -240,9 +240,9 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                 {% for entry in data %}
                     {
                         {% for field_id in ('_id', 'ra', 'dec', 'filter',
-                                            'bestmaxmag', 'bestmaxslope', 'bestmeanmag',
-                                            'bestmedianabsdev', 'bestmedianmag', 'bestminmag', 'bestvonneumannratio',
-                                            'nbestobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr') %}
+                                            'maxmag', 'maxslope', 'meanmag',
+                                            'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
+                                            'nobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 

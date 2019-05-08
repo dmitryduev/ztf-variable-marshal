@@ -1902,10 +1902,10 @@ async def search_post_handler(request):
                           "catalogs": {
                               config['kowalski']['coll_sources']: {
                                   "filter": _query['filter'] if len(_query['filter']) > 0 else "{}",
-                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'bestmagrms': 1, 'bestmaxmag': 1," +
-                                                "'bestvonneumannratio': 1, 'filter': 1," +
-                                                "'bestmaxslope': 1, 'bestmeanmag': 1, 'bestmedianabsdev': 1," +
-                                                "'bestmedianmag': 1, 'bestminmag': 1, 'nbestobs': 1," +
+                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1," +
+                                                "'vonneumannratio': 1, 'filter': 1," +
+                                                "'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1," +
+                                                "'medianmag': 1, 'minmag': 1, 'nobs': 1," +
                                                 "'nobs': 1, 'refchi': 1, 'refmag': 1, 'refmagerr': 1, 'iqr': 1, " +
                                                 "'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'data.programid': 1, " +
                                                 "'coordinates': 1}"
