@@ -1474,7 +1474,10 @@ async def sources_put_handler(request):
         # filter lc for MSIP data
         if config['misc']['filter_MSIP']:
             # print(len(ztf_source['data']))
-            ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+            # ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+            ztf_source['data'] = [dp for dp in ztf_source['data'] if
+                                  ((dp['programid'] != 1) or
+                                   (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
             # print(len(ztf_source['data']))
 
         # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
@@ -1578,7 +1581,10 @@ async def source_post_handler(request):
                 # filter lc for MSIP data
                 if config['misc']['filter_MSIP']:
                     # print(len(ztf_source['data']))
-                    ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+                    # ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+                    ztf_source['data'] = [dp for dp in ztf_source['data'] if
+                                          ((dp['programid'] != 1) or
+                                           (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
                     # print(len(ztf_source['data']))
 
                 lc = {'_id': random_alphanumeric_str(length=24),
@@ -1922,7 +1928,9 @@ async def search_post_handler(request):
 
             # filter lc for MSIP data
             if config['misc']['filter_MSIP']:
-                lc = [p for p in lc if p['programid'] != 1]
+                lc = [p for p in lc if
+                      ((p['programid'] != 1) or
+                       (p['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
                 if len(lc) == 0:
                     continue
 
