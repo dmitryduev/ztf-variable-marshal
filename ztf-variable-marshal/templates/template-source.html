@@ -278,6 +278,7 @@
 
                         <p>
                             <b>Cross-matched sources from external catalogs within 5":</b><br>
+                            {# TODO: refresh button #}
                             <pre id="json-renderer" class="pl-4 pr-4"></pre>
                         </p>
 
@@ -482,7 +483,7 @@
                         <hr>
 
                         <p>
-                            Complete source database entry:<br>
+                            Download complete source database entry:<br>
                             <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
                                class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
                                 JSON <i class='fas fa-download'></i></a>

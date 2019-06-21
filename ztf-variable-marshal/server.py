@@ -962,7 +962,7 @@ async def query_handler(request):
         _query = await request.post()
     # print(_query)
 
-    # todo: parse and execute query awaiting the result
+    # parse and execute query awaiting the result
 
     try:
         # parse query
@@ -1370,8 +1370,9 @@ async def sources_put_handler(request):
             saved_source_ids = await request.app['mongo'].sources.find({'_id': {'$regex': f'{source_id_base}.*'}},
                                                                        {'_id': 1}).to_list(length=None)
             saved_source_ids = [s['_id'] for s in saved_source_ids]
+            saved_source_ids.sort(key=lambda item: (len(item), item))
             # print(saved_source_ids)
-            num_last = alphabet2num(sorted(saved_source_ids)[-1][8:])
+            num_last = alphabet2num(saved_source_ids[-1][8:])
 
             postfix = num2alphabet(num_last + 1)
 
