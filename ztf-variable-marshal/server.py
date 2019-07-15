@@ -1419,7 +1419,8 @@ async def sources_put_handler(request):
                                      },
                                      "IPHAS_DR2": {
                                          "filter": "{}",
-                                         "projection": "{'_id': 0, 'name': 1, 'r': 1, 'rErr': 1, 'i': 1, " +
+                                         "projection": "{'_id': 0, 'coordinates.radec_str': 1, " +
+                                                       "'name': 1, 'r': 1, 'rErr': 1, 'i': 1, " +
                                                        "'iErr': 1, 'ha': 1, 'haErr': 1}"
                                      },
                                      "Gaia_DR2": {
