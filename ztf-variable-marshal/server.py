@@ -1292,12 +1292,14 @@ async def source_get_handler(request):
             # todo: transform data if necessary, e.g. convert to same units etc
             # df['dt'] = df['mjd'].apply(lambda x: mjd_to_datetime(x).strftime('%Y-%m-%d %H:%M:%S'))
 
+            df['wavelength'] = df['wavelength'].apply(lambda x: float(x))
             df.sort_values(by=['wavelength'], inplace=True)
 
             # print(df)
 
             for field in ('wavelength', 'flux', 'fluxerr'):
                 spec[field] = df[field].values.tolist() if field in df else []
+                spec[field] = [float(ee) for ee in spec[field]]
 
         except Exception as e:
             print(str(e))
