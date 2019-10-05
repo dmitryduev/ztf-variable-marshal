@@ -1026,8 +1026,16 @@ async def sources_get_handler(request):
                                                            'spec.data': 0, 'lc.data': 0}).limit(50).\
             sort([('created', -1)]).to_list(length=None)
 
+        users = await request.app['mongo'].users.find({}, {'_id': 1}).to_list(length=None)
+        users = sorted([uu['_id'] for uu in users])
+
+        programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
+        programs = sorted([pp['_id'] for pp in programs])
+
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
+                   'users': users,
+                   'programs': programs,
                    'data': sources,
                    'messages': [['Displaying latest saved sources', 'info']]}
 
@@ -1147,11 +1155,19 @@ async def sources_post_handler(request):
             q = {**q, **object_position_query}
             q = {'$and': [q]}
 
+        users = await request.app['mongo'].users.find({}, {'_id': 1}).to_list(length=None)
+        users = sorted([uu['_id'] for uu in users])
+
+        programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
+        programs = sorted([pp['_id'] for pp in programs])
+
         # print(q)
         if len(q) == 0:
             context = {'logo': config['server']['logo'],
                        'user': session['user_id'],
                        'data': [],
+                       'users': users,
+                       'programs': programs,
                        'form': _query,
                        'messages': [[f'Empty query', 'danger']]}
 
@@ -1165,6 +1181,8 @@ async def sources_post_handler(request):
             context = {'logo': config['server']['logo'],
                        'user': session['user_id'],
                        'data': sources,
+                       'users': users,
+                       'programs': programs,
                        'form': _query}
 
             if len(sources) == 0:
@@ -1179,9 +1197,17 @@ async def sources_post_handler(request):
 
         print(f'Error: {str(_e)}')
 
+        users = await request.app['mongo'].users.find({}, {'_id': 1}).to_list(length=None)
+        users = sorted([uu['_id'] for uu in users])
+
+        programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
+        programs = sorted([pp['_id'] for pp in programs])
+
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
                    'data': [],
+                   'users': users,
+                   'programs': programs,
                    'form': _query,
                    'messages': [[f'Error: {str(_e)}', 'danger']]}
 
