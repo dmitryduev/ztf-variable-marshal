@@ -1783,6 +1783,24 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'run_cross_match':
+
+                xmatch = cross_match(kowalski=request.app['kowalski'], ra=source['ra'], dec=source['dec'])
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'info',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': 'Cross-matched'}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'history': h},
+                                                               '$set': {'xmatch': xmatch,
+                                                                        'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 

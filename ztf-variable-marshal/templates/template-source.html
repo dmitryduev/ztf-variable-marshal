@@ -277,7 +277,10 @@
                         <hr>
 
                         <p>
-                            <b>Cross-matched sources from external catalogs within {{ cone_search_radius }} {{ cone_search_unit }}:</b><br>
+                            <b>Cross-matched sources from external catalogs within {{ cone_search_radius }} {{ cone_search_unit }}:</b>
+                            <button type="button" class="btn btn-dark btn-sm"
+                                    id="run_cross_match" onclick="run_cross_match()">
+                            <i class='fas fa-sync-alt'></i></button><br>
                             {# TODO: refresh button #}
                             <pre id="json-renderer" class="pl-4 pr-4"></pre>
                         </p>
@@ -1160,6 +1163,44 @@
 
             return false;
         });
+
+        // (re-)run cross match
+        function run_cross_match() {
+            bootbox.confirm({
+                message: "Do you want to (re-)run cross match with external catalogs?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> No'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> Yes'
+                    }
+                },
+                callback: function (result) {
+                    // confirmed?
+                    if (result) {
+                        $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                            method: 'POST',
+                            data: JSON.stringify({'action': 'run_cross_match'}),
+                            processData: false,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                if (data['message'] === 'success') {
+                                    showFlashingMessage('Info:', 'Successfully cross-matched: ' + data['message'], 'success');
+                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                }
+                                else {
+                                    showFlashingMessage('Info:', 'Failed to cross-match: ' + data['message'], 'danger');
+                                }
+                            },
+                            error: function(data) {
+                                showFlashingMessage('Info:', 'Failed to cross-match', 'danger');
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
         {# init tooltips #}
         $(function () {
