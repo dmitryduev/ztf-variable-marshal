@@ -2391,7 +2391,9 @@ async def app_factory():
     app.on_cleanup.append(close_mongo)
 
     # Kowalski connection:
-    app['kowalski'] = Kowalski(username=config['kowalski']['username'], password=config['kowalski']['password'])
+    app['kowalski'] = Kowalski(protocol=config['kowalski']['protocol'],
+                               host=config['kowalski']['host'], port=config['kowalski']['port'],
+                               username=config['kowalski']['username'], password=config['kowalski']['password'])
 
     # set up JWT for user authentication/authorization
     app['JWT'] = {'JWT_SECRET': config['server']['JWT_SECRET_KEY'],
