@@ -1348,7 +1348,9 @@ async def source_get_handler(request):
                'source': source,
                'source_types': source_types,
                'source_flags': source_flags,
-               'programs': programs
+               'programs': programs,
+               'cone_search_radius': config['kowalski']['cross_match']['cone_search_radius'],
+               'cone_search_unit': config['kowalski']['cross_match']['cone_search_unit']
                }
     response = aiohttp_jinja2.render_template('template-source.html',
                                               request,
