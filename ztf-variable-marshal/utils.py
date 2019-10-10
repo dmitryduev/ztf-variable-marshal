@@ -12,6 +12,7 @@ import bcrypt
 from string import ascii_lowercase
 import itertools
 from numba import jit
+from bson.json_util import dumps
 
 
 def generate_password_hash(password, salt_rounds=12):
@@ -28,6 +29,11 @@ def check_password_hash(encoded, password):
     hashed = base64.b64decode(encoded)
     is_correct = bcrypt.hashpw(password, hashed) == hashed
     return is_correct
+
+
+def to_pretty_json(value):
+    # return dumps(value, indent=4)  # , separators=(',', ': ')
+    return dumps(value, separators=(',', ': '))
 
 
 def radec_str2rad(_ra_str, _dec_str):

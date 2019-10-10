@@ -1232,6 +1232,8 @@ async def source_get_handler(request):
     _id = request.match_info['source_id']
 
     source = await request.app['mongo'].sources.find_one({'_id': _id})
+    source = loads(dumps(source))
+    # print(source)
 
     frmt = request.query.get('format', 'web')
     # print(frmt)
@@ -1354,6 +1356,27 @@ async def source_get_handler(request):
     return response
 
 
+def cross_match(kowalski, ra, dec):
+    kowalski_query_xmatch = {"query_type": "cone_search",
+                             "object_coordinates": {
+                                 "radec": f"[({ra}, {dec})]",
+                                 "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
+                                 "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
+                             "catalogs": config['kowalski']['cross_match']['catalogs']
+                             }
+    # print(kowalski_query_xmatch)
+
+    resp = kowalski.query(kowalski_query_xmatch)
+    xmatch = resp['result_data']
+
+    # reformat for ingestion (we queried only one sky position):
+    for cat in xmatch.keys():
+        kk = list(xmatch[cat].keys())[0]
+        xmatch[cat] = xmatch[cat][kk]
+
+    return xmatch
+
+
 @routes.put('/sources')
 @login_required
 async def sources_put_handler(request):
@@ -1432,69 +1455,7 @@ async def sources_put_handler(request):
         doc['history'] = []
 
         # cross match:
-        kowalski_query_xmatch = {"query_type": "cone_search",
-                                 "object_coordinates": {
-                                     "radec": f"[({doc['ra']}, {doc['dec']})]",
-                                     "cone_search_radius": f"{config['misc']['xmatch_radius_arcsec']}",
-                                     "cone_search_unit": "arcsec"},
-                                 "catalogs": {
-                                     "PanSTARRS1": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, 'gMeanPSFMag': 1, " +
-                                                       "'gMeanPSFMagErr': 1, 'rMeanPSFMag': 1, 'rMeanPSFMagErr': 1, " +
-                                                       "'iMeanPSFMag': 1, 'iMeanPSFMagErr': 1, 'zMeanPSFMag': 1, " +
-                                                       "'zMeanPSFMagErr': 1, 'yMeanPSFMag': 1, 'yMeanPSFMagErr': 1}"
-                                     },
-                                     "IPHAS_DR2": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 0, 'coordinates.radec_str': 1, " +
-                                                       "'name': 1, 'r': 1, 'rErr': 1, 'i': 1, " +
-                                                       "'iErr': 1, 'ha': 1, 'haErr': 1}"
-                                     },
-                                     "Gaia_DR2": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'parallax': 1, 'parallax_error': 1, " +
-                                                       "'phot_g_mean_mag': 1, 'phot_bp_mean_mag': 1, " +
-                                                       "'phot_rp_mean_mag': 1}"
-                                     },
-                                     "2MASS_PSC": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'j_m': 1, 'h_m': 1, 'k_m': 1}"
-                                     },
-                                     "AllWISE": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'w1mpro': 1, 'w1sigmpro': 1, 'w2mpro': 1, 'w2sigmpro': 1, " +
-                                                       "'w3mpro': 1, 'w3sigmpro': 1, 'w4mpro': 1, 'w4sigmpro': 1, " +
-                                                       "'ph_qual': 1}"
-                                     },
-                                     "ZTF_alerts": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'candidate.jd': 1, 'candidate.programid': 1, " +
-                                                       "'candidate.magpsf': 1, 'candidate.sigmapsf': 1}"
-                                     },
-                                     "RFC_2018d": {
-                                         "filter": "{}",
-                                         "projection": "{'_id': 1, 'coordinates.radec_str': 1, " +
-                                                       "'category': 1, 'S_band_flux_total': 1, " +
-                                                       "'C_band_flux_total': 1, 'X_band_flux_total': 1, " +
-                                                       "'U_band_flux_total': 1, 'K_band_flux_total': 1}"
-                                     }
-                                 }
-                                 }
-        # print(kowalski_query_xmatch)
-
-        resp = request.app['kowalski'].query(kowalski_query_xmatch)
-        xmatch = resp['result_data']
-
-        # reformat for ingestion (we queried only one sky position):
-        for cat in xmatch.keys():
-            kk = list(xmatch[cat].keys())[0]
-            xmatch[cat] = xmatch[cat][kk]
-
+        xmatch = cross_match(kowalski=request.app['kowalski'], ra=doc['ra'], dec=doc['dec'])
         # print(xmatch)
         doc['xmatch'] = xmatch
 
@@ -2126,7 +2087,8 @@ async def app_factory():
                   'JWT_EXP_DELTA_SECONDS': 30 * 86400 * 3}
 
     # render templates with jinja2
-    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('./templates'))
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('./templates'),
+                         filters={'tojson_pretty': to_pretty_json})
 
     # set up browser sessions
     fernet_key = config['misc']['fernet_key'].encode()
