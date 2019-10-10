@@ -15,6 +15,7 @@
   },
 
   "database": {
+    "max_pool_size": 1200,
     "host": "ztf_variable_marshal_mongo_1",
     "port": 27017,
     "db": "ztf_variable_marshal",
@@ -161,6 +162,7 @@
       "Spectrum but Unclassified",
       "X-Ray Source"],
     "logging_level": "debug",
-    "query_expiration_interval": 10
+    "query_expiration_interval": 10,
+    "max_time_ms": 300000
   }
 }

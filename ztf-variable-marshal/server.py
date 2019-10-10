@@ -631,12 +631,16 @@ regex['collection_main'] = re.compile(r"db\[['\"](.*?)['\"]\]")
 regex['aggregate'] = re.compile(r"aggregate\((\[(?s:.*)\])")
 
 
-def parse_query(task, save: bool=False):
+def parse_query(task, save: bool = False):
     # save auxiliary stuff
     kwargs = task['kwargs'] if 'kwargs' in task else {}
 
     # reduce!
     task_reduced = {'user': task['user'], 'query': {}, 'kwargs': kwargs}
+
+    # fixme: this is for testing api from cl
+    # if '_id' not in task_reduced['kwargs']:
+    #     task_reduced['kwargs']['_id'] = ''.join(random.choices(string.ascii_letters + string.digits, k=32))
 
     if task['query_type'] == 'general_search':
         # specify task type:
@@ -646,6 +650,7 @@ def parse_query(task, save: bool=False):
             go_on = True in [s in str(task['query']) for s in ['.aggregate(',
                                                                '.map_reduce(',
                                                                '.distinct(',
+                                                               '.estimated_document_count(',
                                                                '.count_documents(',
                                                                '.index_information(',
                                                                '.find_one(',
@@ -674,7 +679,7 @@ def parse_query(task, save: bool=False):
         # TODO: check access permissions:
         # TODO: for now, only check on admin stuff
         if task['user'] != config['server']['admin_username']:
-            prohibited_collections = ('users', 'queries', 'stats')
+            prohibited_collections = ('users', 'stats', 'queries')
 
             # get the main collection that is being queried:
             main_collection = regex['collection_main'].search(str(task['query'])).group(1)
@@ -697,6 +702,142 @@ def parse_query(task, save: bool=False):
         else:
             raise Exception('Atata!')
 
+    elif task['query_type'] == 'find':
+        # specify task type:
+        task_reduced['query_type'] = 'find'
+
+        go_on = True
+
+        if task['user'] != config['server']['admin_username']:
+            prohibited_collections = ('users', 'stats', 'queries')
+            if str(task['query']['catalog']) in prohibited_collections:
+                go_on = False
+
+        if go_on:
+            task_reduced['query']['catalog'] = task['query']['catalog']
+
+            # construct filter
+            _filter = task['query']['filter']
+            if isinstance(_filter, str):
+                # passed string? evaluate:
+                catalog_filter = literal_eval(_filter.strip())
+            elif isinstance(_filter, dict):
+                # passed dict?
+                catalog_filter = _filter
+            else:
+                raise ValueError('Unsupported filter specification')
+
+            task_reduced['query']['filter'] = catalog_filter
+
+            # construct projection
+            if 'projection' in task['query']:
+                _projection = task['query']['projection']
+                if isinstance(_projection, str):
+                    # passed string? evaluate:
+                    catalog_projection = literal_eval(_projection.strip())
+                elif isinstance(_filter, dict):
+                    # passed dict?
+                    catalog_projection = _projection
+                else:
+                    raise ValueError('Unsupported projection specification')
+            else:
+                catalog_projection = dict()
+
+            task_reduced['query']['projection'] = catalog_projection
+
+        else:
+            raise Exception('Atata!')
+
+    elif task['query_type'] == 'find_one':
+        # specify task type:
+        task_reduced['query_type'] = 'find_one'
+
+        go_on = True
+
+        if task['user'] != config['server']['admin_username']:
+            prohibited_collections = ('users', 'stats', 'queries')
+            if str(task['query']['catalog']) in prohibited_collections:
+                go_on = False
+
+        if go_on:
+            task_reduced['query']['catalog'] = task['query']['catalog']
+
+            # construct filter
+            _filter = task['query']['filter']
+            if isinstance(_filter, str):
+                # passed string? evaluate:
+                catalog_filter = literal_eval(_filter.strip())
+            elif isinstance(_filter, dict):
+                # passed dict?
+                catalog_filter = _filter
+            else:
+                raise ValueError('Unsupported filter specification')
+
+            task_reduced['query']['filter'] = catalog_filter
+
+        else:
+            raise Exception('Atata!')
+
+    elif task['query_type'] == 'count_documents':
+        # specify task type:
+        task_reduced['query_type'] = 'count_documents'
+
+        go_on = True
+
+        if task['user'] != config['server']['admin_username']:
+            prohibited_collections = ('users', 'stats', 'queries')
+            if str(task['query']['catalog']) in prohibited_collections:
+                go_on = False
+
+        if go_on:
+            task_reduced['query']['catalog'] = task['query']['catalog']
+
+            # construct filter
+            _filter = task['query']['filter']
+            if isinstance(_filter, str):
+                # passed string? evaluate:
+                catalog_filter = literal_eval(_filter.strip())
+            elif isinstance(_filter, dict):
+                # passed dict?
+                catalog_filter = _filter
+            else:
+                raise ValueError('Unsupported filter specification')
+
+            task_reduced['query']['filter'] = catalog_filter
+
+        else:
+            raise Exception('Atata!')
+
+    elif task['query_type'] == 'aggregate':
+        # specify task type:
+        task_reduced['query_type'] = 'aggregate'
+
+        go_on = True
+
+        if task['user'] != config['server']['admin_username']:
+            prohibited_collections = ('users', 'stats', 'queries')
+            if str(task['query']['catalog']) in prohibited_collections:
+                go_on = False
+
+        if go_on:
+            task_reduced['query']['catalog'] = task['query']['catalog']
+
+            # construct pipeline
+            _pipeline = task['query']['pipeline']
+            if isinstance(_pipeline, str):
+                # passed string? evaluate:
+                catalog_pipeline = literal_eval(_pipeline.strip())
+            elif isinstance(_pipeline, list) or isinstance(_pipeline, tuple):
+                # passed dict?
+                catalog_pipeline = _pipeline
+            else:
+                raise ValueError('Unsupported pipeline specification')
+
+            task_reduced['query']['pipeline'] = catalog_pipeline
+
+        else:
+            raise Exception('Atata!')
+
     elif task['query_type'] == 'cone_search':
         # specify task type:
         task_reduced['query_type'] = 'cone_search'
@@ -714,6 +855,39 @@ def parse_query(task, save: bool=False):
         else:
             raise Exception('Unknown cone search unit. Must be in [deg, rad, arcsec, arcmin]')
 
+        if isinstance(task['object_coordinates']['radec'], str):
+            radec = task['object_coordinates']['radec'].strip()
+
+            # comb radecs for single sources as per Tom's request:
+            if radec[0] not in ('[', '(', '{'):
+                ra, dec = radec.split()
+                if ('s' in radec) or (':' in radec):
+                    radec = f"[('{ra}', '{dec}')]"
+                else:
+                    radec = f"[({ra}, {dec})]"
+
+            # print(task['object_coordinates']['radec'])
+            objects = literal_eval(radec)
+            # print(type(objects), isinstance(objects, dict), isinstance(objects, list))
+        elif isinstance(task['object_coordinates']['radec'], list) or \
+                isinstance(task['object_coordinates']['radec'], tuple) or \
+                isinstance(task['object_coordinates']['radec'], dict):
+            objects = task['object_coordinates']['radec']
+        else:
+            raise Exception('Unknown cone search unit. Must be in [deg, rad, arcsec, arcmin]')
+
+        # this could either be list/tuple [(ra1, dec1), (ra2, dec2), ..] or dict {'name': (ra1, dec1), ...}
+        if isinstance(objects, list) or isinstance(objects, tuple):
+            object_coordinates = objects
+            object_names = [str(obj_crd) for obj_crd in object_coordinates]
+        elif isinstance(objects, dict):
+            object_names, object_coordinates = zip(*objects.items())
+            object_names = list(map(str, object_names))
+        else:
+            raise ValueError('Unsupported object coordinates specs')
+
+        # print(object_names, object_coordinates)
+
         for catalog in task['catalogs']:
             # TODO: check that not trying to query what's not allowed!
             task_reduced['query'][catalog] = dict()
@@ -730,9 +904,6 @@ def parse_query(task, save: bool=False):
                 raise ValueError('Unsupported filter specification')
 
             # construct projection
-            # catalog_projection = dict()
-            # FIXME: always return standardized coordinates?
-            # catalog_projection = {'coordinates.epoch': 1, 'coordinates.radec_str': 1, 'coordinates.radec': 1}
             _projection = task['catalogs'][catalog]['projection']
             if isinstance(_projection, str):
                 # passed string? evaluate:
@@ -744,21 +915,13 @@ def parse_query(task, save: bool=False):
                 raise ValueError('Unsupported projection specification')
 
             # parse coordinate list
-            # print(task['object_coordinates']['radec'])
-            objects = literal_eval(task['object_coordinates']['radec'].strip())
-            # print(type(objects), isinstance(objects, dict), isinstance(objects, list))
 
-            # this could either be list [(ra1, dec1), (ra2, dec2), ..] or dict {'name': (ra1, dec1), ...}
-            if isinstance(objects, list):
-                object_coordinates = objects
-                object_names = [str(obj_crd) for obj_crd in object_coordinates]
-            elif isinstance(objects, dict):
-                object_names, object_coordinates = zip(*objects.items())
-                object_names = list(map(str, object_names))
-            else:
-                raise ValueError('Unsupported type of object coordinates')
-
-            # print(object_names, object_coordinates)
+            if isinstance(_projection, str):
+                # passed string? evaluate:
+                catalog_projection = literal_eval(_projection.strip())
+            elif isinstance(_filter, dict):
+                # passed dict?
+                catalog_projection = _projection
 
             for oi, obj_crd in enumerate(object_coordinates):
                 # convert ra/dec into GeoJSON-friendly format
@@ -771,6 +934,12 @@ def parse_query(task, save: bool=False):
                 # use stringified object coordinates as dict keys and merge dicts with cat/obj queries:
                 task_reduced['query'][catalog][object_names[oi]] = ({**object_position_query, **catalog_query},
                                                                     {**catalog_projection})
+
+    elif task['query_type'] == 'info':
+
+        # specify task type:
+        task_reduced['query_type'] = 'info'
+        task_reduced['query'] = task['query']
 
     if save:
         # print(task_reduced)
@@ -830,10 +999,23 @@ async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool = F
 
     query = task_reduced
 
+    result['user'] = query['user']
+    result['kwargs'] = query['kwargs'] if 'kwargs' in query else {}
+
+    # by default, long-running queries will be killed after config['misc']['max_time_ms'] ms
+    max_time_ms = int(query['kwargs']['max_time_ms']) if 'max_time_ms' in query['kwargs'] \
+        else int(config['misc']['max_time_ms'])
+    assert max_time_ms >= 1, 'bad max_time_ms, must be int>=1'
+
     try:
 
         # cone search:
         if query['query_type'] == 'cone_search':
+
+            known_kwargs = ('skip', 'hint', 'limit', 'sort')
+            kwargs = {kk: vv for kk, vv in query['kwargs'].items() if kk in known_kwargs}
+            kwargs['comment'] = str(query['user'])
+
             # iterate over catalogs as they represent
             for catalog in query['query']:
                 query_result[catalog] = dict()
@@ -842,36 +1024,134 @@ async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool = F
                     # project?
                     if len(query['query'][catalog][obj][1]) > 0:
                         _select = db[catalog].find(query['query'][catalog][obj][0],
-                                                   query['query'][catalog][obj][1])
+                                                   query['query'][catalog][obj][1],
+                                                   max_time_ms=max_time_ms, **kwargs)
                     # return the whole documents by default
                     else:
-                        _select = db[catalog].find(query['query'][catalog][obj][0])
-                    # unfortunately, mongoDB does not allow to have dots in field names,
-                    # thus replace with underscores
+                        _select = db[catalog].find(query['query'][catalog][obj][0],
+                                                   max_time_ms=max_time_ms, **kwargs)
+                    # mongodb does not allow having dots in field names -> replace with underscores
                     query_result[catalog][obj.replace('.', '_')] = await _select.to_list(length=None)
 
+        # convenience general search subtypes:
+        elif query['query_type'] == 'find':
+            # print(query)
+
+            known_kwargs = ('skip', 'hint', 'limit', 'sort')
+            kwargs = {kk: vv for kk, vv in query['kwargs'].items() if kk in known_kwargs}
+            kwargs['comment'] = str(query['user'])
+
+            # project?
+            if len(query['query']['projection']) > 0:
+
+                _select = db[query['query']['catalog']].find(query['query']['filter'],
+                                                             query['query']['projection'],
+                                                             max_time_ms=max_time_ms, **kwargs)
+            # return the whole documents by default
+            else:
+                _select = db[query['query']['catalog']].find(query['query']['filter'],
+                                                             max_time_ms=max_time_ms, **kwargs)
+
+            if isinstance(_select, int) or isinstance(_select, float) or isinstance(_select, tuple) or \
+                    isinstance(_select, list) or isinstance(_select, dict) or (_select is None):
+                query_result['query_result'] = _select
+            else:
+                query_result['query_result'] = await _select.to_list(length=None)
+
+        elif query['query_type'] == 'find_one':
+            # print(query)
+
+            known_kwargs = ('skip', 'hint', 'limit', 'sort')
+            kwargs = {kk: vv for kk, vv in query['kwargs'].items() if kk in known_kwargs}
+            kwargs['comment'] = str(query['user'])
+
+            _select = db[query['query']['catalog']].find_one(query['query']['filter'],
+                                                             max_time_ms=max_time_ms)
+
+            query_result['query_result'] = await _select
+
+        elif query['query_type'] == 'count_documents':
+            # print(query)
+
+            known_kwargs = ('skip', 'hint', 'limit')
+            kwargs = {kk: vv for kk, vv in query['kwargs'].items() if kk in known_kwargs}
+            kwargs['comment'] = str(query['user'])
+
+            _select = db[query['query']['catalog']].count_documents(query['query']['filter'],
+                                                                    maxTimeMS=max_time_ms)
+
+            query_result['query_result'] = await _select
+
+        elif query['query_type'] == 'aggregate':
+            # print(query)
+
+            known_kwargs = ('allowDiskUse', 'maxTimeMS', 'batchSize')
+            kwargs = {kk: vv for kk, vv in query['kwargs'].items() if kk in known_kwargs}
+            kwargs['comment'] = str(query['user'])
+
+            _select = db[query['query']['catalog']].aggregate(query['query']['pipeline'],
+                                                              allowDiskUse=True,
+                                                              maxTimeMS=max_time_ms)
+
+            query_result['query_result'] = await _select.to_list(length=None)
+
         elif query['query_type'] == 'general_search':
-            # just evaluate. I know that's dangerous, but I'm checking things in broker.py
+            # just evaluate. I know that's dangerous, but...
             qq = bytes(query['query'], 'utf-8').decode('unicode_escape')
 
             _select = eval(qq)
             # _select = eval(query['query'])
             # _select = literal_eval(qq)
 
-            if ('.find_one(' in qq) or ('.count_documents(' in qq) or ('.index_information(' in qq):
+            if ('.find_one(' in qq) or ('.count_documents(' in qq)  or ('.estimated_document_count(' in qq) \
+                    or ('.index_information(' in qq) or ('.distinct(' in qq):
                 _select = await _select
 
             # make it look like json
             # print(list(_select))
-            if isinstance(_select, int) or isinstance(_select, float) or \
-                    isinstance(_select, list) or isinstance(_select, dict):
+            if isinstance(_select, int) or isinstance(_select, float) or isinstance(_select, tuple) or \
+                    isinstance(_select, list) or isinstance(_select, dict) or (_select is None):
                 query_result['query_result'] = _select
             else:
                 query_result['query_result'] = await _select.to_list(length=None)
 
-        result['user'] = query['user']
+        elif query['query_type'] == 'info':
+            # collection/catalog info
+
+            if query['query']['command'] == 'catalog_names':
+
+                # get available catalog names
+                catalogs = await db.list_collection_names()
+                # exclude system collections and collections without a 2dsphere index
+                catalogs_system = (config['database']['collection_users'],
+                                   config['database']['collection_queries'],
+                                   config['database']['collection_stats'])
+
+                query_result['query_result'] = [c for c in sorted(catalogs)[::-1] if c not in catalogs_system]
+
+            elif query['query']['command'] == 'catalog_info':
+
+                catalog = query['query']['catalog']
+
+                stats = await db.command('collstats', catalog)
+
+                query_result['query_result'] = stats
+
+            elif query['query']['command'] == 'index_info':
+
+                catalog = query['query']['catalog']
+
+                stats = await db[catalog].index_information()
+
+                query_result['query_result'] = stats
+
+            elif query['query']['command'] == 'db_info':
+
+                stats = await db.command('dbstats')
+                query_result['query_result'] = stats
+
+        # success!
         result['status'] = 'done'
-        result['kwargs'] = query['kwargs'] if 'kwargs' in query else {}
 
         if not save:
             # dump result back
@@ -923,7 +1203,7 @@ async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool = F
             task_result_file = os.path.join(user_tmp_path, f'{task_hash}.result.json')
 
             # save location in db:
-            result['user'] = query['user']
+            # result['user'] = query['user']
             result['status'] = 'failed'
 
             query_result = dict()
@@ -939,6 +1219,12 @@ async def execute_query(mongo, task_hash, task_reduced, task_doc, save: bool = F
                                                   'last_modified': utc_now(),
                                                   'result': None}}
                                         )
+
+        else:
+            result['status'] = 'failed'
+            result['msg'] = _err
+
+            return task_hash, result
 
         raise Exception('Query failed')
 
@@ -966,13 +1252,17 @@ async def query_handler(request):
 
     try:
         # parse query
-        known_query_types = ('cone_search', 'general_search')
+        # known_query_types = ('cone_search', 'general_search')
+        # add separate "convenience" query types for the most in-demand cases:
+        known_query_types = ('cone_search', 'general_search',
+                             'find', 'find_one', 'aggregate', 'count_documents',
+                             'info')
 
         assert _query['query_type'] in known_query_types, \
             f'query_type {_query["query_type"]} not in {str(known_query_types)}'
 
         _query['user'] = user
-        save = False  # never save to db when querying from the browser
+        save = False  # query scheduling is disabled as unnecessary for the Variable Marshal (compare to Kowalski)
 
         # tic = time.time()
         task_hash, task_reduced, task_doc = parse_query(_query, save=save)
@@ -980,7 +1270,7 @@ async def query_handler(request):
         # print(f'parsing task took {toc-tic} seconds')
         # print(task_hash, task_reduced, task_doc)
 
-        # schedule query execution:
+        # execute query:
         task_hash, result = await execute_query(request.app['mongo'], task_hash, task_reduced, task_doc, save)
 
         # print(result)
@@ -1383,7 +1673,8 @@ def cross_match(kowalski, ra, dec):
 @login_required
 async def sources_put_handler(request):
     """
-        Save ZTF source to own db assigning a unique id and assigning to a program
+        Save ZTF source to own db assigning a unique id and assigning to a program,
+        or create a blank one
     :param request:
     :return:
     """
@@ -2070,7 +2361,8 @@ async def app_factory():
 
     # Database connection
     client = AsyncIOMotorClient(f"mongodb://{config['database']['user']}:{config['database']['pwd']}@" +
-                                f"{config['database']['host']}:{config['database']['port']}/{config['database']['db']}")
+                                f"{config['database']['host']}:{config['database']['port']}/{config['database']['db']}",
+                                maxPoolSize=config['database']['max_pool_size'])
     mongo = client[config['database']['db']]
 
     # add site admin if necessary
