@@ -967,7 +967,7 @@
                                 success: function(data) {
                                     if (data['message'] === 'success') {
                                         showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
-                                        window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                        setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                                     }
                                     else {
                                         showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
@@ -1018,7 +1018,7 @@
                             success: function(data) {
                                 if (data['message'] === 'success') {
                                     showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
-                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                                 }
                                 else {
                                     showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
@@ -1070,7 +1070,7 @@
                                 success: function(data) {
                                     if (data['message'] === 'success') {
                                         showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
-                                        window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                        setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                                     }
                                     else {
                                         showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
@@ -1121,7 +1121,7 @@
                             success: function(data) {
                                 if (data['message'] === 'success') {
                                     showFlashingMessage('Info:', 'Successfully added note: ' + data['message'], 'success');
-                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                                 }
                                 else {
                                     showFlashingMessage('Info:', 'Failed to add note: ' + data['message'], 'danger');
@@ -1149,7 +1149,7 @@
                         success: function(data) {
                             if (data['message'] === 'success') {
                                 showFlashingMessage('Info:', 'Successfully removed lc: ' + data['message'], 'success');
-                                window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                             }
                             else {
                                 showFlashingMessage('Info:', 'Failed to remove light curve: ' + data['message'], 'danger');
@@ -1188,7 +1188,7 @@
                             success: function(data) {
                                 if (data['message'] === 'success') {
                                     showFlashingMessage('Info:', 'Successfully cross-matched: ' + data['message'], 'success');
-                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
                                 }
                                 else {
                                     showFlashingMessage('Info:', 'Failed to cross-match: ' + data['message'], 'danger');

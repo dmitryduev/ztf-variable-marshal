@@ -451,9 +451,16 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                     //console.log(radios);
                     sn = sn + 1;
                 }
+            let chkbx = "<div class='form-check'>" +
+                        "<label class='form-check-label'>" +
+                        "<input class='form-check-input'" +
+                        "type='checkbox' id='blank_automerge'>" +
+                        "Merge with all ZTF sources within 2\"" +
+                        "</label>" +
+                        "</div>";
             bootbox.confirm({
-                message: "Do you want to save the source to the Marshal assigning a unique id?<br>" +
-                         "Assign to program:<br>" + radios,
+                message: "Do you want to save the source to the Marshal assigning a unique id?<br><br>" +
+                         "Assign to program:<br>" + radios + "<br>" + chkbx,
                 buttons: {
                     cancel: {
                         label: '<i class="fas fa-times"></i> Cancel'
@@ -467,9 +474,10 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                     if (result) {
                         //console.log(id);
                         const program_to_add_to = document.querySelector('input[name="program_radios"]:checked').value;
+                        let automerge = $("#blank_automerge").is(':checked');
                         $.ajax({url: '{{-script_root-}}/sources',
                             method: 'PUT',
-                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to}),
+                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to, 'automerge': automerge}),
                             processData: false,
                             contentType: 'application/json',
                             success: function(data) {

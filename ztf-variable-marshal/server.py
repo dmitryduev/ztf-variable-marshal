@@ -1704,7 +1704,7 @@ async def sources_put_handler(request):
         assert zvm_program_id is not None, 'zvm_program_id not specified'
         assert (_id is not None) or ((ra is not None) and (dec is not None)), '_id or (ra, dec) not specified'
 
-        print(_r)
+        # print(_r)
 
         if _id is not None:
             kowalski_query = {"query_type": "general_search",
@@ -1800,7 +1800,7 @@ async def sources_put_handler(request):
         if automerge:
             query_merge = {"query_type": "cone_search",
                            "object_coordinates": {
-                               "radec": f"[({ra}, {dec})]",
+                               "radec": f"[({doc['ra']}, {doc['dec']})]",
                                # "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
                                # "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
                                "cone_search_radius": "2",
@@ -1816,7 +1816,7 @@ async def sources_put_handler(request):
                            }
             if _id is not None:
                 # skip the one that is already there:
-                query_merge["catalogs"][config['kowalski']['coll_sources']]["filter"] = {'_id': {'$ne': _id}}
+                query_merge["catalogs"][config['kowalski']['coll_sources']]["filter"] = {'_id': {'$ne': int(_id)}}
             # print(query_merge)
 
             resp = request.app['kowalski'].query(query_merge)
