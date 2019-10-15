@@ -132,39 +132,46 @@ def radec_str2geojson(ra_str, dec_str):
 
 
 def parse_radec(ra, dec):
-    if isinstance(ra, str) and isinstance(dec, str):
-        if ('h' in ra) and ('m' in ra) and ('s' in ra):
-            ra = ra[:-1]  # strip 's' at the end
-            for char in ('h', 'm'):
-                ra = ra.replace(char, ':')
-        if ('d' in dec) and ('m' in dec) and ('s' in dec):
-            dec = dec[:-1]  # strip 's' at the end
-            for char in ('d', 'm'):
-                dec = dec.replace(char, ':')
+    try:
+        if isinstance(ra, str) and isinstance(dec, str):
+            if ('h' in ra) and ('m' in ra) and ('s' in ra):
+                ra = ra[:-1]  # strip 's' at the end
+                for char in ('h', 'm'):
+                    ra = ra.replace(char, ':')
+            if ('d' in dec) and ('m' in dec) and ('s' in dec):
+                dec = dec[:-1]  # strip 's' at the end
+                for char in ('d', 'm'):
+                    dec = dec.replace(char, ':')
 
-        if (':' in ra) and (':' in dec):
-            # convert to rad:
-            ra, dec = radec_str2rad(ra, dec)
-            # convert to geojson-friendly degrees:
-            ra = ra * 180.0 / np.pi
-            ra_geojson = ra * 180.0 / np.pi - 180.0
-            dec = dec * 180.0 / np.pi
+            if (':' in ra) and (':' in dec):
+                # convert to rad:
+                ra, dec = radec_str2rad(ra, dec)
+                # convert to geojson-friendly degrees:
+                ra = ra * 180.0 / np.pi
+                ra_geojson = ra * 180.0 / np.pi - 180.0
+                dec = dec * 180.0 / np.pi
+
+            else:
+                # must be degrees then
+                ra = float(ra)
+                ra_geojson = float(ra) - 180.0
+                dec = float(dec)
         else:
-            raise Exception('Unrecognized string ra/dec format.')
-    else:
-        # must be degrees then
-        ra = float(ra)
-        ra_geojson = float(ra) - 180.0
-        dec = float(dec)
+            # must be degrees then
+            ra = float(ra)
+            ra_geojson = float(ra) - 180.0
+            dec = float(dec)
 
-    radec = {'ra': ra,
-             'dec': dec,
-             'coordinates': {
-                 'radec_str': [deg2hms(ra), deg2dms(dec)],
-                 'radec_geojson': {'type': 'Point',
-                                   'coordinates': [ra - 180.0, dec]}
-             }
-             }
+        radec = {'ra': ra,
+                 'dec': dec,
+                 'coordinates': {
+                     'radec_str': [deg2hms(ra), deg2dms(dec)],
+                     'radec_geojson': {'type': 'Point',
+                                       'coordinates': [ra - 180.0, dec]}
+                 }
+                 }
+    except Exception as e:
+        raise Exception(f'Unrecognized string ra/dec format.: {e}')
 
     return radec
 

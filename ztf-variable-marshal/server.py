@@ -1772,7 +1772,7 @@ async def sources_put_handler(request):
         # spectra
         doc['spec'] = []
 
-        #lc:
+        # lc:
         if 'data' in ztf_source:
             # filter lc for MSIP data
             if config['misc']['filter_MSIP']:
@@ -1787,6 +1787,7 @@ async def sources_put_handler(request):
             lc = {'_id': random_alphanumeric_str(length=24),
                   'telescope': 'PO:1.2m',
                   'instrument': 'ZTF',
+                  'release': config['kowalski']['coll_sources'],
                   'id': ztf_source['_id'],
                   'filter': ztf_source['filter'],
                   'lc_type': 'temporal',
@@ -1794,6 +1795,53 @@ async def sources_put_handler(request):
             doc['lc'] = [lc]
         else:
             doc['lc'] = []
+
+        # feelin' lucky?
+        if automerge:
+            query_merge = {"query_type": "cone_search",
+                           "object_coordinates": {
+                               "radec": f"[({ra}, {dec})]",
+                               # "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
+                               # "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
+                               "cone_search_radius": "2",
+                               "cone_search_unit": "arcsec"
+                           },
+                           "catalogs": {
+                               config['kowalski']['coll_sources']: {
+                                   "filter": {},
+                                   "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}
+                                   # "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1}
+                               }
+                           }
+                           }
+            if _id is not None:
+                # skip the one that is already there:
+                query_merge["catalogs"][config['kowalski']['coll_sources']]["filter"] = {'_id': {'$ne': _id}}
+            # print(query_merge)
+
+            resp = request.app['kowalski'].query(query_merge)
+            kk = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
+            sources_merge = resp['result_data'][config['kowalski']['coll_sources']][kk]
+            # print(sources_merge)
+
+            for source_merge in sources_merge:
+                # filter lc for MSIP data
+                if config['misc']['filter_MSIP']:
+                    source_merge['data'] = [dp for dp in source_merge['data'] if
+                                            ((dp['programid'] != 1) or
+                                             (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
+
+                # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
+                lc = {'_id': random_alphanumeric_str(length=24),
+                      'telescope': 'PO:1.2m',
+                      'instrument': 'ZTF',
+                      'release': config['kowalski']['coll_sources'],
+                      'id': source_merge['_id'],
+                      'filter': source_merge['filter'],
+                      'lc_type': 'temporal',
+                      'data': source_merge['data']}
+
+                doc['lc'].append(lc)
 
         doc['created_by'] = user
         time_tag = utc_now()
