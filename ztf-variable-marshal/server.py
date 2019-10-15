@@ -1339,8 +1339,10 @@ async def sources_get_handler(request):
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
+                   'users': [],
+                   'programs': [],
                    'data': [],
-                   'messages': [[f'Encountered error while loading sources: {str(_e)}', 'danger']]}
+                   'messages': [[f'Encountered error while loading sources: {str(_e)}. Reload the page!', 'danger']]}
 
         response = aiohttp_jinja2.render_template('template-sources.html',
                                                   request,
@@ -1673,7 +1675,7 @@ def cross_match(kowalski, ra, dec):
 @login_required
 async def sources_put_handler(request):
     """
-        Save ZTF source to own db assigning a unique id and assigning to a program,
+        Save ZTF source to own db assigning a unique id and adding to a program,
         or create a blank one
     :param request:
     :return:
@@ -1690,16 +1692,31 @@ async def sources_put_handler(request):
     # print(_r)
 
     try:
-        assert '_id' in _r, '_id not specified'
-        assert 'zvm_program_id' in _r, 'zvm_program_id not specified'
+        # assert ('_id' in _r) or (('ra' in _r) and ('dec' in _r)), '_id or (ra, dec) not specified'
+        # assert 'zvm_program_id' in _r, 'zvm_program_id not specified'
 
-        kowalski_query = {"query_type": "general_search",
-                          "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
-                                   f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
-                          }
+        _id = _r.get('_id', None)
+        ra = _r.get('ra', None)
+        dec = _r.get('dec', None)
+        zvm_program_id = _r.get('zvm_program_id', None)
+        automerge = _r.get('automerge', False)
 
-        resp = request.app['kowalski'].query(kowalski_query)
-        ztf_source = resp['result_data']['query_result'][0]
+        assert zvm_program_id is not None, 'zvm_program_id not specified'
+        assert (_id is not None) or ((ra is not None) and (dec is not None)), '_id or (ra, dec) not specified'
+
+        print(_r)
+
+        if _id is not None:
+            kowalski_query = {"query_type": "general_search",
+                              "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
+                                       f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
+                              }
+
+            resp = request.app['kowalski'].query(kowalski_query)
+            ztf_source = resp['result_data']['query_result'][0]
+
+        else:
+            ztf_source = parse_radec(ra, dec)
 
         # build doc to ingest:
         doc = dict()
@@ -1755,24 +1772,28 @@ async def sources_put_handler(request):
         # spectra
         doc['spec'] = []
 
-        # filter lc for MSIP data
-        if config['misc']['filter_MSIP']:
-            # print(len(ztf_source['data']))
-            # ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
-            ztf_source['data'] = [dp for dp in ztf_source['data'] if
-                                  ((dp['programid'] != 1) or
-                                   (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
-            # print(len(ztf_source['data']))
+        #lc:
+        if 'data' in ztf_source:
+            # filter lc for MSIP data
+            if config['misc']['filter_MSIP']:
+                # print(len(ztf_source['data']))
+                # ztf_source['data'] = [dp for dp in ztf_source['data'] if dp['programid'] != 1]
+                ztf_source['data'] = [dp for dp in ztf_source['data'] if
+                                      ((dp['programid'] != 1) or
+                                       (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
+                # print(len(ztf_source['data']))
 
-        # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
-        lc = {'_id': random_alphanumeric_str(length=24),
-              'telescope': 'PO:1.2m',
-              'instrument': 'ZTF',
-              'id': ztf_source['_id'],
-              'filter': ztf_source['filter'],
-              'lc_type': 'temporal',
-              'data': ztf_source['data']}
-        doc['lc'] = [lc]
+            # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
+            lc = {'_id': random_alphanumeric_str(length=24),
+                  'telescope': 'PO:1.2m',
+                  'instrument': 'ZTF',
+                  'id': ztf_source['_id'],
+                  'filter': ztf_source['filter'],
+                  'lc_type': 'temporal',
+                  'data': ztf_source['data']}
+            doc['lc'] = [lc]
+        else:
+            doc['lc'] = []
 
         doc['created_by'] = user
         time_tag = utc_now()

@@ -799,23 +799,23 @@
                         // confirmed? emit request to server:
                         if (result) {
                             $.ajax({url: '{{-script_root-}}/sources/{{ source['_id'] }}',
-                            method: 'DELETE',
-                            data: JSON.stringify({'_id': "{{ source['_id'] }}"}),
-                            processData: false,
-                            contentType: 'application/json',
-                            success: function(data) {
-                                if (data['message'] === 'success') {
-                                    window.location.href = '{{-script_root-}}/sources';
+                                method: 'DELETE',
+                                data: JSON.stringify({'_id': "{{ source['_id'] }}"}),
+                                processData: false,
+                                contentType: 'application/json',
+                                success: function(data) {
+                                    if (data['message'] === 'success') {
+                                        window.location.href = '{{-script_root-}}/sources';
+                                    }
+                                    else {
+                                        showFlashingMessage('Info:', 'Failed to delete source: ' + data['message'], 'danger');
+                                    }
+                                },
+                                error: function(data) {
+                                    {#console.log('peechalj');#}
+                                    showFlashingMessage('Info:', 'Failed to delete source', 'danger');
                                 }
-                                else {
-                                    showFlashingMessage('Info:', 'Failed to delete source: ' + data['message'], 'danger');
-                                }
-                            },
-                            error: function(data) {
-                                {#console.log('peechalj');#}
-                                showFlashingMessage('Info:', 'Failed to delete source', 'danger');
-                            }
-                        });
+                            });
                         }
                     }
                 });
@@ -919,7 +919,8 @@
                             success: function(data) {
                                 if (data['message'] === 'success') {
                                     showFlashingMessage('Info:', 'Successfully transferred source: ' + data['message'], 'success');
-                                    window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';
+                                    setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
+                                    {#window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}';#}
                                 }
                                 else {
                                     showFlashingMessage('Info:', 'Failed to transfer source: ' + data['message'], 'danger');

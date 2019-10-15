@@ -36,6 +36,55 @@ def to_pretty_json(value):
     return dumps(value, separators=(',', ': '))
 
 
+@jit
+def deg2hms(x):
+    """Transform degrees to *hours:minutes:seconds* strings.
+    Parameters
+    ----------
+    x : float
+        The degree value c [0, 360) to be written as a sexagesimal string.
+    Returns
+    -------
+    out : str
+        The input angle written as a sexagesimal string, in the
+        form, hours:minutes:seconds.
+    """
+    assert 0.0 <= x < 360.0, 'Bad RA value in degrees'
+    # ac = Angle(x, unit='degree')
+    # hms = str(ac.to_string(unit='hour', sep=':', pad=True))
+    # print(str(hms))
+    _h = np.floor(x * 12.0 / 180.)
+    _m = np.floor((x * 12.0 / 180. - _h) * 60.0)
+    _s = ((x * 12.0 / 180. - _h) * 60.0 - _m) * 60.0
+    hms = '{:02.0f}:{:02.0f}:{:07.4f}'.format(_h, _m, _s)
+    # print(hms)
+    return hms
+
+
+@jit
+def deg2dms(x):
+    """Transform degrees to *degrees:arcminutes:arcseconds* strings.
+    Parameters
+    ----------
+    x : float
+        The degree value c [-90, 90] to be converted.
+    Returns
+    -------
+    out : str
+        The input angle as a string, written as degrees:minutes:seconds.
+    """
+    assert -90.0 <= x <= 90.0, 'Bad Dec value in degrees'
+    # ac = Angle(x, unit='degree')
+    # dms = str(ac.to_string(unit='degree', sep=':', pad=True))
+    # print(dms)
+    _d = np.floor(abs(x)) * np.sign(x)
+    _m = np.floor(np.abs(x - _d) * 60.0)
+    _s = np.abs(np.abs(x - _d) * 60.0 - _m) * 60.0
+    dms = '{:02.0f}:{:02.0f}:{:06.3f}'.format(_d, _m, _s)
+    # print(dms)
+    return dms
+
+
 def radec_str2rad(_ra_str, _dec_str):
     """
     :param _ra_str: 'H:M:S'
@@ -80,6 +129,44 @@ def radec_str2geojson(ra_str, dec_str):
         dec = float(dec_str)
 
     return ra, dec
+
+
+def parse_radec(ra, dec):
+    if isinstance(ra, str) and isinstance(dec, str):
+        if ('h' in ra) and ('m' in ra) and ('s' in ra):
+            ra = ra[:-1]  # strip 's' at the end
+            for char in ('h', 'm'):
+                ra = ra.replace(char, ':')
+        if ('d' in dec) and ('m' in dec) and ('s' in dec):
+            dec = dec[:-1]  # strip 's' at the end
+            for char in ('d', 'm'):
+                dec = dec.replace(char, ':')
+
+        if (':' in ra) and (':' in dec):
+            # convert to rad:
+            ra, dec = radec_str2rad(ra, dec)
+            # convert to geojson-friendly degrees:
+            ra = ra * 180.0 / np.pi
+            ra_geojson = ra * 180.0 / np.pi - 180.0
+            dec = dec * 180.0 / np.pi
+        else:
+            raise Exception('Unrecognized string ra/dec format.')
+    else:
+        # must be degrees then
+        ra = float(ra)
+        ra_geojson = float(ra) - 180.0
+        dec = float(dec)
+
+    radec = {'ra': ra,
+             'dec': dec,
+             'coordinates': {
+                 'radec_str': [deg2hms(ra), deg2dms(dec)],
+                 'radec_geojson': {'type': 'Point',
+                                   'coordinates': [ra - 180.0, dec]}
+             }
+             }
+
+    return radec
 
 
 def utc_now():
