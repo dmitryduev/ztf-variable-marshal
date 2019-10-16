@@ -574,16 +574,22 @@ async def programs_get_handler(request):
     # get session:
     session = await get_session(request)
 
+    frmt = request.query.get('format', 'web')
+
     programs = await request.app['mongo'].programs.find({}).to_list(length=1000)
     # print(programs)
 
-    context = {'logo': config['server']['logo'],
-               'user': session['user_id'],
-               'programs': programs}
-    response = aiohttp_jinja2.render_template('template-programs.html',
-                                              request,
-                                              context)
-    return response
+    if frmt == 'web':
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'programs': programs}
+        response = aiohttp_jinja2.render_template('template-programs.html',
+                                                  request,
+                                                  context)
+        return response
+
+    elif frmt == 'json':
+        return web.json_response(programs, status=200, dumps=dumps)
 
 
 @routes.put('/programs')
@@ -610,20 +616,22 @@ async def programs_put_handler(request):
         num_programs = await request.app['mongo'].programs.count_documents({})
 
         # add program to programs collection:
-        await request.app['mongo'].programs.insert_one(
-            {'_id': int(num_programs + 1),
-             'name': program_name,
-             'description': program_description,
-             'last_modified': datetime.datetime.now()}
-        )
+        doc = {'_id': int(num_programs + 1),
+               'name': program_name,
+               'description': program_description,
+               'last_modified': datetime.datetime.now()}
+        await request.app['mongo'].programs.insert_one(doc)
 
-        return web.json_response({'message': 'success'}, status=200)
+        return web.json_response({'message': 'success', 'result': doc}, status=200, dumps=dumps)
 
     except Exception as _e:
         print(f'Got error: {str(_e)}')
         _err = traceback.format_exc()
         print(_err)
         return web.json_response({'message': f'Failed to add user: {_err}'}, status=500)
+
+
+# todo: /programs POST and DELETE
 
 
 ''' query API'''
