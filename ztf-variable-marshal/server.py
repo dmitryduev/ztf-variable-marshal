@@ -133,11 +133,11 @@ async def auth_middleware(request, handler):
     :param handler:
     :return:
     """
-    tic = time.time()
+    # tic = time.time()
     request.user = None
     jwt_token = request.headers.get('authorization', None)
 
-    if jwt_token:
+    if jwt_token is not None:
         try:
             payload = jwt.decode(jwt_token, request.app['JWT']['JWT_SECRET'],
                                  algorithms=[request.app['JWT']['JWT_ALGORITHM']])
@@ -148,7 +148,7 @@ async def auth_middleware(request, handler):
         request.user = payload['user_id']
 
     response = await handler(request)
-    toc = time.time()
+    # toc = time.time()
     # print(f"Auth middleware took {toc-tic} seconds to execute")
 
     return response
@@ -169,13 +169,16 @@ def auth_required(func):
 
 def login_required(func):
     """
-        Wrapper to ensure successful user authorization to use the web frontend
+        Wrapper to ensure successful user authorization to use both the API and the web frontend
     :param func:
     :return:
     """
     async def wrapper(request):
+        # if request.user:
+        #     return await func(request)
         # get session:
         session = await get_session(request)
+        # print(session)
         if 'jwt_token' not in session:
             # return web.json_response({'message': 'Auth required'}, status=401)
             # redirect to login page
@@ -1237,9 +1240,11 @@ async def query_handler(request):
     :param request:
     :return:
     """
-    # get session:
-    session = await get_session(request)
-    user = session['user_id']
+    user = request.get('user', None)
+    # try session if None:
+    if user is None:
+        session = await get_session(request)
+        user = session['user_id']
 
     try:
         _query = await request.json()

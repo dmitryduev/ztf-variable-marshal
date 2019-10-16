@@ -40,7 +40,7 @@ Change `skipper.caltech.edu` in `docker-compose.yml` and in `traefik/traefik.tom
 
 Run `docker-compose` to build and start the service (may have to sudo if acme complains):
 ```bash
-docker-compose up --build -d
+sudo docker-compose up --build -d
 ```
 
 To tear everything down (i.e. stop and remove the containers), run:
