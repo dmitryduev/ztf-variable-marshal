@@ -2144,7 +2144,10 @@ async def source_post_handler(request):
             elif _r['action'] == 'add_period':
                 # add period
                 period = _r['period']
-                period_unit = _r['period_unit']
+                period_unit = _r['period_unit'].capitalize()
+
+                known_units = ['Minutes', 'Hours', 'Days']
+                assert period_unit in known_units, f'period unit {period_unit} not in {known_units}'
 
                 p = {'period': period, 'period_unit': period_unit}
 
