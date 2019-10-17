@@ -1,6 +1,28 @@
-# ZTF Variable Marshal
+# ZTF Variable Marshal (ZVM)
 
-A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) with `aiohttp` and `mongodb` at the back-end.
+A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aiohttp` and `mongodb`.
+
+Search GUI                 |  Source page - Photometry |  Source page - Spectroscopy and aux 
+:-------------------------:|:-------------------------:|:-------------------------:
+![](ztf-variable-marshal/doc/zvm11.png) | ![](ztf-variable-marshal/doc/zvm2.png) | ![](ztf-variable-marshal/doc/zvm3.png) ![](ztf-variable-marshal/doc/zvm4.png)
+
+## Python client library `zvm`
+
+Install the client library [zvm.py](https://github.com/dmitryduev/ztf-variable-marshal/blob/master/zvm.py), 
+with `pip` into your environment:
+
+```bash
+pip install git+https://github.com/dmitryduev/ztf-variable-marshal.git
+```
+
+`zvm` is very lightweight and only depends on `pymongo` and `requests`.
+
+A tutorial on how to programmatically interact with the ZVM:
+
+See [this jupyter notebook](https://github.com/dmitryduev/ztf-variable-marshal/blob/master/nb/api.ipynb), or 
+[![Open In Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dmitryduev/ztf-variable-marshal/blob/master/nb/api.ipynb)
+
+---
 
 ## Production service  
 
