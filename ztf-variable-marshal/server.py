@@ -1608,6 +1608,8 @@ async def source_get_handler(request):
 
         except Exception as e:
             print(str(e))
+            _err = traceback.format_exc()
+            print(_err)
             bad_lc.append(ilc)
 
     for blc in bad_lc[::-1]:
@@ -1866,7 +1868,7 @@ async def sources_put_handler(request):
 
         await request.app['mongo'].sources.insert_one(doc)
 
-        return web.json_response({'message': 'success'}, status=200)
+        return web.json_response({'message': 'success', 'result': doc}, status=200, dumps=dumps)
 
     except Exception as _e:
         print(f'Failed to ingest source: {str(_e)}')
@@ -1956,6 +1958,7 @@ async def source_post_handler(request):
                 lc = {'_id': random_alphanumeric_str(length=24),
                       'telescope': 'PO:1.2m',
                       'instrument': 'ZTF',
+                      'release': config['kowalski']['coll_sources'],
                       'id': ztf_source['_id'],
                       'filter': ztf_source['filter'],
                       'lc_type': 'temporal',
@@ -1984,6 +1987,8 @@ async def source_post_handler(request):
                     lcs = [lcs]
 
                 for lc in lcs:
+                    # generate unique _id:
+                    lc['_id'] = random_alphanumeric_str(length=24)
                     # check data format:
                     for kk in ('telescope', 'instrument', 'filter', 'id', 'lc_type', 'data'):
                         assert kk in lc, f'{kk} key not set'
@@ -2032,6 +2037,9 @@ async def source_post_handler(request):
 
                 spectrum = _r['data']
 
+                # generate unique _id:
+                spectrum['_id'] = random_alphanumeric_str(length=24)
+
                 # check data format:
                 for kk in ('telescope', 'instrument', 'filter', 'wavelength_unit', 'flux_unit', 'data'):
                     assert kk in spectrum, f'{kk} key not set'
@@ -2057,6 +2065,25 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
                 # return web.json_response({'message': 'failure: not implemented'}, status=200)
+
+            elif _r['action'] == 'remove_spectrum':
+                # remove spectrum
+
+                spectrum_id = _r['spectrum_id']
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'spec',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': f'removed {spectrum_id}'}
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$pull': {'spec': {'_id': spectrum_id}},
+                                                               '$push': {'history': h},
+                                                               '$set': {'last_modified': utc_now()}})
+
+                return web.json_response({'message': 'success'}, status=200)
 
             elif _r['action'] == 'transfer_source':
                 # add note

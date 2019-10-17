@@ -417,4 +417,4 @@ def lc_colors(color='default', ind: int = 0):
         # re-use if ran out of available colors:
         return colors[color][ind % len(colors[color])]
     else:
-        return colors['default'][ind % len(colors[color])]
+        return colors['default'][ind % len(colors['default'])]

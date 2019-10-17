@@ -83,7 +83,7 @@
             "S_band_flux_total": 1, "C_band_flux_total": 1, "X_band_flux_total": 1,
             "U_band_flux_total": 1, "K_band_flux_total": 1}
         },
-        "LAMOST_DR4_v2": {
+        "LAMOST_DR5_v3": {
           "filter": {},
           "projection": {
             "_id": 1, "coordinates.radec_str": 1, "mjd": 1,

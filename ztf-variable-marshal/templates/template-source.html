@@ -331,7 +331,9 @@
                                                'mjd': spec['mjd'],
                                                'wavelength_unit': spec['wavelength_unit'],
                                                'flux_unit': spec['flux_unit']} %}
-                            <b>Spectrum {{ loop.index }}:</b> {{ spec_info | safe }}<br>
+                            <b>Spectrum {{ loop.index }}:</b> {{ spec_info | safe }}
+                            <a href="#" class="remove_spectrum" data-specid="{{ spec['_id'] }}"><i class="fas fa-times"></i></a>
+                            <br>
                         {% endfor %}
                         </p>
 
@@ -1157,6 +1159,35 @@
                         },
                         error: function(data) {
                             showFlashingMessage('Info:', 'Failed to remove light curve', 'danger');
+                        }
+                    });
+                }
+            });
+
+            return false;
+        });
+
+        // remove spectrum from source
+        $('.remove_spectrum').click(function (e) {
+            var specid = $(this).data('specid');
+            bootbox.confirm("Are you sure you want to remove this spectrum?", function(result) {
+                if (result) {
+                    $.ajax({url: '{{-script_root-}}/sources/{{-source["_id"]-}}',
+                        method: 'POST',
+                        data: JSON.stringify({'action': 'remove_spectrum', 'spectrum_id': specid}),
+                        processData: false,
+                        contentType: 'application/json',
+                        success: function(data) {
+                            if (data['message'] === 'success') {
+                                showFlashingMessage('Info:', 'Successfully removed spectrum: ' + data['message'], 'success');
+                                setTimeout(window.location.href = '{{-script_root-}}/sources/{{ source["_id"] }}', 1000);
+                            }
+                            else {
+                                showFlashingMessage('Info:', 'Failed to remove spectrum: ' + data['message'], 'danger');
+                            }
+                        },
+                        error: function(data) {
+                            showFlashingMessage('Info:', 'Failed to remove spectrum', 'danger');
                         }
                     });
                 }
