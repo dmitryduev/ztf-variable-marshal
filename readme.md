@@ -2,8 +2,10 @@
 
 A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aiohttp` and `mongodb`.
 
-
-![](ztf-variable-marshal/doc/zvm1.png) | ![](ztf-variable-marshal/doc/zvm2.png) | ![](ztf-variable-marshal/doc/zvm3.png) ![](ztf-variable-marshal/doc/zvm4.png)
+<table border="0">
+<th><td>Search GUI</td><td>Source page: Photometry</td><td>Source page: Spectroscopy and aux</td></th>
+<tr><td>![](ztf-variable-marshal/doc/zvm1.png)</td><td>![](ztf-variable-marshal/doc/zvm2.png)</td><td></td></tr>
+</table>
 
 ## Python client library `zvm`
 
