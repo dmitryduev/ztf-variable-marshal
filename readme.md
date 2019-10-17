@@ -9,9 +9,9 @@ A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aio
 <th style="width:33%">Source page: Spectroscopy and aux</th>
 </tr>
 <tr>
-<td style="width:33%"><img src="ztf-variable-marshal/doc/zvm1.png"></td>
-<td style="width:33%"><img src="ztf-variable-marshal/doc/zvm2.png"></td>
-<td style="width:33%"><img src="ztf-variable-marshal/doc/zvm3.png"></td>
+<td style="width:30%"><img src="ztf-variable-marshal/doc/zvm1.png"></td>
+<td style="width:35%"><img src="ztf-variable-marshal/doc/zvm2.png"></td>
+<td style="width:35%"><img src="ztf-variable-marshal/doc/zvm3.png"><img src="ztf-variable-marshal/doc/zvm4.png"></td>
 </tr>
 </table>
 
