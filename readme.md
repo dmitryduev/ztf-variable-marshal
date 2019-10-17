@@ -3,7 +3,7 @@
 A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aiohttp` and `mongodb`.
 
 <table border="0">
-<th><td>Search GUI</td><td>Source page: Photometry</td><td>Source page: Spectroscopy and aux</td></th>
+<tr><th>Search GUI</th><th>Source page: Photometry</th><th>Source page: Spectroscopy and aux</th></tr>
 <tr><td><img src="ztf-variable-marshal/doc/zvm1.png"></td><td><img src="ztf-variable-marshal/doc/zvm2.png"></td><img src="ztf-variable-marshal/doc/zvm3.png"><td></td></tr>
 </table>
 
