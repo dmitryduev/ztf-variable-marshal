@@ -2172,6 +2172,8 @@ async def source_post_handler(request):
                 # add source flags
                 source_flags = _r['source_flags']
 
+                # todo: check flags?
+
                 # make history
                 time_tag = utc_now()
                 h = {'note_type': 'flag',
