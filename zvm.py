@@ -244,7 +244,7 @@ class zvm(object):
 
     def check_connection(self, collection='sources') -> bool:
         """
-            Check connection to Kowalski with a trivial query
+            Check connection to ZVM with a trivial query
         :return: True if connection ok, False otherwise
         """
         try:
@@ -254,7 +254,7 @@ class zvm(object):
                           "filter": {},
                           "projection": {'_id': 1}
                       },
-                      "kwargs": {"save": False}
+                      "kwargs": {"limit": 1, "save": False}
                       }
             if self.v:
                 print(_query)
@@ -263,7 +263,9 @@ class zvm(object):
             if self.v:
                 print(_result)
 
-            return True if (('status' in _result) and (_result['status'] == 'done')) else False
+            status = _result.get('result', dict()).get('status', None)
+
+            return True if status == 'done' else False
 
         except Exception as _e:
             _err = traceback.format_exc()
