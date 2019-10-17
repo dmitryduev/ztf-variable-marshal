@@ -4,7 +4,7 @@ A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aio
 
 <table border="0">
 <tr>
-<th style="width:30%">Search GUI</th>
+<th style="width:30%">Search Saved Sources GUI</th>
 <th style="width:35%">Source page: Photometry</th>
 <th style="width:35%">Source page: Spectroscopy and aux</th>
 </tr>
