@@ -11,7 +11,7 @@ A dockerized Variable Marshal for [ZTF](https://ztf.caltech.edu) powered by `aio
 <tr>
 <td style="width:30%"><img src="ztf-variable-marshal/doc/zvm1.png"></td>
 <td style="width:35%"><img src="ztf-variable-marshal/doc/zvm2.png"></td>
-<td style="width:35%"><img src="ztf-variable-marshal/doc/zvm3.png"><img src="ztf-variable-marshal/doc/zvm4.png"></td>
+<td style="width:35%"><img src="ztf-variable-marshal/doc/zvm3.png"><br><img src="ztf-variable-marshal/doc/zvm4.png"></td>
 </tr>
 </table>
 
