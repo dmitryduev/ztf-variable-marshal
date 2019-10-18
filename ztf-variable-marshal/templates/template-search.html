@@ -477,7 +477,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                         let automerge = $("#blank_automerge").is(':checked');
                         $.ajax({url: '{{-script_root-}}/sources',
                             method: 'PUT',
-                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to, 'automerge': automerge}),
+                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to, 'automerge': automerge, 'return_result': false}),
                             processData: false,
                             contentType: 'application/json',
                             success: function(data) {

@@ -1715,6 +1715,7 @@ async def sources_put_handler(request):
         dec = _r.get('dec', None)
         zvm_program_id = _r.get('zvm_program_id', None)
         automerge = _r.get('automerge', False)
+        return_result = _r.get('return_result', True)
 
         assert zvm_program_id is not None, 'zvm_program_id not specified'
         assert (_id is not None) or ((ra is not None) and (dec is not None)), '_id or (ra, dec) not specified'
@@ -1868,7 +1869,10 @@ async def sources_put_handler(request):
 
         await request.app['mongo'].sources.insert_one(doc)
 
-        return web.json_response({'message': 'success', 'result': doc}, status=200, dumps=dumps)
+        if return_result:
+            return web.json_response({'message': 'success', 'result': doc}, status=200, dumps=dumps)
+        else:
+            return web.json_response({'message': 'success', 'result': {'_id': doc['_id']}}, status=200, dumps=dumps)
 
     except Exception as _e:
         print(f'Failed to ingest source: {str(_e)}')
@@ -1998,6 +2002,10 @@ async def source_post_handler(request):
                         assert is_goed, f'bad photometry for data point #{idp+1}'
                         assert (('mjd' in dp) or ('hjd' in dp)), \
                             f'time stamp (mjd/hjd) not set for data point #{idp + 1}'
+                        # some people pathologically like strings:
+                        for kk in ('mag', 'magerr', 'mag_llim', 'mag_ulim', 'mjd', 'hjd'):
+                            if (kk in dp) and (not isinstance(dp[kk], float)):
+                                dp[kk] = float(dp[kk])
 
                     # make history
                     time_tag = utc_now()

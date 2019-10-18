@@ -586,10 +586,11 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                             {#console.log(ra, dec, zvm_program_id, automerge);#}
                             $.ajax({url: '{{-script_root-}}/sources',
                                 method: 'PUT',
-                                data: JSON.stringify({'ra': ra, 'dec': dec, 'zvm_program_id': zvm_program_id, 'automerge': automerge}),
+                                data: JSON.stringify({'ra': ra, 'dec': dec, 'zvm_program_id': zvm_program_id, 'automerge': automerge, 'return_result': false}),
                                 processData: false,
                                 contentType: 'application/json',
                                 success: function(data) {
+                                    console.log(data);
                                     if (data['message'] === 'success') {
                                         showFlashingMessage('Info:', 'Successfully saved source: ' + data['message'], 'success');
                                         setTimeout(window.location.href = '{{-script_root-}}/sources', 1000);
