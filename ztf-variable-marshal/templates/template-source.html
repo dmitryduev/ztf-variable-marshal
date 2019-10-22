@@ -109,6 +109,13 @@
                         {# TODO: MORE INFO<br><br> #}
                     </div>
 
+                    <div class="sidebar-heading justify-content-between
+                                align-items-center px-3 mt-4 mb-1 text-muted">
+                        PS1 [63"x63"]:<br>
+                        <span id="ls_img"></span>
+
+                    </div>
+
 {#                    <ul class="nav flex-column">#}
 {#                        <li class="nav-item">#}
 {#                            <a class="nav-link active" href="#">#}
@@ -554,6 +561,17 @@
         $('#json-renderer').jsonViewer(data_alert, {collapsed: true, withQuotes: true});
         // open
         $('#json-renderer').find(">:first-child").trigger("click");
+    </script>
+
+    <script>
+        // PS1 cutout
+        {% if ps1_url %}
+            $(document).ready(function() {
+                $('#ls_img').html('<img width="100%" src="{{ ps1_url }}">');
+            });
+        {% else %}
+            $('#ls_img').html('Failed to fetch>');
+        {% endif %}
     </script>
 
     <script>

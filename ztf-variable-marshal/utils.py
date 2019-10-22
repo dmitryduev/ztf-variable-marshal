@@ -2,6 +2,8 @@ import hashlib
 import random
 import string
 import math
+import io
+import requests
 
 import numpy as np
 import datetime
@@ -418,3 +420,39 @@ def lc_colors(color='default', ind: int = 0):
         return colors[color][ind % len(colors[color])]
     else:
         return colors['default'][ind % len(colors['default'])]
+
+
+# PS1 cutouts from Mickael Rigault's ztfquery
+# https://github.com/MickaelRigault/ztfquery/blob/master/ztfquery/utils/stamps.py
+
+PANSTARRS_SOURCE = "http://ps1images.stsci.edu/cgi-bin/"
+
+# ===================== #
+#   Internal Tools      #
+# ===================== #
+
+
+def build_panstarrs_link(ra, dec, type="stack"):
+    """ build the link where you will get the ps1 filename information for the given Ra Dec and type. """
+    return PANSTARRS_SOURCE + 'ps1filenames.py?ra=' + str(ra) + '&dec=' + str(dec) + '&type=%s' % type
+
+
+def get_ps_color_filelocation(ra, dec, color=("y", "g", "i"), timeout=1):
+    """  """
+    if len(color) != 3:
+        raise ValueError("color must have exactly 3 entries ('g','r','i','z','y')")
+    d = [l.split(" ")[-2] for l in requests.get(build_panstarrs_link(ra, dec), timeout=timeout).content.decode("utf-8").splitlines()[1:]]
+    return np.asarray([[d_ for d_ in d if ".%s." % b in d_] for b in color]).flatten()
+
+
+def get_rgb_ps_stamp_url(ra, dec, size=240, color=("y", "g", "i"), timeout=1):
+    """ build the link url where you can download the RGB stamps centered on RA-Dec with a `size`.
+    The RGB color is based on the given color [R,G,B] you set in.
+
+    Returns
+    -------
+    link (str)
+    """
+    red, blue, green = get_ps_color_filelocation(ra, dec, color=color, timeout=timeout)
+    return PANSTARRS_SOURCE + 'fitscut.cgi?red=' + red + '&blue=' + blue + '&green=' + green + '&x=' + str(
+        ra) + '&y=' + str(dec) + '&size=%d' % size + '&wcs=1&asinh=True&autoscale=99.750000&format=png&download=True'
