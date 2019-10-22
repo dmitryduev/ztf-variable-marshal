@@ -1724,6 +1724,7 @@ async def sources_put_handler(request):
         zvm_program_id = _r.get('zvm_program_id', None)
         automerge = _r.get('automerge', False)
         return_result = _r.get('return_result', True)
+        prefix = _r.get('prefix', 'ZTFS')
 
         assert zvm_program_id is not None, 'zvm_program_id not specified'
         assert (_id is not None) or ((ra is not None) and (dec is not None)), '_id or (ra, dec) not specified'
@@ -1746,7 +1747,7 @@ async def sources_put_handler(request):
         doc = dict()
 
         source_id_base = \
-            f'ZTFS{datetime.datetime.utcnow().strftime("%y")}{ztf_source["coordinates"]["radec_str"][0][:2]}'
+            f'{prefix}{datetime.datetime.utcnow().strftime("%y")}{ztf_source["coordinates"]["radec_str"][0][:2]}'
 
         num_saved_sources = await request.app['mongo'].sources.count_documents({'_id':
                                                                                     {'$regex': f'{source_id_base}.*'}})
