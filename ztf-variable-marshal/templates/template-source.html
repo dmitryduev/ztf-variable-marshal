@@ -800,7 +800,9 @@
                     var xx = phase.concat(phase.map(function(element){return element + 1;}));
                     var yy = lc_.y.concat(lc_.y);
                     var ee = lc_.error_y;
-                    ee["array"] = ee["array"].concat(lc_.error_y["array"]);
+                    if ("array" in ee) {
+                        ee["array"] = ee["array"].concat(lc_.error_y["array"]);
+                    }
                 }
                 else {
                     var xx = phase;
