@@ -441,7 +441,8 @@ def get_ps_color_filelocation(ra, dec, color=("y", "g", "i"), timeout=1):
     """  """
     if len(color) != 3:
         raise ValueError("color must have exactly 3 entries ('g','r','i','z','y')")
-    d = [l.split(" ")[-2] for l in requests.get(build_panstarrs_link(ra, dec), timeout=timeout).content.decode("utf-8").splitlines()[1:]]
+    d = [l.split(" ")[-2] for l in requests.get(build_panstarrs_link(ra, dec),
+                                                timeout=timeout).content.decode("utf-8").splitlines()[1:]]
     return np.asarray([[d_ for d_ in d if ".%s." % b in d_] for b in color]).flatten()
 
 

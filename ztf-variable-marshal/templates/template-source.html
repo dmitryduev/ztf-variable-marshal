@@ -208,12 +208,12 @@
 
                         <hr>
 
-                        <div class="form-group row mt-3">
-                            <label for="fold_lc_period" class="col-lg-2 control-label">
+                        <div class="form-group row mt-2">
+                            <label for="fold_lc_period" class="col-md-2 mt-1 control-label">
                                 Folded light curve at
                             </label>
 
-                            <div class="col-md-4 row">
+                            <div class="col-md-4 form-inline mt-1">
                                 <input type="text" class="form-control form-control-sm col-lg-6"
                                        id="fold_lc_period" name="fold_lc_period" placeholder="">
                                 <select class="form-control form-control-sm col-lg-6"
@@ -223,13 +223,20 @@
                                     <option>Days</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-3 mt-1">
                                 <button type="button" class="btn btn-dark btn-sm"
                                         id="fold_lc" onclick="setFolding()">Set</button>
                                 <button type="button" class="btn btn-dark btn-sm"
                                         id="double_folding_period" onclick="doubleFoldingPeriod()">&times;2</button>
                                 <button type="button" class="btn btn-outline-dark btn-sm"
                                         id="reset_lc" onclick="unsetFolding()">Reset</button>
+                            </div>
+                            <div class="col-md-2 mt-1">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="plot_twice">
+                                    <label class="custom-control-label" for="plot_twice">Plot twice</label>
+                                </div>
                             </div>
                         </div>
 
@@ -570,7 +577,7 @@
                 $('#ls_img').html('<img width="100%" src="{{ ps1_url }}">');
             });
         {% else %}
-            $('#ls_img').html('Failed to fetch>');
+            $('#ls_img').html('Failed to fetch');
         {% endif %}
     </script>
 
@@ -760,6 +767,9 @@
             else if(units === 'Hours') per /= 24;
             {#console.log(per);#}
 
+            // plot twice?
+            let plot_twice = $("#plot_twice").is(':checked');
+
             let layout = {yaxis: {autorange: 'reversed'},
                           showlegend: true,
                           {#automargin: true,#}
@@ -786,9 +796,20 @@
                     return ((element - t_0) / per) % 1;
                 });
 
-                data_folded.push({x: phase,
-                                  y: lc_.y,
-                                  error_y: lc_.error_y,
+                if (plot_twice) {
+                    var xx = phase.concat(phase.map(function(element){return element + 1;}));
+                    var yy = lc_.y.concat(lc_.y)
+                    var ee = lc_.error_y.concat(lc_.error_y)
+                }
+                else {
+                    var xx = phase;
+                    var yy = lc_.y;
+                    var ee = lc_.error_y;
+                }
+
+                data_folded.push({x: xx,
+                                  y: yy,
+                                  error_y: ee,
                                   mode: 'markers',
                                   marker: lc_.marker,
                                   name: lc_.name});
@@ -800,6 +821,14 @@
             // disable epoch selector
             $("#epoch").prop('disabled', 'disabled');
         }
+
+        function add_one(item, index, arr) {
+            arr[index] = item + 1;
+        }
+
+        $('#plot_twice:checkbox').change(function() {
+            setFolding()
+        });
 
         {# remove source #}
         $(document).ready(function() {

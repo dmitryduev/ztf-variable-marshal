@@ -1649,7 +1649,7 @@ async def source_get_handler(request):
 
     # PS1 cutout url:
     try:
-        ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1)
+        ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
     except Exception as e:
         print(e)
         ps1_url = False
