@@ -34,7 +34,7 @@
       "cone_search_radius": "5",
       "cone_search_unit": "arcsec",
       "catalogs": {
-        "PanSTARRS1": {
+        "PS1_DR1": {
           "filter": {},
           "projection": {
             "_id": 1, "coordinates.radec_str": 1, 
