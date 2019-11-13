@@ -28,6 +28,7 @@ import traceback
 from penquins import Kowalski
 import astropy.units as u
 from astropy.coordinates import SkyCoord
+import matplotlib.pyplot as plt
 
 from utils import *
 
@@ -1780,8 +1781,8 @@ async def source_cutout_get_handler(request):
     _id = request.match_info['source_id']
     survey = request.match_info['survey']
 
-    source = await request.app['mongo'].sources.find_one({'_id': _id})
-    source = loads(dumps(source))
+    source = await request.app['mongo'].sources.find({'_id': _id}, {'ra': 1, 'dec': 1}).to_list(length=None)
+    source = loads(dumps(source[0]))
 
     try:
         if survey.lower() == 'ps1':
@@ -1812,26 +1813,50 @@ async def source_hr_get_handler(request):
     session = await get_session(request)
 
     _id = request.match_info['source_id']
-    survey = request.match_info['survey']
 
-    source = await request.app['mongo'].sources.find_one({'_id': _id})
-    source = loads(dumps(source))
+    source = await request.app['mongo'].sources.find({'_id': _id}, {'xmatch.Gaia_DR2': 1}).to_list(length=None)
+    source = loads(dumps(source[0]))
 
-    try:
-        if survey.lower() == 'ps1':
-            ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
-            # print(ps1_url)
-            async with aiohttp.ClientSession() as session:
-                async with session.get(ps1_url) as resp:
-                    if resp.status == 200:
-                        buff = io.BytesIO()
-                        buff.write(await resp.read())
-                        buff.seek(0)
-                        return web.Response(body=buff, content_type='image/png')
-    except Exception as e:
-        print(e)
+    # print(source)
 
-    return web.Response(body=io.BytesIO(), content_type='image/png')
+    if len(source['xmatch']['Gaia_DR2']) > 0:
+        xmatch = source['xmatch']['Gaia_DR2'][0]
+        g = xmatch.get('phot_g_mean_mag', None)
+        bp = xmatch.get('phot_bp_mean_mag', None)
+        rp = xmatch.get('phot_rp_mean_mag', None)
+        p = xmatch.get('parallax', None)
+
+        if g and bp and rp and p:
+            try:
+                img = plt.imread('/app/static/img/hr_plot.png')
+                buff = io.BytesIO()
+
+                fig = plt.figure(figsize=(4, 4), dpi=200)
+                ax = fig.add_subplot(111)
+                ax.plot(bp-rp, g + 5*np.log10(p) + 5, 'o', markersize=8, c='#f22f29')
+                ax.imshow(img, extent=[-1, 5, 17, -5])
+                ax.set_aspect(1 / 4)
+                ax.set_ylabel('G')
+                ax.set_xlabel('BP-RP')
+                plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+                plt.savefig(buff, dpi=200, bbox_inches='tight')
+                buff.seek(0)
+                return web.Response(body=buff, content_type='image/png')
+            except Exception as e:
+                print(e)
+
+    img = plt.imread('/app/static/img/hr_plot.png')
+    buff = io.BytesIO()
+    fig = plt.figure(figsize=(4, 4), dpi=200)
+    ax = fig.add_subplot(111)
+    ax.imshow(img, extent=[-1, 5, 17, -5])
+    ax.set_aspect(1 / 4)
+    ax.set_ylabel('G')
+    ax.set_xlabel('BP-RP')
+    plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+    plt.savefig(buff, dpi=200, bbox_inches='tight')
+    buff.seek(0)
+    return web.Response(body=buff, content_type='image/png')
 
 
 def cross_match(kowalski, ra, dec):

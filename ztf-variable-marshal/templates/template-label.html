@@ -96,9 +96,9 @@
         {% for source in data %}
         <div class="row mt-2">
             <div class="col">
-                {{ source['_id'] }}<br>
+                <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
                 <img src="/sources/{{-source['_id']-}}/cutout/ps1">
-                <img src="/sources/{{-source['_id']-}}/hr">
+                <img src="/sources/{{-source['_id']-}}/hr" width="300">
                 <hr>
             </div>
         </div>
