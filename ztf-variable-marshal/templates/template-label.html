@@ -74,8 +74,8 @@
                                         <div class="col-md-9">
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input"
-                                                           type="checkbox" id="random">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           id="random" name="random">
                                                     Random
                                                 </label>
                                             </div>
@@ -95,7 +95,10 @@
 
         {% for source in data %}
         <div class="row mt-2">
-            {{ source['_id'] }}
+            <div class="col">
+                {{ source['_id'] }}
+                <hr>
+            </div>
         </div>
         {% endfor %}
     </div>

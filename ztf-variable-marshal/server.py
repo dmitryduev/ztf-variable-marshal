@@ -1321,14 +1321,24 @@ async def label_get_handler(request):
         _r = request.rel_url.query
         zvm_program_id = _r.get('zvm_program_id', None)
         number = _r.get('number', None)
-        # rand = _r['filter']['random']
+        rand = _r.get('random', False)
 
         sources = []
         if zvm_program_id and number:
-            sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
-                                                              {'spec.data': 0}).limit(int(number)). \
-                sort([('created', -1)]).to_list(length=None)
-            # print(sources)
+            if not rand:
+                sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
+                                                                  {'spec.data': 0}).limit(int(number)). \
+                    sort([('created', -1)]).to_list(length=None)
+                # print(sources)
+            else:
+                pipeline = [{'$match': {'zvm_program_id': int(zvm_program_id)}},
+                            {'$project': {'spec.data': 0}},
+                            {'$sample': {'size': int(number)}}]
+                _select = request.app['mongo'].sources.aggregate(pipeline,
+                                                                 allowDiskUse=True,
+                                                                 maxTimeMS=30000)
+
+                sources = await _select.to_list(length=None)
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
