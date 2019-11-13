@@ -4,6 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{{-script_root-}}/static/css/styles/default.css">
     <link rel="stylesheet" href="{{-script_root-}}/static/css/jquery.json-viewer.css">
+    <link rel="stylesheet" href="{{-script_root-}}/static/css/sidebar.css">
 {% endblock %}
 
 {% block nav_sources %}
@@ -19,6 +20,109 @@
 {% block body %}
 
     <div class="container-fluid mt-2">
+
+        <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav ml-2">
+
+                <!-- Log lists -->
+                {% for log_group in log_names.keys() %}
+                    {% set log_group_id = log_group | replace(' ', '-') | lower %}
+                    <li class="sidebar-brand m-0 mt-2 p-0">
+                        <a data-toggle="collapse" href="#{{ log_group_id }}"
+                           aria-expanded="true" aria-controls="{{ log_group_id }}"
+                           id="{{ log_group_id }}-dropdown"
+                           style="margin-top: -0.1rem;">
+                            {{ log_group }}
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+                    <div class="collapse multi-collapse show" id="{{ log_group_id }}">
+                        {% for lfn in log_names[log_group]['files'] %}
+                        <li id="{{ log_group_id }}-{{ lfn }}-menu-item">
+                            <!-- Dynamic logs go with checkboxes to toggle display card -->
+                            {% if log_names[log_group]['type'] == 'dynamic' %}
+                                <a href="#">
+                                    <div class="form-check m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   onclick="toggle('{{ log_group_id }}-{{ lfn }}', this)"
+                                                   id="{{ log_group_id }}-{{ lfn }}-checkbox">
+                                            {{ lfn }}
+                                        </label>
+                                    </div>
+                                </a>
+                            {% endif %}
+                            <!-- Static logs are open in new tab -->
+                            {% if log_names[log_group]['type'] == 'static' %}
+                                <a href="/{{ log_group_id }}/{{ lfn }}" class="pl-2" target="_blank">
+                                    {{ lfn }}
+                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                {% for log_group in log_names.keys() %}
+                    {% set log_group_id = log_group | replace(' ', '-') | lower %}
+                    <div id="{{ log_group_id }}-body">
+                        {% if log_names[log_group]['type'] == 'dynamic' %}
+                            <h4><a href="#menu-toggle" id="menu-toggle">
+                                <i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
+                                {{ log_group }}
+                            </h4>
+
+                            <!-- Iterate over log files -->
+                            {% for lfn in log_names[log_group]['files'] %}
+                                <div class="row mb-2" id="{{ log_group_id }}-{{ lfn }}-container" style="display: none;">
+                                    <div class="col">
+                                        <div class="card border border-info"
+                                             id="{{ log_group_id }}-{{ lfn }}-card">
+                                            <div class="card-header p-0 pl-2 bg-info" id="">
+                                                <span style="font-weight: 400; font-size: 0.9rem;">{{ lfn }}</span>
+                                                <a class="float-right pr-2 pb-0 mb-0" data-toggle="collapse" href="#"
+                                                   aria-expanded="false" aria-controls="collapseExample"
+                                                   id="{{ log_group_id }}-{{ lfn }}-dropdown"
+                                                   onClick="showHidePanel('{{ log_group_id }}-{{ lfn }}')"
+                                                   style="margin-top: -0.1rem;">
+                                                    <i class="fa fa-lg fa-angle-up" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                            <div class="card-body text-truncate p-0 pl-2 pr-2 resizable"
+                                                 id="{{ log_group_id }}-{{ lfn }}-panel"
+                                                 style="max-height: 500px; height: 100px; display: inline-block;
+                                                 overflow: auto; resize: vertical;">
+                                                <pre><code id="{{ log_group_id }}-{{ lfn }}-code" class="empty"></code></pre>
+                                            </div>
+                                            <!-- TODO: put filter here (text input)? -->
+                                            <!--<div class="card-footer p-0 pl-2 text-muted"-->
+                                            <!--id="{{ log_group_id }}-{{ lfn }}-loading">-->
+                                            <!--Loading...&nbsp;<i class="fa fa-gear fa-spin" style="font-size: 1rem;"></i>-->
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 
         <div id="accordion" role="tablist" class="mt-2">
             <div class="card">
@@ -63,7 +167,6 @@
                                                     name="number">
                                                 <option>10</option>
                                                 <option>100</option>
-                                                <option>1000</option>
                                             </select>
                                         </div>
 
