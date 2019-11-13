@@ -1,3 +1,4 @@
+import aiohttp
 from aiohttp import web, multipart
 import jinja2
 import aiohttp_jinja2
@@ -1747,13 +1748,6 @@ async def source_get_handler(request):
     source_types = config['misc']['source_types']
     source_flags = config['misc']['source_flags']
 
-    # PS1 cutout url:
-    try:
-        ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
-    except Exception as e:
-        print(e)
-        ps1_url = False
-
     # get ZVM programs:
     programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
 
@@ -1762,7 +1756,6 @@ async def source_get_handler(request):
                'source': source,
                'source_types': source_types,
                'source_flags': source_flags,
-               'ps1_url': ps1_url,
                'programs': programs,
                'cone_search_radius': config['kowalski']['cross_match']['cone_search_radius'],
                'cone_search_unit': config['kowalski']['cross_match']['cone_search_unit']
@@ -1771,6 +1764,74 @@ async def source_get_handler(request):
                                               request,
                                               context)
     return response
+
+
+@routes.get('/sources/{source_id}/cutout/{survey}')
+@login_required
+async def source_cutout_get_handler(request):
+    """
+        Serve cutout image
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _id = request.match_info['source_id']
+    survey = request.match_info['survey']
+
+    source = await request.app['mongo'].sources.find_one({'_id': _id})
+    source = loads(dumps(source))
+
+    try:
+        if survey.lower() == 'ps1':
+            ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
+            # print(ps1_url)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(ps1_url) as resp:
+                    if resp.status == 200:
+                        buff = io.BytesIO()
+                        buff.write(await resp.read())
+                        buff.seek(0)
+                        return web.Response(body=buff, content_type='image/png')
+    except Exception as e:
+        print(e)
+
+    return web.Response(body=io.BytesIO(), content_type='image/png')
+
+
+@routes.get('/sources/{source_id}/hr')
+@login_required
+async def source_hr_get_handler(request):
+    """
+        Serve HR diagram for a source
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _id = request.match_info['source_id']
+    survey = request.match_info['survey']
+
+    source = await request.app['mongo'].sources.find_one({'_id': _id})
+    source = loads(dumps(source))
+
+    try:
+        if survey.lower() == 'ps1':
+            ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
+            # print(ps1_url)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(ps1_url) as resp:
+                    if resp.status == 200:
+                        buff = io.BytesIO()
+                        buff.write(await resp.read())
+                        buff.seek(0)
+                        return web.Response(body=buff, content_type='image/png')
+    except Exception as e:
+        print(e)
+
+    return web.Response(body=io.BytesIO(), content_type='image/png')
 
 
 def cross_match(kowalski, ra, dec):

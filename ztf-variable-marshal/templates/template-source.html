@@ -572,13 +572,9 @@
 
     <script>
         // PS1 cutout
-        {% if ps1_url %}
-            $(document).ready(function() {
-                $('#ls_img').html('<img width="100%" src="{{ ps1_url }}">');
-            });
-        {% else %}
-            $('#ls_img').html('Failed to fetch');
-        {% endif %}
+        $(document).ready(function() {
+            $('#ls_img').html('<img width="100%" src="/sources/' + "{{ source['_id'] }}" + '/cutout/ps1">');
+        });
     </script>
 
     <script>
