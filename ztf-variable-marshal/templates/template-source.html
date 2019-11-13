@@ -566,7 +566,7 @@
     <script src="{{-script_root-}}/static/js/jquery.json-viewer.js"></script>
 
     <script>
-        // display alert JSON
+        // display JSON
         let data_alert = JSONbig.parse('{{-source['xmatch']|tojson_pretty|safe|replace('\n', '')|replace('NaN', 'null')-}}');
         $('#json-renderer').jsonViewer(data_alert, {collapsed: true, withQuotes: true});
         // open
