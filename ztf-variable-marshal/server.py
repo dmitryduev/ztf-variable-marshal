@@ -1329,12 +1329,14 @@ async def label_get_handler(request):
         if zvm_program_id and number:
             if not rand:
                 sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
-                                                                  {'spec.data': 0}).limit(int(number)). \
+                                                                  {'xmatch.ZTF_alerts': 0,
+                                                                   'history': 0,
+                                                                   'spec.data': 0}).limit(int(number)). \
                     sort([('created', -1)]).to_list(length=None)
                 # print(sources)
             else:
                 pipeline = [{'$match': {'zvm_program_id': int(zvm_program_id)}},
-                            {'$project': {'spec.data': 0}},
+                            {'$project': {'xmatch.ZTF_alerts': 0, 'history': 0, 'spec.data': 0}},
                             {'$sample': {'size': int(number)}}]
                 _select = request.app['mongo'].sources.aggregate(pipeline,
                                                                  allowDiskUse=True,
