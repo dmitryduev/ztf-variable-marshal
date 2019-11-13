@@ -50,11 +50,18 @@
             <li class="nav-item {% block nav_home %}{% endblock %}">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item {% block nav_sources %}{% endblock %}">
-                <a class="nav-link" href="/sources">Sources</a>
+            <li class="nav-item dropdown {% block nav_sources %}{% endblock %}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Data
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/sources">Sources</a>
+                    <a class="dropdown-item" href="/label">Label</a>
+                </div>
             </li>
             <li class="nav-item {% block nav_search %}{% endblock %}">
-                <a class="nav-link" href="/search">Search ZTF LC</a>
+                <a class="nav-link" href="/search">Search</a>
             </li>
             <li class="nav-item {% block nav_docs %}{% endblock %}">
                 <a class="nav-link" href="/docs">Docs</a>

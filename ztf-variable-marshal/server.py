@@ -1297,6 +1297,55 @@ async def query_handler(request):
         return web.json_response({'message': f'failure: {_err}'}, status=500)
 
 
+''' Label sources '''
+
+
+@routes.get('/label')
+@login_required
+async def label_get_handler(request):
+    """
+        Labeling interface
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        users = await request.app['mongo'].users.find({}, {'_id': 1}).to_list(length=None)
+        users = sorted([uu['_id'] for uu in users])
+
+        programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
+        programs = sorted([pp['_id'] for pp in programs])
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'users': users,
+                   'programs': programs,
+                   'data': [],
+                   'messages': []}
+
+        response = aiohttp_jinja2.render_template('template-label.html',
+                                                  request,
+                                                  context)
+        return response
+
+    except Exception as _e:
+        print(f'Error: {str(_e)}')
+
+        context = {'logo': config['server']['logo'],
+                   'user': session['user_id'],
+                   'users': [],
+                   'programs': [],
+                   'data': [],
+                   'messages': [[f'Encountered error while loading sources: {str(_e)}. Reload the page!', 'danger']]}
+
+        response = aiohttp_jinja2.render_template('template-label.html',
+                                                  request,
+                                                  context)
+        return response
+
+
 ''' sources API '''
 
 
@@ -1788,6 +1837,8 @@ async def sources_put_handler(request):
         doc['source_types'] = []
         doc['source_flags'] = []
         doc['history'] = []
+
+        doc['labels'] = []
 
         # cross match:
         xmatch = cross_match(kowalski=request.app['kowalski'], ra=doc['ra'], dec=doc['dec'])
