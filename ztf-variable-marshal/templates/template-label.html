@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <form id="form" class="form mb-2" method="post">
+                                <form id="form" class="form mb-2" method="get">
 
                                     <div class="form-group row">
 
@@ -54,7 +54,7 @@
 
                                     <div class="form-group row">
 
-                                        <label for="blank_zvm_program_id" class="col-md-3 control-label">
+                                        <label for="number" class="col-md-3 control-label">
                                             Number
                                         </label>
 
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-dark btn-sm" id="submit">Submit</button>
+                                    <button type="button" class="btn btn-dark btn-sm" id="form-submit">Submit</button>
 
                                 </form>
                             </div>
@@ -92,6 +92,12 @@
                 </div>
             </div>
         </div>
+
+        {% for source in data %}
+        <div class="row mt-2">
+            {{ source['_id'] }}
+        </div>
+        {% endfor %}
     </div>
 
     <!-- Modal -->
@@ -133,7 +139,7 @@
 
         // submit query
         $(document).ready(function() {
-            $('#submit').click(function () {
+            $('#form-submit').click(function () {
                 bootbox.confirm({
                     message: "Do you want to load the data?",
                     buttons: {
@@ -149,6 +155,7 @@
                         // confirmed? emit request to server:
                         if (result) {
                             $('#form').submit();
+                            {#console.log($('#form'));#}
                         }
                     }
                 });

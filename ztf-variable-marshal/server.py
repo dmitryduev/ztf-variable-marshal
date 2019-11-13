@@ -1318,11 +1318,23 @@ async def label_get_handler(request):
         programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
         programs = sorted([pp['_id'] for pp in programs])
 
+        _r = request.rel_url.query
+        zvm_program_id = _r.get('zvm_program_id', None)
+        number = _r.get('number', None)
+        # rand = _r['filter']['random']
+
+        sources = []
+        if zvm_program_id and number:
+            sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
+                                                              {'spec.data': 0}).limit(int(number)). \
+                sort([('created', -1)]).to_list(length=None)
+            # print(sources)
+
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
                    'users': users,
                    'programs': programs,
-                   'data': [],
+                   'data': sources,
                    'messages': []}
 
         response = aiohttp_jinja2.render_template('template-label.html',
@@ -1344,6 +1356,35 @@ async def label_get_handler(request):
                                                   request,
                                                   context)
         return response
+
+
+@routes.post('/label')
+@login_required
+async def label_post_handler(request):
+    """
+        Save labels
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    try:
+        _r = await request.json()
+    except Exception as _e:
+        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+        # _err = traceback.format_exc()
+        # print(_err)
+        _r = await request.post()
+    print(_r)
+
+    try:
+        # todo: save
+        return web.json_response({'message': 'success'}, status=200, dumps=dumps)
+
+    except Exception as _e:
+
+        return web.json_response({'message': str(_e)}, status=500)
 
 
 ''' sources API '''
