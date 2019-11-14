@@ -1321,6 +1321,8 @@ async def label_get_handler(request):
         programs = await request.app['mongo'].programs.find({}, {'_id': 1}).to_list(length=None)
         programs = sorted([pp['_id'] for pp in programs])
 
+        classes = config['classifications']
+
         _r = request.rel_url.query
         zvm_program_id = _r.get('zvm_program_id', None)
         number = _r.get('number', None)
@@ -1349,6 +1351,7 @@ async def label_get_handler(request):
                    'user': session['user_id'],
                    'users': users,
                    'programs': programs,
+                   'classes': classes,
                    'data': sources,
                    'messages': []}
 
@@ -1364,6 +1367,7 @@ async def label_get_handler(request):
                    'user': session['user_id'],
                    'users': [],
                    'programs': [],
+                   'classes': [],
                    'data': [],
                    'messages': [[f'Encountered error while loading sources: {str(_e)}. Reload the page!', 'danger']]}
 
@@ -1944,6 +1948,11 @@ async def source_lc_get_handler(request):
 
                 df_plc = pd.DataFrame.from_records(lc['data'])
                 # display(df_plc)
+
+                if 'mjd' not in df_plc:
+                    df_plc['mjd'] = df_plc['hjd'] - 2400000.5
+                if 'hjd' not in df_plc:
+                    df_plc['hjd'] = df_plc['mjd'] + 2400000.5
 
                 if period is None:
                     # filter out unreleased MSIP data or only use it for QA
