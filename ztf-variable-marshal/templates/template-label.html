@@ -23,190 +23,109 @@
 
         <div id="wrapper">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav ml-2">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav ml-2">
 
-                <!-- Log lists -->
-                {% for log_group in log_names.keys() %}
-                    {% set log_group_id = log_group | replace(' ', '-') | lower %}
-                    <li class="sidebar-brand m-0 mt-2 p-0">
-                        <a data-toggle="collapse" href="#{{ log_group_id }}"
-                           aria-expanded="true" aria-controls="{{ log_group_id }}"
-                           id="{{ log_group_id }}-dropdown"
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#load_data_form"
+                           aria-expanded="true" aria-controls="load_data_form"
+                           id="load_data_form-dropdown"
                            style="margin-top: -0.1rem;">
-                            {{ log_group }}
+                            Load data
                             <i class="fa fa-lg fa-angle-up float-right"></i>
                         </a>
                     </li>
-                    <div class="collapse multi-collapse show" id="{{ log_group_id }}">
-                        {% for lfn in log_names[log_group]['files'] %}
-                        <li id="{{ log_group_id }}-{{ lfn }}-menu-item">
-                            <!-- Dynamic logs go with checkboxes to toggle display card -->
-                            {% if log_names[log_group]['type'] == 'dynamic' %}
-                                <a href="#">
-                                    <div class="form-check m-0 p-0">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                   onclick="toggle('{{ log_group_id }}-{{ lfn }}', this)"
-                                                   id="{{ log_group_id }}-{{ lfn }}-checkbox">
-                                            {{ lfn }}
-                                        </label>
-                                    </div>
-                                </a>
-                            {% endif %}
-                            <!-- Static logs are open in new tab -->
-                            {% if log_names[log_group]['type'] == 'static' %}
-                                <a href="/{{ log_group_id }}/{{ lfn }}" class="pl-2" target="_blank">
-                                    {{ lfn }}
-                                    <i class="fa fa-external-link" aria-hidden="true"></i>
-                                </a>
-                            {% endif %}
-                        </li>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
 
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+                    <div class="collapse multi-collapse show" id="load_data_form">
+    {#                        <li id="-menu-item">#}
+    {#                        </li>#}
+                        <form id="form" class="form mb-2" method="get">
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                {% for log_group in log_names.keys() %}
-                    {% set log_group_id = log_group | replace(' ', '-') | lower %}
-                    <div id="{{ log_group_id }}-body">
-                        {% if log_names[log_group]['type'] == 'dynamic' %}
-                            <h4><a href="#menu-toggle" id="menu-toggle">
-                                <i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
-                                {{ log_group }}
-                            </h4>
+                            <div class="form-group">
 
-                            <!-- Iterate over log files -->
-                            {% for lfn in log_names[log_group]['files'] %}
-                                <div class="row mb-2" id="{{ log_group_id }}-{{ lfn }}-container" style="display: none;">
-                                    <div class="col">
-                                        <div class="card border border-info"
-                                             id="{{ log_group_id }}-{{ lfn }}-card">
-                                            <div class="card-header p-0 pl-2 bg-info" id="">
-                                                <span style="font-weight: 400; font-size: 0.9rem;">{{ lfn }}</span>
-                                                <a class="float-right pr-2 pb-0 mb-0" data-toggle="collapse" href="#"
-                                                   aria-expanded="false" aria-controls="collapseExample"
-                                                   id="{{ log_group_id }}-{{ lfn }}-dropdown"
-                                                   onClick="showHidePanel('{{ log_group_id }}-{{ lfn }}')"
-                                                   style="margin-top: -0.1rem;">
-                                                    <i class="fa fa-lg fa-angle-up" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                            <div class="card-body text-truncate p-0 pl-2 pr-2 resizable"
-                                                 id="{{ log_group_id }}-{{ lfn }}-panel"
-                                                 style="max-height: 500px; height: 100px; display: inline-block;
-                                                 overflow: auto; resize: vertical;">
-                                                <pre><code id="{{ log_group_id }}-{{ lfn }}-code" class="empty"></code></pre>
-                                            </div>
-                                            <!-- TODO: put filter here (text input)? -->
-                                            <!--<div class="card-footer p-0 pl-2 text-muted"-->
-                                            <!--id="{{ log_group_id }}-{{ lfn }}-loading">-->
-                                            <!--Loading...&nbsp;<i class="fa fa-gear fa-spin" style="font-size: 1rem;"></i>-->
-                                            <!--</div>-->
-                                        </div>
-                                    </div>
+                                <label for="zvm_program_id" class="col control-label">
+                                    zvm_program_id
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="zvm_program_id"
+                                            name="zvm_program_id">
+                                        {% for program in programs %}
+                                        <option>{{program}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
-
-        <div id="accordion" role="tablist" class="mt-2">
-            <div class="card">
-                <div class="card-header" role="tab" id="heading">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#tab" aria-expanded="true" aria-controls="tab">
-                            Load data
-                        </a>
-                    </h5>
-                </div>
-                <div id="tab" class="collapse show" role="tabpanel" aria-labelledby="heading">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <form id="form" class="form mb-2" method="get">
-
-                                    <div class="form-group row">
-
-                                        <label for="zvm_program_id" class="col-md-3 control-label">
-                                            zvm_program_id
-                                        </label>
-
-                                        <div class="col-md-5">
-                                            <select class="form-control form-control-sm" id="zvm_program_id"
-                                                    name="zvm_program_id">
-                                                {% for program in programs %}
-                                                <option>{{program}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group row">
-
-                                        <label for="number" class="col-md-3 control-label">
-                                            Number
-                                        </label>
-
-                                        <div class="col-md-5">
-                                            <select class="form-control form-control-sm" id="number"
-                                                    name="number">
-                                                <option>10</option>
-                                                <option>100</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox"
-                                                           id="random" name="random">
-                                                    Random
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="button" class="btn btn-dark btn-sm" id="form-submit">Submit</button>
-
-                                </form>
                             </div>
 
+                            <div class="form-group">
+
+                                <label for="number" class="col control-label">
+                                    Number
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="number"
+                                            name="number">
+                                        <option>10</option>
+                                        <option>100</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox"
+                                                   id="random" name="random">
+                                            Random
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <button type="button" class="btn btn-dark btn-sm" id="form-submit">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </ul>
+
+
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h4>
+                        <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
+                        Label data
+                    </h4>
+
+                    {% for source in data %}
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
+                            <img src="/sources/{{-source['_id']-}}/cutout/ps1">
+                            <img src="/sources/{{-source['_id']-}}/hr" width="300">
+                            <pre class="json-renderer" id="{{-source['_id']-}}-json-renderer" class="pl-4 pr-4"></pre>
+                            <hr>
                         </div>
                     </div>
+                    {% endfor %}
+
                 </div>
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
 
-        {% for source in data %}
-        <div class="row mt-2">
-            <div class="col">
-                <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
-                <img src="/sources/{{-source['_id']-}}/cutout/ps1">
-                <img src="/sources/{{-source['_id']-}}/hr" width="300">
-                <pre class="json-renderer" id="{{-source['_id']-}}-json-renderer" class="pl-4 pr-4"></pre>
-                <hr>
-            </div>
         </div>
-        {% endfor %}
+        <!-- /#wrapper -->
+
     </div>
 
     <!-- Modal -->
@@ -251,6 +170,42 @@
     <script src="{{-script_root-}}/static/js/jquery.json-viewer.js"></script>
 
     <script>
+        // populate query params into form
+        const url_params = new URLSearchParams(window.location.search);
+        const zvm_program_id = url_params.get('zvm_program_id');
+        const number = url_params.get('number');
+        const random = url_params.get('random');
+
+        if (zvm_program_id) {
+            $('#zvm_program_id').val(zvm_program_id)
+        }
+        if (number) {
+            $('#number').val(number)
+        }
+        if (random) {
+            $("#random").prop("checked", true);
+        }
+
+        $(document).ready(function() {
+            // show on load:
+            $("#wrapper").toggleClass("toggled");
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+
+        // arrow up/down on show/hide
+        $(document).ready(function() {
+            let block = 'load_data_form';
+            $('#'+block).on('hide.bs.collapse', function () {
+                $("[id="+block+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
+            });
+            $('#'+block).on('show.bs.collapse', function () {
+                $("[id="+block+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
+            });
+        });
+
         // display JSON
         {% for source in data %}
         {% set ss = {'l': source['l'] | round(3, 'common'),
