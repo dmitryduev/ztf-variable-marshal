@@ -4,6 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{{-script_root-}}/static/css/bootstrap-table.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{-script_root-}}/static/css/sidebar.css">
 {% endblock %}
 
 {% block nav_sources %}
@@ -11,28 +12,107 @@
 {% endblock %}
 
 {% block body_top %}
+{#    <div class="container-fluid mt-2">#}
+{#    </div>#}
+{% endblock %}
+
+{% block body %}
+
     <div class="container-fluid mt-2">
 
-        <div id="accordion" role="tablist" class="accordion mt-2">
-            <div class="card">
-                <div class="card-header" role="tab" id="headingQueryTab">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#queryTab" aria-expanded="true"
-                           aria-controls="queryTab">
-                            Search saved sources
-                        </a>
-                    </h5>
-                </div>
-                <div id="queryTab" class="collapse" role="tabpanel" aria-labelledby="headingQueryTab">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <form id="query_form" class="form mb-2" method="post">
+        <div id="wrapper">
 
-                                    <div class="form-group row">
-                                        <label for="ra" class="col-md-2 col-form-label">RA/Dec, ICRS</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control form-control-sm object_coordinates" id="radec" name="radec"
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav ml-2">
+
+                    <!-- Quick search -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#quick_search_form"
+                           aria-expanded="true" aria-controls="quick_search_form"
+                           id="quick_search_form-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Quick search
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="quick_search_form">
+
+                        <form id="simple_query_form" class="form mt-1 mb-1" method="get">
+
+                            <div class="form-group">
+
+                                <label for="quick_search__created_by" class="col control-label">
+                                    created_by
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="quick_search__created_by"
+                                            name="quick_search__created_by" data-id="created_by">
+                                        <option></option>
+                                        {% for u in users %}
+                                            <option>{{ u }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="quick_search__zvm_program_id" class="col control-label">
+                                    zvm_program_id
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select multiple size="3"
+                                            class="form-control form-control-sm" id="quick_search__zvm_program_id"
+                                            name="quick_search__zvm_program_id" data-id="zvm_program_id">
+                                        {% for p in programs %}
+                                            <option>{{ p }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="col">
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="submit_simple_query">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- /quick search -->
+
+                    <hr class="mr-3 mb-2">
+
+                    <!-- Search -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#query"
+                           aria-expanded="true" aria-controls="query"
+                           id="query-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Search saved sources
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="query">
+
+                        <form id="query_form" class="form mt-1 mb-2" method="post">
+
+                            <div class="form-group">
+
+                                <label for="radec" class="col control-label">
+                                    RA/Dec, ICRS
+                                </label>
+
+                                <div class="col pr-4">
+                                    <textarea class="form-control form-control-sm object_coordinates" id="radec" name="radec"
                                                       placeholder="Python-readable list of comma-separated object coordinates or dictionary:
 [(HH:MM:SS, DD:MM:SS) or (HHhMMmSSs, DDdMMmSSs) or (deg, deg)]
 Examples:
@@ -40,214 +120,205 @@ Examples:
 [(0.0, 0.0), (1.0, 1.0)]
 [('08:55:29.205', '-34:02:36.8944')]
 {'object1': ('08h55m29.205s', '-34d02m36.8944s'), 'object2': ('06h55m29.205s', '32d02m36.1944s')}
-
 Alternatively, for a single source, either two numbers [deg deg] or two strings [HH:MM:SS DD:MM:SS] or [HHhMMmSSs DDdMMmSSs]:
 0.0 0.0
 18:43:58.5333 -20:41:41.513
 "
-                                                      rows="8"></textarea>
-                                        </div>
-                                    </div>
+                                                      rows="4"></textarea>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label for="cone_search_radius" class="col-md-2 control-label">
-                                            Cone search radius
-                                        </label>
+                            </div>
 
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control form-control-sm object_coordinates" id="cone_search_radius"
-                                                   name="cone_search_radius" placeholder="">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <select class="form-control form-control-sm" id="cone_search_unit"
-                                                    name="cone_search_unit">
-                                                <option>arcsec</option>
-                                                <option>arcmin</option>
-                                                <option>deg</option>
-                                                <option>rad</option>
-                                            </select>
-                                        </div>
+                            <div class="form-group">
 
-                                    </div>
+                                <label for="cone_search_radius" class="col control-label">
+                                    Cone search radius
+                                </label>
 
-                                    <div class="form-group row">
-                                        <label for="filter" class="col-md-2 col-form-label">Filter</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control form-control-sm"
+                                <div class="col pr-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                           id="cone_search_radius" name="cone_search_radius" placeholder="">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="cone_search_unit" class="col control-label">
+                                    Cone search units
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="cone_search_unit"
+                                            name="cone_search_unit">
+                                        <option>arcsec</option>
+                                        <option>arcmin</option>
+                                        <option>deg</option>
+                                        <option>rad</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="filter" class="col control-label">
+                                    Filter
+                                </label>
+
+                                <div class="col pr-4">
+                                    <textarea class="form-control form-control-sm"
                                                       id="filter" name="filter"
                                                       placeholder="Filter in MongoDB syntax, see help"
-                                                      rows="3"></textarea>
-                                        </div>
-                                    </div>
-
-                                    {# TODO: make user-friendy?: range selectors etc? #}
-
-                                    <button type="button" class="btn btn-dark btn-sm" id="submit_query">Submit</button>
-
-                                </form>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Quick search
-                                    </div>
-                                    <div class="card-body">
-
-                                        <form id="simple_query_form" class="form" method="post">
-                                            <div class="form-group">
-                                                <label for="quick_search__created_by">created_by</label>
-                                                <select class="form-control form-control-sm"
-                                                        data-id="created_by">
-                                                    <option></option>
-                                                    {% for u in users %}
-                                                        <option>{{ u }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="quick_search__zvm_program_id">zvm_program_id</label>
-                                                <select multiple size="3" class="form-control form-control-sm"
-                                                        data-id="zvm_program_id">
-                                                    {% for p in programs %}
-                                                        <option>{{ p }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </form>
-
-                                        <a href="#" class="btn btn-dark btn-sm" id="submit_simple_query">Submit</a>
-                                    </div>
+                                                      rows="4"></textarea>
                                 </div>
+
                             </div>
-                        </div>
+
+                            <div class="col">
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="submit_query">Submit</button>
+                            </div>
+
+                        </form>
                     </div>
-                </div>
-            </div>
+                    <!-- /search -->
 
-            <div class="card">
-                <div class="card-header" role="tab" id="headingBlankTab">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#blankTab" aria-expanded="true"
-                           aria-controls="blankTab">
+                    <hr class="mr-3 mb-2">
+
+                    <!-- Create source -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#create_blank"
+                           aria-expanded="true" aria-controls="create_blank"
+                           id="create_blank-dropdown"
+                           style="margin-top: -0.1rem;">
                             Create blank source
+                            <i class="fa fa-lg fa-angle-down float-right"></i>
                         </a>
-                    </h5>
-                </div>
-                <div id="blankTab" class="collapse" role="tabpanel" aria-labelledby="headingBlankTab">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <form id="blank_form" class="form mb-2" method="post">
+                    </li>
 
-                                    <div class="form-group row">
-                                        <label for="blank_ra" class="col-md-3 control-label">
-                                            RA
-                                        </label>
+                    <div class="collapse multi-collapse sidebar-collapse" id="create_blank">
 
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control form-control-sm" id="blank_ra"
+                        <form id="blank_form" class="form mt-1 mb-2" method="post">
+
+                            <div class="form-group">
+
+                                <label for="blank_ra" class="col control-label">
+                                    RA
+                                </label>
+
+                                <div class="col pr-4">
+                                    <input type="text" class="form-control form-control-sm" id="blank_ra"
                                                    name="blank_ra"
                                                    placeholder="deg/HH:MM:SS/HHhMMmSSs">
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label for="blank_ra" class="col-md-3 control-label">
-                                            Dec
-                                        </label>
-
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control form-control-sm" id="blank_dec"
-                                                   name="dec"
-                                                   placeholder="deg/DD:MM:SS/DDdMMmSSs">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group row">
-
-                                        <label for="blank_zvm_program_id" class="col-md-3 control-label">
-                                            zvm_program_id
-                                        </label>
-
-                                        <div class="col-md-5">
-                                            <select class="form-control form-control-sm" id="blank_zvm_program_id"
-                                                    name="zvm_program_id">
-                                                {% for program in programs %}
-                                                <option>{{program}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-md-3">Automerge?</div>
-                                        <div class="col-md-9">
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input"
-                                                           type="checkbox" id="blank_automerge">
-                                                    Merge with all ZTF sources within 2"
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="button" class="btn btn-dark btn-sm" id="submit_blank">Create</button>
-
-                                </form>
                             </div>
 
-                        </div>
+                            <div class="form-group">
+
+                                <label for="blank_dec" class="col control-label">
+                                    Dec
+                                </label>
+
+                                <div class="col pr-4">
+                                    <input type="text" class="form-control form-control-sm" id="blank_dec"
+                                                   name="blank_dec"
+                                                   placeholder="deg/DD:MM:SS/DDdMMmSSs">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="blank_zvm_program_id" class="col control-label">
+                                    zvm_program_id
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="blank_zvm_program_id"
+                                            name="blank_zvm_program_id">
+                                        {% for p in programs %}
+                                            <option>{{ p }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col mt-2">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="blank_automerge" checked>
+                                    <label class="custom-control-label" for="blank_automerge">Merge with all ZTF sources within 2"?</label>
+                                </div>
+                            </div>
+
+                            <div class="col mt-2">
+                                <button type="button" class="btn btn-dark btn-sm" id="submit_blank">Create</button>
+                            </div>
+
+                        </form>
                     </div>
+                </ul>
+
+
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h4>
+                        <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
+                        Saved sources
+                    </h4>
+
+                    {#    {% if data | length > 0 %}#}
+                    <div id="toolbar" class="btn-group">
+                        <button type="button" class="btn btn-outline-dark"
+                                style="cursor: pointer;" onclick="toggle_expansion()"
+                                data-toggle="tooltip" data-placement="top" title="Show/hide more">
+                            <i id="expansion_toggle" class="fas fa-plus" aria-hidden="true"></i>
+                        </button>
+
+{#                        <button type="button" class="btn btn-outline-dark"#}
+{#                                style="cursor: pointer;" onclick="toggle_invert_cutouts()"#}
+{#                                data-toggle="tooltip" data-placement="top" title="Invert cutout colors">#}
+{#                            <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>#}
+{#                        </button>#}
+
+                    </div>
+                    <table id="table"
+                           class="table table-hover table-condensed"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-pagination="true"
+                           data-side-pagination="client"
+                           data-minimum-count-columns="2"
+                           data-page-size="20"
+                           data-page-list="[20, 50, 100, All]"
+                           data-search="true"
+                           data-detail-view="true"
+                           data-detail-formatter="detailFormatter"
+                           data-show-columns="true"
+                           data-show-multi-sort="true"
+                           data-show-export="true"
+                           data-export-types="['json', 'csv']"
+                           data-export-options='{ "fileName": "ztf-vm-saved-sources",
+                                                  "worksheetName": "ztf-vm-saved-sources1"
+                                                 }'>
+                    </table>
+                    {#    {% endif %}#}
+
                 </div>
             </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block body %}
-
-    <div class="container-fluid">
-
-{#    {% if data | length > 0 %}#}
-        <div id="toolbar" class="btn-group">
-            <button type="button" class="btn btn-outline-dark"
-                    style="cursor: pointer;" onclick="toggle_expansion()"
-                    data-toggle="tooltip" data-placement="top" title="Show/hide more">
-                <i id="expansion_toggle" class="fas fa-plus" aria-hidden="true"></i>
-            </button>
-
-{#            <button type="button" class="btn btn-outline-dark"#}
-{#                    style="cursor: pointer;" onclick="toggle_invert_cutouts()"#}
-{#                    data-toggle="tooltip" data-placement="top" title="Invert cutout colors">#}
-{#                <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>#}
-{#            </button>#}
+            <!-- /#page-content-wrapper -->
 
         </div>
-        <table id="table"
-               class="table table-hover table-condensed"
-               data-toggle="table"
-               data-toolbar="#toolbar"
-               data-pagination="true"
-               data-side-pagination="client"
-               data-minimum-count-columns="2"
-               data-page-size="20"
-               data-page-list="[20, 50, 100, All]"
-               data-search="true"
-               data-detail-view="true"
-               data-detail-formatter="detailFormatter"
-               data-show-columns="true"
-               data-show-multi-sort="true"
-               data-show-export="true"
-               data-export-types="['json', 'csv']"
-               data-export-options='{ "fileName": "ztf-vm-saved-sources",
-                                      "worksheetName": "ztf-vm-saved-sources1"
-                                     }'>
-        </table>
-{#    {% endif %}#}
+        <!-- /#wrapper -->
+
     </div>
+    <!-- /container-fluid -->
 
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog"
@@ -296,6 +367,26 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            // show on load:
+            $("#wrapper").toggleClass("toggled");
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+
+        // arrow up/down on show/hide
+        $(document).ready(function() {
+            $('.sidebar-collapse').on('hide.bs.collapse', function () {
+                {#console.log(this.id);#}
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
+            });
+            $('.sidebar-collapse').on('show.bs.collapse', function () {
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
+            });
+        });
+
 {#        {% if data | length > 0 %}#}
         // Fancy table stuff
         function getHeight() {
@@ -367,11 +458,11 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             // Buttons:
             html.push("<div class=\"row p-0 m-0\">");
 
-            html.push("<div class=\"col-1 p-0 m-0\">");
+            html.push("<div class=\"col-2 p-0 m-0\">");
             // details:
             {#html.push("<br>");#}
             html.push("<a target='_blank' role='button' " + "href='/sources/" + row['_id'] +
-                "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");
+                "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Source page <i class='fas fa-external-link-alt'></i></a>");
             html.push("</div>");
 
             html.push("<div class=\"col-6 p-0 m-0\">");

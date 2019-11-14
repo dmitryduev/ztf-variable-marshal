@@ -95,7 +95,7 @@
                         </form>
                     </div>
 
-                    <hr class="mr-3">
+                    <hr class="mr-3 mb-2">
 
                     <!-- Save -->
                     <li class="sidebar-brand m-0 mt-3 p-0">
@@ -142,6 +142,11 @@
                         <div class="col">
                             <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
                             <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" width="100%">
+                            {% if source['p'] | length > 0 %}
+                                {% set p = source['p'][0]['period'] %}
+                                {% set u = source['p'][0]['period_unit'] %}
+                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true" width="100%">
+                            {% endif %}
                             <img src="/sources/{{-source['_id']-}}/images/ps1">
                             <img src="/sources/{{-source['_id']-}}/images/hr" width="300">
                             <pre class="json-renderer" id="{{-source['_id']-}}-json-renderer" class="pl-4 pr-4"></pre>

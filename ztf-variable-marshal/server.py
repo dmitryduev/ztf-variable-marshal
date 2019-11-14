@@ -1930,7 +1930,10 @@ async def source_lc_get_handler(request):
 
             fig = plt.figure(figsize=(w, h), dpi=200)
             ax_plc = fig.add_subplot(111)
-            ax_plc.title.set_text(f'Photometric light curve for {source["_id"]}')
+            if period is None:
+                ax_plc.title.set_text(f'Photometric light curve for {source["_id"]}')
+            else:
+                ax_plc.title.set_text(f'Phase-folded light curve for {source["_id"]} with p={period} {units}')
 
             lc_color_indexes = dict()
 
