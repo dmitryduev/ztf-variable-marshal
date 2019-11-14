@@ -6,9 +6,9 @@ body {
 code {
     font-size: 0.6rem !important;
 }
-.navbar {
-    padding: 0.3rem 2rem !important;
-}
+/*.navbar {*/
+/*    padding: 0.3rem 2rem !important;*/
+/*}*/
 #wrapper {
     padding-top: 1.5rem;
     padding-left: 0;

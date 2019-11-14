@@ -63,7 +63,7 @@
                             <div class="form-group">
 
                                 <label for="number" class="col control-label">
-                                    Number
+                                    Number of sources to load
                                 </label>
 
                                 <div class="col pr-4">
@@ -111,11 +111,17 @@
                     <div class="collapse multi-collapse show sidebar-collapse" id="save_labels">
     {#                        <li id="-menu-item">#}
     {#                        </li>#}
-                        <form id="form_save" class="form mb-2 mt-2" method="get">
-                            <div class="col">
-                                <button type="button" class="btn btn-dark btn-sm" id="form_save-submit">Save</button>
+                        <div class="col mt-2">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="autosave" checked>
+                                <label class="custom-control-label" for="autosave">Autosave?</label>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col mt-2">
+                            <form id="form_save" class="form mb-2" method="get">
+                                <button type="button" class="btn btn-dark btn-sm" id="form_save-submit">Save</button>
+                            </form>
+                        </div>
                     </div>
                 </ul>
 
@@ -135,8 +141,9 @@
                     <div class="row mt-2">
                         <div class="col">
                             <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
-                            <img src="/sources/{{-source['_id']-}}/cutout/ps1">
-                            <img src="/sources/{{-source['_id']-}}/hr" width="300">
+                            <img src="/sources/{{-source['_id']-}}/images/lc">
+                            <img src="/sources/{{-source['_id']-}}/images/ps1">
+                            <img src="/sources/{{-source['_id']-}}/images/hr" width="300">
                             <pre class="json-renderer" id="{{-source['_id']-}}-json-renderer" class="pl-4 pr-4"></pre>
                             <hr>
                         </div>

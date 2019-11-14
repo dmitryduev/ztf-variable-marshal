@@ -1769,7 +1769,7 @@ async def source_get_handler(request):
     return response
 
 
-@routes.get('/sources/{source_id}/cutout/{survey}')
+@routes.get('/sources/{source_id}/images/ps1')
 @login_required
 async def source_cutout_get_handler(request):
     """
@@ -1781,29 +1781,27 @@ async def source_cutout_get_handler(request):
     session = await get_session(request)
 
     _id = request.match_info['source_id']
-    survey = request.match_info['survey']
 
     source = await request.app['mongo'].sources.find({'_id': _id}, {'ra': 1, 'dec': 1}).to_list(length=None)
     source = loads(dumps(source[0]))
 
     try:
-        if survey.lower() == 'ps1':
-            ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
-            # print(ps1_url)
-            async with aiohttp.ClientSession() as session:
-                async with session.get(ps1_url) as resp:
-                    if resp.status == 200:
-                        buff = io.BytesIO()
-                        buff.write(await resp.read())
-                        buff.seek(0)
-                        return web.Response(body=buff, content_type='image/png')
+        ps1_url = get_rgb_ps_stamp_url(source['ra'], source['dec'], timeout=1.5)
+        # print(ps1_url)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(ps1_url) as resp:
+                if resp.status == 200:
+                    buff = io.BytesIO()
+                    buff.write(await resp.read())
+                    buff.seek(0)
+                    return web.Response(body=buff, content_type='image/png')
     except Exception as e:
         print(e)
 
     return web.Response(body=io.BytesIO(), content_type='image/png')
 
 
-@routes.get('/sources/{source_id}/hr')
+@routes.get('/sources/{source_id}/images/hr')
 @login_required
 async def source_hr_get_handler(request):
     """
@@ -1859,6 +1857,106 @@ async def source_hr_get_handler(request):
     plt.savefig(buff, dpi=200, bbox_inches='tight')
     buff.seek(0)
     return web.Response(body=buff, content_type='image/png')
+
+
+colors = {1: ['#28a745', '#043927', '#0b6623', '#4F7942',
+              '#4CBB17', '#006E51', '#79C753'],
+          2: ['#dc3545', '#8d021f', '#FF0800', '#ff2800',
+              '#960018', '#FF2400', '#7C0A02'],
+          3: ['#343a40', '#343434', '#36454F', '#909090',
+              '#536267', '#4C5866', '#9896A4'],
+          'zg': ['#28a745', '#0b6623', '#043927', '#4F7942',
+                 '#4CBB17', '#006E51', '#79C753'],
+          'zr': ['#dc3545', '#8d021f', '#960018', '#ff2800',
+                 '#FF0800', '#FF2400', '#7C0A02'],
+          'zi': ['#343a40', '#343434', '#36454F', '#909090',
+                 '#536267', '#4C5866', '#9896A4'],
+          'default': ['#00415a', '#005960', '#20208b']}
+
+def lc_colors(color='default', ind: int = 0):
+    if color in colors:
+        # re-use if ran out of available colors:
+        return colors[color][ind % len(colors[color])]
+    else:
+        return colors['default'][ind % len(colors[color])]
+
+
+@routes.get('/sources/{source_id}/images/lc')
+@login_required
+async def source_lc_get_handler(request):
+    """
+        Serve HR diagram for a source
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _id = request.match_info['source_id']
+
+    source = await request.app['mongo'].sources.find({'_id': _id}, {'lc': 1}).to_list(length=None)
+    source = loads(dumps(source[0]))
+    # print(source)
+
+    if len(source['lc']) > 0:
+        try:
+            buff = io.BytesIO()
+
+            fig = plt.figure(figsize=(10, 4), dpi=200)
+            ax_plc = fig.add_subplot(111)
+            ax_plc.title.set_text(f'Photometric light curve for {source["_id"]}')
+
+            lc_color_indexes = dict()
+
+            for lc in source['lc']:
+                filt = lc['filter']
+                lc_color_indexes[filt] = lc_color_indexes[filt] + 1 if filt in lc_color_indexes else 0
+                c = lc_colors(filt, lc_color_indexes[filt])
+
+                df_plc = pd.DataFrame.from_records(lc['data'])
+                # display(df_plc)
+
+                # filter out unreleased MSIP data or only use it for QA
+                # w_msip = (df_plc['programid'] != 1) | (df_plc['hjd'] <= t_cut_msip)
+                # w_msip = (df_plc['programid'] == 1) & (df_plc['hjd'] <= t_cut_msip)
+
+                # w_good = w_msip & (df_plc['catflags'] == 0)
+                w_good = df_plc['catflags'] == 0
+                if np.sum(w_good) > 0:
+                    t = df_plc.loc[w_good, 'hjd']
+                    mag = df_plc.loc[w_good, 'mag']
+                    mag_error = df_plc.loc[w_good, 'magerr']
+
+                    ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                    marker='.', c=c, lw=0, label=f'filter: {filt}')
+
+                # w_not_so_good = w_msip & (df_plc['catflags'] != 0)
+                w_not_so_good = df_plc['catflags'] != 0
+                if np.sum(w_not_so_good) > 0:
+                    t = df_plc.loc[w_not_so_good, 'hjd']
+                    mag = df_plc.loc[w_not_so_good, 'mag']
+                    mag_error = df_plc.loc[w_not_so_good, 'magerr']
+
+                    ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                    marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
+
+            ax_plc.invert_yaxis()
+            # if t_format == 'days_ago':
+            #     ax_plc.invert_xaxis()
+            ax_plc.grid(True, lw=0.3)
+            # ax_plc.set_xlabel(t_format)
+            ax_plc.set_ylabel('mag')
+            ax_plc.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
+
+            plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+
+            plt.savefig(buff, dpi=200, bbox_inches='tight')
+            buff.seek(0)
+            return web.Response(body=buff, content_type='image/png')
+        except Exception as e:
+            print(e)
+
+    return web.Response(body=io.BytesIO(), content_type='image/png')
 
 
 def cross_match(kowalski, ra, dec):

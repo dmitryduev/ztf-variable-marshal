@@ -340,7 +340,12 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             data: [
                 {% for entry in data %}
                     {
-                        {% for field_id in ('_id', 'ra', 'dec',
+                        {% for field_id in ('_id', ) %}
+{#                        {{ field_id }}: "<a href='/sources/{{entry[field_id]}}' target='_blank'>{{entry[field_id]}}</a>",#}
+                        {{ field_id }}: "{{entry[field_id]}}",
+                        {% endfor %}
+
+                        {% for field_id in ('ra', 'dec',
                                         'p', 'zvm_program_id',
                                         'source_types', 'source_flags', 'created', 'created_by') %}
                         {{ field_id }}: "{{entry[field_id]}}",
@@ -359,35 +364,18 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
         function detailFormatter(index, row, element) {
             var html = [];
 
-            {#let jdd = new JulianDate();#}
-            {#let date_utc = moment(jdd.julian(parseFloat(row['jd'])).getDate()).utc().format('YYYYMMDD');#}
-
-            {# todo: grab with ajax and plot? #}
-            {#// Preview light curves#}
-            {#html.push("<div class=\"row p-0 m-0\">");#}
-            {#html.push("<div class=\"col-md-12 p-0 m-0\">");#}
-            {#html.push("<div id='lc_" + index + "' style='width: 100\%; height: 400px;'></div>");#}
-            {#html.push("<script>var data = [{" +#}
-            {#             "x: " + row['mjd'] +", " +#}
-            {#             "y: " + row['mag'] +", " +#}
-                         {#"error_y: {type: 'data', array: " + row['magerr'] + ", visible: true}, " +#}
-                         {# lines+markers#}
-            {#             "line: {width: 0.5, color: '#00415a'}, " +#}
-            {#             "mode: 'lines+markers'} ]; " +#}
-            {#             "var layout = {yaxis: {autorange: 'reversed'}}; " +#}
-            {#             "Plotly.newPlot('lc_" + index + "', data, layout);<\/script>");#}
-            {#html.push("</div>");#}
-            {##}
-            {#// close row#}
-            {#html.push("</div>");#}
-
             // Buttons:
             html.push("<div class=\"row p-0 m-0\">");
-            html.push("<div class=\"col-12 p-0 m-0\">");
+
+            html.push("<div class=\"col-2 p-0 m-0\">");
             // details:
             {#html.push("<br>");#}
             html.push("<a target='_blank' role='button' " + "href='/sources/" + row['_id'] +
                 "' class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top'>Details <i class='fas fa-external-link-alt'></i></a>");
+            html.push("</div>");
+
+            html.push("<div class=\"col-6 p-0 m-0\">");
+            html.push("<img src='/sources/" + row['_id'] + "/images/lc' width='50%'>");
             html.push("</div>");
 
             // close buttons row
