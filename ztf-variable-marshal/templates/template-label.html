@@ -141,18 +141,41 @@
                     <div class="row mt-2">
                         <div class="col">
                             <a href="/sources/{{-source['_id']-}}" target="_blank">{{ source['_id'] }}</a><br>
-                            <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" width="100%">
+                        </div>
+                    </div>
+
+                    <div class="row mt-0">
+                        <!-- Light curves -->
+                        <div class="col-7">
+                            <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" width="100%" class="img-fluid">
                             {% if source['p'] | length > 0 %}
                                 {% set p = source['p'][0]['period'] %}
                                 {% set u = source['p'][0]['period_unit'] %}
-                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true" width="100%">
+                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"
+                                     width="100%" class="img-fluid">
                             {% endif %}
-                            <img src="/sources/{{-source['_id']-}}/images/ps1">
-                            <img src="/sources/{{-source['_id']-}}/images/hr" width="300">
-                            <pre class="json-renderer" id="{{-source['_id']-}}-json-renderer" class="pl-4 pr-4"></pre>
-                            <hr>
+                        </div>
+                        <!-- Cutout and HR diagram -->
+                        <div class="col-2">
+                            <img src="/sources/{{-source['_id']-}}/images/ps1" class="img-fluid mx-auto d-block mt-4 pl-2">
+                            <img src="/sources/{{-source['_id']-}}/images/hr" class="img-fluid mx-auto d-block mt-4">
+                        </div>
+                        <!-- Metadata -->
+                        <div class="col-3">
+                            <pre class="json-renderer pl-4 pr-4" style="font-size: 0.6em"
+                                 id="{{-source['_id']-}}-json-renderer"></pre>
                         </div>
                     </div>
+
+                    <!-- Classifications -->
+                    <div class="row mt-0">
+                        <div class="col">
+                            <pre class="pl-2 pr-2" style="font-size: 0.6em">
+                                Classifications
+                            </pre>
+                        </div>
+                    </div>
+                    <hr>
                     {% endfor %}
 
                 </div>
