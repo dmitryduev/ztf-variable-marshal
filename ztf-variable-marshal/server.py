@@ -1980,22 +1980,25 @@ async def source_lc_get_handler(request):
                             ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                             marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
                     else:
-                        t = df_plc['hjd']
-                        mag = df_plc['mag']
-                        mag_error = df_plc['magerr']
+                        w_det = df_plc['mag'] != 0
+                        t = df_plc.loc[w_det, 'hjd']
+                        mag = df_plc.loc[w_det, 'mag']
+                        mag_error = df_plc.loc[w_det, 'magerr']
 
                         ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                         marker='.', c=c, lw=0, label=f'filter: {filt}')
 
                 else:
                     # phase-folded lc:
+                    w_det = df_plc['mag'] != 0
                     df_plc['phase'] = df_plc['hjd'].apply(lambda x: (x / period) % 1)
 
-                    t = df_plc['phase'] if not plot_twice else np.hstack(
-                        (df_plc['phase'].values, df_plc['phase'].values + 1))
-                    mag = df_plc['mag'] if not plot_twice else np.hstack((df_plc['mag'].values, df_plc['mag'].values))
-                    mag_error = df_plc['magerr'].values if not plot_twice else np.hstack((df_plc['magerr'].values,
-                                                                                          df_plc['magerr'].values))
+                    t = df_plc.loc[w_det, 'phase'] if not plot_twice else np.hstack(
+                        (df_plc.loc[w_det, 'phase'].values, df_plc.loc[w_det, 'phase'].values + 1))
+                    mag = df_plc.loc[w_det, 'mag'] if not plot_twice else np.hstack((df_plc.loc[w_det, 'mag'].values,
+                                                                                     df_plc.loc[w_det, 'mag'].values))
+                    mag_error = df_plc.loc[w_det, 'magerr'].values if not plot_twice else \
+                        np.hstack((df_plc.loc[w_det, 'magerr'].values, df_plc.loc[w_det, 'magerr'].values))
 
                     ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                     marker='.', c=c, lw=0, label=f'filter: {filt}')
