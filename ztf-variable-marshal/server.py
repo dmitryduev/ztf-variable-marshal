@@ -1906,9 +1906,23 @@ async def source_lc_get_handler(request):
     source = loads(dumps(source[0]))
     # print(source)
 
+    # GET params:
     _r = request.rel_url.query
+
+    # aspect:
     w = float(_r.get('w', 10))
     h = float(_r.get('h', 4))
+
+    # phase-fold?
+    period = _r.get('p', None)
+    units = str(_r.get('u', 'days')).lower()
+    if period is not None:
+        period = float(period)
+        if units == 'minutes':
+            period /= 24 * 60
+        elif units == 'hours':
+            period /= 24
+    plot_twice = _r.get('t', False)
 
     if len(source['lc']) > 0:
         try:
@@ -1928,34 +1942,48 @@ async def source_lc_get_handler(request):
                 df_plc = pd.DataFrame.from_records(lc['data'])
                 # display(df_plc)
 
-                # filter out unreleased MSIP data or only use it for QA
-                # w_msip = (df_plc['programid'] != 1) | (df_plc['hjd'] <= t_cut_msip)
-                # w_msip = (df_plc['programid'] == 1) & (df_plc['hjd'] <= t_cut_msip)
+                if period is None:
+                    # filter out unreleased MSIP data or only use it for QA
+                    # w_msip = (df_plc['programid'] != 1) | (df_plc['hjd'] <= t_cut_msip)
+                    # w_msip = (df_plc['programid'] == 1) & (df_plc['hjd'] <= t_cut_msip)
 
-                # w_good = w_msip & (df_plc['catflags'] == 0)
-                if 'catflags' in df_plc:
-                    w_good = df_plc['catflags'] == 0
-                    if np.sum(w_good) > 0:
-                        t = df_plc.loc[w_good, 'hjd']
-                        mag = df_plc.loc[w_good, 'mag']
-                        mag_error = df_plc.loc[w_good, 'magerr']
+                    # w_good = w_msip & (df_plc['catflags'] == 0)
+                    if 'catflags' in df_plc:
+                        w_good = df_plc['catflags'] == 0
+                        if np.sum(w_good) > 0:
+                            t = df_plc.loc[w_good, 'hjd']
+                            mag = df_plc.loc[w_good, 'mag']
+                            mag_error = df_plc.loc[w_good, 'magerr']
+
+                            ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                            marker='.', c=c, lw=0, label=f'filter: {filt}')
+
+                        # w_not_so_good = w_msip & (df_plc['catflags'] != 0)
+                        w_not_so_good = df_plc['catflags'] != 0
+                        if np.sum(w_not_so_good) > 0:
+                            t = df_plc.loc[w_not_so_good, 'hjd']
+                            mag = df_plc.loc[w_not_so_good, 'mag']
+                            mag_error = df_plc.loc[w_not_so_good, 'magerr']
+
+                            ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                            marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
+                    else:
+                        t = df_plc['hjd']
+                        mag = df_plc['mag']
+                        mag_error = df_plc['magerr']
 
                         ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                         marker='.', c=c, lw=0, label=f'filter: {filt}')
 
-                    # w_not_so_good = w_msip & (df_plc['catflags'] != 0)
-                    w_not_so_good = df_plc['catflags'] != 0
-                    if np.sum(w_not_so_good) > 0:
-                        t = df_plc.loc[w_not_so_good, 'hjd']
-                        mag = df_plc.loc[w_not_so_good, 'mag']
-                        mag_error = df_plc.loc[w_not_so_good, 'magerr']
-
-                        ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
-                                        marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
                 else:
-                    t = df_plc['hjd']
-                    mag = df_plc['mag']
-                    mag_error = df_plc['magerr']
+                    # phase-folded lc:
+                    df_plc['phase'] = df_plc['hjd'].apply(lambda x: (x / period) % 1)
+
+                    t = df_plc['phase'] if not plot_twice else np.hstack(
+                        (df_plc['phase'].values, df_plc['phase'].values + 1))
+                    mag = df_plc['mag'] if not plot_twice else np.hstack((df_plc['mag'].values, df_plc['mag'].values))
+                    mag_error = df_plc['magerr'].values if not plot_twice else np.hstack((df_plc['magerr'].values,
+                                                                                          df_plc['magerr'].values))
 
                     ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                     marker='.', c=c, lw=0, label=f'filter: {filt}')
