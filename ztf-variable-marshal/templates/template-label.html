@@ -27,6 +27,7 @@
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav ml-2">
 
+                    <!-- Load -->
                     <li class="sidebar-brand m-0 mt-3 p-0">
                         <a data-toggle="collapse" href="#load_data_form"
                            aria-expanded="true" aria-controls="load_data_form"
@@ -37,7 +38,7 @@
                         </a>
                     </li>
 
-                    <div class="collapse multi-collapse show" id="load_data_form">
+                    <div class="collapse multi-collapse show sidebar-collapse" id="load_data_form">
     {#                        <li id="-menu-item">#}
     {#                        </li>#}
                         <form id="form" class="form mb-2" method="get">
@@ -91,6 +92,29 @@
                                 <button type="button" class="btn btn-dark btn-sm" id="form-submit">Submit</button>
                             </div>
 
+                        </form>
+                    </div>
+
+                    <hr class="mr-3">
+
+                    <!-- Save -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#save_labels"
+                           aria-expanded="true" aria-controls="save_labels"
+                           id="save_labels-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Save labels
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="save_labels">
+    {#                        <li id="-menu-item">#}
+    {#                        </li>#}
+                        <form id="form_save" class="form mb-2 mt-2" method="get">
+                            <div class="col">
+                                <button type="button" class="btn btn-dark btn-sm" id="form_save-submit">Save</button>
+                            </div>
                         </form>
                     </div>
                 </ul>
@@ -198,11 +222,12 @@
         // arrow up/down on show/hide
         $(document).ready(function() {
             let block = 'load_data_form';
-            $('#'+block).on('hide.bs.collapse', function () {
-                $("[id="+block+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
+            $('.sidebar-collapse').on('hide.bs.collapse', function () {
+                {#console.log(this.id);#}
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
             });
-            $('#'+block).on('show.bs.collapse', function () {
-                $("[id="+block+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
+            $('.sidebar-collapse').on('show.bs.collapse', function () {
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
             });
         });
 
