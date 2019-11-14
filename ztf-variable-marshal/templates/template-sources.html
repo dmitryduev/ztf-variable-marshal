@@ -367,7 +367,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             // Buttons:
             html.push("<div class=\"row p-0 m-0\">");
 
-            html.push("<div class=\"col-2 p-0 m-0\">");
+            html.push("<div class=\"col-1 p-0 m-0\">");
             // details:
             {#html.push("<br>");#}
             html.push("<a target='_blank' role='button' " + "href='/sources/" + row['_id'] +
@@ -375,8 +375,12 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             html.push("</div>");
 
             html.push("<div class=\"col-6 p-0 m-0\">");
-            html.push("<img src='/sources/" + row['_id'] + "/images/lc' width='50%'>");
+            html.push("<img src='/sources/" + row['_id'] + "/images/lc?w=10&h=2.5' onerror=\"this.onerror=null; this.width='1px' this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='\" alt='' width='100%'>");
             html.push("</div>");
+
+            {#html.push("<div class=\"col-2 p-0 m-0\">");#}
+            {#html.push("<img src='/sources/" + row['_id'] + "/images/ps1' width='100%'>");#}
+            {#html.push("</div>");#}
 
             // close buttons row
             html.push("</div>");

@@ -29,6 +29,7 @@ from penquins import Kowalski
 import astropy.units as u
 from astropy.coordinates import SkyCoord
 import matplotlib.pyplot as plt
+import base64
 
 from utils import *
 
@@ -1871,7 +1872,14 @@ colors = {1: ['#28a745', '#043927', '#0b6623', '#4F7942',
                  '#FF0800', '#FF2400', '#7C0A02'],
           'zi': ['#343a40', '#343434', '#36454F', '#909090',
                  '#536267', '#4C5866', '#9896A4'],
+          'g': ['#28a745', '#0b6623', '#043927', '#4F7942',
+                '#4CBB17', '#006E51', '#79C753'],
+          'r': ['#dc3545', '#8d021f', '#960018', '#ff2800',
+                '#FF0800', '#FF2400', '#7C0A02'],
+          'i': ['#343a40', '#343434', '#36454F', '#909090',
+                '#536267', '#4C5866', '#9896A4'],
           'default': ['#00415a', '#005960', '#20208b']}
+
 
 def lc_colors(color='default', ind: int = 0):
     if color in colors:
@@ -1898,11 +1906,15 @@ async def source_lc_get_handler(request):
     source = loads(dumps(source[0]))
     # print(source)
 
+    _r = request.rel_url.query
+    w = float(_r.get('w', 10))
+    h = float(_r.get('h', 4))
+
     if len(source['lc']) > 0:
         try:
             buff = io.BytesIO()
 
-            fig = plt.figure(figsize=(10, 4), dpi=200)
+            fig = plt.figure(figsize=(w, h), dpi=200)
             ax_plc = fig.add_subplot(111)
             ax_plc.title.set_text(f'Photometric light curve for {source["_id"]}')
 
@@ -1921,24 +1933,32 @@ async def source_lc_get_handler(request):
                 # w_msip = (df_plc['programid'] == 1) & (df_plc['hjd'] <= t_cut_msip)
 
                 # w_good = w_msip & (df_plc['catflags'] == 0)
-                w_good = df_plc['catflags'] == 0
-                if np.sum(w_good) > 0:
-                    t = df_plc.loc[w_good, 'hjd']
-                    mag = df_plc.loc[w_good, 'mag']
-                    mag_error = df_plc.loc[w_good, 'magerr']
+                if 'catflags' in df_plc:
+                    w_good = df_plc['catflags'] == 0
+                    if np.sum(w_good) > 0:
+                        t = df_plc.loc[w_good, 'hjd']
+                        mag = df_plc.loc[w_good, 'mag']
+                        mag_error = df_plc.loc[w_good, 'magerr']
+
+                        ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                        marker='.', c=c, lw=0, label=f'filter: {filt}')
+
+                    # w_not_so_good = w_msip & (df_plc['catflags'] != 0)
+                    w_not_so_good = df_plc['catflags'] != 0
+                    if np.sum(w_not_so_good) > 0:
+                        t = df_plc.loc[w_not_so_good, 'hjd']
+                        mag = df_plc.loc[w_not_so_good, 'mag']
+                        mag_error = df_plc.loc[w_not_so_good, 'magerr']
+
+                        ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
+                                        marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
+                else:
+                    t = df_plc['hjd']
+                    mag = df_plc['mag']
+                    mag_error = df_plc['magerr']
 
                     ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                     marker='.', c=c, lw=0, label=f'filter: {filt}')
-
-                # w_not_so_good = w_msip & (df_plc['catflags'] != 0)
-                w_not_so_good = df_plc['catflags'] != 0
-                if np.sum(w_not_so_good) > 0:
-                    t = df_plc.loc[w_not_so_good, 'hjd']
-                    mag = df_plc.loc[w_not_so_good, 'mag']
-                    mag_error = df_plc.loc[w_not_so_good, 'magerr']
-
-                    ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
-                                    marker='x', alpha=0.5, c=c, lw=0, label=f'filter: {filt}, flagged')
 
             ax_plc.invert_yaxis()
             # if t_format == 'days_ago':
@@ -1956,7 +1976,11 @@ async def source_lc_get_handler(request):
         except Exception as e:
             print(e)
 
-    return web.Response(body=io.BytesIO(), content_type='image/png')
+    buff = io.BytesIO()
+    # buff.write(base64.b64decode(b"R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"))
+    # buff.seek(0)
+    # return web.Response(body=buff, content_type='image/gif')
+    return web.Response(body=buff, content_type='image/png')
 
 
 def cross_match(kowalski, ra, dec):
