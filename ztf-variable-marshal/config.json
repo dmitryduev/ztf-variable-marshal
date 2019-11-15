@@ -173,16 +173,54 @@
     "phenomenological" : [
       "variable",
       "periodic",
+      "multi periodic",
       "long periodic",
       "stochastic",
       "eclipsing",
-      "rotating",
-      "pulsating",
       "eruptive",
       "data artifacts"
     ],
-    "intrinsic" : [
-
-    ]
+    "intrinsic" : {
+      "pulsator": [
+        "high amplitude Delta Scu",
+        "Gamma Dor",
+        "Cepheid",
+        {"Cepheid type-II": [
+          "BL Her",
+          "W Virginis",
+          "RV Tau"
+        ]},
+        {"RR Lyrae": [
+          "RR Lyrae ab",
+          "RR Lyrae c",
+          "RR Lyrae d",
+          "RR Lyrae Blazhko"
+        ]},
+        {"WD pulsator": [
+          "DAV (ZZ Ceti)",
+          "DBV",
+          "ELMV"
+        ]},
+        {"sdB": [
+          "sdBV p-mode",
+          "sdBV g-mode",
+          "BLAP",
+          "high-g BLAP"
+        ]}
+      ],
+      "binary stars": [
+        "W Uma",
+        "detached eclipsing MS-MS",
+        "Beta Lyr",
+        "RS CVn",
+        {"compact binary": [
+          "eclipsing dWD",
+          "eclipsing WD+dM (NN Ser)",
+          "eclipsing sdB+dM (HW Vir)",
+          "Redback pulsar"
+        ]}
+      ],
+      "AGN": []
+    }
   }
 }
