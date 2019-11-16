@@ -421,11 +421,11 @@
             $('input.custom-range').each(function() {
                 {#console.log($(this).val());#}
                 {#console.log($(this).data());#}
+                data = $(this).data();
+                if (!(data['source'] in labels)) {
+                    labels[data['source']] = [];
+                }
                 if ($(this).val() !== '0') {
-                    data = $(this).data();
-                    if (!(data['source'] in labels)) {
-                        labels[data['source']] = [];
-                    }
                     labels[data['source']].push({'value': parseFloat($(this).val()),
                                                  'label': data['label'], 'type': data['type']})
                 }
@@ -451,7 +451,28 @@
                         // console.log('This was logged in the callback: ' + result);
                         // confirmed? emit request to server:
                         if (result) {
-                            get_labels();
+                            let labels = get_labels();
+                            let source;
+                            for (source in labels) {
+                                {#console.log(source);#}
+                                $.ajax({url: '{{-script_root-}}/sources/'+source,
+                                    method: 'POST',
+                                    data: JSON.stringify({'action': 'set_labels', 'labels': labels[source]}),
+                                    processData: false,
+                                    contentType: 'application/json',
+                                    success: function(data) {
+                                        if (data['message'] === 'success') {
+                                            showFlashingMessage('Info:', 'Successfully set labels for ' + source + ': ' + data['message'], 'success');
+                                        }
+                                        else {
+                                            showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
+                                        }
+                                    },
+                                    error: function(data) {
+                                        showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
+                                    }
+                                });
+                            }
                         }
                     }
                 });

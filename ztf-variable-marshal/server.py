@@ -2581,6 +2581,29 @@ async def source_post_handler(request):
 
                 return web.json_response({'message': 'success'}, status=200)
 
+            elif _r['action'] == 'set_labels':
+                # set labels
+                labels = _r['labels']
+
+                # make history
+                time_tag = utc_now()
+                h = {'note_type': 'labels',
+                     'time_tag': time_tag,
+                     'user': user,
+                     'note': labels}
+
+                # spice up
+                for label in labels:
+                    label['user'] = user
+                    label['last_modified'] = time_tag
+
+                await request.app['mongo'].sources.update_one({'_id': _id},
+                                                              {'$push': {'history': h},
+                                                               '$set': {'labels': labels,
+                                                                        'last_modified': time_tag}})
+
+                return web.json_response({'message': 'success'}, status=200)
+
             else:
                 return web.json_response({'message': 'failure: unknown action requested'}, status=200)
 
