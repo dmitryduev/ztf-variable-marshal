@@ -207,59 +207,53 @@
                                 </a>
                             </h6>
 
-                            <div class="row collapse multi-collapse sidebar-collapse"
+                            <div class="row collapse multi-collapse sidebar-collapse show"
                                  id="{{ source['_id'] }}_intrinsic">
 
                                 {% for class in classes['intrinsic'] %}
-                                <div class="col-12 mt-2"> {# style="background:#d6d7d8" #}
-                                    {% if class is mapping %}
-                                        {% for class2 in class %}
-                                            <label for="{{ source['_id'] }}_{{ class2 }}">
-                                                {{ class2 }}
-                                            </label>
-                                            <input type="range" class="custom-range"
-                                                   value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class2 }}">
-                                            <div class="row">
-                                            {% for class3 in class[class2]%}
-                                                {% if class3 is mapping %}
-                                                    {% for class4 in class3 %}
-                                                        <div class="col mt-2">
-                                                            <label for="{{ source['_id'] }}_{{ class4 }}">
-                                                                {{ class4 }}
-                                                            </label>
-                                                            <input type="range" class="custom-range"
-                                                                   value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class4 }}">
+                                <div class="col-12 mt-2 root"> {# style="background:#d6d7d8" #}
 
-                                                            {% for class5 in class3[class4] %}
-                                                                <label for="{{ source['_id'] }}_{{ class5 }}">
-                                                                    {{ class5 }}
+                                    <label for="{{ source['_id'] }}_{{ class }}">
+                                        {{ class }}
+                                    </label>
+                                    <input type="range" class="custom-range root-node"
+                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}">
+
+                                    <div class="row col">
+                                    {% for class2 in classes['intrinsic'][class] %}
+
+                                            {% if class2 is mapping %}
+                                                {% for class3 in class2 %}
+                                                    <div class="col mt-2 has-leaves">
+                                                        <label for="{{ source['_id'] }}_{{ class3 }}">
+                                                            {{ class3 }}
+                                                        </label>
+                                                        <input type="range" class="custom-range dad kid"
+                                                               value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class3 }}">
+
+                                                        {% for class4 in class2[class3] %}
+                                                            <div class="col mt-0">
+                                                                <label for="{{ source['_id'] }}_{{ class4 }}">
+                                                                    {{ class4 }}
                                                                 </label>
-                                                                <input type="range" class="custom-range"
-                                                                       value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class5 }}">
-                                                            {% endfor %}
-
-                                                        </div>
-                                                    {% endfor %}
-                                                {% else %}
-                                                    <div class="col mt-2">
-                                                    <label for="{{ source['_id'] }}_{{ class3 }}">
-                                                        {{ class3 }}
-                                                    </label>
-                                                    <input type="range" class="custom-range"
-                                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class3 }}">
+                                                                <input type="range" class="custom-range kid"
+                                                                       value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class4 }}">
+                                                            </div>
+                                                        {% endfor %}
                                                     </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <label for="{{ source['_id'] }}_{{ class }}">
-                                            {{ class }}
-                                        </label>
-                                        <input type="range" class="custom-range"
-                                               value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}">
-                                    {% endif %}
 
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="col mt-2">
+                                                    <label for="{{ source['_id'] }}_{{ class2 }}">
+                                                        {{ class2 }}
+                                                    </label>
+                                                    <input type="range" class="custom-range kid"
+                                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class2 }}">
+                                                </div>
+                                            {% endif %}
+                                    {% endfor %}
+                                    </div>
                                     <hr>
                                 </div>
                                 {% endfor %}
@@ -370,6 +364,16 @@
         // open
         $('#{{-source["_id"]-}}-json-renderer').find(">:first-child").trigger("click");
         {% endfor %}
+
+        // event listeners
+        $(".kid").change(function() {
+            console.log($(this).val());
+            let dad = $(this).closest('.has-leaves').find('.dad');
+            dad.val($(this).val());
+            // unfortunately, this does not trigger change() event if dad is also kid, so do this manually:
+            let root = $(this).closest('.root').find('.root-node');
+            root.val($(this).val());
+        });
     </script>
 
     <script>
