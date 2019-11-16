@@ -1377,33 +1377,33 @@ async def label_get_handler(request):
         return response
 
 
-@routes.post('/label')
-@login_required
-async def label_post_handler(request):
-    """
-        Save labels
-    :param request:
-    :return:
-    """
-    # get session:
-    session = await get_session(request)
-
-    try:
-        _r = await request.json()
-    except Exception as _e:
-        print(f'Cannot extract json() from request, trying post(): {str(_e)}')
-        # _err = traceback.format_exc()
-        # print(_err)
-        _r = await request.post()
-    print(_r)
-
-    try:
-        # todo: save
-        return web.json_response({'message': 'success'}, status=200, dumps=dumps)
-
-    except Exception as _e:
-
-        return web.json_response({'message': str(_e)}, status=500)
+# @routes.post('/label')
+# @login_required
+# async def label_post_handler(request):
+#     """
+#         Save labels
+#     :param request:
+#     :return:
+#     """
+#     # get session:
+#     session = await get_session(request)
+#
+#     try:
+#         _r = await request.json()
+#     except Exception as _e:
+#         print(f'Cannot extract json() from request, trying post(): {str(_e)}')
+#         # _err = traceback.format_exc()
+#         # print(_err)
+#         _r = await request.post()
+#     print(_r)
+#
+#     try:
+#         # todo: save
+#         return web.json_response({'message': 'success'}, status=200, dumps=dumps)
+#
+#     except Exception as _e:
+#
+#         return web.json_response({'message': str(_e)}, status=500)
 
 
 ''' sources API '''

@@ -69,7 +69,9 @@
                                 <div class="col pr-4">
                                     <select class="form-control form-control-sm" id="number"
                                             name="number">
+                                        <option>1</option>
                                         <option>10</option>
+                                        <option>50</option>
                                         <option>100</option>
                                     </select>
                                 </div>
@@ -209,7 +211,7 @@
                                 </a>
                             </h6>
 
-                            <div class="row collapse multi-collapse sidebar-collapse show"
+                            <div class="row collapse multi-collapse sidebar-collapse"
                                  id="{{ source['_id'] }}_intrinsic">
 
                                 {% for class in classes['intrinsic'] %}
@@ -384,6 +386,15 @@
             let root = $(this).closest('.root').find('.root-node');
             root.val($(this).val());
         });
+
+        //populate labels
+        $(document).ready(function() {
+            {% for source in data %}
+                {% for label in source['labels'] %}
+                    $("input[data-source='{{source["_id"]}}'][data-label='{{label["label"]}}']").val({{label["value"]}});
+                {% endfor %}
+            {% endfor %}
+        });
     </script>
 
     <script>
@@ -435,6 +446,30 @@
             return labels;
         }
 
+        function save_labels() {
+            let labels = get_labels();
+            for (let source in labels) {
+                {#console.log(source);#}
+                $.ajax({url: '{{-script_root-}}/sources/'+source,
+                    method: 'POST',
+                    data: JSON.stringify({'action': 'set_labels', 'labels': labels[source]}),
+                    processData: false,
+                    contentType: 'application/json',
+                    success: function(data) {
+                        if (data['message'] === 'success') {
+                            showFlashingMessage('Info:', 'Successfully set labels for ' + source + ': ' + data['message'], 'success');
+                        }
+                        else {
+                            showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
+                        }
+                    },
+                    error: function(data) {
+                        showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
+                    }
+                });
+            }
+        }
+
         $(document).ready(function() {
             $('#form_save-submit').click(function () {
                 bootbox.confirm({
@@ -451,32 +486,20 @@
                         // console.log('This was logged in the callback: ' + result);
                         // confirmed? emit request to server:
                         if (result) {
-                            let labels = get_labels();
-                            let source;
-                            for (source in labels) {
-                                {#console.log(source);#}
-                                $.ajax({url: '{{-script_root-}}/sources/'+source,
-                                    method: 'POST',
-                                    data: JSON.stringify({'action': 'set_labels', 'labels': labels[source]}),
-                                    processData: false,
-                                    contentType: 'application/json',
-                                    success: function(data) {
-                                        if (data['message'] === 'success') {
-                                            showFlashingMessage('Info:', 'Successfully set labels for ' + source + ': ' + data['message'], 'success');
-                                        }
-                                        else {
-                                            showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
-                                        }
-                                    },
-                                    error: function(data) {
-                                        showFlashingMessage('Info:', 'Failed to set labels for ' + source + ': ' + data['message'], 'danger');
-                                    }
-                                });
-                            }
+                            save_labels()
                         }
                     }
                 });
             });
+        });
+
+        // autosave
+        $(document).ready(function() {
+            setInterval(function () {
+                if (document.getElementById("autosave").checked) {
+                    save_labels();
+                }
+            }, 60 * 1000); // 60 * 1000 milli seconds
         });
 
         {# show flashing messages #}
