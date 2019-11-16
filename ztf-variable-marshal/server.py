@@ -1313,6 +1313,7 @@ async def label_get_handler(request):
     """
     # get session:
     session = await get_session(request)
+    user = session['user_id']
 
     try:
         users = await request.app['mongo'].users.find({}, {'_id': 1}).to_list(length=None)
@@ -1331,6 +1332,8 @@ async def label_get_handler(request):
         sources = []
         if zvm_program_id and number:
             if not rand:
+                # '$or': [{'label.user': {'$exists': False}},
+                #         {'label.user': user}]
                 sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
                                                                   {'xmatch.ZTF_alerts': 0,
                                                                    'history': 0,
@@ -1347,6 +1350,11 @@ async def label_get_handler(request):
 
                 sources = await _select.to_list(length=None)
 
+        # fixme: pop other people's labels. should Do this on mongodb's side
+        for source in sources:
+            labels = [l for l in source['labels'] if l.get('user', None) == user]
+            source['labels'] = labels
+
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
                    'users': users,
@@ -1362,6 +1370,8 @@ async def label_get_handler(request):
 
     except Exception as _e:
         print(f'Error: {str(_e)}')
+        _err = traceback.format_exc()
+        print(_err)
 
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],
@@ -2597,9 +2607,15 @@ async def source_post_handler(request):
                     label['user'] = user
                     label['last_modified'] = time_tag
 
+                doc = await request.app['mongo'].sources.find({'_id': _id},
+                                                              {'_id': 0, 'labels': 1}).to_list(length=None)
+                # ditch user's old labels:
+                labels_current = [l for l in doc[0]['labels'] if l.get('user', None) != user]
+                # print(labels_current)
+
                 await request.app['mongo'].sources.update_one({'_id': _id},
                                                               {'$push': {'history': h},
-                                                               '$set': {'labels': labels,
+                                                               '$set': {'labels': labels + labels_current,
                                                                         'last_modified': time_tag}})
 
                 return web.json_response({'message': 'success'}, status=200)
@@ -2612,7 +2628,8 @@ async def source_post_handler(request):
 
     except Exception as _e:
         print(f'POST failed: {str(_e)}')
-
+        _err = traceback.format_exc()
+        print(_err)
         return web.json_response({'message': f'action failed: {str(_e)}'}, status=200)
 
 
