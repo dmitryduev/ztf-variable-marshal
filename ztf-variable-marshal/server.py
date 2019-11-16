@@ -1846,6 +1846,7 @@ async def source_hr_get_handler(request):
                 plt.tight_layout(pad=0, h_pad=0, w_pad=0)
                 plt.savefig(buff, dpi=200, bbox_inches='tight')
                 buff.seek(0)
+                plt.close('all')
                 return web.Response(body=buff, content_type='image/png')
             except Exception as e:
                 print(e)
@@ -1861,6 +1862,7 @@ async def source_hr_get_handler(request):
     plt.tight_layout(pad=0, h_pad=0, w_pad=0)
     plt.savefig(buff, dpi=200, bbox_inches='tight')
     buff.seek(0)
+    plt.close('all')
     return web.Response(body=buff, content_type='image/png')
 
 
@@ -2015,6 +2017,7 @@ async def source_lc_get_handler(request):
 
             plt.savefig(buff, dpi=200, bbox_inches='tight')
             buff.seek(0)
+            plt.close('all')
             return web.Response(body=buff, content_type='image/png')
         except Exception as e:
             print(e)
