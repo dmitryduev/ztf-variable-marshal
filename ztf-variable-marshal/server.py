@@ -1352,7 +1352,7 @@ async def label_get_handler(request):
 
         # fixme: pop other people's labels. should Do this on mongodb's side
         for source in sources:
-            labels = [l for l in source['labels'] if l.get('user', None) == user]
+            labels = [l for l in source.get('labels', ()) if l.get('user', None) == user]
             source['labels'] = labels
 
         context = {'logo': config['server']['logo'],
@@ -2610,7 +2610,7 @@ async def source_post_handler(request):
                 doc = await request.app['mongo'].sources.find({'_id': _id},
                                                               {'_id': 0, 'labels': 1}).to_list(length=None)
                 # ditch user's old labels:
-                labels_current = [l for l in doc[0]['labels'] if l.get('user', None) != user]
+                labels_current = [l for l in doc[0].get('labels', ()) if l.get('user', None) != user]
                 # print(labels_current)
 
                 await request.app['mongo'].sources.update_one({'_id': _id},
