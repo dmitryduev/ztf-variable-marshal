@@ -189,7 +189,9 @@
                                         {{ class }}
                                     </label>
                                     <input type="range" class="custom-range"
-                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}">
+                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}"
+                                           data-source="{{ source['_id'] }}" data-label="{{ class }}"
+                                           data-type="phenomenological">
                                 </div>
                                 {% endfor %}
                             </div>
@@ -217,7 +219,9 @@
                                         {{ class }}
                                     </label>
                                     <input type="range" class="custom-range root-node"
-                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}">
+                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}"
+                                           data-source="{{ source['_id'] }}" data-label="{{ class }}"
+                                           data-type="intrinsic">
 
                                     <div class="row col">
                                     {% for class2 in classes['intrinsic'][class] %}
@@ -229,7 +233,9 @@
                                                             {{ class3 }}
                                                         </label>
                                                         <input type="range" class="custom-range dad kid"
-                                                               value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class3 }}">
+                                                               value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class3 }}"
+                                                               data-source="{{ source['_id'] }}" data-label="{{ class3 }}"
+                                                               data-type="intrinsic">
 
                                                         {% for class4 in class2[class3] %}
                                                             <div class="col mt-0">
@@ -237,7 +243,9 @@
                                                                     {{ class4 }}
                                                                 </label>
                                                                 <input type="range" class="custom-range kid"
-                                                                       value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class4 }}">
+                                                                       value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class4 }}"
+                                                                       data-source="{{ source['_id'] }}" data-label="{{ class4 }}"
+                                                                       data-type="intrinsic">
                                                             </div>
                                                         {% endfor %}
                                                     </div>
@@ -249,7 +257,9 @@
                                                         {{ class2 }}
                                                     </label>
                                                     <input type="range" class="custom-range kid"
-                                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class2 }}">
+                                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class2 }}"
+                                                           data-source="{{ source['_id'] }}" data-label="{{ class2 }}"
+                                                           data-type="intrinsic">
                                                 </div>
                                             {% endif %}
                                     {% endfor %}
@@ -404,9 +414,49 @@
         });
 
         // save labels
-        function save_labels() {
+        function get_labels() {
+            let labels = {};
+            let data = {};
 
+            $('input.custom-range').each(function() {
+                {#console.log($(this).val());#}
+                {#console.log($(this).data());#}
+                if ($(this).val() !== '0') {
+                    data = $(this).data();
+                    if (!(data['source'] in labels)) {
+                        labels[data['source']] = [];
+                    }
+                    labels[data['source']].push({'value': parseFloat($(this).val()),
+                                                 'label': data['label'], 'type': data['type']})
+                }
+            });
+
+            {#console.log(labels);#}
+            return labels;
         }
+
+        $(document).ready(function() {
+            $('#form_save-submit').click(function () {
+                bootbox.confirm({
+                    message: "Do you want to save the labels?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fas fa-times"></i> Cancel'
+                        },
+                        confirm: {
+                            label: '<i class="fas fa-check"></i> Confirm'
+                        }
+                    },
+                    callback: function (result) {
+                        // console.log('This was logged in the callback: ' + result);
+                        // confirmed? emit request to server:
+                        if (result) {
+                            get_labels();
+                        }
+                    }
+                });
+            });
+        });
 
         {# show flashing messages #}
         function showFlashingMessage(title, message, type) {
