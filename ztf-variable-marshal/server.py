@@ -1333,12 +1333,12 @@ async def label_get_handler(request):
         sources = []
         if zvm_program_id and number:
             filt = {'zvm_program_id': int(zvm_program_id)}
-            # fixme: labels.user must = 0, not labels = 0 (could be classified by others)
+
             if unlabeled:
                 filt = {**filt, **{'$or': [{'labels': {'$size': 0}},
-                                           {'labels': {'$exists': False}}]}}
+                                           {'labels.user': {'$ne': user}}]}}
             else:
-                filt = {**filt, **{'labels.1': {'$exists': True}}}
+                filt = {**filt, **{'labels.user': {'$eq': user}}}
             if not rand:
                 # '$or': [{'labels.user': {'$exists': False}},
                 #         {'labels.user': user}]
@@ -2919,6 +2919,9 @@ async def app_factory():
                                              ('_id', 1)], background=True)
     await app['mongo'].sources.create_index([('created', -1)], background=True)
     await app['mongo'].sources.create_index([('zvm_program_id', 1)], background=True)
+    await app['mongo'].sources.create_index([('zvm_program_id', 1),
+                                             ('labels.user', 1)], background=True)
+    await app['mongo'].sources.create_index([('labels.label', 1)], background=True)
     await app['mongo'].sources.create_index([('lc.id', 1)], background=True)
 
     # graciously close mongo client on shutdown
