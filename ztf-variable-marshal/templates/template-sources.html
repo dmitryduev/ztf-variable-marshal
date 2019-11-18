@@ -412,14 +412,15 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                 [
                     {% for field_id in ('_id', 'ra', 'dec',
                                         'p', 'zvm_program_id',
-                                        'source_types', 'source_flags', 'spec', 'lc', 'created', 'created_by') %}
+                                        'source_types', 'source_flags',
+                                        'labels', 'spec', 'lc', 'created', 'created_by') %}
                     {
                         field: '{{field_id}}',
                         title: '{{field_id}}',
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
-                        {% if field_id in ('lc', 'spec') %}
+                        {% if field_id in ('labels', 'lc', 'spec') %}
                         visible: false,
                         {% else %}
                         visible: true
@@ -442,7 +443,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
-                        {% for field_id in ('lc', 'spec') %}
+                        {% for field_id in ('labels', 'lc', 'spec') %}
                         {{ field_id }}: "{{entry[field_id] | safe}}",
                         {% endfor %}
                     },
