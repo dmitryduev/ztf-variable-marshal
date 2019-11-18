@@ -2603,12 +2603,12 @@ async def source_post_handler(request):
                 # set labels
                 labels = _r['labels']
 
-                # make history
+                # make history. don't! too much info, will flood history, esp. w autosave on
                 time_tag = utc_now()
-                h = {'note_type': 'labels',
-                     'time_tag': time_tag,
-                     'user': user,
-                     'note': labels}
+                # h = {'note_type': 'labels',
+                #      'time_tag': time_tag,
+                #      'user': user,
+                #      'note': labels}
 
                 # spice up
                 for label in labels:
@@ -2622,7 +2622,7 @@ async def source_post_handler(request):
                 # print(labels_current)
 
                 await request.app['mongo'].sources.update_one({'_id': _id},
-                                                              {'$push': {'history': h},
+                                                              {  # '$push': {'history': h},
                                                                '$set': {'labels': labels + labels_current,
                                                                         'last_modified': time_tag}})
 
