@@ -25,7 +25,7 @@
 
             <!-- Sidebar -->
             <div id="sidebar-wrapper">
-                <ul class="sidebar-nav ml-2">
+                <ul class="sidebar-nav ml-2 mb-5 pb-5">
 
                     <!-- Load -->
                     <li class="sidebar-brand m-0 mt-3 p-0">
@@ -80,12 +80,17 @@
 
                             <div class="form-group">
                                 <div class="col">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox"
-                                                   id="random" name="random">
-                                            Random
-                                        </label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="unlabeled" name="unlabeled" checked>
+                                        <label class="custom-control-label" for="unlabeled">Unlabeled</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="random" name="random" checked>
+                                        <label class="custom-control-label" for="random">Random</label>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +120,7 @@
     {#                        </li>#}
                         <div class="col mt-2">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="autosave" checked>
+                                <input type="checkbox" class="custom-control-input" id="autosave">
                                 <label class="custom-control-label" for="autosave">Autosave?</label>
                             </div>
                         </div>
@@ -331,6 +336,7 @@
         const url_params = new URLSearchParams(window.location.search);
         const zvm_program_id = url_params.get('zvm_program_id');
         const number = url_params.get('number');
+        const unlabeled = url_params.get('unlabeled');
         const random = url_params.get('random');
 
         if (zvm_program_id) {
@@ -339,8 +345,17 @@
         if (number) {
             $('#number').val(number)
         }
+        if (unlabeled) {
+            $("#unlabeled").prop("checked", true);
+        }
+        else {
+            $("#unlabeled").prop("checked", false);
+        }
         if (random) {
             $("#random").prop("checked", true);
+        }
+        else {
+            $("#random").prop("checked", false);
         }
 
         $(document).ready(function() {

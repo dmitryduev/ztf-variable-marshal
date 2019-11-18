@@ -1328,20 +1328,28 @@ async def label_get_handler(request):
         zvm_program_id = _r.get('zvm_program_id', None)
         number = _r.get('number', None)
         rand = _r.get('random', False)
+        unlabeled = _r.get('unlabeled', False)
 
         sources = []
         if zvm_program_id and number:
+            filt = {'zvm_program_id': int(zvm_program_id)}
+            # fixme: labels.user must = 0, not labels = 0 (could be classified by others)
+            if unlabeled:
+                filt = {**filt, **{'$or': [{'labels': {'$size': 0}},
+                                           {'labels': {'$exists': False}}]}}
+            else:
+                filt = {**filt, **{'labels.1': {'$exists': True}}}
             if not rand:
-                # '$or': [{'label.user': {'$exists': False}},
-                #         {'label.user': user}]
-                sources = await request.app['mongo'].sources.find({'zvm_program_id': int(zvm_program_id)},
+                # '$or': [{'labels.user': {'$exists': False}},
+                #         {'labels.user': user}]
+                sources = await request.app['mongo'].sources.find(filt,
                                                                   {'xmatch.ZTF_alerts': 0,
                                                                    'history': 0,
                                                                    'spec.data': 0}).limit(int(number)). \
                     sort([('created', -1)]).to_list(length=None)
                 # print(sources)
             else:
-                pipeline = [{'$match': {'zvm_program_id': int(zvm_program_id)}},
+                pipeline = [{'$match': filt},
                             {'$project': {'xmatch.ZTF_alerts': 0, 'history': 0, 'spec.data': 0}},
                             {'$sample': {'size': int(number)}}]
                 _select = request.app['mongo'].sources.aggregate(pipeline,
