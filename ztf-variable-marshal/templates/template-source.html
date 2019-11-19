@@ -5,74 +5,8 @@
 
     <link rel="stylesheet" href="{{-script_root-}}/static/css/styles/default.css">
     <link rel="stylesheet" href="{{-script_root-}}/static/css/jquery.json-viewer.css">
+    <link rel="stylesheet" href="{{-script_root-}}/static/css/sidebar.css">
 
-    <style>
-        /*
-         * Sidebar
-         */
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            {#bottom: 50px;#}
-            bottom: 0;
-            left: 0;
-            z-index: 100; /* Behind the navbar */
-            padding: 48px 0 0; /* Height of navbar */
-            {#padding: 48px 0 50px; /* Height of navbar */#}
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-        }
-
-        .sidebar-sticky {
-            position: relative;
-            top: 0;
-            height: calc(100vh - 48px);
-            padding-top: .5rem;
-            overflow-x: hidden;
-            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        }
-
-        @supports ((position: -webkit-sticky) or (position: sticky)) {
-            .sidebar-sticky {
-                position: -webkit-sticky;
-                position: sticky;
-            }
-        }
-
-        .sidebar .nav-link {
-            font-weight: 500;
-            color: #333;
-        }
-
-        .sidebar .nav-link .feather {
-            margin-right: 4px;
-            color: #999;
-        }
-
-        .sidebar .nav-link.active {
-            color: #007bff;
-        }
-
-        .sidebar .nav-link:hover .feather,
-        .sidebar .nav-link.active .feather {
-            color: inherit;
-        }
-
-        .sidebar-heading {
-            {#font-size: .75rem;#}
-            {#text-transform: uppercase;#}
-        }
-
-        /*
-         * Content
-         */
-
-        [role="main"] {
-            {#padding-top: 48px; /* Space for fixed navbar */#}
-            padding-top: 24px; /* Space for fixed navbar */
-        }
-
-    </style>
 {% endblock %}
 
 {% block nav_sources %}
@@ -87,438 +21,88 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <h4 class="sidebar-heading d-flex justify-content-between
-                               align-items-center px-3 mt-4 mb-1">
+    <div class="container-fluid mt-2">
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav ml-2 mb-5 pb-5">
+
+                    <!-- Coordinates -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#coordinates"
+                           aria-expanded="true" aria-controls="coordinates"
+                           id="coordinates-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Coordinates
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="coordinates">
+                        <div class="d-flex justify-content-between align-items-center px-3 pr-4 mr-1 mt-1 mb-1 text-muted">
+                            RA: {{ source['coordinates']['radec_str'][0] }}<br>
+                            Dec: {{ source['coordinates']['radec_str'][1] }}<br><br>
+
+                            RA/Dec, &#176;:<br>
+                            {{ source['ra'] }} &nbsp;&nbsp; {{ source['dec'] }}<br>
+
+                            Galactic Lon/Lat, &#176;:<br>
+                            {{ '%0.6f'| format(source['l']) }} &nbsp;&nbsp; {{ '%0.6f'| format(source['b']) }}<br>
+
+                            {# TODO: MORE INFO<br><br> #}
+                        </div>
+
+                    </div>
+
+                    <hr class="mr-3 mb-2">
+
+                    <!-- Auxiliary -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#auxiliary"
+                           aria-expanded="true" aria-controls="auxiliary"
+                           id="auxiliary-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Auxiliary
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="auxiliary">
+                        <div class="sidebar-heading justify-content-between
+                                    align-items-center px-3 pr-4 mr-1 mt-1 mb-5 text-muted">
+                            PS1 [1'x1']:<br>
+                            <span id="ls_img"></span><br><br>
+
+                            HR diagram:<br>
+                            <span id="hr_img"></span><br><br>
+
+                        </div>
+                    </div>
+                </ul>
+
+
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h4>
+                        <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
                         {{ source['_id'] }}
                     </h4>
-                    <div class="d-flex justify-content-between
-                               align-items-center px-3 mt-4 mb-1 text-muted">
-                        RA: {{ source['coordinates']['radec_str'][0] }}<br>
-                        Dec: {{ source['coordinates']['radec_str'][1] }}<br><br>
 
-                        RA/Dec, &#176;:<br>
-                        {{ source['ra'] }} &nbsp;&nbsp; {{ source['dec'] }}<br>
 
-                        Galactic Lon/Lat, &#176;:<br>
-                        {{ '%0.6f'| format(source['l']) }} &nbsp;&nbsp; {{ '%0.6f'| format(source['b']) }}<br>
 
-                        {# TODO: MORE INFO<br><br> #}
-                    </div>
-
-                    <div class="sidebar-heading justify-content-between
-                                align-items-center px-3 mt-4 mb-5 text-muted">
-                        PS1 [1'x1']:<br>
-                        <span id="ls_img"></span><br><br>
-
-                        HR diagram:<br>
-                        <span id="hr_img"></span><br><br>
-
-                    </div>
-
-{#                    <ul class="nav flex-column">#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link active" href="#">#}
-{#                                Photometry <span class="sr-only">(current)</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="#">#}
-{#                                Spectroscopy#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="#">#}
-{#                                Finding Chart#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="#">#}
-{#                                Visibility#}
-{#                            </a>#}
-{#                        </li>#}
-{#                    </ul>#}
                 </div>
-            </nav>
+            </div>
+            <!-- /#page-content-wrapper -->
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        </div>
+        <!-- /#wrapper -->
 
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-photometry-tab" data-toggle="tab"
-                           href="#nav-photometry" role="tab" aria-controls="nav-photometry"
-                           aria-selected="true">Photometry</a>
-                        <a class="nav-item nav-link" id="nav-spectroscopy-tab" data-toggle="tab"
-                           href="#nav-spectroscopy" role="tab" aria-controls="nav-spectroscopy"
-                           aria-selected="false">Spectroscopy</a>
-{#                        <a class="nav-item nav-link" id="nav-finding-chart-tab" data-toggle="tab"#}
-{#                           href="#nav-finding-chart" role="tab" aria-controls="nav-finding-chart"#}
-{#                           aria-selected="false">Finding Chart</a>#}
-{#                        <a class="nav-item nav-link" id="nav-visibility-tab" data-toggle="tab"#}
-{#                           href="#nav-visibility" role="tab" aria-controls="nav-visibility"#}
-{#                           aria-selected="false">Visibility</a>#}
-                        <a class="nav-item nav-link" id="nav-auxiliary-tab" data-toggle="tab"
-                           href="#nav-auxiliary" role="tab" aria-controls="nav-auxiliary"
-                           aria-selected="false">Auxiliary</a>
-                    </div>
-                </nav>
-
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active mt-2" id="nav-photometry"
-                         role="tabpanel" aria-labelledby="nav-photometry-tab">
-
-                        {% if source['lc'] | length == 0 %}
-                        <p>No light curves found.</p>
-
-                        {% else %}
-
-                        <div id="lc" style="width: 100%; height: 500px;"></div>
-
-                        <div class="form-group row mt-2">
-                            <label for="epoch" class="col-lg-2 control-label">
-                                Epoch:
-                            </label>
-
-                            <div class="col-md-4">
-                                <select class="form-control form-control-sm col-lg-6" id="epoch" name="epoch">
-                                    <option>date</option>
-                                    <option>mjd</option>
-                                    <option>jd</option>
-                                    <option>hjd</option>
-                                    <option>days ago</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <p class="mt-2">
-                        {% for lc in source['lc'] %}
-                            {% if lc['lc_type'] == 'temporal' %}
-                                {% set lc_info = {'telescope': lc['telescope'],
-                                                  'instrument': lc['instrument'],
-                                                  'filter': lc['filter'],
-                                                  'id': lc['id']} %}
-                                <b>LC_{{ loop.index }}:</b> {{ lc_info | safe }}
-                                <a href="#" class="remove_lc" data-lcid="{{ lc['_id'] }}"><i class="fas fa-times"></i></a>
-                                <br>
-                            {% endif %}
-                        {% endfor %}
-                        </p>
-
-                        <hr>
-
-                        <div class="form-group row mt-2">
-                            <label for="fold_lc_period" class="col-md-2 mt-1 control-label">
-                                Folded light curve at
-                            </label>
-
-                            <div class="col-md-4 form-inline mt-1">
-                                <input type="text" class="form-control form-control-sm col-lg-6"
-                                       id="fold_lc_period" name="fold_lc_period" placeholder="">
-                                <select class="form-control form-control-sm col-lg-6"
-                                        id="fold_lc_unit" name="fold_lc_unit">
-                                    <option>Minutes</option>
-                                    <option>Hours</option>
-                                    <option>Days</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-3 mt-1">
-                                <button type="button" class="btn btn-dark btn-sm"
-                                        id="fold_lc" onclick="setFolding()">Set</button>
-                                <button type="button" class="btn btn-dark btn-sm"
-                                        id="double_folding_period" onclick="doubleFoldingPeriod()">&times;2</button>
-                                <button type="button" class="btn btn-outline-dark btn-sm"
-                                        id="reset_lc" onclick="unsetFolding()">Reset</button>
-                            </div>
-                            <div class="col-md-2 mt-1">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="plot_twice">
-                                    <label class="custom-control-label" for="plot_twice">Plot twice</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        {% if source['p'] | length > 0 %}
-                        <div class="form-group row mt-3">
-                            <div class="col">
-                                Saved periods:
-                                {% for p in source['p'] %}
-                                <p class="mb-1">
-                                    {{ p['period'] }} {{ p['period_unit'] }}
-                                    <button type="button" class="btn btn-dark btn-sm"
-                                            id="fold_lc" onclick="setSavedFolding('{{ p['period'] }}',
-                                                                                  '{{ p['period_unit'] }}')">Set</button>
-                                </p>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-
-                        <hr>
-                        {% endif %}
-
-                        <form id="form_upload_lc" method="post" accept-charset="utf-8">
-                            <label class="btn btn-dark btn-sm btn-file">
-                                Upload Light Curve(s) <i class='fas fa-plus-square'></i>
-                                <input type="file" id="upload_lc" name="upload_lc"
-                                       accept=".json," style="display: none;">
-                            </label>
-                        </form>
-
-                        <p class="mt-2">
-                            <span class="badge badge-primary">Note</span>
-                            The uploaded light curve must be in the JSON format following the schema:<br>
-                            <pre><code>{"telescope": "PO:1.2m",
- "instrument": "ZTF",
- "filter": "zr",
- "id": UNIQUE_ID,
- "lc_type": "temporal",
- "data": [
-   {"mjd": MJD, "hjd": HJD, "mag": MAG, "magerr": MAGERROR, "mag_llim": MAG_LLIM, "mag_ulim": MAG_ULIM},
-   ...
- ]
-}</code></pre>
-                    You may place multiple light curves in a single JSON file:
-                    <pre><code>[{..LC_1..}, {..LC_2..}, ...]</code></pre>
-
-                    You can use either or both mjd or hjd for the time stamps.
-                    Each data point must contain ('mag' and 'magerr') or ('mag_llim' or 'mag_ulim').
-                    Other fields above are mandatory, however you can add any custom fields.
-                        </p>
-
-                        <hr>
-
-                        <p>
-                            <b>Cross-matched sources from external catalogs within {{ cone_search_radius }} {{ cone_search_unit }}:</b>
-                            <button type="button" class="btn btn-dark btn-sm"
-                                    id="run_cross_match" onclick="run_cross_match()">
-                            <i class='fas fa-sync-alt'></i></button><br>
-                            {# TODO: refresh button #}
-                            <pre id="json-renderer" class="pl-4 pr-4"></pre>
-                        </p>
-
-                        <hr>
-
-                        <p>
-                            <b>Surveys</b>
-                        </p>
-                        <p>
-                            {% if source['dec'] >= 0 %}
-                                {% set dec_string = '+' + (source['dec'] | string) %}
-                            {% else %}
-                                {% set dec_string = source['dec'] | string %}
-                            {% endif %}
-                            <a href="javascript:document.getElementById('kowalski_form').submit();"
-                               role="button" class="btn btn-secondary btn-sm"
-                                    id="survey_ztf_alerts">ZTF Alerts</a>
-                            <a href="https://ps1images.stsci.edu/cgi-bin/ps1cutouts?pos={{ source['ra'] }}{{ dec_string }}&filter=color&filter=g&filter=r&filter=i&filter=z&filter=y&filetypes=stack&auxiliary=data&size=240&output_size=0&verbose=0&autoscale=99.500000&catlist="
-                               target="_blank" role="button" class="btn btn-secondary btn-sm"
-                                    id="survey_panstarrs">PanSTARRS-1</a>
-                        </p>
-
-                        <div id="kowalski" style="display:none">
-                            <form id="kowalski_form" target="_blank" method="POST"
-                                  action="https://kowalski.caltech.edu/lab/ztf-alerts">
-                                <input name="radec" value="[({{ source['ra'] }}, {{ source['dec'] }})]"/>
-                                <input name="cone_search_radius" value="5"/>
-                                <input name="cone_search_unit" value="arcsec"/>
-                                <input name="filter" value=""/>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade mt-2" id="nav-spectroscopy"
-                         role="tabpanel" aria-labelledby="nav-spectroscopy-tab">
-                        {% if source['spec'] | length == 0 %}
-                        <p>No spectra found.</p>
-                        {% else %}
-
-                        <div id="spec" style="width: 100%; height: 500px;"></div>
-
-                        <p class="mt-2">
-                        {% for spec in source['spec'] %}
-                            {% set spec_info = {'telescope': spec['telescope'],
-                                               'instrument': spec['instrument'],
-                                               'filter': spec['filter'],
-                                               'mjd': spec['mjd'],
-                                               'wavelength_unit': spec['wavelength_unit'],
-                                               'flux_unit': spec['flux_unit']} %}
-                            <b>Spectrum {{ loop.index }}:</b> {{ spec_info | safe }}
-                            <a href="#" class="remove_spectrum" data-specid="{{ spec['_id'] }}"><i class="fas fa-times"></i></a>
-                            <br>
-                        {% endfor %}
-                        </p>
-
-                        {% endif %}
-
-                        <form id="form_upload_spectrum" method="post" accept-charset="utf-8">
-                            <label class="btn btn-dark btn-sm btn-file">
-                                Upload Spectrum <i class='fas fa-plus-square'></i>
-                                <input type="file" id="upload_spectrum" name="upload_spectrum"
-                                       accept=".json," style="display: none;">
-                            </label>
-                        </form>
-
-                        <p class="mt-2">
-                            <span class="badge badge-info">Note</span>
-                            The uploaded spectrum must be in the JSON format following the schema below:
-                            <pre><code>{"telescope": "PO:1.2m",
- "instrument": "ZTF",
- "filter": "zr",
- "mjd": mjd,
- "wavelength_unit": "A",
- "flux_unit": "arbitrary",
- "data": [
-    {"wavelength": wavelength, "flux": flux, "fluxerr": fluxerr},
-    ...
- ]
-}</code></pre>
-                        "wavelen_unit" can be "A", "nm", or "m".
-                        You can use either mjd or hjd for the time stamp.
-                        Other fields above are mandatory, however you can add any custom fields.
-                        </p>
-                    </div>
-
-{#                    <div class="tab-pane fade mt-2" id="nav-finding-chart"#}
-{#                         role="tabpanel" aria-labelledby="nav-finding-chart-tab">#}
-{#                        <div class="d-flex align-items-center">#}
-{#                            <strong>Loading...</strong>#}
-{#                            <div class="spinner-grow text-primary" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-secondary" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-success" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-danger" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-warning" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-info" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-light" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-dark" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                    <div class="tab-pane fade mt-2" id="nav-visibility"#}
-{#                         role="tabpanel" aria-labelledby="nav-visibility-tab">#}
-{#                        <div class="d-flex align-items-center">#}
-{#                            <strong>Loading...</strong>#}
-{#                            <div class="spinner-grow text-primary" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-secondary" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-success" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-danger" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-warning" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-info" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-light" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                            <div class="spinner-grow text-dark" role="status">#}
-{#                                <span class="sr-only">Loading...</span>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-
-                    <div class="tab-pane fade mt-2" id="nav-auxiliary"
-                         role="tabpanel" aria-labelledby="nav-auxiliary-tab">
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>
-                                    ZTF VM Program id: {{ source['zvm_program_id'] }}
-                                    <button type="button" class="btn btn-dark btn-sm"
-                                            id="transfer_source" onclick="transfer_source()">
-                                        <i class="fas fa-exchange-alt"></i>
-                                    </button><br>
-                                </p>
-                                <p>
-                                    Source type(s): <button type="button" class="btn btn-dark btn-sm"
-                                                   id="add_note" onclick="add_source_type()">
-                                    <i class='fas fa-plus-square'></i></button><br>
-                                    <ul>
-                                    {% for st in source['source_types'] %}
-                                        <li>{{ st }}</li>
-                                    {% endfor %}
-                                    </ul>
-                                </p>
-                                <p>
-                                    Period: <button type="button" class="btn btn-dark btn-sm"
-                                                   id="add_note" onclick="add_period()">
-                                    <i class='fas fa-plus-square'></i></button><br>
-                                    <ul>
-                                    {% for p in source['p'] %}
-                                        <li>{{ p['period'] }} {{ p['period_unit'] }}</li>
-                                    {% endfor %}
-                                    </ul>
-                                </p>
-                                <p>
-                                    Flags: <button type="button" class="btn btn-dark btn-sm"
-                                                   id="add_note" onclick="add_source_flags()">
-                                    <i class='fas fa-plus-square'></i></button><br>
-                                    <ul>
-                                    {% for sf in source['source_flags'] %}
-                                        <li>{{ sf }}</li>
-                                    {% endfor %}
-                                    </ul>
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>
-                                    Notes: <button type="button" class="btn btn-dark btn-sm"
-                                                   id="add_note" onclick="add_note()">
-                                    <i class='fas fa-plus-square'></i></button><br>
-                                    {% for note in source['history'] | reverse %}
-                                        {{ note['time_tag'].strftime('%Y-%b-%d') }} <b>{{ note['user'] }}</b>
-                                        [{{ note['note_type'] }}]: {{ note['note'] }}<br>
-                                    {% endfor %}
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-
-                        <p>
-                            Download complete source database entry:<br>
-                            <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
-                               class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
-                                JSON <i class='fas fa-download'></i></a>
-                        </p>
-                        <hr>
-
-                        <button type="button" class="btn btn-danger btn-sm"
-                                id="remove_source">Remove source</button>
-                    </div>
-                </div>
-
-            </main>
-          </div>
     </div>
 
     <!-- Modal -->
@@ -566,6 +150,27 @@
     <script src="{{-script_root-}}/static/js/jquery.json-viewer.js"></script>
 
     <script>
+        $(document).ready(function() {
+            // show on load:
+            $("#wrapper").toggleClass("toggled");
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+
+        // arrow up/down on show/hide
+        $(document).ready(function() {
+            let block = 'load_data_form';
+            $('.sidebar-collapse').on('hide.bs.collapse', function () {
+                {#console.log(this.id);#}
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
+            });
+            $('.sidebar-collapse').on('show.bs.collapse', function () {
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
+            });
+        });
+
         // display JSON
         let data_alert = JSONbig.parse('{{-source['xmatch']|tojson_pretty|safe|replace('\n', '')|replace('NaN', 'null')-}}');
         $('#json-renderer').jsonViewer(data_alert, {collapsed: true, withQuotes: true});
