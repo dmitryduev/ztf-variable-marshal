@@ -401,7 +401,8 @@ def alphabet2num(dg: str):
     return sum(((ord(dg[x])-ord('a')+1) * (26 ** (len(dg)-x-1)) for x in range(0, len(dg))))
 
 
-alphabet = string.ascii_letters + string.digits
+# alphabet = string.ascii_letters + string.digits
+alphabet = string.ascii_lowercase + string.digits
 
 
 def uid(prefix: str = '', length: int = 6):
