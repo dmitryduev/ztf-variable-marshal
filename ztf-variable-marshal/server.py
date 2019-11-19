@@ -2263,6 +2263,7 @@ async def sources_put_handler(request):
                 try:
                     doc['_id'] = uid(prefix=prefix, length=8)
                     await request.app['mongo'].sources.insert_one(doc)
+                    break
                 except pymongo.errors.DuplicateKeyError as e:
                     continue
 
