@@ -1,6 +1,7 @@
 import hashlib
 import random
 import string
+import secrets
 import math
 # import aiohttp
 import io
@@ -39,7 +40,7 @@ def to_pretty_json(value):
     return dumps(value, separators=(',', ': '))
 
 
-@jit
+@jit(forceobj=True)
 def deg2hms(x):
     """Transform degrees to *hours:minutes:seconds* strings.
     Parameters
@@ -64,7 +65,7 @@ def deg2hms(x):
     return hms
 
 
-@jit
+@jit(forceobj=True)
 def deg2dms(x):
     """Transform degrees to *degrees:arcminutes:arcseconds* strings.
     Parameters
@@ -379,7 +380,7 @@ def random_alphanumeric_str(length: int = 8):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(length)).lower()
 
 
-@jit
+@jit(forceobj=True)
 def iter_all_strings():
     for size in itertools.count(1):
         for s in itertools.product(ascii_lowercase, repeat=size):
@@ -398,6 +399,40 @@ def num2alphabet(num: int):
 
 def alphabet2num(dg: str):
     return sum(((ord(dg[x])-ord('a')+1) * (26 ** (len(dg)-x-1)) for x in range(0, len(dg))))
+
+
+alphabet = string.ascii_letters + string.digits
+
+
+def uid(prefix: str = '', length: int = 6):
+    return prefix + ''.join(secrets.choice(alphabet) for _ in range(length))
+
+
+# Rotation matrix for the conversion : x_galactic = R * x_equatorial (J2000)
+# http://adsabs.harvard.edu/abs/1989A&A...218..325M
+RGE = np.array([[-0.054875539, -0.873437105, -0.483834992],
+                [+0.494109454, -0.444829594, +0.746982249],
+                [-0.867666136, -0.198076390, +0.455983795]])
+
+
+def radec2lb(ra, dec):
+    """
+        ra [deg]
+        dec [deg]
+
+        return l [deg], b [deg]
+    """
+    ra_rad, dec_rad = np.deg2rad(ra), np.deg2rad(dec)
+    u = np.array([np.cos(ra_rad) * np.cos(dec_rad),
+                  np.sin(ra_rad) * np.cos(dec_rad),
+                  np.sin(dec_rad)])
+
+    ug = np.dot(RGE, u)
+
+    x, y, z = ug
+    l = np.arctan2(y, x)
+    b = np.arctan2(z, (x * x + y * y) ** .5)
+    return np.rad2deg(l), np.rad2deg(b)
 
 
 colors = {1: ['#28a745', '#043927', '#0b6623', '#4F7942',

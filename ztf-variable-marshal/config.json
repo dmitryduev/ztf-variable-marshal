@@ -77,12 +77,6 @@
             "w1mpro": 1, "w1sigmpro": 1, "w2mpro": 1, "w2sigmpro": 1,
             "w3mpro": 1, "w3sigmpro": 1, "w4mpro": 1, "w4sigmpro": 1, "ph_qual": 1}
         },
-        "ZTF_alerts": {
-          "filter": {},
-          "projection": {
-            "_id": 0, "candid": 1, "objectId": 1, "coordinates.radec_str": 1,
-            "candidate.jd": 1, "candidate.programid": 1, "candidate.magpsf": 1, "candidate.sigmapsf": 1}
-        },
         "RFC_2019a": {
           "filter": {},
           "projection": {
@@ -104,6 +98,7 @@
   "misc": {
     "filter_MSIP": true,
     "filter_MSIP_best_before_mjd": 58483.0,
+    "max_retries": 20,
     "source_types": [
       "AGB",
       "AGN",

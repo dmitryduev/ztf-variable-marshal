@@ -7,6 +7,7 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 import aiofiles
 import json
 import jwt
+import pymongo
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson.json_util import loads, dumps
 import datetime
@@ -2099,6 +2100,7 @@ async def sources_put_handler(request):
         automerge = _r.get('automerge', False)
         return_result = _r.get('return_result', True)
         prefix = _r.get('prefix', 'ZTFS')
+        naming = _r.get('naming', 'incremental')  # 'incremental' or 'random'
 
         assert zvm_program_id is not None, 'zvm_program_id not specified'
         assert (_id is not None) or ((ra is not None) and (dec is not None)), '_id or (ra, dec) not specified'
@@ -2120,28 +2122,30 @@ async def sources_put_handler(request):
         # build doc to ingest:
         doc = dict()
 
-        source_id_base = \
-            f'{prefix}{datetime.datetime.utcnow().strftime("%y")}{ztf_source["coordinates"]["radec_str"][0][:2]}'
+        if naming == 'incremental':
+            source_id_base = \
+                f'{prefix}{datetime.datetime.utcnow().strftime("%y")}{ztf_source["coordinates"]["radec_str"][0][:2]}'
 
-        num_saved_sources = await request.app['mongo'].sources.count_documents({'_id':
-                                                                                    {'$regex': f'{source_id_base}.*'}})
-        # postfix = num2alphabet(num_saved_sources + 1)
-        if num_saved_sources > 0:
-            saved_source_ids = await request.app['mongo'].sources.find({'_id': {'$regex': f'{source_id_base}.*'}},
-                                                                       {'_id': 1}).to_list(length=None)
-            saved_source_ids = [s['_id'] for s in saved_source_ids]
-            saved_source_ids.sort(key=lambda item: (len(item), item))
-            # print(saved_source_ids)
-            num_last = alphabet2num(saved_source_ids[-1][8:])
+            num_saved_sources = await request.app['mongo'].sources.count_documents({'_id':
+                                                                                        {'$regex': f'{source_id_base}.*'}})
+            # postfix = num2alphabet(num_saved_sources + 1)
+            if num_saved_sources > 0:
+                saved_source_ids = await request.app['mongo'].sources.find({'_id': {'$regex': f'{source_id_base}.*'}},
+                                                                           {'_id': 1}).to_list(length=None)
+                saved_source_ids = [s['_id'] for s in saved_source_ids]
+                saved_source_ids.sort(key=lambda item: (len(item), item))
+                # print(saved_source_ids)
+                num_last = alphabet2num(saved_source_ids[-1][8:])
 
-            postfix = num2alphabet(num_last + 1)
+                postfix = num2alphabet(num_last + 1)
 
+            else:
+                postfix = 'a'
+
+            source_id = source_id_base + postfix
         else:
-            postfix = 'a'
-
-        source_id = source_id_base + postfix
-
-        c = SkyCoord(ra=ztf_source['ra'] * u.degree, dec=ztf_source['dec'] * u.degree, frame='icrs')
+            # random naming
+            source_id = uid(prefix=prefix, length=8)
 
         # unique (sequential) id:
         doc['_id'] = source_id
@@ -2153,8 +2157,7 @@ async def sources_put_handler(request):
         doc['ra'] = ztf_source['ra']
         doc['dec'] = ztf_source['dec']
         # Galactic coordinates:
-        doc['l'] = c.galactic.l.degree  # longitude
-        doc['b'] = c.galactic.b.degree  # latitude
+        doc['l'], doc['b'] = radec2lb(doc['ra'], doc['dec'])  # longitude, latitude
         doc['coordinates'] = ztf_source['coordinates']
 
         # [{'period': float, 'period_error': float}]:
@@ -2185,7 +2188,7 @@ async def sources_put_handler(request):
                 # print(len(ztf_source['data']))
 
             # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
-            lc = {'_id': random_alphanumeric_str(length=24),
+            lc = {'_id': uid(length=24),
                   'telescope': 'PO:1.2m',
                   'instrument': 'ZTF',
                   'release': config['kowalski']['coll_sources'],
@@ -2233,7 +2236,7 @@ async def sources_put_handler(request):
                                              (dp['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
 
                 # temporal, folded; if folded - 'p': [{'period': float, 'period_error': float}]
-                lc = {'_id': random_alphanumeric_str(length=24),
+                lc = {'_id': uid(length=24),
                       'telescope': 'PO:1.2m',
                       'instrument': 'ZTF',
                       'release': config['kowalski']['coll_sources'],
@@ -2252,7 +2255,16 @@ async def sources_put_handler(request):
         # make history
         doc['history'].append({'note_type': 'info', 'time_tag': time_tag, 'user': user, 'note': 'Saved'})
 
-        await request.app['mongo'].sources.insert_one(doc)
+        if naming == 'incremental':
+            await request.app['mongo'].sources.insert_one(doc)
+        else:
+            # avoid random name collisions
+            for nr in range(config['misc']['max_retries']):
+                try:
+                    doc['_id'] = uid(prefix=prefix, length=8)
+                    await request.app['mongo'].sources.insert_one(doc)
+                except pymongo.errors.DuplicateKeyError as e:
+                    continue
 
         if return_result:
             return web.json_response({'message': 'success', 'result': doc}, status=200, dumps=dumps)
