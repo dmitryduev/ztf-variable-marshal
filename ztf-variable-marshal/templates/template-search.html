@@ -121,7 +121,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                                             class="form-control form-control-sm" id="catalogs"
                                             name="catalogs">
                                         {# 'ZTF_sources_20191101', 'PTF_sources' #}
-                                        {% for c in ('ZTF_sources_20191101',) %}
+                                        {% for c in catalogs %}
                                             <option selected="selected">{{ c }}</option>
                                         {% endfor %}
                                     </select>

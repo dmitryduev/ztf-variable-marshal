@@ -2704,9 +2704,11 @@ async def search_get_handler(request):
     # get ZVM programs:
     programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
 
+    # fixme: redo catalogs once PTF light curves are ingested
     context = {'logo': config['server']['logo'],
                'user': session['user_id'],
-               'programs': programs}
+               'programs': programs,
+               'catalogs': (config['kowalski']['coll_sources'], )}
     response = aiohttp_jinja2.render_template('template-search.html',
                                               request,
                                               context)
@@ -2816,6 +2818,7 @@ async def search_post_handler(request):
                    'user': session['user_id'],
                    'data': data_formatted,
                    'programs': programs,
+                   'catalogs': (config['kowalski']['coll_sources'],),
                    'form': _query}
         response = aiohttp_jinja2.render_template('template-search.html',
                                                   request,
