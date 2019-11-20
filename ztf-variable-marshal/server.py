@@ -1857,7 +1857,7 @@ async def source_hr_get_handler(request):
 
                 fig = plt.figure(figsize=(4, 4), dpi=200)
                 ax = fig.add_subplot(111)
-                ax.plot(bp-rp, g + 5*np.log10(p) + 5, 'o', markersize=8, c='#f22f29')
+                ax.plot(bp-rp, g - 5*np.log10(p) + 5, 'o', markersize=8, c='#f22f29')
                 ax.imshow(img, extent=[-1, 5, 17, -5])
                 ax.set_aspect(1 / 4)
                 ax.set_ylabel('G')
