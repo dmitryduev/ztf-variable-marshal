@@ -12,10 +12,10 @@ code {
 #wrapper {
     padding-top: 1.5rem;
     padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 #wrapper.toggled {
     padding-left: 250px;
@@ -29,10 +29,10 @@ code {
     margin-left: -250px;
     overflow-y: auto;
     background: #f7f8f9;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 #wrapper.toggled #sidebar-wrapper {
     width: 250px;

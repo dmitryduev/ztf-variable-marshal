@@ -94,7 +94,315 @@
                         {{ source['_id'] }}
                     </h4>
 
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-photometry-tab" data-toggle="tab"
+                                   href="#nav-photometry" role="tab" aria-controls="nav-photometry"
+                                   aria-selected="true">Photometry</a>
+                                <a class="nav-item nav-link" id="nav-spectroscopy-tab" data-toggle="tab"
+                                   href="#nav-spectroscopy" role="tab" aria-controls="nav-spectroscopy"
+                                   aria-selected="false">Spectroscopy</a>
+        {#                        <a class="nav-item nav-link" id="nav-finding-chart-tab" data-toggle="tab"#}
+        {#                           href="#nav-finding-chart" role="tab" aria-controls="nav-finding-chart"#}
+        {#                           aria-selected="false">Finding Chart</a>#}
+        {#                        <a class="nav-item nav-link" id="nav-visibility-tab" data-toggle="tab"#}
+        {#                           href="#nav-visibility" role="tab" aria-controls="nav-visibility"#}
+        {#                           aria-selected="false">Visibility</a>#}
+                                <a class="nav-item nav-link" id="nav-auxiliary-tab" data-toggle="tab"
+                                   href="#nav-auxiliary" role="tab" aria-controls="nav-auxiliary"
+                                   aria-selected="false">Auxiliary</a>
+                            </div>
+                        </nav>
 
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active mt-2" id="nav-photometry"
+                                 role="tabpanel" aria-labelledby="nav-photometry-tab">
+
+                                {% if source['lc'] | length == 0 %}
+                                <p>No light curves found.</p>
+
+                                {% else %}
+
+                                <div id="lc" style="width: 100%; height: 450px;"></div>
+
+                                <div class="form-group row mt-2">
+                                    <label for="epoch" class="col-lg-2 control-label">
+                                        Epoch:
+                                    </label>
+
+                                    <div class="col-md-4">
+                                        <select class="form-control form-control-sm col-lg-6" id="epoch" name="epoch">
+                                            <option>date</option>
+                                            <option>mjd</option>
+                                            <option>jd</option>
+                                            <option>hjd</option>
+                                            <option>days ago</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="mt-2">
+                                {% for lc in source['lc'] %}
+                                    {% if lc['lc_type'] == 'temporal' %}
+                                        {% set lc_info = {'telescope': lc['telescope'],
+                                                          'instrument': lc['instrument'],
+                                                          'filter': lc['filter'],
+                                                          'id': lc['id']} %}
+                                        <b>LC_{{ loop.index }}:</b> {{ lc_info | safe }}
+                                        <a href="#" class="remove_lc" data-lcid="{{ lc['_id'] }}"><i class="fas fa-times"></i></a>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                                </p>
+
+                                <hr>
+
+                                <div class="form-group row mt-2">
+                                    <label for="fold_lc_period" class="col-md-2 mt-1 control-label">
+                                        Phase-fold at
+                                    </label>
+
+                                    <div class="col-md-4 form-inline mt-1">
+                                        <input type="text" class="form-control form-control-sm col-lg-6"
+                                               id="fold_lc_period" name="fold_lc_period" placeholder="">
+                                        <select class="form-control form-control-sm col-lg-6"
+                                                id="fold_lc_unit" name="fold_lc_unit">
+                                            <option>Minutes</option>
+                                            <option>Hours</option>
+                                            <option>Days</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 mt-1">
+                                        <button type="button" class="btn btn-dark btn-sm"
+                                                id="fold_lc" onclick="setFolding()">Set</button>
+                                        <button type="button" class="btn btn-dark btn-sm"
+                                                id="double_folding_period" onclick="doubleFoldingPeriod()">&times;2</button>
+                                        <button type="button" class="btn btn-outline-dark btn-sm"
+                                                id="reset_lc" onclick="unsetFolding()">Reset</button>
+                                    </div>
+                                    <div class="col-md-2 mt-1">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="plot_twice">
+                                            <label class="custom-control-label" for="plot_twice">Plot twice</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if source['p'] | length > 0 %}
+                                <div class="form-group row mt-3">
+                                    <div class="col">
+                                        Saved periods:
+                                        {% for p in source['p'] %}
+                                        <p class="mb-1">
+                                            {{ p['period'] }} {{ p['period_unit'] }}
+                                            <button type="button" class="btn btn-dark btn-sm"
+                                                    id="fold_lc" onclick="setSavedFolding('{{ p['period'] }}',
+                                                                                          '{{ p['period_unit'] }}')">Set</button>
+                                        </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <hr>
+                                {% endif %}
+
+                                <form id="form_upload_lc" method="post" accept-charset="utf-8">
+                                    <label class="btn btn-dark btn-sm btn-file">
+                                        Upload Light Curve(s) <i class='fas fa-plus-square'></i>
+                                        <input type="file" id="upload_lc" name="upload_lc"
+                                               accept=".json," style="display: none;">
+                                    </label>
+                                </form>
+
+                                <p class="mt-2">
+                                    <span class="badge badge-primary">Note</span>
+                                    The uploaded light curve must be in the JSON format following the schema:<br>
+                                    <pre><code>{"telescope": "PO:1.2m",
+ "instrument": "ZTF",
+ "filter": "zr",
+ "id": UNIQUE_ID,
+ "lc_type": "temporal",
+ "data": [
+     {"mjd": MJD, "hjd": HJD, "mag": MAG, "magerr": MAGERROR, "mag_llim": MAG_LLIM, "mag_ulim": MAG_ULIM},
+     ...
+ ]}</code></pre>
+                            You may place multiple light curves in a single JSON file:
+                            <pre><code>[{..LC_1..}, {..LC_2..}, ...]</code></pre>
+
+                            You can use either or both mjd or hjd for the time stamps.
+                            Each data point must contain ('mag' and 'magerr') or ('mag_llim' or 'mag_ulim').
+                            Other fields above are mandatory, however you can add any custom fields.
+                                </p>
+
+                                <hr>
+
+                                <p>
+                                    <b>Cross-matched sources from external catalogs within {{ cone_search_radius }} {{ cone_search_unit }}:</b>
+                                    <button type="button" class="btn btn-dark btn-sm"
+                                            id="run_cross_match" onclick="run_cross_match()">
+                                    <i class='fas fa-sync-alt'></i></button><br>
+                                    {# TODO: refresh button #}
+                                    <pre id="json-renderer" class="pl-4 pr-4"></pre>
+                                </p>
+
+                                <hr>
+
+                                <p>
+                                    <b>Surveys</b>
+                                </p>
+                                <p>
+                                    {% if source['dec'] >= 0 %}
+                                        {% set dec_string = '+' + (source['dec'] | string) %}
+                                    {% else %}
+                                        {% set dec_string = source['dec'] | string %}
+                                    {% endif %}
+                                    <a href="javascript:document.getElementById('kowalski_form').submit();"
+                                       role="button" class="btn btn-secondary btn-sm"
+                                            id="survey_ztf_alerts">ZTF Alerts</a>
+                                    <a href="https://ps1images.stsci.edu/cgi-bin/ps1cutouts?pos={{ source['ra'] }}{{ dec_string }}&filter=color&filter=g&filter=r&filter=i&filter=z&filter=y&filetypes=stack&auxiliary=data&size=240&output_size=0&verbose=0&autoscale=99.500000&catlist="
+                                       target="_blank" role="button" class="btn btn-secondary btn-sm"
+                                            id="survey_panstarrs">PanSTARRS-1</a>
+                                </p>
+
+                                <div id="kowalski" style="display:none">
+                                    <form id="kowalski_form" target="_blank" method="POST"
+                                          action="https://kowalski.caltech.edu/lab/ztf-alerts">
+                                        <input name="radec" value="[({{ source['ra'] }}, {{ source['dec'] }})]"/>
+                                        <input name="cone_search_radius" value="5"/>
+                                        <input name="cone_search_unit" value="arcsec"/>
+                                        <input name="filter" value=""/>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade mt-2" id="nav-spectroscopy"
+                                 role="tabpanel" aria-labelledby="nav-spectroscopy-tab">
+                                {% if source['spec'] | length == 0 %}
+                                <p>No spectra found.</p>
+                                {% else %}
+
+                                <div id="spec" style="width: 100%; height: 450px;"></div>
+
+                                <p class="mt-2">
+                                {% for spec in source['spec'] %}
+                                    {% set spec_info = {'telescope': spec['telescope'],
+                                                       'instrument': spec['instrument'],
+                                                       'filter': spec['filter'],
+                                                       'mjd': spec['mjd'],
+                                                       'wavelength_unit': spec['wavelength_unit'],
+                                                       'flux_unit': spec['flux_unit']} %}
+                                    <b>Spectrum {{ loop.index }}:</b> {{ spec_info | safe }}
+                                    <a href="#" class="remove_spectrum" data-specid="{{ spec['_id'] }}"><i class="fas fa-times"></i></a>
+                                    <br>
+                                {% endfor %}
+                                </p>
+
+                                {% endif %}
+
+                                <form id="form_upload_spectrum" method="post" accept-charset="utf-8">
+                                    <label class="btn btn-dark btn-sm btn-file">
+                                        Upload Spectrum <i class='fas fa-plus-square'></i>
+                                        <input type="file" id="upload_spectrum" name="upload_spectrum"
+                                               accept=".json," style="display: none;">
+                                    </label>
+                                </form>
+
+                                <p class="mt-2">
+                                    <span class="badge badge-info">Note</span>
+                                    The uploaded spectrum must be in the JSON format following the schema below:
+                                    <pre><code>{"telescope": "PO:1.2m",
+ "instrument": "ZTF",
+ "filter": "zr",
+ "mjd": mjd,
+ "wavelength_unit": "A",
+ "flux_unit": "arbitrary",
+ "data": [
+    {"wavelength": wavelength, "flux": flux, "fluxerr": fluxerr},
+    ...
+ ]
+        }</code></pre>
+                                "wavelen_unit" can be "A", "nm", or "m".
+                                You can use either mjd or hjd for the time stamp.
+                                Other fields above are mandatory, however you can add any custom fields.
+                                </p>
+                            </div>
+
+                            <div class="tab-pane fade mt-2" id="nav-auxiliary"
+                                 role="tabpanel" aria-labelledby="nav-auxiliary-tab">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            ZTF VM Program id: {{ source['zvm_program_id'] }}
+                                            <button type="button" class="btn btn-dark btn-sm"
+                                                    id="transfer_source" onclick="transfer_source()">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </button><br>
+                                        </p>
+                                        <p>
+                                            Source type(s): <button type="button" class="btn btn-dark btn-sm"
+                                                           id="add_note" onclick="add_source_type()">
+                                            <i class='fas fa-plus-square'></i></button><br>
+                                            <ul>
+                                            {% for st in source['source_types'] %}
+                                                <li>{{ st }}</li>
+                                            {% endfor %}
+                                            </ul>
+                                        </p>
+                                        <p>
+                                            Period: <button type="button" class="btn btn-dark btn-sm"
+                                                           id="add_note" onclick="add_period()">
+                                            <i class='fas fa-plus-square'></i></button><br>
+                                            <ul>
+                                            {% for p in source['p'] %}
+                                                <li>{{ p['period'] }} {{ p['period_unit'] }}</li>
+                                            {% endfor %}
+                                            </ul>
+                                        </p>
+                                        <p>
+                                            Flags: <button type="button" class="btn btn-dark btn-sm"
+                                                           id="add_note" onclick="add_source_flags()">
+                                            <i class='fas fa-plus-square'></i></button><br>
+                                            <ul>
+                                            {% for sf in source['source_flags'] %}
+                                                <li>{{ sf }}</li>
+                                            {% endfor %}
+                                            </ul>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>
+                                            Notes: <button type="button" class="btn btn-dark btn-sm"
+                                                           id="add_note" onclick="add_note()">
+                                            <i class='fas fa-plus-square'></i></button><br>
+                                            {% for note in source['history'] | reverse %}
+                                                {{ note['time_tag'].strftime('%Y-%b-%d') }} <b>{{ note['user'] }}</b>
+                                                [{{ note['note_type'] }}]: {{ note['note'] }}<br>
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <p>
+                                    Download complete source database entry:<br>
+                                    <a role='button' download='{{ source['_id'] }}.json' href="?format=json"
+                                       class='btn btn-sm btn-dark mt-1 mb-1 align-top'>
+                                        JSON <i class='fas fa-download'></i></a>
+                                </p>
+                                <hr>
+
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        id="remove_source">Remove source</button>
+                            </div>
+                        </div>
+
+{#                    </main>#}
 
                 </div>
             </div>
@@ -150,12 +458,18 @@
     <script src="{{-script_root-}}/static/js/jquery.json-viewer.js"></script>
 
     <script>
+        function reset_plot() {
+            {#Plotly.Plots.resize('lc');#}
+            window.dispatchEvent(new Event('resize'));
+        }
         $(document).ready(function() {
             // show on load:
             $("#wrapper").toggleClass("toggled");
+            setTimeout(reset_plot, 400);
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+                setTimeout(reset_plot, 400);
             });
         });
 
@@ -200,6 +514,7 @@
             let layout = {xaxis: {autorange: true},
                           yaxis: {autorange: 'reversed'},
                           margin: {b: 30, t: 30, l: 50, r: 50, pad: 1},
+                          autosize: true,
             };
 
             {# iterate over individual light-curves #}
@@ -278,7 +593,7 @@
 
             // there should always be at least one detection since there's an alert
             if (data.length > 0) {
-                Plotly.newPlot('lc', data, layout);
+                Plotly.newPlot('lc', data, layout, {responsive: true});
             }
         }
 
@@ -287,7 +602,8 @@
             var spectra = [];
 
             let layout = {showlegend: true,
-                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
+                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1},
+                          autosize: true
             };
 
             {% for spec in source['spec'] %}
@@ -311,7 +627,7 @@
 
             {% endfor %}
 
-            Plotly.newPlot('spec', spectra, layout);
+            Plotly.newPlot('spec', spectra, layout, {responsive: true});
         }
 
         {% if source['lc'] | length > 0 %}
@@ -381,7 +697,8 @@
             let layout = {yaxis: {autorange: 'reversed'},
                           showlegend: true,
                           {#automargin: true,#}
-                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1}
+                          margin: {b: 30, t: 30, l: 50, r: 50, pad: 1},
+                          autosize: true
             };
 
             let data_folded = [];
@@ -427,7 +744,7 @@
 
             }
 
-            Plotly.newPlot('lc', data_folded, layout);
+            Plotly.newPlot('lc', data_folded, layout, {responsive: true});
 
             // disable epoch selector
             $("#epoch").prop('disabled', 'disabled');
