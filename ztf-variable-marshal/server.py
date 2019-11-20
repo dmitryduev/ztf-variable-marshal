@@ -2011,7 +2011,11 @@ async def source_lc_get_handler(request):
 
                 else:
                     # phase-folded lc:
-                    w_det = df_plc['mag'] != 0
+                    if 'catflags' in df_plc:
+                        w_det = (df_plc['mag'] != 0) & (df_plc['catflags'] == 0)
+                    else:
+                        w_det = df_plc['mag'] != 0
+
                     df_plc['phase'] = df_plc['hjd'].apply(lambda x: (x / period) % 1)
 
                     t = df_plc.loc[w_det, 'phase'] if not plot_twice else np.hstack(
