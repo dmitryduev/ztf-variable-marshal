@@ -97,7 +97,7 @@
 
   "misc": {
     "filter_MSIP": true,
-    "filter_MSIP_best_before_mjd": 58483.0,
+    "filter_MSIP_best_before_mjd": 58664.0,
     "max_retries": 20,
     "source_types": [
       "AGB",
