@@ -4,6 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{{-script_root-}}/static/css/bootstrap-table.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{-script_root-}}/static/css/sidebar.fat.css">
 {% endblock %}
 
 {% block nav_search %}
@@ -11,53 +12,79 @@
 {% endblock %}
 
 {% block body_top %}
+{#    <div class="container-fluid mt-2">#}
+{#    </div>#}
+{% endblock %}
+
+{% block body %}
     <div class="container-fluid mt-2">
 
-        <div id="accordion" role="tablist" class="mt-2">
-            <div class="card">
-                <div class="card-header" role="tab" id="headingQueryTab">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#queryTab" aria-expanded="true"
-                           aria-controls="queryTab">
-                            Search ZTF light curve database
-                        </a>
-                    </h5>
-                </div>
-                <div id="queryTab" class="collapse show" role="tabpanel" aria-labelledby="headingQueryTab">
-                    <div class="card-body">
-                        <form id="query_form" class="form" method="post">
+        <div id="wrapper">
 
-                            <div class="form-group row">
-                                <label for="ra" class="col-md-2 col-form-label">RA/Dec, ICRS</label>
-                                <div class="col-md-10">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav ml-2 mb-5 pb-5">
+
+                    <!-- Search -->
+                    <li class="sidebar-brand m-0 mt-3 p-0">
+                        <a data-toggle="collapse" href="#query"
+                           aria-expanded="true" aria-controls="query"
+                           id="query-dropdown"
+                           style="margin-top: -0.1rem;">
+                            Search sources
+                            <i class="fa fa-lg fa-angle-up float-right"></i>
+                        </a>
+                    </li>
+
+                    <div class="collapse multi-collapse show sidebar-collapse" id="query">
+
+                        <form id="query_form" class="form mt-1 mb-2" method="post">
+
+                            <div class="form-group">
+
+                                <label for="radec" class="col control-label">
+                                    RA/Dec, ICRS
+                                </label>
+
+                                <div class="col pr-4">
                                     <textarea class="form-control form-control-sm object_coordinates" id="radec" name="radec"
-                                              placeholder="Python-readable list of comma-separated object coordinates or dictionary:
+                                                      placeholder="Python-readable list of comma-separated object coordinates or dictionary:
 [(HH:MM:SS, DD:MM:SS) or (HHhMMmSSs, DDdMMmSSs) or (deg, deg)]
 Examples:
 [(0.0, 0.0)]
 [(0.0, 0.0), (1.0, 1.0)]
 [('08:55:29.205', '-34:02:36.8944')]
 {'object1': ('08h55m29.205s', '-34d02m36.8944s'), 'object2': ('06h55m29.205s', '32d02m36.1944s')}
-
 Alternatively, for a single source, either two numbers [deg deg] or two strings [HH:MM:SS DD:MM:SS] or [HHhMMmSSs DDdMMmSSs]:
 0.0 0.0
 18:43:58.5333 -20:41:41.513
 "
-                                              rows="8"></textarea>
+                                                      rows="4"></textarea>
                                 </div>
+
                             </div>
 
-                            <div class="form-group row">
-                                <label for="cone_search_radius" class="col-md-2 control-label">
+                            <div class="form-group">
+
+                                <label for="cone_search_radius" class="col control-label">
                                     Cone search radius
                                 </label>
 
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control form-control-sm object_coordinates" id="cone_search_radius"
-                                           name="cone_search_radius" placeholder="">
+                                <div class="col pr-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                           id="cone_search_radius" name="cone_search_radius" placeholder="">
                                 </div>
-                                <div class="col-md-5">
-                                    <select class="form-control form-control-sm object_coordinates" id="cone_search_unit"
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="cone_search_unit" class="col control-label">
+                                    Cone search units
+                                </label>
+
+                                <div class="col pr-4">
+                                    <select class="form-control form-control-sm" id="cone_search_unit"
                                             name="cone_search_unit">
                                         <option>arcsec</option>
                                         <option>arcmin</option>
@@ -68,80 +95,108 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
 
                             </div>
 
-                            <div class="form-group row">
-                                <label for="filter" class="col-md-2 col-form-label">Filter</label>
-                                <div class="col-md-10">
+                            <div class="form-group">
+
+                                <label for="filter" class="col control-label">
+                                    Filter
+                                </label>
+
+                                <div class="col pr-4">
                                     <textarea class="form-control form-control-sm"
-                                              id="filter" name="filter"
-                                              placeholder="Filter in MongoDB syntax, see help"
-                                              rows="3"></textarea>
+                                                      id="filter" name="filter"
+                                                      placeholder="Filter in MongoDB syntax, see help"
+                                                      rows="5"></textarea>
                                 </div>
+
                             </div>
 
-{#                            <div class="form-group row">#}
-{#                                <label for="limit" class="col-md-2 control-label">#}
-{#                                    Limit#}
-{#                                </label>#}
-{##}
-{#                                <div class="col-md-10">#}
-{#                                    <input type="text" class="form-control form-control-sm" id="limit"#}
-{#                                           name="limit" value="10"#}
-{#                                           placeholder="Max number of entries to return. Leave blank to get all.">#}
-{#                                </div>#}
-{#                            </div>#}
+                            <div class="form-group">
 
-                            {# TODO: make user-friendy?: range selectors etc? #}
+                                <label for="catalogs" class="col control-label">
+                                    Catalogs
+                                </label>
 
-                            <button type="button" class="btn btn-dark btn-sm" id="submit_query">Submit</button>
+                                <div class="col pr-4">
+                                    <select multiple size="2"
+                                            class="form-control form-control-sm" id="catalogs"
+                                            name="catalogs">
+                                        {# 'ZTF_sources_20191101', 'PTF_sources' #}
+                                        {% for c in ('ZTF_sources_20191101',) %}
+                                            <option selected="selected">{{ c }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col">
+                                <button type="button" class="btn btn-dark btn-sm"
+                                        id="submit_query">Submit</button>
+                            </div>
 
                         </form>
                     </div>
+                    <!-- /search -->
+
+                </ul>
+
+
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <h4>
+                        <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars p-1 py-2" aria-hidden="true"></i></a>
+                        Search sources on <a href="https://kowalski.caltech.edu" target="_blank">Kowalski</a>
+                    </h4>
+
+                    {#    {% if data | length > 0 %}#}
+                        <div id="toolbar" class="btn-group">
+                            <button type="button" class="btn btn-outline-dark"
+                                    style="cursor: pointer;" onclick="toggle_expansion()"
+                                    data-toggle="tooltip" data-placement="top" title="Show/hide more">
+                                <i id="expansion_toggle" class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+
+                {#            <button type="button" class="btn btn-outline-dark"#}
+                {#                    style="cursor: pointer;" onclick="toggle_invert_cutouts()"#}
+                {#                    data-toggle="tooltip" data-placement="top" title="Invert cutout colors">#}
+                {#                <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>#}
+                {#            </button>#}
+
+                        </div>
+                        <table id="table"
+                               class="table table-hover table-condensed"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-pagination="true"
+                               data-side-pagination="client"
+                               data-minimum-count-columns="2"
+                               data-page-size="20"
+                               data-page-list="[20, 50, 100, All]"
+                               data-search="true"
+                               data-detail-view="true"
+                               data-detail-formatter="detailFormatter"
+                               data-show-columns="true"
+                               data-show-multi-sort="true"
+                               data-show-export="true"
+                               data-export-types="['json', 'csv']"
+                               data-export-options='{ "fileName": "ztf-vm-sources",
+                                                      "worksheetName": "ztf-vm-sources1"
+                                                     }'>
+                        </table>
+                {#    {% endif %}#}
+
                 </div>
             </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block body %}
-
-    <div class="container-fluid">
-
-{#    {% if data | length > 0 %}#}
-        <div id="toolbar" class="btn-group">
-            <button type="button" class="btn btn-outline-dark"
-                    style="cursor: pointer;" onclick="toggle_expansion()"
-                    data-toggle="tooltip" data-placement="top" title="Show/hide more">
-                <i id="expansion_toggle" class="fas fa-plus" aria-hidden="true"></i>
-            </button>
-
-{#            <button type="button" class="btn btn-outline-dark"#}
-{#                    style="cursor: pointer;" onclick="toggle_invert_cutouts()"#}
-{#                    data-toggle="tooltip" data-placement="top" title="Invert cutout colors">#}
-{#                <i id="expansion_toggle" class="fas fa-adjust" aria-hidden="true"></i>#}
-{#            </button>#}
+            <!-- /#page-content-wrapper -->
 
         </div>
-        <table id="table"
-               class="table table-hover table-condensed"
-               data-toggle="table"
-               data-toolbar="#toolbar"
-               data-pagination="true"
-               data-side-pagination="client"
-               data-minimum-count-columns="2"
-               data-page-size="20"
-               data-page-list="[20, 50, 100, All]"
-               data-search="true"
-               data-detail-view="true"
-               data-detail-formatter="detailFormatter"
-               data-show-columns="true"
-               data-show-multi-sort="true"
-               data-show-export="true"
-               data-export-types="['json', 'csv']"
-               data-export-options='{ "fileName": "ztf-vm-sources",
-                                      "worksheetName": "ztf-vm-sources1"
-                                     }'>
-        </table>
-{#    {% endif %}#}
+        <!-- /#wrapper -->
+
+
     </div>
 
     <!-- Modal -->
@@ -191,6 +246,25 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            // show on load:
+            $("#wrapper").toggleClass("toggled");
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+
+        // arrow up/down on show/hide
+        $(document).ready(function() {
+            $('.sidebar-collapse').on('hide.bs.collapse', function () {
+                {#console.log(this.id);#}
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-down float-right");
+            });
+            $('.sidebar-collapse').on('show.bs.collapse', function () {
+                $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
+            });
+        });
 {#        {% if data | length > 0 %}#}
         // Fancy table stuff
         function getHeight() {
@@ -324,14 +398,6 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             }
         });
 
-        // on accordion collapse/show
-        $('#queryTab').on('hidden.bs.collapse', function () {
-          resetTableHeight();
-        });
-        $('#queryTab').on('shown.bs.collapse', function () {
-          resetTableHeight();
-        });
-
         {# table sorting #}
         function getOrder() {
             var $table = $('#table');
@@ -416,7 +482,12 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                         // console.log('This was logged in the callback: ' + result);
                         // confirmed? emit request to server:
                         if (result) {
-                            $('#query_form').submit();
+                            if ($('#catalogs').val() != null) {
+                                $('#query_form').submit();
+                            }
+                            else {
+                                alert("At least one catalog must be selected");
+                            }
                         }
                     }
                 });
