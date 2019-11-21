@@ -77,7 +77,7 @@
             "w1mpro": 1, "w1sigmpro": 1, "w2mpro": 1, "w2sigmpro": 1,
             "w3mpro": 1, "w3sigmpro": 1, "w4mpro": 1, "w4sigmpro": 1, "ph_qual": 1}
         },
-        "RFC_2019a": {
+        "RFC_2019d": {
           "filter": {},
           "projection": {
             "_id": 1, "coordinates.radec_str": 1, "category": 1,
