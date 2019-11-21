@@ -153,18 +153,38 @@
                     <div class="row mt-0">
                         <!-- Light curves -->
                         <div class="col-7">
-                            <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" width="100%" class="img-fluid">
+                            <span data-src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3"
+                                  data-alt="{{-source['_id']-}}_lc"
+                                  data-class="w-100 img-fluid"
+                                  class="justlazy-spinner load-with-threshold-placeholder">
+                            </span>
+{#                            <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" class="w-100 img-fluid">#}
                             {% if source['p'] | length > 0 %}
                                 {% set p = source['p'][0]['period'] %}
                                 {% set u = source['p'][0]['period_unit'] %}
-                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"
-                                     width="100%" class="img-fluid">
+                                <span data-src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"
+                                      data-alt="{{-source['_id']-}}_lc_folded"
+                                      data-class="w-100 img-fluid"
+                                      class="justlazy-spinner load-with-threshold-placeholder">
+                                </span>
+{#                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"#}
+{#                                     class="w-100 img-fluid">#}
                             {% endif %}
                         </div>
                         <!-- Cutout and HR diagram -->
                         <div class="col-2">
-                            <img src="/sources/{{-source['_id']-}}/images/ps1" class="img-fluid mx-auto d-block mt-4 pl-2">
-                            <img src="/sources/{{-source['_id']-}}/images/hr" class="img-fluid mx-auto d-block mt-4">
+                            <span data-src="/sources/{{-source['_id']-}}/images/ps1"
+                                  data-alt="{{-source['_id']-}}_ps1"
+                                  data-class="img-fluid mx-auto d-block mt-4 pl-2"
+                                  class="justlazy-spinner load-with-threshold-placeholder">
+                            </span>
+                            <span data-src="/sources/{{-source['_id']-}}/images/hr"
+                                  data-alt="{{-source['_id']-}}_hr"
+                                  data-class="img-fluid mx-auto d-block mt-4 pl-2"
+                                  class="justlazy-spinner load-with-threshold-placeholder">
+                            </span>
+{#                            <img src="/sources/{{-source['_id']-}}/images/ps1" class="img-fluid mx-auto d-block mt-4 pl-2">#}
+{#                            <img src="/sources/{{-source['_id']-}}/images/hr" class="img-fluid mx-auto d-block mt-4">#}
                         </div>
                         <!-- Metadata -->
                         <div class="col-3">
@@ -330,6 +350,8 @@
 
     <script src="{{-script_root-}}/static/js/jquery.json-viewer.js"></script>
 
+    <script src="{{-script_root-}}/static/js/justlazy.js" type="text/javascript"></script>
+
     <script>
         // populate query params into form
         const url_params = new URLSearchParams(window.location.search);
@@ -376,6 +398,16 @@
             $('.sidebar-collapse').on('show.bs.collapse', function () {
                 $("[id="+this.id+"-dropdown]").children("i").attr("class", "fa fa-lg fa-angle-up float-right");
             });
+        });
+
+        // lazy load images
+        $(document).ready(function() {
+            let placeholders = document.querySelectorAll('.load-with-threshold-placeholder');
+            for (let i = 0; i < placeholders.length; ++i) {
+                Justlazy.registerLazyLoad(placeholders[i], {
+                    threshold: 300
+                });
+            }
         });
 
         // display JSON
