@@ -1838,13 +1838,21 @@ async def source_hr_get_handler(request):
 
     _id = request.match_info['source_id']
 
-    source = await request.app['mongo'].sources.find({'_id': _id}, {'xmatch.Gaia_DR2': 1}).to_list(length=None)
+    source = await request.app['mongo'].sources.find({'_id': _id},
+                                                     {'ra': 1, 'dec': 1, 'xmatch.Gaia_DR2': 1}).to_list(length=None)
     source = loads(dumps(source[0]))
 
     # print(source)
 
     if len(source['xmatch']['Gaia_DR2']) > 0:
-        xmatch = source['xmatch']['Gaia_DR2'][0]
+
+        # pick the nearest match:
+        ii = np.argmin([great_circle_distance(source['dec'], source['ra'],
+                                              *radec_str2rad(*dd['coordinates']['radec_str'])[::-1])
+                        for dd in source['xmatch']['Gaia_DR2']])
+
+        xmatch = source['xmatch']['Gaia_DR2'][ii]
+
         g = xmatch.get('phot_g_mean_mag', None)
         bp = xmatch.get('phot_bp_mean_mag', None)
         rp = xmatch.get('phot_rp_mean_mag', None)

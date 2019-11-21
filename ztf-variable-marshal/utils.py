@@ -40,7 +40,18 @@ def to_pretty_json(value):
     return dumps(value, separators=(',', ': '))
 
 
-@jit(forceobj=True)
+# @jit(forceobj=True)
+def great_circle_distance(phi1, lambda1, phi2, lambda2):
+    # input: dec1, ra1, dec2, ra2 [rad]
+    # this is orders of magnitude faster than astropy.coordinates.Skycoord.separation
+    delta_lambda = np.abs(lambda2 - lambda1)
+    return np.arctan2(np.sqrt((np.cos(phi2) * np.sin(delta_lambda)) ** 2
+                              + (np.cos(phi1) * np.sin(phi2) -
+                                 np.sin(phi1) * np.cos(phi2) * np.cos(delta_lambda)) ** 2),
+                      np.sin(phi1) * np.sin(phi2) + np.cos(phi1) * np.cos(phi2) * np.cos(delta_lambda))
+
+
+# @jit(forceobj=True)
 def deg2hms(x):
     """Transform degrees to *hours:minutes:seconds* strings.
     Parameters
@@ -65,7 +76,7 @@ def deg2hms(x):
     return hms
 
 
-@jit(forceobj=True)
+# @jit(forceobj=True)
 def deg2dms(x):
     """Transform degrees to *degrees:arcminutes:arcseconds* strings.
     Parameters
@@ -101,6 +112,22 @@ def radec_str2rad(_ra_str, _dec_str):
     _dec = list(map(float, _dec_str.split(':')))
     _sign = -1 if _dec_str.strip()[0] == '-' else 1
     _dec = _sign * (abs(_dec[0]) + abs(_dec[1]) / 60.0 + abs(_dec[2]) / 3600.0) * np.pi / 180.
+
+    return _ra, _dec
+
+
+def radec_str2deg(_ra_str, _dec_str):
+    """
+    :param _ra_str: 'H:M:S'
+    :param _dec_str: 'D:M:S'
+    :return: ra, dec in deg
+    """
+    # convert to rad:
+    _ra = list(map(float, _ra_str.split(':')))
+    _ra = (_ra[0] + _ra[1] / 60.0 + _ra[2] / 3600.0)
+    _dec = list(map(float, _dec_str.split(':')))
+    _sign = -1 if _dec_str.strip()[0] == '-' else 1
+    _dec = _sign * (abs(_dec[0]) + abs(_dec[1]) / 60.0 + abs(_dec[2]) / 3600.0)
 
     return _ra, _dec
 
