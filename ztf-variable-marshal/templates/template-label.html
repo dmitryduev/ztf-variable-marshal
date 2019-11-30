@@ -161,9 +161,9 @@
                                   class="justlazy-spinner load-with-threshold-placeholder">
                             </span>
 {#                            <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3" class="w-100 img-fluid">#}
-                            {% if source['p'] | length > 0 %}
-                                {% set p = source['p'][0]['period'] %}
-                                {% set u = source['p'][0]['period_unit'] %}
+                            {% for pu in source['p'] %}
+                                {% set p = pu['period'] %}
+                                {% set u = pu['period_unit'] %}
                                 <span data-src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"
                                       data-alt="{{-source['_id']-}}_lc_folded"
                                       data-class="w-100 img-fluid"
@@ -171,7 +171,7 @@
                                 </span>
 {#                                <img src="/sources/{{-source['_id']-}}/images/lc?w=10&h=3&p={{-p-}}&u={{-u-}}&t=true"#}
 {#                                     class="w-100 img-fluid">#}
-                            {% endif %}
+                            {% endfor %}
                         </div>
                         <!-- Cutout and HR diagram -->
                         <div class="col-2">
