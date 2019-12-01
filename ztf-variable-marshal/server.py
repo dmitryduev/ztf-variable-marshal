@@ -1353,8 +1353,17 @@ async def label_get_handler(request):
             else:
                 # fixme: slow on large number of matches. create indices to speed up!
                 pipeline = [{'$match': filt},
-                            {'$project': {'xmatch.ZTF_alerts': 0, 'history': 0, 'spec.data': 0}},
+                            {'$project': {'_id': 1}},
                             {'$sample': {'size': int(number)}}]
+                _select = request.app['mongo'].sources.aggregate(pipeline,
+                                                                 allowDiskUse=True,
+                                                                 maxTimeMS=30000)
+
+                source_ids = await _select.to_list(length=None)
+                source_ids = [sid['_id'] for sid in source_ids]
+
+                pipeline = [{'$match': {'_id': {'$in': source_ids}}},
+                            {'$project': {'xmatch.ZTF_alerts': 0, 'history': 0, 'spec.data': 0}}]
                 _select = request.app['mongo'].sources.aggregate(pipeline,
                                                                  allowDiskUse=True,
                                                                  maxTimeMS=30000)
