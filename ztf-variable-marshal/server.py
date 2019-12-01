@@ -2063,7 +2063,7 @@ async def source_maghist_get_handler(request):
     _r = request.rel_url.query
 
     # aspect:
-    w = float(_r.get('w', 4))
+    w = float(_r.get('w', 4.3))
     h = float(_r.get('h', 4))
     # bins
     bins = _r.get('bins', 'auto')
@@ -2100,11 +2100,11 @@ async def source_maghist_get_handler(request):
 
                 mag = df_plc.loc[w_det, 'mag']
 
-                ax_plc.hist(mag, bins='auto', c=c, alpha=0.5, label=f'filter: {filt}')
+                ax_plc.hist(mag, bins=bins, color=c, alpha=0.5, label=f'filter: {filt}')
 
             ax_plc.grid(True, lw=0.3)
-            ax_plc.set_ylabel('mag')
-            ax_plc.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
+            ax_plc.set_xlabel('mag')
+            ax_plc.legend(loc='best', ncol=1, fontsize='x-small')
 
             plt.tight_layout(pad=0, h_pad=0, w_pad=0)
 
