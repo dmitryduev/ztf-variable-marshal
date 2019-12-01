@@ -1336,8 +1336,9 @@ async def label_get_handler(request):
             filt = {'zvm_program_id': int(zvm_program_id)}
 
             if unlabeled:
-                filt = {**filt, **{'$or': [{'labels': {'$size': 0}},
-                                           {'labels.user': {'$ne': user}}]}}
+                # filt = {**filt, **{'$or': [{'labels': {'$size': 0}},
+                #                            {'labels.user': {'$ne': user}}]}}
+                filt = {**filt, **{'labels.user': {'$ne': user}}}
             else:
                 filt = {**filt, **{'labels.user': {'$eq': user}}}
             if not rand:
@@ -1350,6 +1351,7 @@ async def label_get_handler(request):
                     sort([('created', -1)]).to_list(length=None)
                 # print(sources)
             else:
+                # fixme: slow on large number of matches. create indices to speed up!
                 pipeline = [{'$match': filt},
                             {'$project': {'xmatch.ZTF_alerts': 0, 'history': 0, 'spec.data': 0}},
                             {'$sample': {'size': int(number)}}]
