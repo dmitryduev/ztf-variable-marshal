@@ -2931,6 +2931,9 @@ async def app_factory():
     await app['mongo'].sources.create_index([('zvm_program_id', 1)], background=True)
     await app['mongo'].sources.create_index([('zvm_program_id', 1),
                                              ('labels.user', 1)], background=True)
+    await app['mongo'].sources.create_index([('zvm_program_id', 1),
+                                             ('labels.user', 1),
+                                             ('_id', 1)], background=True)
     await app['mongo'].sources.create_index([('labels.label', 1)], background=True)
     await app['mongo'].sources.create_index([('lc.id', 1)], background=True)
 
