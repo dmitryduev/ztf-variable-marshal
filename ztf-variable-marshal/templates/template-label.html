@@ -428,6 +428,7 @@
         $('#{{-source["_id"]-}}-json-renderer').jsonViewer(data_alert_{{-source["_id"]-}}, {collapsed: true, withQuotes: true});
         // open
         $('#{{-source["_id"]-}}-json-renderer').find(">:first-child").trigger("click");
+        $('#{{-source["_id"]-}}-json-renderer .json-toggle :lt(1)').trigger("click");
         {% endfor %}
 
         // event listeners
