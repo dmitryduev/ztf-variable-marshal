@@ -1908,7 +1908,7 @@ async def source_hr_get_handler(request):
 @login_required
 async def source_lc_get_handler(request):
     """
-        Serve HR diagram for a source
+        Serve light curve plot for a source
     :param request:
     :return:
     """
@@ -2039,6 +2039,83 @@ async def source_lc_get_handler(request):
     # buff.write(base64.b64decode(b"R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"))
     # buff.seek(0)
     # return web.Response(body=buff, content_type='image/gif')
+    return web.Response(body=buff, content_type='image/png')
+
+
+@routes.get('/sources/{source_id}/images/maghist')
+@login_required
+async def source_maghist_get_handler(request):
+    """
+        Serve mag hist for a source
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    _id = request.match_info['source_id']
+
+    source = await request.app['mongo'].sources.find({'_id': _id}, {'lc': 1}).to_list(length=None)
+    source = loads(dumps(source[0]))
+    # print(source)
+
+    # GET params:
+    _r = request.rel_url.query
+
+    # aspect:
+    w = float(_r.get('w', 4))
+    h = float(_r.get('h', 4))
+    # bins
+    bins = _r.get('bins', 'auto')
+    if bins != 'auto':
+        bins = int(bins)
+
+    if len(source['lc']) > 0:
+        try:
+            buff = io.BytesIO()
+
+            fig = plt.figure(figsize=(w, h), dpi=200)
+            ax_plc = fig.add_subplot(111)
+            ax_plc.title.set_text(f'Histogram of magnitudes for {source["_id"]}')
+
+            lc_color_indexes = dict()
+
+            for lc in source['lc']:
+                filt = lc['filter']
+                lc_color_indexes[filt] = lc_color_indexes[filt] + 1 if filt in lc_color_indexes else 0
+                c = lc_colors(filt, lc_color_indexes[filt])
+
+                df_plc = pd.DataFrame.from_records(lc['data'])
+                # display(df_plc)
+
+                if 'mjd' not in df_plc:
+                    df_plc['mjd'] = df_plc['hjd'] - 2400000.5
+                if 'hjd' not in df_plc:
+                    df_plc['hjd'] = df_plc['mjd'] + 2400000.5
+
+                if 'catflags' in df_plc:
+                    w_det = (df_plc['mag'] != 0) & (df_plc['catflags'] == 0)
+                else:
+                    w_det = df_plc['mag'] != 0
+
+                mag = df_plc.loc[w_det, 'mag']
+
+                ax_plc.hist(mag, bins='auto', c=c, alpha=0.5, label=f'filter: {filt}')
+
+            ax_plc.grid(True, lw=0.3)
+            ax_plc.set_ylabel('mag')
+            ax_plc.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
+
+            plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+
+            plt.savefig(buff, dpi=200, bbox_inches='tight')
+            buff.seek(0)
+            plt.close('all')
+            return web.Response(body=buff, content_type='image/png')
+        except Exception as e:
+            print(e)
+
+    buff = io.BytesIO()
     return web.Response(body=buff, content_type='image/png')
 
 
