@@ -1928,6 +1928,13 @@ async def source_lc_get_handler(request):
     w = float(_r.get('w', 10))
     h = float(_r.get('h', 4))
 
+    # plot mag hist on the right-hand side?
+    hist = True if 'hist' in _r else False
+    # bins
+    bins = _r.get('bins', 'auto')
+    if bins != 'auto':
+        bins = int(bins)
+
     # phase-fold?
     period = _r.get('p', None)
     units = str(_r.get('u', 'days')).lower()
@@ -1944,7 +1951,24 @@ async def source_lc_get_handler(request):
             buff = io.BytesIO()
 
             fig = plt.figure(figsize=(w, h), dpi=200)
-            ax_plc = fig.add_subplot(111)
+
+            if not hist:
+                ax_plc = fig.add_subplot(111)
+            else:
+                # definitions for the axes
+                left, width = 0.1, 0.65
+                bottom, height = 0.1, 0.65
+                spacing = 0.005
+
+                rect_scatter = [left, bottom, width, height]
+                # rect_histx = [left, bottom + height + spacing, width, 0.2]
+                rect_histy = [left + width + spacing, bottom, 0.2, height]
+
+                ax_plc = plt.axes(rect_scatter)
+                ax_plc.tick_params(direction='in', top=True, right=True)
+                ax_histy = plt.axes(rect_histy)
+                ax_histy.tick_params(direction='in', labelleft=False)
+
             if period is None:
                 ax_plc.title.set_text(f'Photometric light curve for {source["_id"]}')
             else:
@@ -2018,15 +2042,31 @@ async def source_lc_get_handler(request):
                     ax_plc.errorbar(t, mag, yerr=mag_error, elinewidth=0.4,
                                     marker='.', c=c, lw=0, label=f'filter: {filt}')
 
+                if hist:
+                    if period is not None:
+                        if 'catflags' in df_plc:
+                            w_det = (df_plc['mag'] != 0) & (df_plc['catflags'] == 0)
+                        else:
+                            w_det = df_plc['mag'] != 0
+                    else:
+                        w_det = df_plc['mag'] != 0
+                    mag = df_plc.loc[w_det, 'mag']
+                    ax_histy.hist(mag, bins=bins, color=c, alpha=0.5, label=f'filter: {filt}', orientation='horizontal')
+
             ax_plc.invert_yaxis()
             # if t_format == 'days_ago':
             #     ax_plc.invert_xaxis()
             ax_plc.grid(True, lw=0.3)
             # ax_plc.set_xlabel(t_format)
             ax_plc.set_ylabel('mag')
-            ax_plc.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
 
-            plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+            if not hist:
+                ax_plc.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
+                plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+            else:
+                ax_histy.invert_yaxis()
+                ax_histy.grid(True, lw=0.3)
+                ax_histy.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1, fontsize='x-small')
 
             plt.savefig(buff, dpi=200, bbox_inches='tight')
             buff.seek(0)
