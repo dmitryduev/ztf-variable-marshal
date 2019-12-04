@@ -419,10 +419,10 @@
 
         // display JSON
         {% for source in data %}
-        {% set ss = {'l': source['l'] | round(3, 'common'),
-                     'b': source['b'] | round(3, 'common'),
-                     'ra': source['ra'] | round(3, 'common'),
-                     'dec': source['dec'] | round(3, 'common'),
+        {% set ss = {'ra': source['ra'] | round(6, 'common'),
+                     'dec': source['dec'] | round(6, 'common'),
+                     'l': source['l'] | round(6, 'common'),
+                     'b': source['b'] | round(6, 'common'),
                      'xmatch': source['xmatch']} %}
         let data_alert_{{-source["_id"]-}} = JSONbig.parse('{{-ss|tojson_pretty|safe|replace('\n', '')|replace('NaN', 'null')-}}');
         $('#{{-source["_id"]-}}-json-renderer').jsonViewer(data_alert_{{-source["_id"]-}}, {collapsed: true, withQuotes: true});
