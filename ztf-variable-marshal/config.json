@@ -173,14 +173,15 @@
 
   "classifications": {
     "phenomenological" : [
+      "non-variable",
       "variable",
       "periodic",
       "multi periodic",
-      "long periodic",
+      "long timescale variable",
       "stochastic",
       "eclipsing",
-      "eruptive",
-      "data artifacts"
+      "transient behavior",
+      "bogus"
     ],
     "intrinsic" : {
       "pulsator": [
