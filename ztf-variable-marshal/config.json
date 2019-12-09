@@ -178,9 +178,10 @@
       "periodic",
       "multi periodic",
       "long timescale variable",
-      "stochastic",
+      "irregular",
       "eclipsing",
-      "transient behavior",
+      "flaring",
+      "dips",
       "bogus"
     ],
     "intrinsic" : {
