@@ -217,15 +217,41 @@
                                  id="{{ source['_id'] }}_phenomenological">
 
                                 {% for class in classes['phenomenological'] %}
-                                <div class="col mt-2"> {# style="background:#d6d7d8" #}
-                                    <label for="{{ source['_id'] }}_{{ class }}">
-                                        {{ class }}
-                                    </label>
-                                    <input type="range" class="custom-range"
-                                           value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}"
-                                           data-source="{{ source['_id'] }}" data-label="{{ class }}"
-                                           data-type="phenomenological">
-                                </div>
+                                    {% if class is mapping %}
+                                        {% for class2 in class %}
+                                            <div class="col mt-2 has-leaves">
+                                                <label for="{{ source['_id'] }}_{{ class2 }}">
+                                                    {{ class2 }}
+                                                </label>
+                                                <input type="range" class="custom-range dad kid"
+                                                       value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class2 }}"
+                                                       data-source="{{ source['_id'] }}" data-label="{{ class2 }}"
+                                                       data-type="phenomenological">
+
+                                                {% for class3 in class[class2] %}
+                                                    <div class="col mt-0">
+                                                        <label for="{{ source['_id'] }}_{{ class3 }}">
+                                                            {{ class3 }}
+                                                        </label>
+                                                        <input type="range" class="custom-range kid"
+                                                               value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class3 }}"
+                                                               data-source="{{ source['_id'] }}" data-label="{{ class3 }}"
+                                                               data-type="phenomenological">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="col mt-2"> {# style="background:#d6d7d8" #}
+                                            <label for="{{ source['_id'] }}_{{ class }}">
+                                                {{ class }}
+                                            </label>
+                                            <input type="range" class="custom-range"
+                                                   value="0" min="0" max="1" step="0.25" id="{{ source['_id'] }}_{{ class }}"
+                                                   data-source="{{ source['_id'] }}" data-label="{{ class }}"
+                                                   data-type="phenomenological">
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
 

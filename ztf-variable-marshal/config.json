@@ -175,13 +175,20 @@
     "phenomenological" : [
       "non-variable",
       "variable",
-      "periodic",
+      {"periodic": [
+        "sinusoidal",
+        "sawtooth"
+      ]},
       "multi periodic",
-      "long timescale variable",
+      "long timescale",
       "irregular",
-      "eclipsing",
+      {"eclipsing":  [
+        "EA",
+        "EB",
+        "EW"
+      ]},
       "flaring",
-      "dips",
+      "dipping",
       "bogus"
     ],
     "intrinsic" : {

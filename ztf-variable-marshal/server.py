@@ -1974,7 +1974,7 @@ async def source_lc_get_handler(request):
             else:
                 # r"$\bf{"
                 ax_plc.title.set_text(f'Phase-folded light curve for {source["_id"]} with ' r"$\bf{"
-                                      f'p={period} {units}' "}$")
+                                      f'p={period}\:{units}' "}$")
 
             lc_color_indexes = dict()
 
