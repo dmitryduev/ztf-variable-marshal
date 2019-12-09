@@ -1325,6 +1325,8 @@ async def label_get_handler(request):
 
         classes = config['classifications']
 
+        descriptions = config['label_descriptions']
+
         _r = request.rel_url.query
         zvm_program_id = _r.get('zvm_program_id', None)
         number = _r.get('number', None)
@@ -1380,6 +1382,7 @@ async def label_get_handler(request):
                    'users': users,
                    'programs': programs,
                    'classes': classes,
+                   'descriptions': descriptions,
                    'data': sources,
                    'messages': []}
 
@@ -1398,6 +1401,7 @@ async def label_get_handler(request):
                    'users': [],
                    'programs': [],
                    'classes': [],
+                   'descriptions': [],
                    'data': [],
                    'messages': [[f'Encountered error while loading sources: {str(_e)}. Reload the page!', 'danger']]}
 

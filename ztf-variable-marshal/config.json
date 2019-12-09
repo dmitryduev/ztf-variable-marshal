@@ -231,7 +231,27 @@
           "Redback pulsar"
         ]}
       ],
-      "AGN": []
+      "AGN": [
+        "Blazar"
+      ]
     }
+  },
+
+  "label_descriptions": {
+    "non-variable": "no obvious variability",
+    "variable": "some type of astrophysical variability evident",
+    "periodic": "periodic behaviour",
+    "sinusoidal": "can be pulsator, rotatation, ellipsoidal or reflection",
+    "sawtooth": "pulsators can show sawtooth-like shapes",
+    "multi periodic": "variable shows variability on multiple periods; some pulsators, pulsating+eclipsing binaries etc",
+    "long timescale": "shows variability on long timescales >100days, periodic or non-periodic; e.g. Mira",
+    "irregular": "irregular variability likely due to accretion; flickering in CV/YSO/AGN",
+    "eclipsing": "eclipses evident",
+    "EA": "cleary distinct eclipses, step-function like",
+    "EB": "one of the eclipses is a smooth continuation of the overall lightcurve",
+    "EW": "eclipses are a smooth continuation of the overall variability",
+    "flaring": "irregular flares, eruptions, outbursts (CVs, YSO, flarestars, microlensing)",
+    "dipping": "irregular brightness drops; some CVs, RCorBor, some YSOs",
+    "bogus": "data artifacts (e.g. blending, stellar spikes)"
   }
 }

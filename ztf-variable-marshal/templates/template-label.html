@@ -220,7 +220,11 @@
                                     {% if class is mapping %}
                                         {% for class2 in class %}
                                             <div class="col mt-2 has-leaves">
-                                                <label for="{{ source['_id'] }}_{{ class2 }}">
+                                                <label for="{{ source['_id'] }}_{{ class2 }}"
+                                                   {% if class2 in descriptions %}
+                                                    data-toggle="tooltip" data-placement="top" title="{{ descriptions[class2] }}"
+                                                   {% endif %}
+                                                >
                                                     {{ class2 }}
                                                 </label>
                                                 <input type="range" class="custom-range dad kid"
@@ -230,7 +234,11 @@
 
                                                 {% for class3 in class[class2] %}
                                                     <div class="col mt-0">
-                                                        <label for="{{ source['_id'] }}_{{ class3 }}">
+                                                        <label for="{{ source['_id'] }}_{{ class3 }}"
+                                                           {% if class3 in descriptions %}
+                                                            data-toggle="tooltip" data-placement="top" title="{{ descriptions[class3] }}"
+                                                           {% endif %}
+                                                        >
                                                             {{ class3 }}
                                                         </label>
                                                         <input type="range" class="custom-range kid"
@@ -243,7 +251,11 @@
                                         {% endfor %}
                                     {% else %}
                                         <div class="col mt-2"> {# style="background:#d6d7d8" #}
-                                            <label for="{{ source['_id'] }}_{{ class }}">
+                                            <label for="{{ source['_id'] }}_{{ class }}"
+                                                   {% if class in descriptions %}
+                                                    data-toggle="tooltip" data-placement="top" title="{{ descriptions[class] }}"
+                                                   {% endif %}
+                                            >
                                                 {{ class }}
                                             </label>
                                             <input type="range" class="custom-range"
@@ -274,7 +286,11 @@
                                 {% for class in classes['intrinsic'] %}
                                 <div class="col-12 mt-2 root"> {# style="background:#d6d7d8" #}
 
-                                    <label for="{{ source['_id'] }}_{{ class }}">
+                                    <label for="{{ source['_id'] }}_{{ class }}"
+                                           {% if class in descriptions %}
+                                            data-toggle="tooltip" data-placement="top" title="{{ descriptions[class] }}"
+                                           {% endif %}
+                                    >
                                         {{ class }}
                                     </label>
                                     <input type="range" class="custom-range root-node"
@@ -288,7 +304,11 @@
                                             {% if class2 is mapping %}
                                                 {% for class3 in class2 %}
                                                     <div class="col mt-2 has-leaves">
-                                                        <label for="{{ source['_id'] }}_{{ class3 }}">
+                                                        <label for="{{ source['_id'] }}_{{ class3 }}"
+                                                           {% if class3 in descriptions %}
+                                                            data-toggle="tooltip" data-placement="top" title="{{ descriptions[class3] }}"
+                                                           {% endif %}
+                                                        >
                                                             {{ class3 }}
                                                         </label>
                                                         <input type="range" class="custom-range dad kid"
@@ -298,7 +318,11 @@
 
                                                         {% for class4 in class2[class3] %}
                                                             <div class="col mt-0">
-                                                                <label for="{{ source['_id'] }}_{{ class4 }}">
+                                                                <label for="{{ source['_id'] }}_{{ class4 }}"
+                                                                   {% if class4 in descriptions %}
+                                                                    data-toggle="tooltip" data-placement="top" title="{{ descriptions[class4] }}"
+                                                                   {% endif %}
+                                                                >
                                                                     {{ class4 }}
                                                                 </label>
                                                                 <input type="range" class="custom-range kid"
@@ -312,7 +336,11 @@
                                                 {% endfor %}
                                             {% else %}
                                                 <div class="col mt-2">
-                                                    <label for="{{ source['_id'] }}_{{ class2 }}">
+                                                    <label for="{{ source['_id'] }}_{{ class2 }}"
+                                                       {% if class2 in descriptions %}
+                                                        data-toggle="tooltip" data-placement="top" title="{{ descriptions[class2] }}"
+                                                       {% endif %}
+                                                    >
                                                         {{ class2 }}
                                                     </label>
                                                     <input type="range" class="custom-range kid"
@@ -475,6 +503,11 @@
                 {% endfor %}
             {% endfor %}
         });
+
+        // enable tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 
     <script>
