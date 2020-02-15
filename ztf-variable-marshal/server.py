@@ -582,6 +582,11 @@ async def programs_get_handler(request):
     programs = await request.app['mongo'].programs.find({}).to_list(length=1000)
     # print(programs)
 
+    # count objects:
+    for program in programs:
+        num_objects = await request.app['mongo'].sources.count_documents({'zvm_program_id': program['_id']})
+        program['num_objects'] = num_objects
+
     if frmt == 'web':
         context = {'logo': config['server']['logo'],
                    'user': session['user_id'],

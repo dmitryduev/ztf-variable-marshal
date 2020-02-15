@@ -33,6 +33,7 @@
                     <th scope="col">_id</th>
                     <th scope="col">name</th>
                     <th scope="col">description</th>
+                    <th scope="col">number of objects</th>
                     {#<th scope="col">actions</th>#}
                 </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <th scope="row" style="width: 20%">{{ p['_id'] }}</th>
                         <td style="width: 30%">{{ p['name'] }}</td>
                         <td style="width: 50%">{{ p['description'] }}</td>
+                        <td style="width: 50%">{{ p['num_objects'] }}</td>
 {#                        <td style="width: 30%">#}
 {#                            <button type="button" class="btn btn-sm btn-primary editButton"#}
 {#                                    data-toggle="modal" data-target="#editUserModal"#}
