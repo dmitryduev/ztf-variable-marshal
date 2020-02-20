@@ -193,7 +193,7 @@
     ],
     "intrinsic" : {
       "pulsator": [
-        "high amplitude Delta Scu",
+        "Delta Scu",
         "Gamma Dor",
         {"Cepheid": [
           "F",
@@ -220,7 +220,8 @@
           "sdBV g-mode",
           "BLAP",
           "high-g BLAP"
-        ]}
+        ]},
+        "LPV"
       ],
       "binary star": [
         "W Uma",
