@@ -221,7 +221,10 @@
           "BLAP",
           "high-g BLAP"
         ]},
-        "LPV"
+        {"LPV": [
+          "Mira",
+          "SRV"
+        ]}
       ],
       "binary star": [
         "W Uma",
