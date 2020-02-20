@@ -195,7 +195,10 @@
       "pulsator": [
         "high amplitude Delta Scu",
         "Gamma Dor",
-        "Cepheid",
+        {"Cepheid": [
+          "F",
+          "O"
+        ]},
         {"Cepheid type-II": [
           "BL Her",
           "W Virginis",
