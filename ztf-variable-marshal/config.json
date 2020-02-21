@@ -64,6 +64,12 @@
             "White_dwarf_name": 1, "Pwd": 1, "Pwd_correction": 1,
             "SDSS_name": 1, "Teff": 1, "eTeff": 1}
         },
+        "GALEX": {
+          "filter": {},
+          "projection": {
+            "_id": 0, "name": 1, "coordinates.radec_str": 1,
+            "FUVmag": 1, "e_FUVmag": 1, "NUVmag": 1, "e_NUVmag": 1}
+        },
         "2MASS_PSC": {
           "filter": {},
           "projection": {
