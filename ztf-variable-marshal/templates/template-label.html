@@ -175,16 +175,23 @@
                         </div>
                         <!-- Cutout and HR diagram -->
                         <div class="col-2">
-                            <span data-src="/sources/{{-source['_id']-}}/images/ps1"
-                                  data-alt="{{-source['_id']-}}_ps1"
-                                  data-class="img-fluid mx-auto d-block mt-4 pl-2"
-                                  class="justlazy-spinner load-with-threshold-placeholder">
-                            </span>
-                            <span data-src="/sources/{{-source['_id']-}}/images/hr"
+                            <figure class="figure">
+                                <figcaption class="figure-caption ml-2">PS1 [1'x1']:</figcaption>
+                                <span data-src="/sources/{{-source['_id']-}}/images/ps1"
+                                      data-alt="{{-source['_id']-}}_ps1"
+                                      data-class="img-fluid mx-auto d-block mt-0 pl-2"
+                                      class="justlazy-spinner load-with-threshold-placeholder">
+                                </span>
+                            </figure>
+                            <figure class="figure">
+                                <figcaption class="figure-caption ml-2 mt-4">Gaia HR diagram:</figcaption>
+                                <span data-src="/sources/{{-source['_id']-}}/images/hr"
                                   data-alt="{{-source['_id']-}}_hr"
-                                  data-class="img-fluid mx-auto d-block mt-4 pl-2"
+                                  data-class="img-fluid mx-auto d-block pl-2"
                                   class="justlazy-spinner load-with-threshold-placeholder">
                             </span>
+                            </figure>
+
 {#                            <span data-src="/sources/{{-source['_id']-}}/images/maghist?w=4&h=3"#}
 {#                                  data-alt="{{-source['_id']-}}_maghist"#}
 {#                                  data-class="img-fluid mx-auto d-block mt-4 pl-2"#}

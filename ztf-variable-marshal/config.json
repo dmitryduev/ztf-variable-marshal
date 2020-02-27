@@ -195,7 +195,16 @@
       ]},
       "flaring",
       "dipping",
-      "bogus"
+      {"bogus":  [
+        "galaxy",
+        "blend",
+        "bright star",
+        "ccd artifact"
+      ]},
+      {"wrong period": [
+        "half period",
+        "double period"
+      ]}
     ],
     "intrinsic" : {
       "pulsator": [
