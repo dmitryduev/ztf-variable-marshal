@@ -1335,13 +1335,16 @@ async def label_get_handler(request):
         _r = request.rel_url.query
         zvm_program_id = _r.get('zvm_program_id', None)
         filt = _r.get('filter', None)
-        if filt:
+        if filt and len(filt) > 0:
             try:
                 filt = literal_eval(filt)
                 if not isinstance(filt, Mapping):
                     filt = dict()
             except:
                 filt = dict()
+        else:
+            filt = dict()
+
         number = _r.get('number', None)
         rand = _r.get('random', False)
         unlabeled = _r.get('unlabeled', False)
