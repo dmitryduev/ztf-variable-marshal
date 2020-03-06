@@ -11,6 +11,7 @@ from async_timeout import timeout
 import asyncio
 import base64
 from bson.json_util import loads, dumps
+from collections import Mapping
 import datetime
 import jinja2
 import json
@@ -1337,6 +1338,8 @@ async def label_get_handler(request):
         if filt:
             try:
                 filt = literal_eval(filt)
+                if not isinstance(filt, Mapping):
+                    filt = dict()
             except:
                 filt = dict()
         number = _r.get('number', None)
