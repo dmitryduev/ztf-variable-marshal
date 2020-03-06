@@ -1333,13 +1333,14 @@ async def label_get_handler(request):
 
         _r = request.rel_url.query
         zvm_program_id = _r.get('zvm_program_id', None)
+        filt = literal_eval(_r.get('filter', 'dict()'))
         number = _r.get('number', None)
         rand = _r.get('random', False)
         unlabeled = _r.get('unlabeled', False)
 
         sources = []
         if zvm_program_id and number:
-            filt = {'zvm_program_id': int(zvm_program_id)}
+            filt = {'zvm_program_id': int(zvm_program_id), **filt}
 
             if unlabeled:
                 # filt = {**filt, **{'$or': [{'labels': {'$size': 0}},

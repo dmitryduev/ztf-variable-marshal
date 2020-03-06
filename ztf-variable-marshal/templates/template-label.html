@@ -62,6 +62,19 @@
 
                             <div class="form-group">
 
+                                <label for="filter" class="col control-label">
+                                    Filter
+                                </label>
+
+                                <div class="col pr-4">
+                                    <textarea class="form-control form-control-sm" id="filter"
+                                              name="filter" placeholder="Filter in MQL syntax" rows="2"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
                                 <label for="number" class="col control-label">
                                     Number of sources to load
                                 </label>
@@ -424,12 +437,16 @@
         // populate query params into form
         const url_params = new URLSearchParams(window.location.search);
         const zvm_program_id = url_params.get('zvm_program_id');
+        const filter = url_params.get('filter');
         const number = url_params.get('number');
         const unlabeled = url_params.get('unlabeled');
         const random = url_params.get('random');
 
         if (zvm_program_id) {
             $('#zvm_program_id').val(zvm_program_id)
+        }
+        if (filter) {
+            $('#filter').val(filter)
         }
         if (number) {
             $('#number').val(number)
