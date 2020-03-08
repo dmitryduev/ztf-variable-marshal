@@ -180,6 +180,8 @@
                                                 id="fold_lc" onclick="setFolding()">Set</button>
                                         <button type="button" class="btn btn-dark btn-sm"
                                                 id="double_folding_period" onclick="doubleFoldingPeriod()">&times;2</button>
+                                        <button type="button" class="btn btn-dark btn-sm"
+                                                id="halve_folding_period" onclick="halveFoldingPeriod()">&divide;2</button>
                                         <button type="button" class="btn btn-outline-dark btn-sm"
                                                 id="reset_lc" onclick="unsetFolding()">Reset</button>
                                     </div>
@@ -671,6 +673,14 @@
             if (per <= 0) return;
 
             $("#fold_lc_period").val(per*2);
+            setFolding();
+        }
+
+        function halveFoldingPeriod() {
+            let per = Number($("#fold_lc_period").val());
+            if (per <= 0) return;
+
+            $("#fold_lc_period").val(per/2);
             setFolding();
         }
 
