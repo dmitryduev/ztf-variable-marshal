@@ -111,7 +111,7 @@ Build and launch the app container:
 docker build --rm -t ztf_variable_marshal:latest -f Dockerfile .
 docker run --name ztf_variable_marshal -d --restart always -p 8000:4000 -v ztf_variable_marshal_data:/data --link ztf_variable_marshal_mongo_1:mongo ztf_variable_marshal:latest
 # test mode:
-docker run -it --rm --name ztf_variable_marshal -p 8000:4000 -v ztf_variable_marshal_data:/data --link ztf_variable_marshal_mongo_1:mongo ztf_variable_marshal:latest
+docker run -it --rm --name ztf_variable_marshal -p 8000:4000 -v ztf_variable_marshal_data:/data --link ztf_variable_marshal_mongo_1:mongo --entrypoint /bin/bash ztf_variable_marshal:latest
 
 ```
 

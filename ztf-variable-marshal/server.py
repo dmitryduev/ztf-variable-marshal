@@ -2880,6 +2880,8 @@ async def search_post_handler(request):
             else:
                 radec = f"[({ra}, {dec})]"
 
+        # print(radec)
+
         kowalski_query = {"query_type": "cone_search",
                           "object_coordinates": {
                               "radec": radec,
@@ -2903,46 +2905,48 @@ async def search_post_handler(request):
         resp = request.app['kowalski'].query(kowalski_query)
         # print(resp)
 
-        pos_key = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
-        data = resp['result_data'][config['kowalski']['coll_sources']][pos_key]
+        source_keys = list(resp['result_data'][config['kowalski']['coll_sources']].keys())
 
         data_formatted = []
+        for source_key in source_keys:
+            data = resp['result_data'][config['kowalski']['coll_sources']][source_key]
 
-        # re-format data (mjd, mag, magerr) for easier previews in the browser:
-        for source in data:
+            # re-format data (mjd, mag, magerr) for easier previews in the browser:
+            for source in data:
 
-            lc = source['data']
+                lc = source['data']
 
-            # filter lc for MSIP data
-            if config['misc']['filter_MSIP']:
-                lc = [p for p in lc if
-                      ((p['programid'] != 1) or
-                       (p['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
-                if len(lc) == 0:
-                    continue
+                # filter lc for MSIP data
+                if config['misc']['filter_MSIP']:
+                    lc = [p for p in lc if
+                          ((p['programid'] != 1) or
+                           (p['hjd'] - 2400000.5 <= config['misc']['filter_MSIP_best_before_mjd']))]
+                    if len(lc) == 0:
+                        continue
 
-            # print(lc)
-            mags = np.array([llc['mag'] for llc in lc])
-            magerrs = np.array([llc['magerr'] for llc in lc])
-            hjds = np.array([llc['hjd'] for llc in lc])
-            mjds = hjds - 2400000.5
-            datetimes = np.array([mjd_to_datetime(llc['hjd'] - 2400000.5).strftime('%Y-%m-%d %H:%M:%S') for llc in lc])
+                # print(lc)
+                mags = np.array([llc['mag'] for llc in lc])
+                magerrs = np.array([llc['magerr'] for llc in lc])
+                hjds = np.array([llc['hjd'] for llc in lc])
+                mjds = hjds - 2400000.5
+                datetimes = np.array([mjd_to_datetime(llc['hjd'] - 2400000.5).strftime('%Y-%m-%d %H:%M:%S') for llc in lc])
 
-            ind_sort = np.argsort(mjds)
-            mags = mags[ind_sort].tolist()
-            magerrs = magerrs[ind_sort].tolist()
-            mjds = mjds[ind_sort].tolist()
-            datetimes = datetimes[ind_sort].tolist()
+                ind_sort = np.argsort(mjds)
+                mags = mags[ind_sort].tolist()
+                magerrs = magerrs[ind_sort].tolist()
+                mjds = mjds[ind_sort].tolist()
+                datetimes = datetimes[ind_sort].tolist()
 
-            source.pop('data', None)
-            source['mag'] = mags
-            source['magerr'] = magerrs
-            # source['mjd'] = mjds
-            source['mjd'] = datetimes
+                source.pop('data', None)
+                source['mag'] = mags
+                source['magerr'] = magerrs
+                # source['mjd'] = mjds
+                source['mjd'] = datetimes
 
-            data_formatted.append(source)
+                data_formatted.append(source)
 
-        # print(data)
+        # print(len(data))
+        # print([source['_id'] for source in data])
 
         # get ZVM programs:
         programs = await request.app['mongo'].programs.find({}, {'last_modified': 0}).to_list(length=None)
