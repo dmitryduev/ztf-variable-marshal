@@ -1878,7 +1878,7 @@ async def source_hr_get_handler(request):
     if len(source['xmatch']['Gaia_DR2']) > 0:
 
         # pick the nearest match:
-        ii = np.argmin([great_circle_distance(source['dec'], source['ra'],
+        ii = np.argmin([great_circle_distance(source['dec']*np.pi/180, source['ra']*np.pi/180,
                                               *radec_str2rad(*dd['coordinates']['radec_str'])[::-1])
                         for dd in source['xmatch']['Gaia_DR2']])
 
@@ -1971,7 +1971,7 @@ async def hr_get_handler(request):
         if len(xmatch) > 0:
 
             # pick the nearest match:
-            ii = np.argmin([great_circle_distance(dec, ra,
+            ii = np.argmin([great_circle_distance(dec*np.pi/180, ra*np.pi/180,
                                                   *radec_str2rad(*dd['coordinates']['radec_str'])[::-1])
                             for dd in xmatch])
 
