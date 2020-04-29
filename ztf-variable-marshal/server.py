@@ -1950,7 +1950,7 @@ async def hr_get_handler(request):
 
         kowalski_query_xmatch = {"query_type": "cone_search",
                                  "object_coordinates": {
-                                     "radec": f"[({ra}, {dec})]",
+                                     "radec": {"source": (ra, dec)},
                                      "cone_search_radius": sep,
                                      "cone_search_unit": "arcsec"},
                                  "catalogs": {
@@ -1965,7 +1965,8 @@ async def hr_get_handler(request):
                                  }
 
         resp = request.app['kowalski'].query(kowalski_query_xmatch)
-        xmatch = resp.get('result_data', dict()).get('Gaia_DR2', ())
+        xmatch = resp.get('result_data', dict()).get('Gaia_DR2', dict()).get('source', dict())
+        print(xmatch)
 
         if len(xmatch) > 0:
 
