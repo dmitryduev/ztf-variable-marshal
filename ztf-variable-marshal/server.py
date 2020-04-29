@@ -1924,6 +1924,98 @@ async def source_hr_get_handler(request):
     return web.Response(body=buff, content_type='image/png')
 
 
+@routes.get('/api/images/hr')
+@login_required
+async def hr_get_handler(request):
+    """
+        Serve HR diagram for a source within sep arcseconds from (ra, dec) [deg, deg]
+        Cone-search Gaia DR2 for that. Return empty if no good candidates are found
+    :param request:
+    :return:
+    """
+    # get session:
+    session = await get_session(request)
+
+    # GET params:
+    _r = request.rel_url.query
+
+    # crds:
+    ra = _r.get('ra', None)
+    dec = _r.get('dec', None)
+    sep = _r.get('sep', 5)
+
+    if (ra is not None) and (dec is not None):
+        ra = float(ra)
+        dec = float(dec)
+
+        kowalski_query_xmatch = {"query_type": "cone_search",
+                                 "object_coordinates": {
+                                     "radec": f"[({ra}, {dec})]",
+                                     "cone_search_radius": sep,
+                                     "cone_search_unit": "arcsec"},
+                                 "catalogs": {
+                                     "Gaia_DR2": {
+                                         "filter": {},
+                                         "projection": {
+                                             "_id": 1, "coordinates.radec_str": 1,
+                                             "parallax": 1, "parallax_error": 1,
+                                             "phot_g_mean_mag": 1, "phot_bp_mean_mag": 1, "phot_rp_mean_mag": 1}
+                                     },
+                                 }
+                                 }
+
+        resp = request.app['kowalski'].query(kowalski_query_xmatch)
+        xmatch = resp.get('result_data', dict()).get('Gaia_DR2', ())
+
+        if len(xmatch) > 0:
+
+            # pick the nearest match:
+            ii = np.argmin([great_circle_distance(dec, ra,
+                                                  *radec_str2rad(*dd['coordinates']['radec_str'])[::-1])
+                            for dd in xmatch])
+
+            xmatch = xmatch[ii]
+
+            g = xmatch.get('phot_g_mean_mag', None)
+            bp = xmatch.get('phot_bp_mean_mag', None)
+            rp = xmatch.get('phot_rp_mean_mag', None)
+            p = xmatch.get('parallax', None)
+
+            if g and bp and rp and p:
+                try:
+                    img = plt.imread('/app/static/img/hr_plot.png')
+                    buff = io.BytesIO()
+
+                    fig = plt.figure(figsize=(4, 4), dpi=200)
+                    ax = fig.add_subplot(111)
+                    ax.plot(bp-rp, g + 5*np.log10(p/1000) + 5, 'o', markersize=8, c='#f22f29')
+                    ax.imshow(img, extent=[-1, 5, 17, -5])
+                    ax.set_aspect(1 / 4)
+                    ax.set_ylabel('G')
+                    ax.set_xlabel('BP-RP')
+                    plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+                    plt.savefig(buff, dpi=200, bbox_inches='tight')
+                    buff.seek(0)
+                    plt.close('all')
+                    return web.Response(body=buff, content_type='image/png')
+                except Exception as e:
+                    print(e)
+
+    img = plt.imread('/app/static/img/hr_plot.png')
+    buff = io.BytesIO()
+    fig = plt.figure(figsize=(4, 4), dpi=200)
+    ax = fig.add_subplot(111)
+    ax.imshow(img, extent=[-1, 5, 17, -5])
+    ax.set_aspect(1 / 4)
+    ax.set_ylabel('G')
+    ax.set_xlabel('BP-RP')
+    plt.tight_layout(pad=0, h_pad=0, w_pad=0)
+    plt.savefig(buff, dpi=200, bbox_inches='tight')
+    buff.seek(0)
+    plt.close('all')
+    return web.Response(body=buff, content_type='image/png')
+
+
 @routes.get('/sources/{source_id}/images/lc')
 @login_required
 async def source_lc_get_handler(request):
