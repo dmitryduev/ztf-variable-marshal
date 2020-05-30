@@ -204,6 +204,10 @@
       {"wrong period": [
         "half period",
         "double period"
+      ]},
+      {"nice": [
+        "niice",
+        "niiice"
       ]}
     ],
     "intrinsic" : {
