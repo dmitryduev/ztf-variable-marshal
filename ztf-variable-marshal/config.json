@@ -206,8 +206,11 @@
         "double period"
       ]},
       {"nice": [
-        "niice",
-        "niiice"
+        {
+          "niice": [
+            "niiice"
+          ]
+        }
       ]}
     ],
     "intrinsic" : {
