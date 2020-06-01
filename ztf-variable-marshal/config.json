@@ -205,13 +205,9 @@
         "half period",
         "double period"
       ]},
-      {"nice":
-        {
-          "niice": [
-            "niiice"
-          ]
-        }
-      }
+      {"nice": [
+        "niice"
+      ]}
     ],
     "intrinsic" : {
       "pulsator": [
