@@ -2840,7 +2840,7 @@ async def source_post_handler(request):
 
             elif _r['action'] == 'set_labels':
                 # set labels
-                labels = _r['labels']
+                labels = _r.get('labels', [])
 
                 # make history. don't! too much info, will flood history, esp. w autosave on
                 time_tag = utc_now()
