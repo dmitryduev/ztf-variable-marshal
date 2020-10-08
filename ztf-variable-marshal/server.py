@@ -1949,23 +1949,25 @@ async def hr_get_handler(request):
         dec = float(dec)
 
         kowalski_query_xmatch = {"query_type": "cone_search",
-                                 "object_coordinates": {
-                                     "radec": {"source": (ra, dec)},
-                                     "cone_search_radius": sep,
-                                     "cone_search_unit": "arcsec"},
-                                 "catalogs": {
-                                     "Gaia_DR2": {
-                                         "filter": {},
-                                         "projection": {
-                                             "_id": 1, "coordinates.radec_str": 1,
-                                             "parallax": 1, "parallax_error": 1,
-                                             "phot_g_mean_mag": 1, "phot_bp_mean_mag": 1, "phot_rp_mean_mag": 1}
-                                     },
-                                 }
+                                 "query": {
+                                     "object_coordinates": {
+                                         "radec": {"source": (ra, dec)},
+                                         "cone_search_radius": sep,
+                                         "cone_search_unit": "arcsec"},
+                                     "catalogs": {
+                                         "Gaia_DR2": {
+                                             "filter": {},
+                                             "projection": {
+                                                 "_id": 1, "coordinates.radec_str": 1,
+                                                 "parallax": 1, "parallax_error": 1,
+                                                 "phot_g_mean_mag": 1, "phot_bp_mean_mag": 1, "phot_rp_mean_mag": 1}
+                                         },
+                                     }
+                                 },
                                  }
 
         resp = request.app['kowalski'].query(kowalski_query_xmatch)
-        xmatch = resp.get('result_data', dict()).get('Gaia_DR2', dict()).get('source', dict())
+        xmatch = resp.get('data', dict()).get('Gaia_DR2', dict()).get('source', dict())
         print(xmatch)
 
         if len(xmatch) > 0:
@@ -2276,16 +2278,18 @@ async def source_maghist_get_handler(request):
 
 def cross_match(kowalski, ra, dec):
     kowalski_query_xmatch = {"query_type": "cone_search",
-                             "object_coordinates": {
-                                 "radec": f"[({ra}, {dec})]",
-                                 "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
-                                 "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
-                             "catalogs": config['kowalski']['cross_match']['catalogs']
+                             "query": {
+                                 "object_coordinates": {
+                                     "radec": f"[({ra}, {dec})]",
+                                     "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
+                                     "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
+                                 "catalogs": config['kowalski']['cross_match']['catalogs']
+                             },
                              }
     # print(kowalski_query_xmatch)
 
     resp = kowalski.query(kowalski_query_xmatch)
-    xmatch = resp['result_data']
+    xmatch = resp['data']
 
     # reformat for ingestion (we queried only one sky position):
     for cat in xmatch.keys():
@@ -2334,13 +2338,21 @@ async def sources_put_handler(request):
         # print(_r)
 
         if _id is not None:
-            kowalski_query = {"query_type": "general_search",
-                              "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
-                                       f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
-                              }
+            kowalski_query = {
+                "query_type": "find",
+                "query": {
+                    "catalog": config['kowalski']['coll_sources'],
+                    "filter": {
+                        '_id': _r['_id']
+                    },
+                    "projection": {
+                        '_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1
+                    }
+                }
+            }
 
             resp = request.app['kowalski'].query(kowalski_query)
-            ztf_source = resp['result_data']['query_result'][0]
+            ztf_source = resp['data'][0]
 
         else:
             ztf_source = parse_radec(ra, dec)
@@ -2428,30 +2440,33 @@ async def sources_put_handler(request):
 
         # feelin' lucky?
         if automerge:
-            query_merge = {"query_type": "cone_search",
-                           "object_coordinates": {
-                               "radec": f"[({doc['ra']}, {doc['dec']})]",
-                               # "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
-                               # "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
-                               "cone_search_radius": "2",
-                               "cone_search_unit": "arcsec"
-                           },
-                           "catalogs": {
-                               config['kowalski']['coll_sources']: {
-                                   "filter": {},
-                                   "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}
-                                   # "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1}
-                               }
-                           }
-                           }
+            query_merge = {
+                "query_type": "cone_search",
+                "query": {
+                    "object_coordinates": {
+                        "radec": f"[({doc['ra']}, {doc['dec']})]",
+                        # "cone_search_radius": config['kowalski']['cross_match']['cone_search_radius'],
+                        # "cone_search_unit": config['kowalski']['cross_match']['cone_search_unit']},
+                        "cone_search_radius": "2",
+                        "cone_search_unit": "arcsec"
+                    },
+                    "catalogs": {
+                        config['kowalski']['coll_sources']: {
+                            "filter": {},
+                            "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}
+                            # "projection": {'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1}
+                        }
+                    }
+                },
+            }
             if _id is not None:
                 # skip the one that is already there:
                 query_merge["catalogs"][config['kowalski']['coll_sources']]["filter"] = {'_id': {'$ne': int(_id)}}
             # print(query_merge)
 
             resp = request.app['kowalski'].query(query_merge)
-            kk = list(resp['result_data'][config['kowalski']['coll_sources']].keys())[0]
-            sources_merge = resp['result_data'][config['kowalski']['coll_sources']][kk]
+            kk = list(resp['data'][config['kowalski']['coll_sources']].keys())[0]
+            sources_merge = resp['data'][config['kowalski']['coll_sources']][kk]
             # print(sources_merge)
 
             for source_merge in sources_merge:
@@ -2566,13 +2581,21 @@ async def source_post_handler(request):
                     await request.app['mongo'].sources.update_one({'lc.id': int(_r['_id'])},
                                                                   {'$pull': {'lc': {'id': int(_r['_id'])}}})
 
-                kowalski_query = {"query_type": "general_search",
-                                  "query": f"db['{config['kowalski']['coll_sources']}'].find({{'_id': {_r['_id']}}}, " +
-                                           f"{{'_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1}})"
-                                  }
+                kowalski_query = {
+                    "query_type": "find",
+                    "query": {
+                        "catalog": config['kowalski']['coll_sources'],
+                        "filter": {
+                            '_id': _r['_id']
+                        },
+                        "projection": {
+                            '_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1
+                        }
+                    }
+                }
 
                 resp = request.app['kowalski'].query(kowalski_query)
-                ztf_source = resp['result_data']['query_result'][0]
+                ztf_source = resp['data'][0]
 
                 # filter lc for MSIP data
                 if config['misc']['filter_MSIP']:
@@ -2975,34 +2998,39 @@ async def search_post_handler(request):
 
         # print(radec)
 
-        kowalski_query = {"query_type": "cone_search",
-                          "object_coordinates": {
-                              "radec": radec,
-                              "cone_search_radius": _query['cone_search_radius'],
-                              "cone_search_unit": _query['cone_search_unit']
-                          },
-                          "catalogs": {
-                              config['kowalski']['coll_sources']: {
-                                  "filter": _query['filter'] if len(_query['filter']) > 0 else "{}",
-                                  "projection": "{'_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1," +
-                                                "'vonneumannratio': 1, 'filter': 1," +
-                                                "'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1," +
-                                                "'medianmag': 1, 'minmag': 1, 'nobs': 1," +
-                                                "'nobs': 1, 'refchi': 1, 'refmag': 1, 'refmagerr': 1, 'iqr': 1, " +
-                                                "'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'data.programid': 1, " +
-                                                "'coordinates': 1}"
-                              }
-                          }
-                          }
+        kowalski_query = {
+            "query_type": "cone_search",
+            "query": {
+                "object_coordinates": {
+                    "radec": radec,
+                    "cone_search_radius": _query['cone_search_radius'],
+                    "cone_search_unit": _query['cone_search_unit']
+                },
+                "catalogs": {
+                    config['kowalski']['coll_sources']: {
+                        "filter": _query['filter'] if len(_query['filter']) > 0 else {},
+                        "projection": {
+                            '_id': 1, 'ra': 1, 'dec': 1, 'magrms': 1, 'maxmag': 1,
+                            'vonneumannratio': 1, 'filter': 1,
+                            'maxslope': 1, 'meanmag': 1, 'medianabsdev': 1,
+                            'medianmag': 1, 'minmag': 1,
+                            'nobs': 1, 'refchi': 1, 'refmag': 1, 'refmagerr': 1, 'iqr': 1,
+                            'data.mag': 1, 'data.magerr': 1, 'data.hjd': 1, 'data.programid': 1,
+                            'coordinates': 1
+                        }
+                    }
+                }
+            }
+        }
 
         resp = request.app['kowalski'].query(kowalski_query)
         # print(resp)
 
-        source_keys = list(resp['result_data'][config['kowalski']['coll_sources']].keys())
+        source_keys = list(resp['data'][config['kowalski']['coll_sources']].keys())
 
         data_formatted = []
         for source_key in source_keys:
-            data = resp['result_data'][config['kowalski']['coll_sources']][source_key]
+            data = resp['data'][config['kowalski']['coll_sources']][source_key]
 
             # re-format data (mjd, mag, magerr) for easier previews in the browser:
             for source in data:
