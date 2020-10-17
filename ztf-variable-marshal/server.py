@@ -2343,7 +2343,7 @@ async def sources_put_handler(request):
                 "query": {
                     "catalog": config['kowalski']['coll_sources'],
                     "filter": {
-                        '_id': _r['_id']
+                        '_id': int(_r['_id'])
                     },
                     "projection": {
                         '_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1
@@ -2515,9 +2515,11 @@ async def sources_put_handler(request):
 
     except Exception as _e:
         print(f'Failed to ingest source: {str(_e)}')
+        _err = traceback.format_exc()
+        print(str(_err))
 
         try:
-            if not request.app['kowalski'].check_connection():
+            if not request.app['kowalski'].ping():
                 print('Apparently lost connection to Kowalski, trying to reset')
                 request.app['kowalski'] = Kowalski(username=config['kowalski']['username'],
                                                    password=config['kowalski']['password'])
@@ -3087,7 +3089,7 @@ async def search_post_handler(request):
         print(f'Querying Kowalski failed: {str(_e)}')
 
         try:
-            if not request.app['kowalski'].check_connection():
+            if not request.app['kowalski'].ping():
                 print('Apparently lost connection to Kowalski, trying to reset')
                 request.app['kowalski'] = Kowalski(username=config['kowalski']['username'],
                                                    password=config['kowalski']['password'])
