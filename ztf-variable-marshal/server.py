@@ -2461,7 +2461,9 @@ async def sources_put_handler(request):
             }
             if _id is not None:
                 # skip the one that is already there:
-                query_merge["catalogs"][config['kowalski']['coll_sources']]["filter"] = {'_id': {'$ne': int(_id)}}
+                query_merge["query"]["catalogs"][config['kowalski']['coll_sources']]["filter"] = {
+                    '_id': {'$ne': int(_id)}
+                }
             # print(query_merge)
 
             resp = request.app['kowalski'].query(query_merge)
@@ -2588,7 +2590,7 @@ async def source_post_handler(request):
                     "query": {
                         "catalog": config['kowalski']['coll_sources'],
                         "filter": {
-                            '_id': _r['_id']
+                            '_id': int(_r['_id'])
                         },
                         "projection": {
                             '_id': 1, 'ra': 1, 'dec': 1, 'filter': 1, 'coordinates': 1, 'data': 1
