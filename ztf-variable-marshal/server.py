@@ -314,7 +314,7 @@ async def login_post(request):
                                    request.app['JWT']['JWT_ALGORITHM'])
 
             # store the token, will need it
-            session['jwt_token'] = jwt_token.decode('utf-8')
+            session['jwt_token'] = jwt_token
             session['user_id'] = username
 
             print('LOGIN', session)
