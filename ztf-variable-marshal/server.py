@@ -245,7 +245,7 @@ async def auth(request):
                                    request.app['JWT']['JWT_SECRET'],
                                    request.app['JWT']['JWT_ALGORITHM'])
 
-            return web.json_response({'token': jwt_token.decode('utf-8')})
+            return web.json_response({'token': jwt_token})
 
         else:
             return web.json_response({'message': 'Wrong credentials'}, status=400)
