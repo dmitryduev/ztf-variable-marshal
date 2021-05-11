@@ -102,7 +102,7 @@
   },
 
   "misc": {
-    "filter_MSIP": true,
+    "filter_MSIP": false,
     "filter_MSIP_best_before_mjd": 58848.01,
     "max_retries": 20,
     "source_types": [
