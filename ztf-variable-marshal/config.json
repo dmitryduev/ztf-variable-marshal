@@ -26,10 +26,10 @@
 
   "kowalski": {
     "protocol": "https",
-    "host": "kowalski.caltech.edu",
+    "host": "gloria.caltech.edu",
     "port": 443,
-    "coll_sources": "ZTF_sources_20200401",
-    "coll_exposures": "ZTF_exposures_20200401",
+    "coll_sources": "ZTF_sources_20210401",
+    "coll_exposures": "ZTF_exposures_20210401",
     "cross_match": {
       "cone_search_radius": "5",
       "cone_search_unit": "arcsec",
@@ -44,13 +44,13 @@
             "zMeanPSFMag": 1, "zMeanPSFMagErr": 1, 
             "yMeanPSFMag": 1, "yMeanPSFMagErr": 1}
         },
-        "IPHAS_DR2": {
+        "IGAPS_DR2": {
           "filter": {},
           "projection": {
             "_id": 0, "coordinates.radec_str": 1, "name": 1,
             "r": 1, "rErr": 1, "i": 1, "iErr": 1, "ha": 1, "haErr": 1}
         },
-        "Gaia_DR2": {
+        "Gaia_EDR3": {
           "filter": {},
           "projection": {
             "_id": 1, "coordinates.radec_str": 1,
