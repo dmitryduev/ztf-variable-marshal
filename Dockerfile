@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.10.10
 
 # Install: vim, git, cron
 RUN apt-get update && apt-get -y install apt-file && apt-file update && apt-get -y install vim && \
@@ -15,6 +15,11 @@ RUN mkdir -p /app && mkdir -p /app/logs && mkdir -p /data && mkdir -p /_tmp
 #RUN crontab /etc/cron.d/fetch-cron
 ## Create the log file to be able to run tail
 #RUN touch /var/log/cron.log
+
+# install cargo/rust (needed for some python libs)
+RUN curl https://sh.rustup.rs -sSf > rustup.sh
+RUN chmod 755 rustup.sh
+RUN ./rustup.sh -y
 
 # install python libs
 COPY ztf-variable-marshal/requirements.txt /app/

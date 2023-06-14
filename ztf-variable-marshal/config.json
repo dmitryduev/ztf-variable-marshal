@@ -25,23 +25,54 @@
   },
 
   "kowalski": {
-    "protocol": "https",
-    "host": "gloria.caltech.edu",
-    "port": 443,
+    "instances": {
+      "gloria": {
+        "protocol": "https",
+        "host": "gloria.caltech.edu",
+        "port": 443,
+        "token": null
+      },
+      "melman": {
+        "protocol": "https",
+        "host": "melman.caltech.edu",
+        "port": 443,
+        "token": null
+      },
+      "kowalski": {
+        "protocol": "https",
+        "host": "kowalski.caltech.edu",
+        "port": 443,
+        "token": null
+      }
+    },
     "coll_sources": "ZTF_sources_20210401",
     "coll_exposures": "ZTF_exposures_20210401",
+    "catalogs_hr_diagram": ["Gaia_EDR3"],
     "cross_match": {
       "cone_search_radius": "5",
       "cone_search_unit": "arcsec",
       "catalogs": {
+        "ZTF_alerts":
+          {"filter": {},
+           "projection": {
+              "objectId": 1,
+              "candid": 1,
+              "candidate.jd": 1,
+              "candidate.magpsf": 1,
+              "candidate.sigmapsf": 1,
+              "candidate.fid": 1,
+              "candidate.drb": 1,
+              "coordinates.radec_str": 1
+            }
+          },
         "PS1_DR1": {
           "filter": {},
           "projection": {
-            "_id": 1, "coordinates.radec_str": 1, 
-            "gMeanPSFMag": 1, "gMeanPSFMagErr": 1, 
-            "rMeanPSFMag": 1, "rMeanPSFMagErr": 1, 
-            "iMeanPSFMag": 1, "iMeanPSFMagErr": 1, 
-            "zMeanPSFMag": 1, "zMeanPSFMagErr": 1, 
+            "_id": 1, "coordinates.radec_str": 1,
+            "gMeanPSFMag": 1, "gMeanPSFMagErr": 1,
+            "rMeanPSFMag": 1, "rMeanPSFMagErr": 1,
+            "iMeanPSFMag": 1, "iMeanPSFMagErr": 1,
+            "zMeanPSFMag": 1, "zMeanPSFMagErr": 1,
             "yMeanPSFMag": 1, "yMeanPSFMagErr": 1}
         },
         "IGAPS_DR2": {
@@ -51,6 +82,13 @@
             "r": 1, "rErr": 1, "i": 1, "iErr": 1, "ha": 1, "haErr": 1}
         },
         "Gaia_EDR3": {
+          "filter": {},
+          "projection": {
+            "_id": 1, "coordinates.radec_str": 1,
+            "parallax": 1, "parallax_error": 1,
+            "phot_g_mean_mag": 1, "phot_bp_mean_mag": 1, "phot_rp_mean_mag": 1}
+        },
+        "Gaia_DR2": {
           "filter": {},
           "projection": {
             "_id": 1, "coordinates.radec_str": 1,

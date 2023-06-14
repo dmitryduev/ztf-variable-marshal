@@ -316,7 +316,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                         {% for field_id in ('_id', 'ra', 'dec', 'filter',
                                             'maxmag', 'maxslope', 'meanmag',
                                             'medianabsdev', 'medianmag', 'minmag', 'vonneumannratio',
-                                            'nobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr') %}
+                                            'nobs', 'nobs', 'refchi', 'refmag', 'refmagerr', 'iqr', 'catalog') %}
                         {{ field_id }}: "{{entry[field_id]}}",
                         {% endfor %}
 
@@ -332,6 +332,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
         // display details
         function detailFormatter(index, row, element) {
             var html = [];
+            console.log(row)
 
             {#let jdd = new JulianDate();#}
             {#let date_utc = moment(jdd.julian(parseFloat(row['jd'])).getDate()).utc().format('YYYYMMDD');#}
@@ -358,7 +359,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             // Buttons:
             html.push("<div class=\"row p-0 m-0\">");
             html.push("<div class=\"col-12 p-0 m-0\">");
-            html.push("<button type='button' " + "onclick='source_save(\"" + row['_id'] + "\")'" +
+            html.push("<button type='button' " + "onclick='source_save(\"" + row['_id'] + "\", " + "\"" + row['catalog'] + "\")'" +
                 " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-save'>Save to Marshal <i class='fas fa-save'></i></button>");
             // details:
             {#html.push("<br>");#}
@@ -367,7 +368,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
             html.push("</div>");
 
             html.push("<div class=\"col-12 p-0 m-0\">");
-            html.push("<button type='button' " + "onclick='source_merge(\"" + row['_id'] + "\", " + row['ra'] + ", " + row['dec'] + ")'" +
+            html.push("<button type='button' " + "onclick='source_merge(\"" + row['_id'] + "\", " + row['ra'] + ", " + row['dec']  + ", " + "\"" + row['catalog'] + "\")'" +
                 " class='btn btn-sm btn-outline-dark mt-1 ml-1 mb-1 align-top button-merge'>Merge with existing source <i class='fas fa-plus-square'></i></button>");
             html.push("</div>");
 
@@ -495,7 +496,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
         });
 
         // save source
-        function source_save(_id) {
+        function source_save(_id, catalog) {
             let radios = "";
                 let sn = 1;
                 let programs = {{ programs | safe }};
@@ -543,12 +544,13 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                 callback: function (result) {
                     // confirmed?
                     if (result) {
-                        //console.log(id);
+                        console.log(_id);
+                        console.log(catalog);
                         const program_to_add_to = document.querySelector('input[name="program_radios"]:checked').value;
                         let automerge = $("#blank_automerge").is(':checked');
                         $.ajax({url: '{{-script_root-}}/sources',
                             method: 'PUT',
-                            data: JSON.stringify({'_id': _id, 'zvm_program_id': program_to_add_to, 'automerge': automerge, 'return_result': false}),
+                            data: JSON.stringify({'_id': _id, 'catalog': catalog, 'zvm_program_id': program_to_add_to, 'automerge': automerge, 'return_result': false}),
                             processData: false,
                             contentType: 'application/json',
                             success: function(data) {
@@ -570,7 +572,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
         }
 
         // merge source
-        function source_merge(_id, ra, dec) {
+        function source_merge(_id, ra, dec, catalog) {
             // query own db for source at this position +/- 2"
             var query = {"query_type": "cone_search",
                          "object_coordinates": {
@@ -641,7 +643,7 @@ Alternatively, for a single source, either two numbers [deg deg] or two strings 
                                         // merge
                                         $.ajax({url: '{{-script_root-}}/sources/' + source_to_merge_with,
                                             method: 'POST',
-                                            data: JSON.stringify({'action': 'merge', '_id': _id}),
+                                            data: JSON.stringify({'action': 'merge', '_id': _id, 'catalog': catalog}),
                                             processData: false,
                                             contentType: 'application/json',
                                             success: function(data) {
