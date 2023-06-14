@@ -46,19 +46,19 @@ jobs:
                   "protocol": "https",
                   "host": "gloria.caltech.edu",
                   "port": 443,
-                  "token": null // set to your token
+                  "token": null
                 },
                 "melman": {
                   "protocol": "https",
                   "host": "melman.caltech.edu",
                   "port": 443,
-                  "token": null // set to your token
+                  "token": null
                 },
                 "kowalski": {
                   "protocol": "https",
                   "host": "kowalski.caltech.edu",
                   "port": 443,
-                  "token": null // set to your token
+                  "token": null
                 }
               },
             }
