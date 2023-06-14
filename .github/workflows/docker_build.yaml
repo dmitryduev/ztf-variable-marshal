@@ -60,7 +60,7 @@ jobs:
                   "port": 443,
                   "token": null
                 }
-              },
+              }
             }
           }
           EOL
