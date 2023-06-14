@@ -1,0 +1,88 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Fetch and set up Kowalski
+        uses: actions/checkout@v2
+        with:
+          repository: skyportal/kowalski
+          path: kowalski
+      - name: Configure and spin up Kowalski, ingest test data
+        run: |
+          cd kowalski
+          python -m pip install --upgrade pip
+          cp docker-compose.defaults.yaml docker-compose.yaml
+          make docker_build && make docker_up
+          make docker_test
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "wheel>=0.36.0"
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/pip
+          key: ${{ runner.os }}-${{ hashFiles('**/requirements*.txt') }}
+      - name: create secrets.json
+        run: |
+          touch secrets.json
+          cat >> secrets.json << EOL
+          {
+            "server" : {
+              "admin_username": "ADMIN",
+              "admin_password": "PASSWORD"
+            },
+            "database": {
+              "host": "mongo",
+              "replica_set": "rs0",
+              "port": 27017,
+              "admin": "mongoadmin",
+              "admin_pwd": "mongoadminsecret",
+              "user": "user",
+              "pwd": "pwd"
+            },
+            "kowalski": {
+              "instances": {
+                "gloria": {
+                  "protocol": "https",
+                  "host": "gloria.caltech.edu",
+                  "port": 443,
+                  "username": "admin",
+                  "password": "admin"
+                },
+                "melman": {
+                  "protocol": "https",
+                  "host": "melman.caltech.edu",
+                  "port": 443,
+                  "username": "admin",
+                  "password": "admin"
+                },
+                "kowalski": {
+                  "protocol": "https",
+                  "host": "kowalski.caltech.edu",
+                  "port": 443,
+                  "username": "admin",
+                  "password": "admin"
+                }
+              }
+            }
+          }
+          EOL
+      - name: Build image
+        run: |
+          docker volume create ztf_variable_marshal_data
+          docker build --rm -t ztf_variable_marshal:latest -f Dockerfile .
