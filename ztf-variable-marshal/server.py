@@ -3688,7 +3688,9 @@ async def search_get_handler(request):
         catalogs.extend(instance.get("catalogs", []))
 
     # keep only those that start with ZTF_sources_202
-    catalogs = [c for c in catalogs if c.startswith("ZTF_sources_202")]
+    catalogs = sorted(
+        [c for c in catalogs if c.startswith("ZTF_sources_202")], reverse=True
+    )
 
     # fixme: redo catalogs once PTF light curves are ingested
     context = {
@@ -3750,7 +3752,9 @@ async def search_post_handler(request):
                 {"message": f"failure: no instance found for catalog {catalog}"},
                 status=400,
             )
-        catalogs = [c for c in catalogs if c.startswith("ZTF_sources_202")]
+        catalogs = sorted(
+            [c for c in catalogs if c.startswith("ZTF_sources_202")], reverse=True
+        )
 
         kowalski_query = {
             "query_type": "cone_search",
